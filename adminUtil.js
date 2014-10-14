@@ -5,7 +5,6 @@ var path = require('path');
 
 module.exports = {
 
-
     /**
      * Create a fields config based on model and config
      *

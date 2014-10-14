@@ -9,7 +9,7 @@ mixin listRow(obj, instancePath)
   tr
     each field, key in fields
       +listValue(key, field, obj[key])
-    // adding actions
+      // adding actions
     td
       a(href='#{instancePath}/edit/#{obj.id}').btn.btn-info
         i.glyphicon.glyphicon-pencil

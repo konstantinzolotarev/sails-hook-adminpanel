@@ -1,0 +1,36 @@
+/* Include this file in your html if you are using the CSP mode. */
+
+@charset "UTF-8";
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+.ng-cloak, .x-ng-cloak,
+.ng-hide:not(.ng-animate) {
+  display: none !important;
+}
+
+ng\:form {
+  display: block;
+}
+
+@borderColor: #efefef;
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  -moz-box-shadow:    @style @c;
+  box-shadow:         @style @c;
+}
+
+body {
+  padding-top: 70px;
+}
+
+.card {
+
+  border: 1px solid @borderColor;
+  border-radius: 5px;
+  padding: 7px 12px;
+
+  &.card-shadow {
+    .box-shadow(0px 0px 5px -3px, rgba(50, 50, 50, 0.75));
+  }
+}
