@@ -1,0 +1,19 @@
+extends ./index
+
+include ./mixin/widgets
+
+block body
+  .container-fluid
+    .page-header
+      h3 Edit record
+        a(href='#{instancePath}').btn.btn-info.pull-right
+          i.glyphicon.glyphicon-th-list
+          | &nbsp;Back to list
+
+    form(role='form').form-horizontal
+      each field, key in fields
+        +fieldWidget(key, field, record[key])
+      div
+        button().btn.btn-success
+          i.glyphicon.glyphicon-ok
+          | &nbsp;Save

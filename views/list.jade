@@ -1,0 +1,20 @@
+extends ./index
+
+include ./mixin/listHelper
+
+block body
+  .container-fluid
+    .page-header
+      h3 List of #{instanceName}
+        a(href='#{instancePath}/add').btn.btn-success.pull-right
+          i.glyphicon.glyphicon-plus
+          | &nbsp;Create new record
+    .row
+      // add filters here
+      .col-md-12
+        table.table
+          thead
+            +listHead(fields)
+          tbody
+            each obj in list
+              +listRow(obj, instancePath)

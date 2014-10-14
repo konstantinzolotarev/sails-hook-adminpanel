@@ -1,0 +1,30 @@
+mixin listHead(fields)
+  tr
+    each field, key in fields
+      th #{field.config.title}
+    th #{__('Actions')}
+
+
+mixin listRow(obj, instancePath)
+  tr
+    each field, key in fields
+      +listValue(key, field, obj[key])
+    // adding actions
+    td
+      a(href='#{instancePath}/edit/#{obj.id}').btn.btn-info
+        i.glyphicon.glyphicon-pencil
+        //| &nbsp;#{__('Edit')}
+      | &nbsp;
+      a(href='', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
+        i.glyphicon.glyphicon-trash
+
+mixin listValue(key, field, value)
+  case field.model.type
+    when 'boolean'
+      td
+        if value
+          i.glyphicon.glyphicon-ok-sign
+        else
+          i.glyphicon.glyphicon-remove-sign
+    default
+      td #{value}
