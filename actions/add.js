@@ -9,6 +9,11 @@ module.exports = function(req, res) {
     if (!Model) {
         return res.notFound();
     }
+
+    if (req.method.toUpperCase() === 'POST') {
+        console.log('post');
+    }
+
     var instanceName = util.findInstanceName(req);
     res.view(util.getViewPath('add'), {
         instanceName: instanceName,
