@@ -9,84 +9,77 @@ var _list = require('./actions/list');
 var _edit = require('./actions/edit');
 var _add = require('./actions/add');
 
-module.exports = function(sails) {
-    return {
+module.exports = function (sails) {
+  return {
 
-        defaults: {
+    /**
+     * Creating default settings for hook
+     */
+    defaults: _defaults,
 
-            /**
-             * Default admin config
-             */
-            admin: {
-                /**
-                 * Title for admin panel
-                 */
-                title: 'Admin Panel',
 
-                /**
-                 * Default url prefix for admin panel
-                 */
-                routePrefix: '/admin',
+    initialize: function (cb) {
 
-                /**
-                 * Default path to views
-                 */
-                pathToViews: '../api/hooks/admin/views/',
+      var self = this;
 
-                /**
-                 * Name of model identifier field
-                 */
-                identifierField: 'id',
+      var config = _.merge(this.defaults, sails.config.admin || {});
 
-                /**
-                 * List of admin pages
-                 */
-                instances: {}
-            }
-        },
+      // Set up listener to bind shadow routes when the time is right.
+      //
+      // Always wait until after router has bound static routes.
+      // If policies hook is enabled, also wait until policies are bound.
+      // If orm hook is enabled, also wait until models are known.
+      // If controllers hook is enabled, also wait until controllers are known.
+      var eventsToWaitFor = [];
+      eventsToWaitFor.push('router:after');
+      if (sails.hooks.policies) {
+        eventsToWaitFor.push('hook:policies:bound');
+      }
+      if (sails.hooks.orm) {
+        eventsToWaitFor.push('hook:orm:loaded');
+      }
+      if (sails.hooks.controllers) {
+        eventsToWaitFor.push('hook:controllers:loaded');
+      }
+      if (sails.hooks.blueprints) {
+        eventsToWaitFor.push('hook:blueprints:loaded');
+      }
+      sails.after(eventsToWaitFor, function () {
+        //binding config to views
+        sails.config.views.locals.adminConfig = config.admin;
 
-        initialize: function(cb) {
-
-            var self = this;
-
-            var config = _.merge(this.defaults, sails.config.admin || {});
-
-            // Set up listener to bind shadow routes when the time is right.
-            //
-            // Always wait until after router has bound static routes.
-            // If policies hook is enabled, also wait until policies are bound.
-            // If orm hook is enabled, also wait until models are known.
-            // If controllers hook is enabled, also wait until controllers are known.
-            var eventsToWaitFor = [];
-            eventsToWaitFor.push('router:after');
-            if (sails.hooks.policies) {
-                eventsToWaitFor.push('hook:policies:bound');
-            }
-            if (sails.hooks.orm) {
-                eventsToWaitFor.push('hook:orm:loaded');
-            }
-            if (sails.hooks.controllers) {
-                eventsToWaitFor.push('hook:controllers:loaded');
-            }
-            if (sails.hooks.blueprints) {
-                eventsToWaitFor.push('hook:blueprints:loaded');
-            }
-            sails.after(eventsToWaitFor, function() {
-                sails.config.views.locals.adminConfig = config.admin;
-                _.forIn(config.instances, function(route, key) {
-                    console.log(route);
-                    console.log(key);
-                    sails.log.verbose('Creating admin pages for: '+key);
-                    var baseRoute = path.join(config.routePrefix, key);
-                    console.log(path.join(baseRoute, 'add'));
-                    sails.router.bind(baseRoute, _list);
-                    sails.router.bind(path.join(baseRoute, 'add'), _add);
-                    sails.router.bind(path.join(baseRoute, 'edit/:id'), _edit);
-                    sails.router.bind(path.join(baseRoute, 'remove/:id'), _list);
-                });
-                sails.router.bind(config.routePrefix || '/admin', _dashboard);
-            });
-            cb();
+        //recheck reoute prefix
+        config.routePrefix = config.routePrefix || '/admin';
+        //check and adding base slash
+        if (config.routePrefix.indexOf('/') != 0) {
+          config.routePrefix = '/'+config.routePrefix;
         }
-    };
+
+        //Create a base instance route
+        var baseRoute = path.join(config.routePrefix, ':instance');
+        /**
+         * List of records
+         */
+        sails.router.bind(baseRoute, _list);
+        /**
+         * Create new record
+         */
+        sails.router.bind(path.join(baseRoute, 'add'), _add);
+        /**
+         * Edit existing record
+         */
+        sails.router.bind(path.join(baseRoute, 'edit/:id'), _edit);
+        /**
+         * Remove record
+         */
+        sails.router.bind(path.join(baseRoute, 'remove/:id'), _list);
+        /**
+         * Create a default dashboard
+         * @todo define information that should be shown here
+         */
+        sails.router.bind(config.routePrefix, _dashboard);
+      });
+      cb();
+    }
+  };
 };
