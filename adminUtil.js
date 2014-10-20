@@ -114,9 +114,19 @@ module.exports = {
         var result = _.pick(data, function(value, key) {
             return Boolean(fields[key]);
         });
+        _.forIn(result, function(val, key) {
+            var field = fields[key];
+            if (field.model.type == 'boolean') {
+                result[key] = Boolean(val);
+            }
+        });
+        //Check or fields that was not passed
+        _.forIn(fields, function(field, key) {
+            if (!result[key] && field.model.type == 'boolean') {
+                result[key] = false;
+            }
+        });
         //@todo prepare field values
-        //@todo remove password field value
-        //@todo set boolean values
         return result;
     },
 

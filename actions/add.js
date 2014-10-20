@@ -16,7 +16,6 @@ module.exports = function(req, res) {
     async.series([
         function checkPost(done) {
             if (req.method.toUpperCase() === 'POST') {
-                console.log('post');
                 var reqData = util.findModelFields(req, fields);
                 Model.create(reqData).exec(function(err, record) {
                     if (err) {

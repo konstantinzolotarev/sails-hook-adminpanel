@@ -10,7 +10,7 @@ block body
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list
 
-    form(role='form').form-horizontal
+    form(role='form', action='#{instancePath}/edit/#{record.id}', method='POST', enctype="multipart/form-data").form-horizontal
       each field, key in fields
         +fieldWidget(key, field, record[key])
       div
