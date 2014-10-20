@@ -10,55 +10,40 @@ For now this module could be installed only via:
     cd api/hooks
     git submodule add https://github.com/konstantinzolotarev/sails-hook-adminpanel.git admin
     
+Unfortunately I didn't created assetic management for admin panel so you have to copy css/js to assets
 
-The you will need to create a config file for admin panel generator into `config/admin.js`
+    cd /your/app/base/path
+    mkdir assets/admin
+    cp -R api/hooks/admin/assets assets/admin
+
+Then you will need to create a config file for admin panel generator into `config/admin.js`
 
 This is example of this file:
 
-    mudule.exports.admin = {
+    'use strict';
     
-        /**
-         * Title for admin panel
-         */
-        title: 'Admin Panel',
-
-        /**
-         * Default url prefix for admin panel
-         */
-        routePrefix: '/admin',
-
-        /**
-         * Default path to views.
-         * For now it's located inside admin hooks
-         */
-        pathToViews: '../api/hooks/admin/views/',
-
-        /**
-         * Name of model identifier field
-         */
-        identifierField: 'id',
-                  
-        /**
-         * List of admin pages that should be generated
-         */
+    module.exports.admin = {
         instances: {
-                
-                'users': {
-                
-                    title: 'Users',
-                    model: 'User',
-        
-                    list: {
+    
+            users: {
+    
+                title: 'Users',
+                model: 'User',
+    
+                list: {
+                    fields: {
                         id: 'ID',
                         email: 'Email',
                         active: 'Active',
                         admin: 'Admin',
                         createdAt: 'Created'
-                    },
-        
-                    edit: {
+                    }
+                },
+    
+                edit: {
+                    fields: {
                         email: 'Email',
-        
+    
                         active: {
                             title: 'Active'
                         },
@@ -69,6 +54,7 @@ This is example of this file:
                     }
                 }
             }
+        }
     };
     
     

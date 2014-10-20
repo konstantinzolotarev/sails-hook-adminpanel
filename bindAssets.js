@@ -45,6 +45,7 @@ var fontsToInject = [
 
 module.exports = function(sails) {
     _.forEach(cssToInject, function(css) {
-
+      //@todo finish assets
+      //@todo may be better to use default express assets management ?
     });
 };

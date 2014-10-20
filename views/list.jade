@@ -1,4 +1,4 @@
-extends ./index
+extends ./layout
 
 include ./mixin/listHelper
 
@@ -18,3 +18,8 @@ block body
           tbody
             each obj in list
               +listRow(obj, instancePath)
+
+        if list.length == 0
+          .alert.alert-info
+            i.glyphicon.glyphicon-warning-sign
+            | &nbsp;#{__('No records found !')}

@@ -55,13 +55,10 @@ module.exports = {
      * @returns {?string}
      */
     findInstanceName: function(req) {
-        var regExp = new RegExp('^\\'+sails.config.admin.routePrefix+'\\/(\\w+).*$');
-        var matches = req.path.match(regExp);
-        if (!matches || !matches[1]) {
-            req._sails.log.error('No match found for admin');
-            return null;
-        }
-        return matches[1];
+      if (!req.param('instance')) {
+        return null;
+      }
+      return req.param('instance');
     },
 
     /**
@@ -139,8 +136,10 @@ module.exports = {
         type = type || 'list';
         //get field config for actions
         var actionConfig = config[type] || {};
+        //Adding fields
+        actionConfig.fields = actionConfig.fields || {};
         //Get keys from config
-        var fieldList = _.keys(actionConfig);
+        var fieldList = _.keys(actionConfig.fields);
         //Getting list of fields from model
         var attrs = _.pick(model.attributes, function(val, key) {
             if (fieldList.length == 0) {
@@ -152,7 +151,7 @@ module.exports = {
         var result = {};
         _.forEach(attrs, function(field, key) {
 //            var model = field;
-            var config = actionConfig[key] || { title: key };
+            var config = actionConfig.fields[key] || { title: key };
             if (_.isString(config)) {
                 config = {
                     title: config
