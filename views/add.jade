@@ -8,9 +8,9 @@ block body
         a(href='#{instancePath}').btn.btn-info.pull-right
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list
-    form(role='form').form-horizontal
+    form(role='form', action='#{instancePath}/add', method='POST', enctype="multipart/form-data").form-horizontal
       each field, key in fields
-        +fieldWidget(key, field)
+        +fieldWidget(key, field, data[key] || '')
       div
         button().btn.btn-success
           i.glyphicon.glyphicon-ok

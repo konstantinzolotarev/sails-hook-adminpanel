@@ -1,6 +1,7 @@
 'use strict';
 
 var util = require('../adminUtil');
+var async = require('async');
 var path = require('path');
 
 module.exports = function(req, res) {
@@ -9,15 +10,35 @@ module.exports = function(req, res) {
     if (!Model) {
         return res.notFound();
     }
-
-    if (req.method.toUpperCase() === 'POST') {
-        console.log('post');
-    }
-
+    var fields = util.getFields(req, Model, 'add');
     var instanceName = util.findInstanceName(req);
-    res.view(util.getViewPath('add'), {
-        instanceName: instanceName,
-        instancePath: path.join(sails.config.admin.routePrefix, instanceName),
-        fields: util.getFields(req, Model, 'add')
+    var data = {}; //list of field values
+    async.series([
+        function checkPost(done) {
+            if (req.method.toUpperCase() === 'POST') {
+                console.log('post');
+                var reqData = util.findModelFields(req, fields);
+                Model.create(reqData).exec(function(err, record) {
+                    if (err) {
+                        sails.log.error(err);
+                        req.flash('adminError', err.details || 'Something went wrong...');
+                        data = reqData;
+                        return done(err);
+                    }
+                    req.flash('adminSuccess', 'Your record was created !');
+                    return done();
+                });
+            } else {
+                done();
+            }
+        }
+    ], function(err) {
+        res.view(util.getViewPath('add'), {
+            instanceName: instanceName,
+            instancePath: path.join(sails.config.admin.routePrefix, instanceName),
+            fields: fields,
+            data: data
+        });
     });
+
 };

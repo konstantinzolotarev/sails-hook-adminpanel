@@ -2,9 +2,12 @@ mixin fieldWidget(key, field, value)
   .form-group
     label(for='form-#{key}').col-md-4.control-label #{field.config.title}
     .col-md-8
-      case field.model.type
+      - var type = field.config.type || field.model.type
+      case type
         when 'string'
           +inputText(key, field, value)
+        when 'password'
+          +inputPassword(key, field, value)
         when 'date'
           +inputDate(key, field, value)
         when 'datetime'
@@ -24,27 +27,30 @@ mixin inputText(key, field, value)
   if field.model.enum
     +select(key, field, value)
   else if field.model.email
-    input(type='email', name=key, id='form-#{key}', disabled=field.config.disabled || false, value=value).form-control
+    input(type='email', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
   else
-    input(type='text', name=key, id='form-#{key}', disabled=field.config.disabled || false, value=value).form-control
+    input(type='text', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
+
+mixin inputPassword(key, field, value)
+  input(type='password', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value).form-control
 
 mixin inputDate(key, field, value)
-  input(type='date', name=key, id='form-#{key}', disabled=field.config.disabled || false, value=value).form-control
+  input(type='date', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
 
 mixin inputDatetime(key, field, value)
-  input(type='datetime', name=key, id='form-#{key}', disabled=field.config.disabled || false, value=value).form-control
+  input(type='datetime', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
 
 mixin inputNumber(key, field, value)
-  input(type='number', name=key, id='form-#{key}',, disabled=field.config.disabled || false value=value).form-control
+  input(type='number', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value).form-control
 
 mixin inputCheckbox(key, field, value)
   .checkbox
-    input(type='checkbox', name=key, id='form-#{key}',, disabled=field.config.disabled || false value='1', checked=value)
+    input(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value)
 
 mixin select(key, field, value)
-  select(name=key, disabled=field.config.disabled || false).form-control
+  select(name=key, required=field.config.required || false, disabled=field.config.disabled || false).form-control
     each opt in field.model.enum
       option(value=opt) #{opt}
 
 mixin textarea(key, field, value)
-  textarea(name=key, disabled=field.config.disabled || false) #{value}
+  textarea(name=key, required=field.config.required || false, disabled=field.config.disabled || false) #{value}

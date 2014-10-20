@@ -102,6 +102,25 @@ module.exports = {
     },
 
     /**
+     * Will try to find all fields that should be used in model
+     *
+     * @param {Request} req
+     * @param {Object} fields
+     * @see #getFields to know what data should be passed into fields
+     * @returns {Object}
+     */
+    findModelFields: function(req, fields) {
+        var data = req.allParams();
+        var result = _.pick(data, function(value, key) {
+            return Boolean(fields[key]);
+        });
+        //@todo prepare field values
+        //@todo remove password field value
+        //@todo set boolean values
+        return result;
+    },
+
+    /**
      * Basicaly it will fetch all attributes without functions
      *
      * Result will be object with list of fields and its config.<br/>
@@ -161,6 +180,9 @@ module.exports = {
             if (!config['title']) {
                 config['title'] = key;
             }
+            //check required
+            config.required = Boolean(config.required || field.required);
+
             result[key] = {
                 config: config,
                 model: field

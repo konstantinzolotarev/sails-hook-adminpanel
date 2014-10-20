@@ -18,6 +18,18 @@ html
   body(data-ng-app='Admin')
     block menu
       +navbar()
+
+    block alerts
+      .container
+        if (req.session.flash.adminError)
+          .alert.alert-danger
+            each msg in req.flash('adminError')
+              div #{msg}
+        if (req.session.flash.adminSuccess)
+          .alert.alert-success
+            each msg in req.flash('adminSuccess')
+              div #{msg}
+
     block body
       | Layout
     block footer
