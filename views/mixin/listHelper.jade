@@ -21,7 +21,7 @@ mixin listRow(obj, instancePath, instanceConfig)
           //| &nbsp;#{__('Edit')}
       | &nbsp;
       if instanceConfig.remove
-        a(href='', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
+        a(href='#{instancePath}/remove/#{obj.id}', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
           i.glyphicon.glyphicon-trash
 
 mixin listValue(key, field, value)

@@ -9,6 +9,7 @@ var _list = require('./actions/list');
 var _edit = require('./actions/edit');
 var _add = require('./actions/add');
 var _view = require('./actions/view');
+var _remove = require('./actions/remove');
 
 module.exports = function (sails) {
 
@@ -76,7 +77,7 @@ module.exports = function (sails) {
                 /**
                  * Remove record
                  */
-                sails.router.bind(path.join(baseRoute, 'remove/:id'), _list);
+                sails.router.bind(path.join(baseRoute, 'remove/:id'), _remove);
                 /**
                  * Create a default dashboard
                  * @todo define information that should be shown here

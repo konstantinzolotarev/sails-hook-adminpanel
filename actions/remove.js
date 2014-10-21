@@ -47,7 +47,6 @@ module.exports = function(req, res) {
                         message: msg
                     });
                 }
-                sails.log.debug(msg);
                 return res.notFound();
             }
             record.destroy(function(err) {
@@ -57,7 +56,7 @@ module.exports = function(req, res) {
                         message: 'Record was removed successfuly'
                     });
                 }
-                req.flash('success', 'Record was removed successfuly');
+                req.flash('adminSuccess', 'Record was removed successfuly');
                 res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
             });
         });
