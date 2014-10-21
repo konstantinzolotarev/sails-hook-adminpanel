@@ -8,6 +8,7 @@ var path = require('path');
 var _list = require('./actions/list');
 var _edit = require('./actions/edit');
 var _add = require('./actions/add');
+var _view = require('./actions/view');
 
 module.exports = function (sails) {
 
@@ -64,6 +65,10 @@ module.exports = function (sails) {
                  * Create new record
                  */
                 sails.router.bind(path.join(baseRoute, 'add'), _add);
+                /**
+                 * View record details
+                 */
+                sails.router.bind(path.join(baseRoute, 'view/:id'), _view);
                 /**
                  * Edit existing record
                  */

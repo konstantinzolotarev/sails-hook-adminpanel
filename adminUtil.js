@@ -6,6 +6,17 @@ var path = require('path');
 module.exports = {
 
     /**
+     * Default config for instance
+     */
+    _defaultInstanceConfig: {
+        list: true,
+        add: true,
+        edit: true,
+        remove: true,
+        view: true
+    },
+
+    /**
      * Create a fields config based on model and config
      *
      * @param {Model} Model
@@ -78,6 +89,8 @@ module.exports = {
             req._sails.log.error('No model defined for route in admin panel');
             return null;
         }
+        //@todo check config of this instance
+        _.defaults(route, this._defaultInstanceConfig);
         return route;
     },
 
@@ -165,21 +178,38 @@ module.exports = {
         type = type || 'list';
         //get field config for actions
         var actionConfig = config[type] || {};
+        /**
+         * Here we could get true/false so need to update it to Object for later manipulations
+         * In this function
+         */
+        if (_.isBoolean(actionConfig)) {
+            actionConfig = {};
+        }
         //Adding fields
         actionConfig.fields = actionConfig.fields || {};
+        //check just to be sure that we will have object
+        if (!_.isPlainObject(actionConfig.fields)) {
+            actionConfig.fields = {};
+        }
         //Get keys from config
         var fieldList = _.keys(actionConfig.fields);
         //Getting list of fields from model
         var attrs = _.pick(model.attributes, function(val, key) {
             if (fieldList.length == 0) {
-                return _.isPlainObject(val) && !val.collection && !val.model;
+                return (_.isPlainObject(val) || _.isString(val)) && !val.collection && !val.model;
             }
-            return (~fieldList.indexOf(key) && _.isPlainObject(val) && !val.collection && !val.model);
+            return (~fieldList.indexOf(key) && (_.isPlainObject(val) || _.isString(val)) && !val.collection && !val.model);
         });
         // creating result
         var result = {};
         _.forEach(attrs, function(field, key) {
 //            var model = field;
+            //Check for short type
+            if (_.isString(field)) {
+                field = {
+                    type: field
+                };
+            }
             var config = actionConfig.fields[key] || { title: key };
             if (_.isString(config)) {
                 config = {

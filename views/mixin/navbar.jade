@@ -10,26 +10,10 @@ mixin navbar
         a(href='/admin').navbar-brand #{locals.title}
       .navbar-collapse
         ul.nav.navbar-nav
-          li.dropdown
-            a(href='#', data-toggle='dropdown').dropdown-toggle
-              i.glyphicon.glyphicon-user
-              | &nbsp;Users & Groups
-              span.caret
+          each instance, key in sails.config.admin.instances
+            li: a(href='#{sails.config.admin.routePrefix}/#{key}') #{instance.title}
 
-            ul(role='menu').dropdown-menu
-              li: a(href='#/users')
-                i.glyphicon.glyphicon-list
-                | &nbsp;List of users
-              li: a(href='#/users/add')
-                i.glyphicon.glyphicon-plus
-                | &nbsp;Add new User
-              li.divider
-              li: a(href='#/groups')
-                i.glyphicon.glyphicon-list
-                | &nbsp;List of groups
-              li: a(href='#/groups/add')
-                i.glyphicon.glyphicon-plus
-                | &nbsp;Add new group
+
 
         ul.nav.navbar-nav.navbar-right
 

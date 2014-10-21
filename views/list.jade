@@ -17,7 +17,7 @@ block body
             +listHead(fields)
           tbody
             each obj in list
-              +listRow(obj, instancePath)
+              +listRow(obj, instancePath, instanceConfig)
 
         if list.length == 0
           .alert.alert-info

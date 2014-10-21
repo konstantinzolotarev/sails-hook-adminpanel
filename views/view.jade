@@ -1,0 +1,15 @@
+extends ./layout
+include ./mixin/widgets
+
+block body
+  .container-fluid
+    .page-header
+      h3 View record
+        a(href='#{instancePath}').btn.btn-info.pull-right
+          i.glyphicon.glyphicon-th-list
+          | &nbsp;Back to list
+    each field, key in fields
+      div(style='margin-top: 5px; margin-bottom: 5px;').row
+        div(style='text-transform: capitalize;').col-sm-4
+          strong #{key}
+        .col-sm-8 #{record[key]}
