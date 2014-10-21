@@ -12,15 +12,17 @@ mixin listRow(obj, instancePath, instanceConfig)
       // adding actions
     td
       if instanceConfig.view
+        | &nbsp;
         a(href='#{instancePath}/view/#{obj.id}').btn.btn-info
           i.glyphicon.glyphicon-eye-open
 
       if instanceConfig.edit
+        | &nbsp;
         a(href='#{instancePath}/edit/#{obj.id}').btn.btn-info
           i.glyphicon.glyphicon-pencil
           //| &nbsp;#{__('Edit')}
-      | &nbsp;
       if instanceConfig.remove
+        | &nbsp;
         a(href='#{instancePath}/remove/#{obj.id}', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
           i.glyphicon.glyphicon-trash
 

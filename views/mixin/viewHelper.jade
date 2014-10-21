@@ -1,0 +1,8 @@
+mixin showValue(key, field, value)
+  if field.model.type == 'boolean'
+    if value
+      i.glyphicon.glyphicon-ok-sign
+    else
+      i.glyphicon.glyphicon-remove-sign
+  else
+    | #{value}

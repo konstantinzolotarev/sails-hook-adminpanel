@@ -1,5 +1,6 @@
 extends ./layout
 include ./mixin/widgets
+include ./mixin/viewHelper
 
 block body
   .container-fluid
@@ -20,4 +21,6 @@ block body
       div(style='margin-top: 5px; margin-bottom: 5px;').row
         div(style='text-transform: capitalize;').col-sm-4
           strong #{key}
-        .col-sm-8 #{record[key]}
+        .col-sm-8
+          +showValue(key, field, record[key])
+
