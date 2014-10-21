@@ -12,6 +12,10 @@ module.exports = function(req, res) {
     }
     var fields = util.getFields(req, Model, 'add');
     var instanceName = util.findInstanceName(req);
+    var config = util.findConfig(req);
+    if (!config.add) {
+        return res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
+    }
     var data = {}; //list of field values
     async.series([
         function checkPost(done) {
@@ -33,6 +37,7 @@ module.exports = function(req, res) {
         }
     ], function(err) {
         res.view(util.getViewPath('add'), {
+            instanceConfig: config,
             instanceName: instanceName,
             instancePath: path.join(sails.config.admin.routePrefix, instanceName),
             fields: fields,

@@ -6,9 +6,10 @@ block body
   .container-fluid
     .page-header
       h3 List of #{instanceName}
-        a(href='#{instancePath}/add').btn.btn-success.pull-right
-          i.glyphicon.glyphicon-plus
-          | &nbsp;Create new record
+        if instanceConfig.add
+          a(href='#{instancePath}/add').btn.btn-success.pull-right
+            i.glyphicon.glyphicon-plus
+            | &nbsp;Create new record
     .row
       // add filters here
       .col-md-12

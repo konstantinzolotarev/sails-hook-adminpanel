@@ -14,6 +14,13 @@ module.exports = function(req, res) {
     if (!Model) {
         return res.notFound();
     }
+
+    var instanceName = util.findInstanceName(req);
+    var config = util.findConfig(req);
+    if (!config.edit) {
+        return res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
+    }
+
     Model.findOne(req.param('id'))
         .exec(function(err, record) {
             if (err) {
@@ -21,7 +28,6 @@ module.exports = function(req, res) {
                 sails.log.error(err);
                 return res.serverError();
             }
-            var instanceName = util.findInstanceName(req);
             var fields = util.getFields(req, Model, 'edit');
 
             async.series([
@@ -43,6 +49,7 @@ module.exports = function(req, res) {
                 }
             ], function(err) {
                 res.view(util.getViewPath('edit'), {
+                    instanceConfig: config,
                     record: record,
                     instanceName: instanceName,
                     instancePath: path.join(sails.config.admin.routePrefix, instanceName),

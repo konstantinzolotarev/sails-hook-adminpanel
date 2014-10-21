@@ -9,6 +9,11 @@ module.exports = function(req, res) {
     if (!req.param('id')) {
         return res.notFound();
     }
+    var instanceName = util.findInstanceName(req);
+    var config = util.findConfig(req);
+    if (!config.view) {
+        return res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
+    }
     //Get model
     var Model = util.findModel(req);
     if (!Model) {
@@ -21,10 +26,10 @@ module.exports = function(req, res) {
                 sails.log.error(err);
                 return res.serverError();
             }
-            var instanceName = util.findInstanceName(req);
             var fields = util.getFields(req, Model, 'view');
 
             res.view(util.getViewPath('view'), {
+                instanceConfig: config,
                 record: record,
                 instanceName: instanceName,
                 instancePath: path.join(sails.config.admin.routePrefix, instanceName),

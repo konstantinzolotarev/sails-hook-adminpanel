@@ -19,7 +19,10 @@ module.exports = function(req, res) {
     }
     //Get instance name
     var instanceName = util.findInstanceName(req);
-
+    var config = util.findConfig(req);
+    if (!config.remove) {
+        return res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
+    }
     /**
      * Searching for record by model
      */
