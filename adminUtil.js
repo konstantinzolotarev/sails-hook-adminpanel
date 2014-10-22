@@ -6,7 +6,7 @@ var path = require('path');
 module.exports = {
 
     /**
-     * Default config for instance
+     * Default configuration for instance
      */
     _defaultInstanceConfig: {
         list: true,

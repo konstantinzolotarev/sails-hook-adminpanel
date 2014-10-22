@@ -58,6 +58,7 @@ module.exports = function (sails) {
 
                 //Create a base instance route
                 var baseRoute = path.join(config.routePrefix, ':instance');
+                //@todo move route binding to separate file
                 /**
                  * List of records
                  */
