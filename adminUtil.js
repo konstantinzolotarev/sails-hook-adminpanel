@@ -30,6 +30,7 @@ module.exports = {
         if (fieldList.length == 0) {
             var attrs = this._getModelAttributes(Model);
 //            fieldList
+
         }
     },
 
@@ -152,6 +153,7 @@ module.exports = {
      *      "fieldName": {
      *          config: {
      *              title: "Field title",
+     *              type: "string", //Or any other type. Will be fetched from model if not defined in config
      *              // ... Other config will be added here
      *          },
      *          model: {
@@ -161,10 +163,10 @@ module.exports = {
      *  }
      * </code>
      *
-     * @param {Request} req
-     * @param {Model} model
-     * @param {string} type
-     * @returns {Object}
+     * @param {Request} req Sails.js request object
+     * @param {Model=} model if not model passed model will be automatically loaded
+     * @param {string} type Type of action that config should be loaded for. Example: list, edit, add, remove, view
+     * @returns {Object} Empty object or pbject with list of properties
      */
     getFields: function getFields(req, model, type) {
         var config = this.findConfig(req);
@@ -172,7 +174,7 @@ module.exports = {
             model = this.findModel(req);
         }
         if (!model || !model.attributes) {
-            return [];
+            return {};
         }
         //get type of fields to show
         type = type || 'list';
@@ -192,25 +194,29 @@ module.exports = {
             actionConfig.fields = {};
         }
         //Get keys from config
-        var fieldList = _.keys(actionConfig.fields);
+        var actionConfigFields = _.keys(actionConfig.fields);
         //Getting list of fields from model
-        var attrs = _.pick(model.attributes, function(val, key) {
-            if (fieldList.length == 0) {
+        var modelAttributes = _.pick(model.attributes, function(val, key) {
+            if (actionConfigFields.length == 0) {
                 return (_.isPlainObject(val) || _.isString(val)) && !val.collection && !val.model;
             }
-            return (~fieldList.indexOf(key) && (_.isPlainObject(val) || _.isString(val)) && !val.collection && !val.model);
+            return (~actionConfigFields.indexOf(key) && (_.isPlainObject(val) || _.isString(val)) && !val.collection && !val.model);
         });
         // creating result
         var result = {};
-        _.forEach(attrs, function(field, key) {
-//            var model = field;
-            //Check for short type
-            if (_.isString(field)) {
-                field = {
-                    type: field
+        _.forEach(modelAttributes, function(modelField, key) {
+            /**
+             * Checks for short type in waterline:
+             * fieldName: 'string'
+             */
+            if (_.isString(modelField)) {
+                modelField = {
+                    type: modelField
                 };
             }
+            //Getting config form configuration file
             var config = actionConfig.fields[key] || { title: key };
+            //Check for short title setup.
             if (_.isString(config)) {
                 config = {
                     title: config
@@ -221,11 +227,16 @@ module.exports = {
                 config['title'] = key;
             }
             //check required
-            config.required = Boolean(config.required || field.required);
-
+            config.required = Boolean(config.required || modelField.required);
+            /**
+             * Default type for field.
+             * Could be fetched form config file or file model if not defined in config file.
+             */
+            config.type = config.type || modelField.type;
+            //Adding new field to resultset
             result[key] = {
                 config: config,
-                model: field
+                model: modelField
             };
         });
         return result;
