@@ -1,6 +1,8 @@
 'use strict';
 
 var util = require('../adminUtil');
+var request = require('../lib/requestProcessor');
+
 var async = require('async');
 var path = require('path');
 
@@ -35,8 +37,8 @@ module.exports = function(req, res) {
                     if (req.method.toUpperCase() !== 'POST') {
                         return done();
                     }
-                    var reqData = util.findModelFields(req, fields);
-                    _.merge(record, reqData); //merging values from request to record
+                    var reqData = request.processRequest(req, fields);
+                    _.merge(record, reqData); // merging values from request to record
                     Model.update({id: record.id}, reqData).exec(function(err) {
                         if (err) {
                             sails.log.error(err);
