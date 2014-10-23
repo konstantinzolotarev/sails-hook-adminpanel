@@ -48,9 +48,16 @@ mixin inputCheckbox(key, field, value)
     input(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value)
 
 mixin select(key, field, value)
-  select(name=key, required=field.config.required || false, disabled=field.config.disabled || false).form-control
+  select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false).form-control
     each opt in field.model.enum
       option(value=opt) #{opt}
 
 mixin textarea(key, field, value)
-  textarea(name=key, required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+  textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+
+
+mixin installEditors(fields)
+  script(type='text/javascript')
+    each field, key in fields
+      if field.config.editor
+        | CKEDITOR.replace( 'form-#{key}' );

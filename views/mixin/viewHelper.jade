@@ -4,5 +4,7 @@ mixin showValue(key, field, value)
       i.glyphicon.glyphicon-ok-sign
     else
       i.glyphicon.glyphicon-remove-sign
+  else if field.config.type == 'text'
+    p !{value}
   else
     | #{value}
