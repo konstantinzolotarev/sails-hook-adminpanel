@@ -1,5 +1,7 @@
 'use strict';
 
+var util = require('../adminUtil');
+
 /**
  * Will generate dashboard controller
  *
@@ -8,5 +10,5 @@
  * @returns {dashboardController}
  */
 module.exports = function(req, res) {
-    return res.view(sails.config.admin.pathToViews+'index');
+    return res.view(util.getViewPath('dashboard'));
 };
