@@ -1,6 +1,8 @@
 'use strict';
 
 var util = require('../adminUtil');
+var request = require('../lib/requestProcessor');
+
 var async = require('async');
 var path = require('path');
 
@@ -20,7 +22,7 @@ module.exports = function(req, res) {
     async.series([
         function checkPost(done) {
             if (req.method.toUpperCase() === 'POST') {
-                var reqData = util.findModelFields(req, fields);
+                var reqData = request.processRequest(req, fields);
                 Model.create(reqData).exec(function(err, record) {
                     if (err) {
                         sails.log.error(err);

@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var path = require('path');
 
-module.exports = {
+var AdminUtil = {
 
     /**
      * Default configuration for instance
@@ -116,35 +116,6 @@ module.exports = {
     },
 
     /**
-     * Will try to find all fields that should be used in model
-     *
-     * @param {Request} req
-     * @param {Object} fields
-     * @see #getFields to know what data should be passed into fields
-     * @returns {Object}
-     */
-    findModelFields: function(req, fields) {
-        var data = req.allParams();
-        var result = _.pick(data, function(value, key) {
-            return Boolean(fields[key]);
-        });
-        _.forIn(result, function(val, key) {
-            var field = fields[key];
-            if (field.model.type == 'boolean') {
-                result[key] = Boolean(val);
-            }
-        });
-        //Check or fields that was not passed
-        _.forIn(fields, function(field, key) {
-            if (!result[key] && field.model.type == 'boolean') {
-                result[key] = false;
-            }
-        });
-        //@todo prepare field values
-        return result;
-    },
-
-    /**
      * Basicaly it will fetch all attributes without functions
      *
      * Result will be object with list of fields and its config.<br/>
@@ -242,3 +213,5 @@ module.exports = {
         return result;
     }
 };
+
+module.exports = AdminUtil;

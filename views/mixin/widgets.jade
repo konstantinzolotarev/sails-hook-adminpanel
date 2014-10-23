@@ -28,6 +28,8 @@ mixin inputText(key, field, value)
     +select(key, field, value)
   else if field.model.email
     input(type='email', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
+  else if field.config.file
+    input(type='file', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
   else
     input(type='text', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
 
