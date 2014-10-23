@@ -47,6 +47,7 @@ module.exports = function (sails) {
             }
             sails.after(eventsToWaitFor, function () {
                 //binding config to views
+                //@todo really needed here ?
                 sails.config.views.locals.adminConfig = config.admin;
 
                 //recheck reoute prefix
