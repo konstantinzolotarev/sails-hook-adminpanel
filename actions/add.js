@@ -1,6 +1,6 @@
 'use strict';
 
-var util = require('../adminUtil');
+var util = require('../lib/adminUtil');
 var request = require('../lib/requestProcessor');
 
 var async = require('async');

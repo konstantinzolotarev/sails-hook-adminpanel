@@ -1,6 +1,6 @@
 'use strict';
 
-var util = require('../adminUtil');
+var util = require('../lib/adminUtil');
 
 /**
  * Will generate dashboard controller
