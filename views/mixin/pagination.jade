@@ -1,0 +1,15 @@
+mixin pagination(instancePath, page, total, limit, requestProcessor)
+   - if (!page) page = 1;
+   - page = parseInt(page);
+   - if (!limit) limit = 20;
+   nav
+      ul.pager
+         if page > 1
+            li.previous
+               a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page-1)})}')
+                  span(aria-hidden='true') &larr;
+                  | &nbsp;Older
+         if ((page+1) * limit) <= total
+            li.next
+               a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page+1)})}') Next&nbsp;
+                  span(aria-hidden='true') &rarr;

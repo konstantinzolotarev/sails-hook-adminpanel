@@ -4,5 +4,5 @@ var expect = require('chai').expect;
 
 describe('adminUtil :: ', function() {
 
-    
+
 });
