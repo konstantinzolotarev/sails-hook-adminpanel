@@ -1,6 +1,7 @@
 extends ./layout
 
 include ./mixin/listHelper
+include ./mixin/pagination
 
 block body
   .container-fluid
@@ -19,6 +20,9 @@ block body
           tbody
             each obj in list
               +listRow(obj, instancePath, instanceConfig)
+
+        hr
+        +pagination(instancePath, (req.param('page') || 1), total, instanceConfig.list.limit, requestProcessor)
 
         if list.length == 0
           .alert.alert-info
