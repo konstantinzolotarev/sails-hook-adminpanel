@@ -1,0 +1,34 @@
+{
+  "name": "sails-hook-adminpanel",
+  "version": "0.1.1",
+  "description": "Implements the basic admin panel for Sails",
+  "keywords": [
+    "sails-hook",
+    "sails",
+    "sails.js",
+    "hook",
+    "admin",
+    "admin-panel"
+  ],
+  "dependencies": {
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.0.1",
+    "sails": "^0.11.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha -b --timeout 5000"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:konstantinzolotarev/sails-hook-adminpanel.git"
+  },
+  "sails": {
+    "isHook": true
+  },
+  "author": "Konstantin Zolotarev",
+  "license": "MIT"
+}
