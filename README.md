@@ -1,14 +1,13 @@
 sails-hook-adminpanel
 =====================
 
-Admin panel generator fro Sails.js applications v0.10+
+Admin panel generator fro Sails.js applications v0.11+
 
 # Installation
 
-For now this module could be installed only via:
+To install this hook you will need to run:
 
-    cd api/hooks
-    git submodule add https://github.com/konstantinzolotarev/sails-hook-adminpanel.git admin
+    npm install --save sails-hook-adminpanel
 
 Unfortunately I didn't created assetic management for admin panel so you have to copy css/js to assets
 
