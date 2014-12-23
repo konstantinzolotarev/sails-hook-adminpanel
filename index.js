@@ -16,6 +16,17 @@ module.exports = function (sails) {
     return {
 
         /**
+         * List of hooks that required for adminpanel to work
+         */
+        requiredHooks: [
+            'blueprints',
+            'controllers',
+            'orm',
+            'policies',
+            'views'
+        ],
+
+        /**
          * Creating default settings for hook
          */
         defaults: _defaults,
@@ -33,21 +44,21 @@ module.exports = function (sails) {
             // If controllers hook is enabled, also wait until controllers are known.
             var eventsToWaitFor = [];
             eventsToWaitFor.push('router:after');
-            if (sails.hooks.policies) {
-                eventsToWaitFor.push('hook:policies:bound');
-            }
-            if (sails.hooks.orm) {
-                eventsToWaitFor.push('hook:orm:loaded');
-            }
-            if (sails.hooks.controllers) {
-                eventsToWaitFor.push('hook:controllers:loaded');
-            }
-            if (sails.hooks.blueprints) {
-                eventsToWaitFor.push('hook:blueprints:loaded');
-            }
+            /**
+             * Check hooks availability
+             */
+            _.forEach(this.requiredHooks, function(hook) {
+                if (!sails.hooks[hook]) {
+                    throw new Error('Cannot use `adminpanel` hook without the `' + hook +'` hook.');
+                }
+                eventsToWaitFor.push('hook:' + hook + ':loaded');
+            });
             sails.after(eventsToWaitFor, function () {
                 //binding config to views
                 //@todo really needed here ?
+                if (!sails.config.views.locals) {
+                    sails.config.views.locals = {};
+                }
                 sails.config.views.locals.adminConfig = config.admin;
 
                 //recheck reoute prefix
