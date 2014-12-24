@@ -1,6 +1,7 @@
 'use strict';
 
 var util = require('../lib/adminUtil');
+var views = require('../helper/viewsHelper');
 
 /**
  * Will generate dashboard controller
@@ -10,5 +11,5 @@ var util = require('../lib/adminUtil');
  * @returns {dashboardController}
  */
 module.exports = function(req, res) {
-    return res.view(util.getViewPath('dashboard'));
+    return res.view(views.getViewPath('dashboard'));
 };
