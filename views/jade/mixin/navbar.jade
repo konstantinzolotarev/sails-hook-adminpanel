@@ -10,8 +10,8 @@ mixin navbar
         a(href='/admin').navbar-brand #{locals.title}
       .navbar-collapse
         ul.nav.navbar-nav
-          each instance, key in sails.config.admin.instances
-            li: a(href='#{sails.config.admin.routePrefix}/#{key}') #{instance.title}
+          each instance, key in locals.adminPanelConfig.instances
+            li: a(href='#{locals.adminPanelConfig.routePrefix}/#{key}') #{instance.title}
 
 
 

@@ -9,19 +9,13 @@ To install this hook you will need to run:
 
     npm install --save sails-hook-adminpanel
 
-Unfortunately I didn't created assetic management for admin panel so you have to copy css/js to assets
-
-    cd /your/app/base/path
-    mkdir assets/admin
-    cp -R api/hooks/admin/assets assets/admin
-
-Then you will need to create a config file for admin panel generator into `config/admin.js`
+Then you will need to create a config file for admin panel generator into `config/adminpanel.js`
 
 This is example of this file:
 
     'use strict';
 
-    module.exports.admin = {
+    module.exports.adminpanel = {
         instances: {
 
             users: {

@@ -1,6 +1,8 @@
 'use strict';
 var util = require('../lib/adminUtil');
 var requestProcessor = require('../lib/requestProcessor');
+var views = require('../helper/viewsHelper');
+
 var path = require('path');
 var async = require('async');
 
@@ -53,13 +55,13 @@ module.exports = function(req, res) {
             return res.serverError(err);
         }
         var instanceName = util.findInstanceName(req);
-        res.view(util.getViewPath('list'), {
+        res.view(views.getViewPath('list'), {
             requestProcessor: requestProcessor,
             instanceConfig: instanceConfig,
             total: total,
             list: records,
             instanceName: instanceName,
-            instancePath: path.join(sails.config.admin.routePrefix, instanceName),
+            instancePath: path.join(util.config().routePrefix, instanceName),
             fields: util.getFields(req, Model, 'list')
         });
     });

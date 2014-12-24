@@ -2,6 +2,7 @@
 
 var util = require('../lib/adminUtil');
 var request = require('../lib/requestProcessor');
+var views = require('../helper/viewsHelper');
 
 var async = require('async');
 var path = require('path');
@@ -20,7 +21,7 @@ module.exports = function(req, res) {
     var instanceName = util.findInstanceName(req);
     var config = util.findConfig(req);
     if (!config.edit) {
-        return res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
+        return res.redirect(path.join(util.config().routePrefix, instanceName));
     }
 
     Model.findOne(req.param('id'))
@@ -50,11 +51,11 @@ module.exports = function(req, res) {
                     });
                 }
             ], function(err) {
-                res.view(util.getViewPath('edit'), {
+                res.view(views.getViewPath('edit'), {
                     instanceConfig: config,
                     record: record,
                     instanceName: instanceName,
-                    instancePath: path.join(sails.config.admin.routePrefix, instanceName),
+                    instancePath: path.join(util.config().routePrefix, instanceName),
                     fields: fields
                 });
             });

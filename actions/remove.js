@@ -1,6 +1,7 @@
 'use strict';
 
 var util = require('../lib/adminUtil');
+
 var path = require('path');
 
 module.exports = function(req, res) {
@@ -21,7 +22,7 @@ module.exports = function(req, res) {
     var instanceName = util.findInstanceName(req);
     var config = util.findConfig(req);
     if (!config.remove) {
-        return res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
+        return res.redirect(path.join(util.config().routePrefix, instanceName));
     }
     /**
      * Searching for record by model
@@ -57,7 +58,7 @@ module.exports = function(req, res) {
                     });
                 }
                 req.flash('adminSuccess', 'Record was removed successfuly');
-                res.redirect(path.join(sails.config.admin.routePrefix, instanceName));
+                res.redirect(path.join(util.config().routePrefix, instanceName));
             });
         });
 };
