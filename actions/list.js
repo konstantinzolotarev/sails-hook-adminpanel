@@ -58,10 +58,10 @@ module.exports = function(req, res) {
         res.view(views.getViewPath('list'), {
             requestProcessor: requestProcessor,
             instanceConfig: instanceConfig,
-            total: total,
-            list: records,
             instanceName: instanceName,
             instancePath: path.join(util.config().routePrefix, instanceName),
+            total: total,
+            list: records,
             fields: util.getFields(req, Model, 'list')
         });
     });

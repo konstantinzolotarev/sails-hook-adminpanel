@@ -7,7 +7,7 @@ mixin navbar
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a(href='/admin').navbar-brand #{locals.title}
+        a(href='/admin').navbar-brand #{locals.adminpanel.config.title || 'Dashboard'}
       .navbar-collapse
         ul.nav.navbar-nav
           each instance, key in locals.adminpanel.config.instances

@@ -21,6 +21,8 @@ block body
             each obj in list
               +listRow(obj, instancePath, instanceConfig)
 
+        if total > 0
+          div: mark Total: #{total}
         hr
         +pagination(instancePath, (req.param('page') || 1), total, instanceConfig.list.limit, requestProcessor)
 
