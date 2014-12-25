@@ -10,8 +10,8 @@ mixin navbar
         a(href='/admin').navbar-brand #{locals.title}
       .navbar-collapse
         ul.nav.navbar-nav
-          each instance, key in locals.adminPanelConfig.instances
-            li: a(href='#{locals.adminPanelConfig.routePrefix}/#{key}') #{instance.title}
+          each instance, key in locals.adminpanel.config.instances
+            li: a(href='#{locals.adminpanel.config.routePrefix}/#{key}') #{instance.title}
 
 
 
