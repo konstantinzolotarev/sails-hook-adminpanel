@@ -2,26 +2,30 @@ mixin fieldWidget(key, field, value)
   .form-group
     label(for='form-#{key}').col-md-4.control-label #{field.config.title}
     .col-md-8
-      - var type = field.config.type || field.model.type
-      case type
-        when 'string'
-          +inputText(key, field, value)
-        when 'password'
-          +inputPassword(key, field, value)
-        when 'date'
-          +inputDate(key, field, value)
-        when 'datetime'
-          +inputDatetime(key, field, value)
-        when 'integer'
-          +inputNumber(key, field, value)
-        when 'float'
-          +inputNumber(key, field, value)
-        when 'boolean'
-          +inputCheckbox(key, field, value)
-        when 'text'
-          +textarea(key, field, value)
-        default
-          +inputText(key, field, value)
+      if locals.adminpanel.fieldsHelper.isId(field)
+        - field.config.disabled = true; //Disable identifier field
+        +inputText(key, field, value)
+      else
+        - var type = field.config.type || field.model.type
+        case type
+          when 'string'
+            +inputText(key, field, value)
+          when 'password'
+            +inputPassword(key, field, value)
+          when 'date'
+            +inputDate(key, field, value)
+          when 'datetime'
+            +inputDatetime(key, field, value)
+          when 'integer'
+            +inputNumber(key, field, value)
+          when 'float'
+            +inputNumber(key, field, value)
+          when 'boolean'
+            +inputCheckbox(key, field, value)
+          when 'text'
+            +textarea(key, field, value)
+          default
+            +inputText(key, field, value)
 
 mixin inputText(key, field, value)
   if field.model.enum
