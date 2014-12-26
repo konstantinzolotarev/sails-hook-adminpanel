@@ -11,8 +11,6 @@ module.exports = function (sails) {
 
         configure: require('./lib/configure')(sails),
 
-        initialize: require('./lib/initialize')(sails),
-
-        route: {}
+        initialize: require('./lib/initialize')(sails)
     };
 };
