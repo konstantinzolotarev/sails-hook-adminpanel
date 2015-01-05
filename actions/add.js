@@ -3,6 +3,7 @@
 var util = require('../lib/adminUtil');
 var request = require('../lib/requestProcessor');
 var views = require('../helper/viewsHelper');
+var fieldsHelper = require('../helper/fieldsHelper');
 
 var async = require('async');
 var path = require('path');
@@ -13,7 +14,7 @@ module.exports = function(req, res) {
     if (!Model) {
         return res.notFound();
     }
-    var fields = util.getFields(req, Model, 'add');
+    var fields = fieldsHelper.getFields(req, Model, 'add');
     var instanceName = util.findInstanceName(req);
     var config = util.findConfig(req);
     if (!config.add) {

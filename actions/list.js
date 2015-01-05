@@ -2,6 +2,7 @@
 var util = require('../lib/adminUtil');
 var requestProcessor = require('../lib/requestProcessor');
 var views = require('../helper/viewsHelper');
+var fieldsHelper = require('../helper/fieldsHelper');
 
 var path = require('path');
 var async = require('async');
@@ -62,7 +63,7 @@ module.exports = function(req, res) {
             instancePath: path.join(util.config().routePrefix, instanceName),
             total: total,
             list: records,
-            fields: util.getFields(req, Model, 'list')
+            fields: fieldsHelper.getFields(req, Model, 'list')
         });
     });
 
