@@ -3,6 +3,7 @@
 var util = require('../lib/adminUtil');
 var request = require('../lib/requestProcessor');
 var views = require('../helper/viewsHelper');
+var fieldsHelper = require('../helper/fieldsHelper');
 
 var async = require('async');
 var path = require('path');
@@ -31,7 +32,7 @@ module.exports = function(req, res) {
                 sails.log.error(err);
                 return res.serverError();
             }
-            var fields = util.getFields(req, Model, 'edit');
+            var fields = fieldsHelper.getFields(req, Model, 'edit');
 
             async.series([
                 function checkPost(done) {

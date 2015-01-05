@@ -1,7 +1,6 @@
 'use strict';
 
 var util = require('../lib/adminUtil');
-
 var path = require('path');
 
 module.exports = function(req, res) {
