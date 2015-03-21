@@ -188,10 +188,6 @@ module.exports = {
          * @private
          */
         var _prepareField = function(modelField, key) {
-            //Return ignored global fields
-            if (config.ignoredFields && !!(~config.ignoredFields.indexOf(key))) {
-                return;
-            }
             /**
              * Checks for short type in waterline:
              * fieldName: 'string'

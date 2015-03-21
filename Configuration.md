@@ -149,6 +149,26 @@ module.exports.adminpanel = {
 }
 ```
 
+## Ignored fields
+You could add ignored fields to action using `fields` config option.
+
+```
+module.exports.adminpanel = {
+    instances: {
+        users: {
+            title: 'Users', // Menu title for instance
+            model: 'User', // Model definition for instance
+
+            // this fields will be ignored into all actions
+            fields: {
+                'admin': false,
+                'someAnotherField': false,
+                'encryptedPassword': false
+            }
+        }
+    }
+}
+```
 
 ## Field types
 
