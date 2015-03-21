@@ -188,6 +188,10 @@ module.exports = {
          * @private
          */
         var _prepareField = function(modelField, key) {
+            //Return ignored global fields
+            if (config.ignoredFields && !!(~config.ignoredFields.indexOf(key))) {
+                return;
+            }
             /**
              * Checks for short type in waterline:
              * fieldName: 'string'
@@ -198,7 +202,7 @@ module.exports = {
                 };
             }
             //Getting config form configuration file
-            var config = { key: key, title: key };
+            var fldConfig = { key: key, title: key };
             var ignoreField = false; // if set to true, field will be removed from editor/list
             //Checking global instance fields configuration
             if (fieldsConfig[key] || fieldsConfig[key] === false) {
@@ -207,7 +211,7 @@ module.exports = {
                     ignoreField = true;
                 } else {
                     var tmpCfg = that._normalizeFieldConfig(fieldsConfig[key], key);
-                    _.merge(config, tmpCfg);
+                    _.merge(fldConfig, tmpCfg);
                 }
             }
             //Checking inaction instance fields configuration. Should overwrite global one
@@ -218,24 +222,24 @@ module.exports = {
                 } else {
                     var tmpCfg = that._normalizeFieldConfig(actionConfig.fields[key], key);
                     ignoreField = false;
-                    _.merge(config, tmpCfg);
+                    _.merge(fldConfig, tmpCfg);
                 }
             }
             if (ignoreField) {
                 return;
             }
             //nomalizing configs
-            config = that._normalizeFieldConfig(config, key)
+            fldConfig = that._normalizeFieldConfig(fldConfig, key)
             //check required
-            config.required = Boolean(config.required || modelField.required);
+            fldConfig.required = Boolean(fldConfig.required || modelField.required);
             /**
              * Default type for field.
              * Could be fetched form config file or file model if not defined in config file.
              */
-            config.type = config.type || modelField.type;
+            fldConfig.type = fldConfig.type || modelField.type;
             //Adding new field to resultset
             result[key] = {
-                config: config,
+                config: fldConfig,
                 model: modelField
             };
         };
