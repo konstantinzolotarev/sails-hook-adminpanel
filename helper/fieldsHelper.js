@@ -197,6 +197,9 @@ module.exports = {
                     type: modelField
                 };
             }
+            if (type === 'add' && key === req._sails.config.adminpanel.identifierField) {
+                return;
+            }
             //Getting config form configuration file
             var fldConfig = { key: key, title: key };
             var ignoreField = false; // if set to true, field will be removed from editor/list
