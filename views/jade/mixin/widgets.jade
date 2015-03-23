@@ -1,4 +1,7 @@
 mixin fieldWidget(key, field, value)
+  if (typeof value === 'undefined' && typeof field.model.defaultsTo !== 'undefined')
+    - value = field.model.defaultsTo
+
   .form-group
     label(for='form-#{key}').col-md-4.control-label #{field.config.title}
     .col-md-8
@@ -19,6 +22,8 @@ mixin fieldWidget(key, field, value)
           when 'integer'
             +inputNumber(key, field, value)
           when 'float'
+            +inputNumber(key, field, value)
+          when 'number'
             +inputNumber(key, field, value)
           when 'boolean'
             +inputCheckbox(key, field, value)
