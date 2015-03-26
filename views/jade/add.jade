@@ -5,10 +5,10 @@ block body
   .container-fluid
     .page-header
       h3 Add new record
-        a(href='#{instancePath}').btn.btn-info.pull-right
+        a(href='#{instance.uri}').btn.btn-info.pull-right
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list
-    form(role='form', action='#{instancePath}/add', method='POST', enctype="multipart/form-data").form-horizontal
+    form(role='form', action='#{instance.uri}/add', method='POST', enctype="multipart/form-data").form-horizontal
       each field, key in fields
         +fieldWidget(key, field, data[key])
       div

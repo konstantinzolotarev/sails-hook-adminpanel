@@ -1,32 +1,27 @@
 'use strict';
 
 var util = require('../lib/adminUtil');
-var path = require('path');
 
 module.exports = function(req, res) {
     //Checking id of the record
     if (!req.param('id')) {
         //@todo add json response
-        sails.log.error(new Error('Admin panel: No id for record provided'));
+        req._sails.log.error(new Error('Admin panel: No id for record provided'));
         return res.notFound();
     }
-    //Get model
-    var Model = util.findModel(req);
-    if (!Model) {
+    var instance = util.findInstanceObject(req);
+    if (!instance.model) {
         //@todo add json response
-        sails.log.error(new Error('Admin panel: no model found'));
+        req._sails.log.error(new Error('Admin panel: no model found'));
         return res.notFound();
     }
-    //Get instance name
-    var instanceName = util.findInstanceName(req);
-    var config = util.findConfig(req);
-    if (!config.remove) {
-        return res.redirect(path.join(util.config().routePrefix, instanceName));
+    if (!instance.config.remove) {
+        return res.redirect(instance.uri);
     }
     /**
      * Searching for record by model
      */
-    Model
+    instance.model
         .findOne(req.param('id'))
         .exec(function(err, record) {
             if (err) {
@@ -36,7 +31,7 @@ module.exports = function(req, res) {
                         message: err.message
                     });
                 }
-                sails.log.error(err);
+                req._sails.log.error(err);
                 return res.serverError();
             }
             if (!record) {
@@ -50,6 +45,16 @@ module.exports = function(req, res) {
                 return res.notFound();
             }
             record.destroy(function(err) {
+                if (err) {
+                    if (req.wantsJSON) {
+                        return res.json({
+                            success: false,
+                            message: err.message || 'Record was not removed'
+                        });
+                    }
+                    req.flash('adminError', err.message || 'Record was not removed');
+                    return res.redirect(instance.uri);
+                }
                 if (req.wantsJSON) {
                     return res.json({
                         success: true,
@@ -57,7 +62,7 @@ module.exports = function(req, res) {
                     });
                 }
                 req.flash('adminSuccess', 'Record was removed successfuly');
-                res.redirect(path.join(util.config().routePrefix, instanceName));
+                res.redirect(instance.uri);
             });
         });
 };

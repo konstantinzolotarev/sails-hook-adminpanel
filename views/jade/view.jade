@@ -6,15 +6,15 @@ block body
   .container-fluid
     .page-header
       h3 View record
-        a(href='#{instancePath}', style='margin: 0 5px;').btn.btn-info.pull-right
+        a(href='#{instance.uri}', style='margin: 0 5px;').btn.btn-info.pull-right
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list
-        if instanceConfig.edit
-          a(href='#{instancePath}/edit/#{record.id}', style='margin: 0 5px;').btn.btn-default.pull-right
+        if instance.config.edit
+          a(href='#{instance.uri}/edit/#{record.id}', style='margin: 0 5px;').btn.btn-default.pull-right
             i.glyphicon.glyphicon-pencil
             | &nbsp;Edit record
-        if instanceConfig.remove
-          a(href='#{instancePath}/remove/#{record.id}', , style='margin: 0 5px;', onclick="return confirm('Are you sure ?');").btn.btn-danger.pull-right
+        if instance.config.remove
+          a(href='#{instance.uri}/remove/#{record.id}', , style='margin: 0 5px;', onclick="return confirm('Are you sure ?');").btn.btn-danger.pull-right
             i.glyphicon.glyphicon-trash
             | &nbsp;Remove record
     each field, key in fields

@@ -5,25 +5,25 @@ mixin listHead(fields)
     th #{__('Actions')}
 
 
-mixin listRow(obj, instancePath, instanceConfig)
+mixin listRow(obj, instance)
   tr
     each field, key in fields
       +listValue(key, field, obj[key])
       // adding actions
     td
-      if instanceConfig.view
+      if instance.config.view
         | &nbsp;
-        a(href='#{instancePath}/view/#{obj.id}').btn.btn-info
+        a(href='#{instance.uri}/view/#{obj.id}').btn.btn-info
           i.glyphicon.glyphicon-eye-open
 
-      if instanceConfig.edit
+      if instance.config.edit
         | &nbsp;
-        a(href='#{instancePath}/edit/#{obj.id}').btn.btn-info
+        a(href='#{instance.uri}/edit/#{obj.id}').btn.btn-info
           i.glyphicon.glyphicon-pencil
           //| &nbsp;#{__('Edit')}
-      if instanceConfig.remove
+      if instance.config.remove
         | &nbsp;
-        a(href='#{instancePath}/remove/#{obj.id}', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
+        a(href='#{instance.uri}/remove/#{obj.id}', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
           i.glyphicon.glyphicon-trash
 
 mixin listValue(key, field, value)
