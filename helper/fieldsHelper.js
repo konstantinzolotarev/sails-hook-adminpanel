@@ -133,6 +133,15 @@ module.exports = {
     },
 
     /**
+     * Get Identifier field name from config
+     *
+     * @returns {string}
+     */
+    getidentifierFieldName: function() {
+        return util.config().identifierField;
+    },
+
+    /**
      * Basicaly it will fetch all attributes without functions
      *
      * Result will be object with list of fields and its config.<br/>
@@ -153,29 +162,25 @@ module.exports = {
      *  }
      * </code>
      *
-     * @param {Request} req Sails.js request object
-     * @param {Model=} [model] if not model passed model will be automatically loaded
+     * @param {Request} req Sails.js req object
+     * @param {Object} instance Instance object with `name`, `config`, `model` {@link AdminUtil.findInstanceObject}
      * @param {string=} [type] Type of action that config should be loaded for. Example: list, edit, add, remove, view. Defaut: list
      * @returns {Object} Empty object or pbject with list of properties
      */
-    getFields: function getFields(req, model, type) {
-        var config = util.findConfig(req);
-        if (!model) {
-            model = util.findModel(req);
-        }
-        if (!model || !model.attributes) {
+    getFields: function(req, instance, type) {
+        if (!instance.model || !instance.model.attributes) {
             return {};
         }
         //get type of fields to show
         type = type || 'list';
         //get field config for actions
-        var actionConfig = util.findActionConfig(req, type);
-        var fieldsConfig = config.fields || {};
+        var actionConfig = util.findActionConfig(instance, type);
+        var fieldsConfig = instance.config.fields || {};
 
         //Get keys from config
         var actionConfigFields = _.keys(actionConfig.fields);
         //Getting list of fields from model
-        var modelAttributes = _.pick(model.attributes, function(val, key) {
+        var modelAttributes = _.pick(instance.model.attributes, function(val, key) {
             return ((_.isPlainObject(val) || _.isString(val)) && !val.collection && !val.model);
         });
 

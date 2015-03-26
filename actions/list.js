@@ -4,22 +4,17 @@ var requestProcessor = require('../lib/requestProcessor');
 var views = require('../helper/viewsHelper');
 var fieldsHelper = require('../helper/fieldsHelper');
 
-var path = require('path');
 var async = require('async');
 
 module.exports = function(req, res) {
-    var Model = util.findModel(req);
-    if (!Model) {
+    var instance = util.findInstanceObject(req);
+    if (!instance.model) {
         return res.notFound();
     }
-    var instanceConfig = util.findConfig(req);
-    if (!instanceConfig.list.limit) {
-        instanceConfig.list.limit = 15; //@todo move 15 to constant
-    }
     //Limit check
-    if (!_.isNumber(instanceConfig.list.limit)) {
-        sails.log.error('Admin list error: limit option should be number. Reseived: ', instanceConfig.list.limit);
-        instanceConfig.list.limit = 15;
+    if (!_.isNumber(instance.config.list.limit)) {
+        req._sails.log.error('Admin list error: limit option should be number. Reseived: ', instance.config.list.limit);
+        instance.config.list.limit = 15;
     }
     //Check page
     var page = req.param('page') || 1;
@@ -32,7 +27,7 @@ module.exports = function(req, res) {
     async.parallel([
         //Fetch total records for page
         function getTotalRecords(done) {
-            Model.count()
+            instance.model.count()
                 .exec(function(err, count) {
                     if (err) return done(err);
                     total = count;
@@ -41,8 +36,8 @@ module.exports = function(req, res) {
         },
         // Loading list of records for page
         function loadRecords(done) {
-            Model.find()
-                .paginate({page: page, limit: instanceConfig.list.limit || 15})
+            instance.model.find()
+                .paginate({page: page, limit: instance.config.list.limit || 15})
                 .exec(function(err, list) {
                     if (err) return done(err);
                     records = list;
@@ -51,19 +46,16 @@ module.exports = function(req, res) {
         }
     ], function(err, result) {
         if (err) {
-            sails.log.error('Admin list error: ');
-            sails.log.error(err);
+            req._sails.log.error('Admin list error: ');
+            req._sails.log.error(err);
             return res.serverError(err);
         }
-        var instanceName = util.findInstanceName(req);
         res.view(views.getViewPath('list'), {
             requestProcessor: requestProcessor,
-            instanceConfig: instanceConfig,
-            instanceName: instanceName,
-            instancePath: path.join(util.config().routePrefix, instanceName),
+            instance: instance,
             total: total,
             list: records,
-            fields: fieldsHelper.getFields(req, Model, 'list')
+            fields: fieldsHelper.getFields(req, instance, 'list')
         });
     });
 

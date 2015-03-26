@@ -8,7 +8,6 @@ describe('Adminpanel cofigure :: ', function() {
     var app;
 
     before(function(done) {
-        console.log(123123123123123123123);
         Sails().lift(util.getAppConfig(), function(err, sails) {
             app = sails;
             return done(err);

@@ -6,28 +6,24 @@ var views = require('../helper/viewsHelper');
 var fieldsHelper = require('../helper/fieldsHelper');
 
 var async = require('async');
-var path = require('path');
 
 module.exports = function(req, res) {
-    //Get model
-    var Model = util.findModel(req);
-    if (!Model) {
+    var instance = util.findInstanceObject(req);
+    if (!instance.model) {
         return res.notFound();
     }
-    var fields = fieldsHelper.getFields(req, Model, 'add');
-    var instanceName = util.findInstanceName(req);
-    var config = util.findConfig(req);
-    if (!config.add) {
-        return res.redirect(path.join(util.config().routePrefix, instanceName));
+    var fields = fieldsHelper.getFields(req, instance, 'add');
+    if (!instance.config.add) {
+        return res.redirect(instance.uri);
     }
     var data = {}; //list of field values
     async.series([
         function checkPost(done) {
             if (req.method.toUpperCase() === 'POST') {
                 var reqData = request.processRequest(req, fields);
-                Model.create(reqData).exec(function(err, record) {
+                instance.model.create(reqData).exec(function(err, record) {
                     if (err) {
-                        sails.log.error(err);
+                        req._sails.log.error(err);
                         req.flash('adminError', err.details || 'Something went wrong...');
                         data = reqData;
                         return done(err);
@@ -41,9 +37,7 @@ module.exports = function(req, res) {
         }
     ], function(err) {
         res.view(views.getViewPath('add'), {
-            instanceConfig: config,
-            instanceName: instanceName,
-            instancePath: path.join(util.config().routePrefix, instanceName),
+            instance: instance,
             fields: fields,
             data: data
         });

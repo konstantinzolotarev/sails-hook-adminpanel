@@ -6,9 +6,9 @@ include ./mixin/pagination
 block body
   .container-fluid
     .page-header
-      h3 List of #{instanceName}
-        if instanceConfig.add
-          a(href='#{instancePath}/add').btn.btn-success.pull-right
+      h3 List of #{instance.name}
+        if instance.config.add
+          a(href='#{instance.uri}/add').btn.btn-success.pull-right
             i.glyphicon.glyphicon-plus
             | &nbsp;Create new record
     .row
@@ -19,12 +19,12 @@ block body
             +listHead(fields)
           tbody
             each obj in list
-              +listRow(obj, instancePath, instanceConfig)
+              +listRow(obj, instance)
 
         if total > 0
           div: mark Total: #{total}
         hr
-        +pagination(instancePath, (req.param('page') || 1), total, instanceConfig.list.limit, requestProcessor)
+        +pagination(instancePath, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
 
         if list.length == 0
           .alert.alert-info

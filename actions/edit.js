@@ -6,33 +6,29 @@ var views = require('../helper/viewsHelper');
 var fieldsHelper = require('../helper/fieldsHelper');
 
 var async = require('async');
-var path = require('path');
 
 module.exports = function(req, res) {
     //Check id
     if (!req.param('id')) {
         return res.notFound();
     }
-    //Get model
-    var Model = util.findModel(req);
-    if (!Model) {
+    var instance = util.findInstanceObject(req);
+    if (!instance.model) {
         return res.notFound();
     }
 
-    var instanceName = util.findInstanceName(req);
-    var config = util.findConfig(req);
-    if (!config.edit) {
-        return res.redirect(path.join(util.config().routePrefix, instanceName));
+    if (!instance.config.edit) {
+        return res.redirect(instance.uri);
     }
 
-    Model.findOne(req.param('id'))
+    instance.model.findOne(req.param('id'))
         .exec(function(err, record) {
             if (err) {
-                sails.log.error('Admin edit error: ');
-                sails.log.error(err);
+                req._sails.log.error('Admin edit error: ');
+                req._sails.log.error(err);
                 return res.serverError();
             }
-            var fields = fieldsHelper.getFields(req, Model, 'edit');
+            var fields = fieldsHelper.getFields(req, instance, 'edit');
 
             async.series([
                 function checkPost(done) {
@@ -41,9 +37,9 @@ module.exports = function(req, res) {
                     }
                     var reqData = request.processRequest(req, fields);
                     _.merge(record, reqData); // merging values from request to record
-                    Model.update({id: record.id}, reqData).exec(function(err) {
+                    instance.model.update({id: record.id}, reqData).exec(function(err) {
                         if (err) {
-                            sails.log.error(err);
+                            req._sails.log.error(err);
                             req.flash('adminError', err.details || 'Something went wrong...');
                             return done(err);
                         }
@@ -53,10 +49,8 @@ module.exports = function(req, res) {
                 }
             ], function(err) {
                 res.view(views.getViewPath('edit'), {
-                    instanceConfig: config,
+                    instance: instance,
                     record: record,
-                    instanceName: instanceName,
-                    instancePath: path.join(util.config().routePrefix, instanceName),
                     fields: fields
                 });
             });
