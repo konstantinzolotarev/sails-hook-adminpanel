@@ -196,6 +196,22 @@ module.exports = {
     },
 
     /**
+     * Create list of populated models
+     *
+     * @param {Object} fields
+     * @returns {Array}
+     */
+    getFieldsToPopulate: function(fields) {
+        var result = [];
+        _.forEach(fields, function(field, key) {
+            if (field.config.type === 'association') {
+                result.push(key);
+            }
+        });
+        return result;
+    },
+
+    /**
      * Basicaly it will fetch all attributes without functions
      *
      * Result will be object with list of fields and its config.<br/>

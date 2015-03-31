@@ -24,6 +24,7 @@ module.exports = function(req, res) {
 
     var total = 0;
     var records = [];
+    var fields = fieldsHelper.getFields(req, instance, 'list');
     async.parallel([
         //Fetch total records for page
         function getTotalRecords(done) {
@@ -36,8 +37,11 @@ module.exports = function(req, res) {
         },
         // Loading list of records for page
         function loadRecords(done) {
-            instance.model.find()
-                .paginate({page: page, limit: instance.config.list.limit || 15})
+            var query = instance.model.find();
+            fieldsHelper.getFieldsToPopulate(fields).forEach(function(val) {
+                query.populate(val);
+            });
+            query.paginate({page: page, limit: instance.config.list.limit || 15})
                 .exec(function(err, list) {
                     if (err) return done(err);
                     records = list;
@@ -55,7 +59,7 @@ module.exports = function(req, res) {
             instance: instance,
             total: total,
             list: records,
-            fields: fieldsHelper.getFields(req, instance, 'list')
+            fields: fields
         });
     });
 

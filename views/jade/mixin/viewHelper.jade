@@ -1,10 +1,18 @@
 mixin showValue(key, field, value)
-  if field.model.type == 'boolean'
-    if value
-      i.glyphicon.glyphicon-ok-sign
-    else
-      i.glyphicon.glyphicon-remove-sign
-  else if field.config.type == 'text'
-    p !{value}
-  else
-    | #{value}
+  case field.model.type
+    when 'boolean'
+      if value
+        i.glyphicon.glyphicon-ok-sign
+      else
+        i.glyphicon.glyphicon-remove-sign
+    when 'text'
+      p !{value}
+
+    when 'association'
+      if (typeof value === 'string')
+        | #{value}
+      else
+        | #{value[field.config.displayField]}
+
+    default
+      | #{value}
