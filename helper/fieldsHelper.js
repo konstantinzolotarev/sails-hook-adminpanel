@@ -1,6 +1,8 @@
 'use strict';
 
 var util = require('../lib/adminUtil');
+var async = require('async');
+var _ = require('lodash');
 
 module.exports = {
 
@@ -117,6 +119,15 @@ module.exports = {
             if (!config.title) {
                 config.title = key;
             }
+            //validate associations
+            if (config.type === 'association') {
+                if (!config.identifierField) {
+                    config.identifierField = 'id';
+                }
+                if (!config.displayField) {
+                    config.displayField = 'id';
+                }
+            }
             return config;
         }
         return false;
@@ -139,6 +150,49 @@ module.exports = {
      */
     getidentifierFieldName: function() {
         return util.config().identifierField;
+    },
+
+    /**
+     * Load list of records for all associations into `fields`
+     *
+     * @param {Object} fields
+     * @param {function=} [cb]
+     */
+    loadAssociations: function(fields, cb) {
+        cb = cb || function() {};
+
+        /**
+         * Load all associated records for given field key
+         *
+         * @param {string} key
+         * @param {function=} [cb]
+         */
+        var loadAssoc = function(key, cb) {
+            if (fields[key].config.type !== 'association') {
+                return cb();
+            }
+            sails.log.debug(key);
+            sails.log.debug(fields[key]);
+            fields[key].config.records = [];
+            var Model = util.getModel(fields[key].model.model);
+            if (!Model) {
+                return cb();
+            }
+            Model.find().exec(function(err, list) {
+                if (err) {
+                    return cb();
+                }
+                fields[key].config.records = list;
+                cb();
+            });
+        };
+
+        async.each(_.keys(fields), loadAssoc, function(err) {
+            if (err) {
+                return cb(err);
+            }
+            return cb(null, fields);
+        });
     },
 
     /**
@@ -181,10 +235,11 @@ module.exports = {
         var actionConfigFields = _.keys(actionConfig.fields);
         //Getting list of fields from model
         var modelAttributes = _.pick(instance.model.attributes, function(val, key) {
-            return ((_.isPlainObject(val) || _.isString(val)) && !val.collection && !val.model);
+            return ((_.isPlainObject(val) || _.isString(val)) && !val.collection);
         });
 
         var that = this;
+
         /**
          * Iteration function for every field
          *
@@ -201,6 +256,9 @@ module.exports = {
                 modelField = {
                     type: modelField
                 };
+            }
+            if (_.isObject(modelField) && modelField.model) {
+                modelField.type = 'association';
             }
             if (type === 'add' && key === req._sails.config.adminpanel.identifierField) {
                 return;
@@ -232,8 +290,6 @@ module.exports = {
             if (ignoreField) {
                 return;
             }
-            //nomalizing configs
-            fldConfig = that._normalizeFieldConfig(fldConfig, key)
             //check required
             fldConfig.required = Boolean(fldConfig.required || modelField.required);
             /**
@@ -241,6 +297,8 @@ module.exports = {
              * Could be fetched form config file or file model if not defined in config file.
              */
             fldConfig.type = fldConfig.type || modelField.type;
+            //nomalizing configs
+            fldConfig = that._normalizeFieldConfig(fldConfig, key)
             //Adding new field to resultset
             result[key] = {
                 config: fldConfig,

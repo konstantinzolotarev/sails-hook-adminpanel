@@ -11,6 +11,8 @@ mixin fieldWidget(key, field, value)
       else
         - var type = field.config.type || field.model.type
         case type
+          when 'association'
+            +inputModel(key, field, value)
           when 'string'
             +inputText(key, field, value)
           when 'password'
@@ -61,11 +63,22 @@ mixin inputCheckbox(key, field, value)
 mixin select(key, field, value)
   select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false).form-control
     each opt in field.model.enum
-      option(value=opt) #{opt}
+      option(value=opt, selected=(opt == value)) #{opt}
 
 mixin textarea(key, field, value)
   textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
 
+
+mixin inputModel(key, field, value)
+  select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false).form-control
+    if !field.config.required
+      option(value='') --- Select please ---
+    if field.config.records
+      each opt in field.config.records
+        option(value=opt[field.config.identifierField],
+                selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
+    else
+      option(value='') --- No records found ---
 
 mixin installEditors(fields)
   script(type='text/javascript')

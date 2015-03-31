@@ -31,6 +31,13 @@ module.exports = function(req, res) {
             var fields = fieldsHelper.getFields(req, instance, 'edit');
 
             async.series([
+                function loadAssociations(done) {
+                    fieldsHelper.loadAssociations(fields, function(err, result) {
+                        fields = result;
+                        done();
+                    });
+                },
+
                 function checkPost(done) {
                     if (req.method.toUpperCase() !== 'POST') {
                         return done();
