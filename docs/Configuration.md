@@ -187,6 +187,35 @@ Types included into admin panel:
 
 **If you will conbine `text` type with `editor` option for the field admin panel will create a WYSTYG editor for this field.**
 
+## Associations
+
+Now Adminpanel hook partially supports assotiations.
+
+Adminpanel determinates such fields by waterline configuration.
+Right now if you model field have such configuration:
+
+```javascript
+fieldName: {
+    model: 'SomeModel'
+}
+```
+
+Admin panel will create select list for `add/edit` actions and will populate record for `list/view` actions.
+
+Available configuration options:
++ `title` - Default title option
++ `identifierField` - **Optional** Identifyer field name that will be stored into field. Default: `id`
++ `displayField` - **Optional** Field name that will be used to show record name. *Will be displayed into select*
+
+Example:
+```javascript
+owner: {
+    title: 'Owner',
+    identifierField: 'id',
+    displayField: 'email' // Owner emails will be displayed into list and view/list screen
+}
+```
+
 ## Limitations
 
 + For now admin panel do not support waterline relations and fields with relations are ignored ! It's planned.
