@@ -18,15 +18,18 @@ module.exports = function(req, res) {
     if (!instance.model) {
         return res.notFound();
     }
-    instance.model.findOne(req.param('id'))
-        .exec(function(err, record) {
+    var fields = fieldsHelper.getFields(req, instance, 'view');
+
+    var query = instance.model.findOne(req.param('id'))
+    fieldsHelper.getFieldsToPopulate(fields).forEach(function(val) {
+        query.populate(val);
+    });
+    query.exec(function(err, record) {
             if (err) {
                 req._sails.log.error('Admin edit error: ');
                 req._sails.log.error(err);
                 return res.serverError();
             }
-            var fields = fieldsHelper.getFields(req, instance, 'view');
-
             res.view(views.getViewPath('view'), {
                 instance: instance,
                 record: record,
