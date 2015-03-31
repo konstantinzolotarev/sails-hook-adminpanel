@@ -205,7 +205,7 @@ Admin panel will create select list for `add/edit` actions and will populate rec
 Available configuration options:
 + `title` - Default title option
 + `identifierField` - **Optional** Identifyer field name that will be stored into field. Default: `id`
-+ `displayField` - **Optional** Field name that will be used to show record name. *Will be displayed into select*
++ `displayField` - **Optional** Field name that will be used to show record name. *Will be displayed into select list*. Default: `id`
 
 Example:
 ```javascript
