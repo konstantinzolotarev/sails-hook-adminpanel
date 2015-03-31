@@ -218,7 +218,7 @@ owner: {
 
 ## Limitations
 
-+ For now admin panel do not support waterline relations and fields with relations are ignored ! It's planned.
++ For now admin panel do not fully support waterline associations. So some fields might be ignored ! It's planned.
 + No file upload functionality. Due to the nature of `skipper` I removed file upload functionality. **Not tested with latest one**
 + No custom actions support. For now you couldn't add custom actions and pages into admin panel.
 + No template engine support except of `jade`. I primary working with this template engine and didn't create a another templates
