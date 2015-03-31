@@ -12,12 +12,19 @@ module.exports = function(req, res) {
     if (!instance.model) {
         return res.notFound();
     }
-    var fields = fieldsHelper.getFields(req, instance, 'add');
     if (!instance.config.add) {
         return res.redirect(instance.uri);
     }
+    var fields = fieldsHelper.getFields(req, instance, 'add');
     var data = {}; //list of field values
     async.series([
+        function loadAssociations(done) {
+            fieldsHelper.loadAssociations(fields, function(err, result) {
+                fields = result;
+                done();
+            });
+        },
+
         function checkPost(done) {
             if (req.method.toUpperCase() === 'POST') {
                 var reqData = request.processRequest(req, fields);
