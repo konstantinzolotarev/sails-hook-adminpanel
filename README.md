@@ -55,6 +55,9 @@ This is example of this file:
 
 And your admin panel will be accesible under: `http://yoururl.com/admin/users`
 
+## Documentation
+
+Take a look into `docs` folder. There are lot of docs about configuration and usage.
 
 #### What is this?
 
