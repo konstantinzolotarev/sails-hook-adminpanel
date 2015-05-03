@@ -171,8 +171,6 @@ module.exports = {
             if (fields[key].config.type !== 'association') {
                 return cb();
             }
-            sails.log.debug(key);
-            sails.log.debug(fields[key]);
             fields[key].config.records = [];
             var Model = util.getModel(fields[key].model.model);
             if (!Model) {
