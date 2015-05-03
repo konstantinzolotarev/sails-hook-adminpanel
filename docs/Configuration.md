@@ -178,6 +178,7 @@ Now Admin panel supports several field types and add proper editor for every typ
 
 Types included into admin panel:
 + `string` - textfield into add/edit actions
++ `string` with `enum` - selectbox
 + `password` - password field
 + `date` - input type date
 + `datetime` - input type datetime
@@ -186,6 +187,50 @@ Types included into admin panel:
 + `text` - textarea.
 
 **If you will conbine `text` type with `editor` option for the field admin panel will create a WYSTYG editor for this field.**
+
+## Select box
+
+Sails.js Hook adminpanel supports selectboxes.
+
+If you have `enum` field in your model it will be displayed into adminpanel as a select box.
+You can overwrite `enum` title using fields configurations:
+
+Example:
+
+Your model:
+```
+module.exports = {
+    attributes: {
+        gender: {
+            type: 'string',
+            enum: ['male', 'female'],
+            required: true
+        }
+    }
+};
+```
+
+You admin panel configuration:
+```
+module.exports.adminpanel = {
+    instances: {
+        users: {
+            title: 'Users', // Menu title for instance
+            model: 'User', // Model definition for instance
+
+            // this fields will be ignored into all actions
+            fields: {
+                'gender': {
+                    enum: {
+                        male: 'Male',
+                        female: 'Female'
+                    }
+                }
+            }
+        }
+    }
+}
+```
 
 ## Associations
 
