@@ -3,6 +3,7 @@ var util = require('../lib/adminUtil');
 var requestProcessor = require('../lib/requestProcessor');
 var views = require('../helper/viewsHelper');
 var fieldsHelper = require('../helper/fieldsHelper');
+var sortingHelper = require('../helper/sortingHelper');
 
 var async = require('async');
 
@@ -25,6 +26,10 @@ module.exports = function(req, res) {
     var total = 0;
     var records = [];
     var fields = fieldsHelper.getFields(req, instance, 'list');
+
+    //Processing sorting
+    sortingHelper.processRequest(req);
+
     async.parallel([
         //Fetch total records for page
         function getTotalRecords(done) {
@@ -38,6 +43,9 @@ module.exports = function(req, res) {
         // Loading list of records for page
         function loadRecords(done) {
             var query = instance.model.find();
+            if (req.sort) {
+                query.sort(req.sort.key + ' ' + req.sort.order);
+            }
             fieldsHelper.getFieldsToPopulate(fields).forEach(function(val) {
                 query.populate(val);
             });
@@ -56,6 +64,7 @@ module.exports = function(req, res) {
         }
         res.view(views.getViewPath('list'), {
             requestProcessor: requestProcessor,
+            sortingHelper: sortingHelper,
             instance: instance,
             total: total,
             list: records,
