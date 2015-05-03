@@ -1,7 +1,7 @@
 mixin listHead(fields)
   tr
     each field, key in fields
-      th #{field.config.title}
+      th.text-capitalize #{field.config.title}
     th #{__('Actions')}
 
 
@@ -41,4 +41,7 @@ mixin listValue(key, field, value)
         else
           i.glyphicon.glyphicon-remove-sign
     default
-      td #{value}
+      if field.config.enum
+        td #{field.config.enum[value]}
+      else
+        td #{value}
