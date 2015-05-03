@@ -1,7 +1,10 @@
 mixin listHead(fields)
   tr
     each field, key in fields
-      th.text-capitalize #{field.config.title}
+      th.text-capitalize
+        a(href=sortingHelper.generateLink(req, key)) #{field.config.title}&nbsp;
+        if req.sort && req.sort.key == key
+          i(class=(req.sort.order == 'desc' ? 'glyphicon-sort-by-alphabet-alt' : 'glyphicon-sort-by-alphabet')).glyphicon
     th #{__('Actions')}
 
 
