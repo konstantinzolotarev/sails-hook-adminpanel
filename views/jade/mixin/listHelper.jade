@@ -32,10 +32,12 @@ mixin listRow(obj, instance)
 mixin listValue(key, field, value)
   case field.model.type
     when 'association'
-      if (typeof value === 'string')
+      if (!value || typeof value === 'undefined')
+        td &nbsp;
+      else if (typeof value === 'string')
         td #{value}
       else
-        td #{value[field.config.displayField]}
+        td #{value && value[field.config.displayField] ? value[field.config.displayField] : '&nbsp;'}
 
     when 'boolean'
       td

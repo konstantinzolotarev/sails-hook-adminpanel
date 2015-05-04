@@ -8,9 +8,9 @@ html
     // Viewport mobile tag for sensible mobile support
     meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1")
     //Bootstrap injections
-    link(rel="stylesheet", href="/admin/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/admin/css/bootstrap-theme.min.css")
-    link(rel="stylesheet", href="/admin/css/animate.css")
+    link(rel="stylesheet", href="/admin/vendor/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/admin/vendor/bootstrap/dist/css/bootstrap-theme.min.css")
+    link(rel="stylesheet", href="/admin/vendor/animate.css/animate.min.css")
     // STYLES
     link(rel="stylesheet", href="/admin/styles/importer.css")
     // STYLES END
@@ -36,21 +36,7 @@ html
       div
         hr
         small Some footer info
-    // The linker searches for this tag and adds js.  If there's no linker, we point to sails.io.js
-    script(src="/admin/js/dependencies/sails.io.js")
-    script(src="/admin/js/dependencies/jquery-2.1.1.min.js")
-    script(src="/admin/ckeditor/ckeditor.js")
-    //script(src="/admin/js/dependencies/angular/angular.js")
-    //script(src="/admin/js/dependencies/angular/angular-animate.js")
-    //script(src="/admin/js/dependencies/angular/angular-aria.js")
-    //script(src="/admin/js/dependencies/angular/angular-messages.js")
-    //script(src="/admin/js/dependencies/angular/angular-resource.js")
-    //script(src="/admin/js/dependencies/angular/angular-route.js")
-    //script(src="/admin/js/dependencies/angular/angular-sanitize.js")
-    //script(src="/admin/js/dependencies/angular/angular-touch.js")
-    //script(src="/admin/js/dependencies/bootstrap/bootstrap.js")
-    //script(src="/admin/js/dependencies/tegnri-angular-admin/app.module.js")
-    //script(src="/admin/js/dependencies/tegnri-angular-admin/directives/widgets.directive.js")
-    //script(src="/admin/js/dependencies/tegnri-angular-admin/services/crud-controller.js")
-    //script(src="/admin/js/app/app.js")
+    script(src="/admin/vendor/jquery/dist/jquery.min.js")
+    script(src="/admin/vendor/bootstrap/dist/js/bootstrap.min.js")
+    script(src="/admin/vendor/ckeditor/ckeditor.js")
     block js
