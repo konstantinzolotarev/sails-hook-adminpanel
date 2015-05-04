@@ -17,6 +17,7 @@
   "dependencies": {
     "bootstrap": "~3.3.4",
     "animate.css": "~3.2.6",
-    "ckeditor": "~4.4.7"
+    "ckeditor": "~4.4.7",
+    "polymer": "Polymer/polymer#^0.5"
   }
 }
