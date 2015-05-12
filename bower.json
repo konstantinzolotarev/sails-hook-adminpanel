@@ -19,7 +19,8 @@
     "animate.css": "~3.2.6",
     "ckeditor": "~4.4.7",
     "polymer": "Polymer/polymer#^0.5",
-    "apply-author-styles": "eee-c/apply-author-styles"
+    "apply-author-styles": "eee-c/apply-author-styles",
+    "core-ajax": "Polymer/core-ajax#^0.5"
   },
   "resolutions": {
     "polymer": "^0.5",
