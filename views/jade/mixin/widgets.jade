@@ -74,6 +74,7 @@ mixin textarea(key, field, value)
 
 
 mixin inputModel(key, field, value)
+  //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
   select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false).form-control
     if !field.config.required
       option(value='') --- Select please ---
