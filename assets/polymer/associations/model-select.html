@@ -1,10 +1,50 @@
-<polymer-element>
+<link rel="import" href="/admin/vendor/apply-author-styles/apply-author-styles.html"/>
 
+<polymer-element name="model-select" attributes="name required disabled value model multiply">
     <template>
+        <style>
+            select {
+                min-width: 200px;
+            }
 
+            #search {
+                width: 200px;
+                display: inline;
+            }
+
+            select {
+                width: 200px;
+            }
+        </style>
+        <apply-author-styles></apply-author-styles>
+
+        <select name="{{name}}" required?="{{required}}" disabled?="{{disabled}}" class="form-control">
+            <option value="" selected?="{{value == option.value}}">--- Select please ---</option>
+        </select>
+
+        <button class="btn btn-default">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+        <input type="text" id="search" class="form-control"/>
+
+        <core-ajax
+            auto
+            url="/"
+            handleAs="json"
+            on-core-response="{{handleResponse}}"></core-ajax>
     </template>
 
     <script>
-        Polymer({});
+        Polymer({
+            applyAuthorStyles: true,
+            name: '',
+            value: '',
+            model: '',
+            multiply: false,
+            required: false,
+            disabled: false,
+
+            handleResponse: function() {}
+        });
     </script>
 </polymer-element>

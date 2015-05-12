@@ -2,6 +2,10 @@ extends ./layout
 
 include ./mixin/widgets
 
+block imports
+  link(rel="import", href='/admin/vendor/polymer/polymer.html')
+  link(rel="import", href='/admin/polymer/associations/model-select.html')
+
 block body
   .container-fluid
     .page-header

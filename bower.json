@@ -18,6 +18,12 @@
     "bootstrap": "~3.3.4",
     "animate.css": "~3.2.6",
     "ckeditor": "~4.4.7",
-    "polymer": "Polymer/polymer#^0.5"
+    "polymer": "Polymer/polymer#^0.5",
+    "apply-author-styles": "eee-c/apply-author-styles"
+  },
+  "resolutions": {
+    "polymer": "^0.5",
+    "core-component-page": "^0.5",
+    "core-ajax": "^0.5"
   }
 }
