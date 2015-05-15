@@ -7,7 +7,13 @@ mixin navbar
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a(href='/admin').navbar-brand #{locals.adminpanel.config.title || 'Dashboard'}
+        if locals.adminpanel.config.brand
+          - var brandTitle = typeof locals.adminpanel.config.brand === 'string' ? locals.adminpanel.config.brand : 'Dashboard'
+          - if (typeof locals.adminpanel.config.brand === 'object' && locals.adminpanel.config.brand.title) {
+          -  brandTitle = locals.adminpanel.config.brand.title;
+          - }
+          - var brandLink = (typeof locals.adminpanel.config.brand === 'object' && locals.adminpanel.config.brand.link || '/admin');
+          a(href=brandLink).navbar-brand #{brandTitle}
       .navbar-collapse
         ul.nav.navbar-nav
           each instance, key in locals.adminpanel.config.instances
