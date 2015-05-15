@@ -52,3 +52,50 @@ module.exports.adminpanel = {
     }
 };
 ```
+
+## Menu groups
+
+To group your menues you can use `groups` key in `menu` configuration.
+Key `groups` - is an array of `objects`. Every object represent one menu group. Is will be a droupdown menu item.
+
+```javascript
+module.exports.adminpanel = {
+    menu: {
+        // List of menu groups
+        groups: [
+            {
+                key: 'users',
+                title: 'Users'
+            },
+            {
+                key: 'content',
+                title: 'Content items'
+            }
+        ]
+    },
+
+    // ...
+
+    instances: {
+        users: {
+            menuGroup: 'users',
+            title: 'List of users',
+            model: 'User'
+        },
+
+        moderators: {
+            menuGroup: 'users',
+            title: 'List of Moderators',
+            model: 'Moderator'
+        },
+
+        article: {
+            menuGroup: 'content',
+            title: 'Articles',
+            model: 'Article'
+        }
+    }
+};
+```
+
+This configuratio will create a 2 dropdown menu items.
