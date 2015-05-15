@@ -6,7 +6,6 @@ Admin panel configuration consist of this options:
 
 | Option            | Description
 |-------------------|--------------------------
-| `title`           | Admin panel title. Will be displayed into header.
 | `routePrefix`     | Route prefix for admin panel. Default: `/admin`
 | `linkAssets`      | Will create a symlink to Admin panel assets. Anyway AP will try to load all assets from /admin/**** and you could copy them manually
 | `identifierField` | Default identifier field into models. This field will be used as identifier. Default: `id`
