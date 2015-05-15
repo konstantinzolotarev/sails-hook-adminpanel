@@ -60,11 +60,15 @@ module.exports = function menuHelper(config) {
             _.forEach(groups, function(group, idx) {
                 if (!group.key) return;
                 if (!groups[idx].menues) {
-                    groups[idx].menues = {};
+                    groups[idx].menues = [];
                 }
                 _.forEach(config.instances, function(val, key) {
                     if (val.menuGroup && val.menuGroup == group.key) {
-                        groups[idx].menues[key] = val;
+                        groups[idx].menues.push({
+                            link: config.routePrefix + '/' + key,
+                            title: val.title,
+                            icon: val.icon || null
+                        });
                     }
                 });
             });
@@ -77,9 +81,18 @@ module.exports = function menuHelper(config) {
          * @returns {Array}
          */
         getInstanceMenues: function() {
-            return _.filter(config.instances, function(val) {
-                return !val.menuGroup;
+            var menues = [];
+            _.forEach(config.instances, function(val, key) {
+                if (val.menuGroup) {
+                    return;
+                }
+                menues.push({
+                    link: config.routePrefix + '/' + key,
+                    title: val.title,
+                    icon: val.icon || null
+                });
             });
+            return menues;
         }
     };
 
