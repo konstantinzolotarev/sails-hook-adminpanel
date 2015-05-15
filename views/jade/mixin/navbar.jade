@@ -7,16 +7,18 @@ mixin navbar
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        if locals.adminpanel.config.brand
-          - var brandTitle = typeof locals.adminpanel.config.brand === 'string' ? locals.adminpanel.config.brand : 'Dashboard'
-          - if (typeof locals.adminpanel.config.brand === 'object' && locals.adminpanel.config.brand.title) {
-          -  brandTitle = locals.adminpanel.config.brand.title;
-          - }
-          - var brandLink = (typeof locals.adminpanel.config.brand === 'object' && locals.adminpanel.config.brand.link || '/admin');
-          a(href=brandLink).navbar-brand #{brandTitle}
+        if locals.adminpanel.menuHelper.hasBrand()
+          a(href=locals.adminpanel.menuHelper.getBrandLink()).navbar-brand #{locals.adminpanel.menuHelper.getBrandTitle()}
       .navbar-collapse
         ul.nav.navbar-nav
-          each instance, key in locals.adminpanel.config.instances
+          each group in locals.adminpanel.menuHelper.getGroups()
+            li.dropdown
+              a(href="#", data-toggle="dropdown", role="button", aria-expanded="false").dropdown-toggle #{group.title || 'Dropdown'}
+                span.caret
+              ul(role='menu').dropdown-menu
+                each instance, key in group.menues
+                  li: a(href='#{locals.adminpanel.config.routePrefix}/#{key}') #{instance.title}
+          each instance, key in locals.adminpanel.menuHelper.getInstanceMenues()
             li: a(href='#{locals.adminpanel.config.routePrefix}/#{key}') #{instance.title}
 
 
