@@ -30,7 +30,7 @@ module.exports = function(req, res) {
                 req._sails.log.error(err);
                 return res.serverError();
             }
-            res.view(views.getViewPath('view'), {
+            res.viewAdmin({
                 instance: instance,
                 record: record,
                 fields: fields
