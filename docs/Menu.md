@@ -99,3 +99,37 @@ module.exports.adminpanel = {
 ```
 
 This configuratio will create a 2 dropdown menu items.
+
+## Menu icons
+Right now icons for menu are available.
+
+For now only [Glyphicons](http://getbootstrap.com/components/#glyphicons) icons are supported.
+
+You can set icon to menu item/group using `icon` key in config file.
+But you should use icon class without `glyphicon-` prefix. **It will be added automatically !**
+
+```javascript
+module.exports.adminpanel = {
+    menu: {
+        groups: [
+            {
+                key: 'content',
+                title: 'Content',
+                icon: 'inbox' // glyphicon-ibox will be set to menu item.
+            }
+        ]
+    }
+};
+```
+
+```javascript
+module.exports.adminpanel = {
+    instances: {
+        user: {
+            model: 'User',
+            title: 'Users',
+            icon: 'user' // glyphicon-user icon will be added to menu
+        }
+    }
+};
+```
