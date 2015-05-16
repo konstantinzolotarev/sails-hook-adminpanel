@@ -43,7 +43,7 @@ module.exports = function(req, res) {
             }
         }
     ], function(err) {
-        res.view(views.getViewPath('add'), {
+        return res.viewAdmin({
             instance: instance,
             fields: fields,
             data: data
