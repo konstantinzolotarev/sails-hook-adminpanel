@@ -59,9 +59,8 @@ module.exports = function menuHelper(config) {
             var groups = config.menu.groups || [];
             _.forEach(groups, function(group, idx) {
                 if (!group.key) return;
-                if (!groups[idx].menues) {
-                    groups[idx].menues = [];
-                }
+                // Clear menues to avoid data duplication
+                groups[idx].menues = [];
                 _.forEach(config.instances, function(val, key) {
                     if (val.menuGroup && val.menuGroup == group.key) {
                         groups[idx].menues.push({
