@@ -27,7 +27,7 @@ mixin navbar
               ul(role='menu').dropdown-menu
                 each menuItem in group.menues
                   +menuItem(menuItem)
-          each menuItem in locals.adminpanel.menuHelper.getInstanceMenues()
+          each menuItem in locals.adminpanel.menuHelper.getMenuItems()
             +menuItem(menuItem)
 
 

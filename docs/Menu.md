@@ -133,3 +133,35 @@ module.exports.adminpanel = {
     }
 };
 ```
+
+## Custom menues
+
+You can add a new custom menues for your custom pages or whatever else...
+
+To add custom menu to your header menues you have to use `actions` (**Array**) key into `menu` configuration.
+
+```javascript
+module.exports.adminpanel = {
+    menu: {
+        groups: [
+            {
+                key: 'customers',
+                title: 'Customer actions'
+            }
+        ],
+        actions: [
+            {
+                link: '/', // Menu link
+                title: 'Home', // Title
+                icon: 'home' // Icon
+            },
+            {
+                link: '/some/action',
+                title: 'Some new action',
+                menuGroup: 'customers' // add to customer menu dropdown
+            }
+        ]
+    }
+};
+```
+
