@@ -70,6 +70,18 @@ module.exports = function menuHelper(config) {
                         });
                     }
                 });
+                if (config.menu.actions && config.menu.actions.length > 0) {
+                    _.forEach(config.menu.actions, function(menu) {
+                        if (!menu.link || !menu.title || !menu.menuGroup || menu.menuGroup != group.key) {
+                            return;
+                        }
+                        groups[idx].menues.push({
+                            link: menu.link,
+                            title: menu.title,
+                            icon: menu.icon || null
+                        });
+                    });
+                }
             });
             return groups;
         },
@@ -79,7 +91,7 @@ module.exports = function menuHelper(config) {
          *
          * @returns {Array}
          */
-        getInstanceMenues: function() {
+        getMenuItems: function() {
             var menues = [];
             _.forEach(config.instances, function(val, key) {
                 if (val.menuGroup) {
@@ -91,6 +103,18 @@ module.exports = function menuHelper(config) {
                     icon: val.icon || null
                 });
             });
+            if (config.menu.actions && config.menu.actions.length > 0) {
+                _.forEach(config.menu.actions, function(menu) {
+                    if (!menu.link || !menu.title || menu.menuGroup) {
+                        return;
+                    }
+                    menues.push({
+                        link: menu.link,
+                        title: menu.title,
+                        icon: menu.icon || null
+                    });
+                });
+            }
             return menues;
         }
     };
