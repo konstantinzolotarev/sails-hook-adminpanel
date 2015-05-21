@@ -1,6 +1,7 @@
 extends ./layout
 
 include ./mixin/widgets
+include ./mixin/actions
 
 block imports
   link(rel="import", href='/admin/vendor/polymer/polymer.html')
@@ -10,6 +11,7 @@ block body
   .container-fluid
     .page-header
       h3 Edit record
+        +globalActions('edit', instance, record)
         a(href='#{instance.uri}').btn.btn-info.pull-right
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list

@@ -1,0 +1,11 @@
+mixin globalActions(action, instance, record)
+  - record = record || {};
+  if locals.adminpanel.menuHelper.hasGlobalActions(instance.config, action)
+    - var actions = locals.adminpanel.menuHelper.getGlobalActions(instance.config, action)
+    if (actions && actions.length > 0)
+      each action in actions
+        a(href=locals.adminpanel.menuHelper.replaceModelFields(action.link, record)).btn.btn-success.pull-right.global-action
+          if action.icon
+            i(class='glyphicon-#{action.icon}').glyphicon
+          | &nbsp;#{action.title}
+
