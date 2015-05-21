@@ -1,10 +1,13 @@
 extends ./layout
+
 include ./mixin/widgets
+include ./mixin/actions
 
 block body
   .container-fluid
     .page-header
       h3 Add new record
+        +globalActions('add', instance)
         a(href='#{instance.uri}').btn.btn-info.pull-right
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list
