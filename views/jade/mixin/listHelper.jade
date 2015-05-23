@@ -14,6 +14,8 @@ mixin listRow(obj, instance)
       +listValue(key, field, obj[key])
       // adding actions
     td
+      +inlineListActions(instance, obj)
+        
       if instance.config.view
         | &nbsp;
         a(href='#{instance.uri}/view/#{obj.id}').btn.btn-info

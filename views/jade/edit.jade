@@ -25,6 +25,7 @@ block body
         button.btn.btn-success
           i.glyphicon.glyphicon-ok
           | &nbsp;Save
+        +inlineActions(instance, record, 'edit')
 
 block js
   +installEditors(fields)
