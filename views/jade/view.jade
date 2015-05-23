@@ -26,4 +26,5 @@ block body
           strong #{key}
         .col-sm-8
           +showValue(key, field, record[key])
-
+    hr
+    +inlineActions(instance, record, 'view')
