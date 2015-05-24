@@ -55,7 +55,7 @@ module.exports = function(req, res) {
                     });
                 }
             ], function(err) {
-                res.view(views.getViewPath('edit'), {
+                res.viewAdmin({
                     instance: instance,
                     record: record,
                     fields: fields

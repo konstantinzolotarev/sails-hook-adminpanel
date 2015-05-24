@@ -2,11 +2,13 @@ extends ./layout
 
 include ./mixin/listHelper
 include ./mixin/pagination
+include ./mixin/actions
 
 block body
   .container-fluid
     .page-header
       h3 List of #{instance.name}
+        +globalActions('list', instance)
         if instance.config.add
           a(href='#{instance.uri}/add').btn.btn-success.pull-right
             i.glyphicon.glyphicon-plus

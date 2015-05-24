@@ -1,11 +1,14 @@
 extends ./layout
+
 include ./mixin/widgets
 include ./mixin/viewHelper
+include ./mixin/actions
 
 block body
   .container-fluid
     .page-header
       h3 View record
+        +globalActions('view', instance, record)
         a(href='#{instance.uri}', style='margin: 0 5px;').btn.btn-info.pull-right
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list
@@ -23,4 +26,5 @@ block body
           strong #{key}
         .col-sm-8
           +showValue(key, field, record[key])
-
+    hr
+    +inlineActions(instance, record, 'view')
