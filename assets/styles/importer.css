@@ -43,3 +43,7 @@ body {
 table.table.list thead tr th a {
   color: #000;
 }
+
+.global-action {
+    margin: 0 10px;
+}

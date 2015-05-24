@@ -51,6 +51,100 @@ module.exports = function menuHelper(config) {
         },
 
         /**
+         * Check if global actions buttons added to action
+         *
+         * @param {Object} instanceConfig
+         * @param {string=} [action] Defaults to `list`
+         * @returns {boolean}
+         */
+        hasGlobalActions: function(instanceConfig, action) {
+            action = action || 'list';
+            if (!instanceConfig[action] || !instanceConfig[action].actions || !instanceConfig[action].actions.global) {
+                return false;
+            }
+            var actions = instanceConfig[action].actions.global;
+            if (actions.length > 0) {
+                return true;
+            }
+            return false;
+        },
+
+        /**
+         * Check if inline actions buttons added to action
+         *
+         * @param {Object} instanceConfig
+         * @param {string=} [action] Defaults to `list`
+         * @returns {boolean}
+         */
+        hasInlineActions: function(instanceConfig, action) {
+            action = action || 'list';
+            if (!instanceConfig[action] || !instanceConfig[action].actions || !instanceConfig[action].actions.inline) {
+                return false;
+            }
+            var actions = instanceConfig[action].actions.inline;
+            if (actions.length > 0) {
+                return true;
+            }
+            return false;
+        },
+
+        /**
+         * Get list of custom global buttons for action
+         *
+         * @param {Object} instanceConfig
+         * @param {string=} [action]
+         * @returns {Array}
+         */
+        getGlobalActions: function(instanceConfig, action) {
+            action = action || 'list';
+            if (!this.hasGlobalActions(instanceConfig, action)) {
+                return [];
+            }
+            return instanceConfig[action].actions.global;
+        },
+
+        /**
+         * Get list of custom inline buttons for action
+         *
+         * @param {Object} instanceConfig
+         * @param {string=} [action]
+         * @returns {Array}
+         */
+        getInlineActions: function(instanceConfig, action) {
+            action = action || 'list';
+            if (!this.hasInlineActions(instanceConfig, action)) {
+                return [];
+            }
+            return instanceConfig[action].actions.inline;
+        },
+
+        /**
+         * Replace fields in given URL and binds to model fields.
+         *
+         * URL can contain different properties from given model in such notation `:propertyName`.
+         * If model wouldn't have such property it will be left as `:varName`
+         *
+         * @param {string} url URL with list of variables to replace '/admin/test/:id/:title/'
+         * @param {Object} model
+         * @returns {string}
+         */
+        replaceModelFields: function(url, model) {
+            // Check for model existance
+            if (!model) {
+                return url;
+            }
+            var words = _.words(url, /\:+[a-z\-_]*/gi);
+            // Replacing props
+            _.forEach(words, function(word) {
+                var variable = word.replace(':', '');
+                if (model && model[variable]) {
+                    url = url.replace(word, model[variable]);
+                }
+            });
+            return url;
+        },
+
+        /**
          * Will create a list of groups to show
          *
          * @returns {Array}
@@ -70,6 +164,18 @@ module.exports = function menuHelper(config) {
                         });
                     }
                 });
+                if (config.menu.actions && config.menu.actions.length > 0) {
+                    _.forEach(config.menu.actions, function(menu) {
+                        if (!menu.link || !menu.title || !menu.menuGroup || menu.menuGroup != group.key) {
+                            return;
+                        }
+                        groups[idx].menues.push({
+                            link: menu.link,
+                            title: menu.title,
+                            icon: menu.icon || null
+                        });
+                    });
+                }
             });
             return groups;
         },
@@ -79,7 +185,7 @@ module.exports = function menuHelper(config) {
          *
          * @returns {Array}
          */
-        getInstanceMenues: function() {
+        getMenuItems: function() {
             var menues = [];
             _.forEach(config.instances, function(val, key) {
                 if (val.menuGroup) {
@@ -91,6 +197,18 @@ module.exports = function menuHelper(config) {
                     icon: val.icon || null
                 });
             });
+            if (config.menu.actions && config.menu.actions.length > 0) {
+                _.forEach(config.menu.actions, function(menu) {
+                    if (!menu.link || !menu.title || menu.menuGroup) {
+                        return;
+                    }
+                    menues.push({
+                        link: menu.link,
+                        title: menu.title,
+                        icon: menu.icon || null
+                    });
+                });
+            }
             return menues;
         }
     };

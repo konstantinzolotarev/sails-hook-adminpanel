@@ -62,7 +62,7 @@ module.exports = function(req, res) {
             req._sails.log.error(err);
             return res.serverError(err);
         }
-        res.view(views.getViewPath('list'), {
+        res.viewAdmin({
             requestProcessor: requestProcessor,
             sortingHelper: sortingHelper,
             instance: instance,
