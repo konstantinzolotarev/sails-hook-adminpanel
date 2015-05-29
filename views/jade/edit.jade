@@ -8,6 +8,7 @@ block imports
   link(rel="import", href='/admin/polymer/associations/model-select.html')
 
 block body
+  - var idField = locals.sails.config.adminpanel.identifierField || 'id';
   .container-fluid
     .page-header
       h3 Edit record
@@ -16,7 +17,7 @@ block body
           i.glyphicon.glyphicon-th-list
           | &nbsp;Back to list
 
-    form(role='form', action='#{instance.uri}/edit/#{record.id}', method='POST', enctype="multipart/form-data").form-horizontal
+    form(role='form', action='#{instance.uri}/edit/#{record[idField]}', method='POST', enctype="multipart/form-data").form-horizontal
       each field, key in fields
         +fieldWidget(key, field, record[key])
       div
