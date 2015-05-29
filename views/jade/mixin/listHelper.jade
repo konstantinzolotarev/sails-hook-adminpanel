@@ -9,6 +9,7 @@ mixin listHead(fields)
 
 
 mixin listRow(obj, instance)
+  - var idField = locals.sails.config.adminpanel.identifierField || 'id';
   tr
     each field, key in fields
       +listValue(key, field, obj[key])
@@ -18,17 +19,17 @@ mixin listRow(obj, instance)
         
       if instance.config.view
         | &nbsp;
-        a(href='#{instance.uri}/view/#{obj.id}').btn.btn-info
+        a(href='#{instance.uri}/view/#{obj[idField]}').btn.btn-info
           i.glyphicon.glyphicon-eye-open
 
       if instance.config.edit
         | &nbsp;
-        a(href='#{instance.uri}/edit/#{obj.id}').btn.btn-info
+        a(href='#{instance.uri}/edit/#{obj[idField]}').btn.btn-info
           i.glyphicon.glyphicon-pencil
           //| &nbsp;#{__('Edit')}
       if instance.config.remove
         | &nbsp;
-        a(href='#{instance.uri}/remove/#{obj.id}', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
+        a(href='#{instance.uri}/remove/#{obj[idField]}', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
           i.glyphicon.glyphicon-trash
 
 mixin listValue(key, field, value)
