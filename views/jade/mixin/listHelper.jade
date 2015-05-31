@@ -9,14 +9,14 @@ mixin listHead(fields)
 
 
 mixin listRow(obj, instance)
-  - var idField = locals.sails.config.adminpanel.identifierField || 'id';
+  - var idField = locals.adminpanel.configHelper.getIdentifierField(instance.config.model);
   tr
     each field, key in fields
       +listValue(key, field, obj[key])
       // adding actions
     td
       +inlineListActions(instance, obj)
-        
+
       if instance.config.view
         | &nbsp;
         a(href='#{instance.uri}/view/#{obj[idField]}').btn.btn-info
