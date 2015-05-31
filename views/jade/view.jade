@@ -5,7 +5,7 @@ include ./mixin/viewHelper
 include ./mixin/actions
 
 block body
-  - var idField = locals.sails.config.adminpanel.identifierField || 'id';
+  - var idField = locals.adminpanel.configHelper.getIdentifierField(instance.config.model);
   .container-fluid
     .page-header
       h3 View record

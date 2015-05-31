@@ -1,11 +1,11 @@
-mixin fieldWidget(key, field, value)
+mixin fieldWidget(key, field, value, instance)
   if (typeof value === 'undefined' && typeof field.model.defaultsTo !== 'undefined')
     - value = field.model.defaultsTo
 
   .form-group
     label(for='form-#{key}').col-md-4.control-label #{field.config.title}
     .col-md-8
-      if locals.adminpanel.fieldsHelper.isId(field)
+      if locals.adminpanel.configHelper.isId(field, instance.config.model)
         - field.config.disabled = true; //Disable identifier field
         +inputText(key, field, value)
       else

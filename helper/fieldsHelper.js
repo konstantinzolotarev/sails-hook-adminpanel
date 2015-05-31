@@ -134,25 +134,6 @@ module.exports = {
     },
 
     /**
-     * Checks if given field is identifier of model
-     *
-     * @param {Object} field
-     * @returns {boolean}
-     */
-    isId: function(field) {
-        return (field.config.key == util.config().identifierField);
-    },
-
-    /**
-     * Get Identifier field name from config
-     *
-     * @returns {string}
-     */
-    getidentifierFieldName: function() {
-        return util.config().identifierField;
-    },
-
-    /**
      * Load list of records for all associations into `fields`
      *
      * @param {Object} fields
