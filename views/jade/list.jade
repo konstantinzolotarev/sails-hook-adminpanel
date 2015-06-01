@@ -26,7 +26,7 @@ block body
         if total > 0
           div: mark Total: #{total}
         hr
-        +pagination(instancePath, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
+        +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
 
         if list.length == 0
           .alert.alert-info
