@@ -25,11 +25,11 @@ html
 
     block alerts
       .container
-        if (req.session.flash && req.session.flash.adminError)
+        if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
           .alert.alert-danger
             each msg in req.flash('adminError')
               div #{msg}
-        if (req.session.flash && req.session.flash.adminSuccess)
+        if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
           .alert.alert-success
             each msg in req.flash('adminSuccess')
               div #{msg}

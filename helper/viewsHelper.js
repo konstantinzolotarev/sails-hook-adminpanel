@@ -28,5 +28,14 @@ module.exports = {
      */
     getViewPath: function getViewPath(view) {
         return path.join(sails.config.adminpanel.pathToViews, view);
+    },
+
+    /**
+     *
+     * @param {IncommingMessage} req
+     * @param {string} type Types: adminError|adminSuccess
+     */
+    hasFlash: function(req, type) {
+        return (req.session.flash && req.session.flash[type]);
     }
 };

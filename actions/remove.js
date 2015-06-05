@@ -5,13 +5,11 @@ var util = require('../lib/adminUtil');
 module.exports = function(req, res) {
     //Checking id of the record
     if (!req.param('id')) {
-        //@todo add json response
         req._sails.log.error(new Error('Admin panel: No id for record provided'));
         return res.notFound();
     }
     var instance = util.findInstanceObject(req);
     if (!instance.model) {
-        //@todo add json response
         req._sails.log.error(new Error('Admin panel: no model found'));
         return res.notFound();
     }
@@ -31,8 +29,7 @@ module.exports = function(req, res) {
                         message: err.message
                     });
                 }
-                req._sails.log.error(err);
-                return res.serverError();
+                return res.serverError(err);
             }
             if (!record) {
                 var msg = 'Admin panel: No record found with id: ' + req.param('id');
