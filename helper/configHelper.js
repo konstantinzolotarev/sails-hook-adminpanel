@@ -52,6 +52,15 @@ module.exports = function(sails) {
                 }
             }));
             return identifier || config.identifierField;
+        },
+
+        /**
+         * Checks if CSRF protection enabled in website
+         *
+         * @returns {boolean}
+         */
+        isCsrfEnabled: function() {
+            return (sails.config.csrf !== false);
         }
     };
 

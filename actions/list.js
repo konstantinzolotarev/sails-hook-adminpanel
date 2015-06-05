@@ -1,4 +1,6 @@
 'use strict';
+
+var _ = require('lodash');
 var util = require('../lib/adminUtil');
 var requestProcessor = require('../lib/requestProcessor');
 var views = require('../helper/viewsHelper');
