@@ -1,0 +1,41 @@
+<link rel="import" href="/admin/bower_components/polymer/polymer.html"/>
+<link rel="import" href="/admin/bower_components/iron-icon/iron-icon.html"/>
+<link rel="import" href="/admin/bower_components/iron-collapse/iron-collapse.html"/>
+<link rel="import" href="/admin/bower_components/paper-item/paper-item.html"/>
+
+<dom-module id="menu-collapse">
+    <style>
+        paper-item {
+            background-color: #f3f3f3;
+        }
+    </style>
+
+    <template>
+        <paper-item on-click="toggle">
+            <iron-icon icon="{{icon}}" item-icon></iron-icon>
+            <content select="header, .header"></content>
+        </paper-item>
+        <iron-collapse id="collapse">
+            <div>
+                <content select=":not(header):not(.header)"></content>
+            </div>
+        </iron-collapse>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'menu-collapse',
+
+            properties: {
+                icon: {
+                    type: String,
+                    value: 'expand-more'
+                }
+            },
+            toggle: function() {
+                this.$.collapse.toggle();
+                this.icon = this.$.collapse.opened && 'expand-less' || 'expand-more';
+            }
+        });
+    </script>
+</dom-module>

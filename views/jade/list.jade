@@ -5,8 +5,7 @@ include ./mixin/pagination
 include ./mixin/actions
 
 block body
-  .container-fluid
-    .page-header
+  div.horizontal.layout
       h3 List of #{instance.name}
         +globalActions('list', instance)
         if instance.config.add

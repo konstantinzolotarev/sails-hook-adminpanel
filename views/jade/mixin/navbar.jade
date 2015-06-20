@@ -1,51 +1,24 @@
 mixin menuItem(menuItem)
-  li: a(href=menuItem.link)
+  paper-item(role='menuitem')
+    paper-item-body
+    a(href=menuItem.link) &nbsp;#{menuItem.title}
     if menuItem.icon
-      i(class='glyphicon-#{menuItem.icon}').glyphicon
-    | &nbsp;#{menuItem.title}
+      iron-icon(icon=menuItem.icon)
 
 mixin navbar
-  div(role='navigation').navbar.navbar-default.navbar-fixed-top
-    .container
-      .navbar-header
-        button(type='button', data-toggle='collapse', data-target='navbar-collapse').navbar-toggle.collapsed
-          span.sr-only #{__('Toggle navigation')}
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        if locals.adminpanel.menuHelper.hasBrand()
-          a(href=locals.adminpanel.menuHelper.getBrandLink()).navbar-brand #{locals.adminpanel.menuHelper.getBrandTitle()}
-      .navbar-collapse
-        ul.nav.navbar-nav
-          each group in locals.adminpanel.menuHelper.getGroups()
-            li.dropdown
-              a(href="#", data-toggle="dropdown", role="button", aria-expanded="false").dropdown-toggle
-                if group.icon
-                  i(class='glyphicon-#{group.icon}').glyphicon
-                | &nbsp;#{group.title || 'Dropdown'}
-                span.caret
-              ul(role='menu').dropdown-menu
-                each menuItem in group.menues
-                  +menuItem(menuItem)
-          each menuItem in locals.adminpanel.menuHelper.getMenuItems()
+  paper-toolbar
+    //paper-icon-button(icon='menu', on-tap="menuAction")
+    if locals.adminpanel.menuHelper.hasBrand()
+      div
+        a(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
+
+  paper-menu
+    each group in locals.adminpanel.menuHelper.getGroups()
+      menu-collapse
+        //i(class='glyphicon-#{group.icon}').glyphicon
+        div.header #{group.title || 'Dropdown'}
+        div
+          each menuItem in group.menues
             +menuItem(menuItem)
-
-
-
-        //ul.nav.navbar-nav.navbar-right
-        //
-        //  li: a(href='/auth/logout')
-        //    i.glyphicon.glyphicon-off
-        //    | &nbsp;#{__('Log out')}
-        //
-        //  li.dropdown
-        //    a(href='#', data-toggle='dropdown').dropdown-toggle
-        //      i.glyphicon.glyphicon-question-sign
-        //      | &nbsp;
-        //      span.caret
-        //
-        //    ul(role='menu').dropdown-menu
-        //      li: a(href='#') Some help
-        //      li: a(href='#') Some help 2
-        //      li.divider
-        //      li: a(href='#') Some else
+    each menuItem in locals.adminpanel.menuHelper.getMenuItems()
+      +menuItem(menuItem)
