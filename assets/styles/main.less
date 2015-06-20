@@ -2,52 +2,24 @@
 
 @charset "UTF-8";
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
-.ng-cloak, .x-ng-cloak,
-.ng-hide:not(.ng-animate) {
-  display: none !important;
+#mainLayout {
+    padding: 10px;
 }
+paper-button {
 
-ng\:form {
-  display: block;
-}
+    color: white;
 
-@borderColor: #efefef;
-
-.box-shadow(@style, @c) when (iscolor(@c)) {
-  -webkit-box-shadow: @style @c;
-  -moz-box-shadow:    @style @c;
-  box-shadow:         @style @c;
-}
-
-body {
-  padding-top: 70px;
-}
-
-.card {
-
-  border: 1px solid @borderColor;
-  border-radius: 5px;
-  padding: 7px 12px;
-
-  &.card-shadow {
-    .box-shadow(0px 0px 5px -3px, rgba(50, 50, 50, 0.75));
-  }
-}
-
-
-table.table.list {
-    thead {
-        tr {
-            th {
-                a {
-                    color: #000;
-                }
-            }
-        }
+    a {
+        text-decoration: none;
     }
-}
 
-.global-action {
-    margin: 0 10px;
+    .button-green {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .button-blue {
+        background: #4285f4;
+        color: white;
+    }
 }

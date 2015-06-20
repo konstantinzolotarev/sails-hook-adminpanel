@@ -7,27 +7,29 @@ include ./mixin/actions
 block body
   div.horizontal.layout
       h3 List of #{instance.name}
+      div.flex
+      div
         +globalActions('list', instance)
         if instance.config.add
-          a(href='#{instance.uri}/add').btn.btn-success.pull-right
-            i.glyphicon.glyphicon-plus
-            | &nbsp;Create new record
-    .row
-      // add filters here
-      .col-md-12
-        table.table.list
-          thead
-            +listHead(fields)
-          tbody
-            each obj in list
-              +listRow(obj, instance)
+          a(href='#{instance.uri}/add')
+            paper-button(raised='').button-green
+              iron-icon(icon='check')
+              | &nbsp;Create new record
 
-        if total > 0
-          div: mark Total: #{total}
-        hr
-        +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
+  div.layout
+    table.flex
+      thead
+        +listHead(fields)
+      tbody
+        each obj in list
+          +listRow(obj, instance)
 
-        if list.length == 0
-          .alert.alert-info
-            i.glyphicon.glyphicon-warning-sign
-            | &nbsp;#{__('No records found !')}
+    if total > 0
+      div: mark Total: #{total}
+    hr
+    +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
+
+    if list.length == 0
+      .alert.alert-info
+        i.glyphicon.glyphicon-warning-sign
+        | &nbsp;#{__('No records found !')}
