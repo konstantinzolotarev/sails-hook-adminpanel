@@ -18,13 +18,10 @@
     "bootstrap": "~3.3.4",
     "animate.css": "~3.2.6",
     "ckeditor": "~4.4.7",
-    "polymer": "Polymer/polymer#^0.5",
-    "apply-author-styles": "eee-c/apply-author-styles",
-    "core-ajax": "Polymer/core-ajax#^0.5"
-  },
-  "resolutions": {
-    "polymer": "^0.5",
-    "core-component-page": "^0.5",
-    "core-ajax": "^0.5"
+    "iron-elements": "PolymerElements/iron-elements#1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#1.0.1",
+    "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
+    "neon-elements": "PolymerElements/neon-elements#1.0.0",
+    "polymer": "Polymer/polymer#^1.0.0"
   }
 }

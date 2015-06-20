@@ -9,38 +9,45 @@ html
     meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1")
     // Polymer inject
     script(src="/admin/vendor/webcomponentsjs/webcomponents.min.js")
-    //Bootstrap injections
-    link(rel="stylesheet", href="/admin/vendor/bootstrap/dist/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/admin/vendor/bootstrap/dist/css/bootstrap-theme.min.css")
-    link(rel="stylesheet", href="/admin/vendor/animate.css/animate.min.css")
+
+    link(rel="import", href="/admin/polymer/elements.html")
     // STYLES
     link(rel="stylesheet", href="/admin/styles/importer.css")
     // STYLES END
     block styles
 
     block imports
-  body(data-ng-app='Admin')
-    block menu
-      +navbar()
+  body.fullbleed.layout.vertical
 
-    block alerts
-      .container
-        if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
-          .alert.alert-danger
-            each msg in req.flash('adminError')
-              div #{msg}
-        if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
-          .alert.alert-success
-            each msg in req.flash('adminSuccess')
-              div #{msg}
+    paper-drawer-panel
+      paper-header-panel(drawer='')
+        block menu
+          +navbar()
+      paper-header-panel(main='')
+        paper-toolbar
+          paper-icon-button(icon='menu', paper-drawer-toggle='')
+          span.flex #{locals.adminpanel.menuHelper.getBrandTitle()}
+            if locals.adminpanel.menuHelper.hasBrand()
+              a(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
+        div.layout.fill.vertical
 
-    block body
-      | Layout
-    block footer
-      div
-        hr
-        small Some footer info
+          //block alerts
+          //  if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
+          //    .alert.alert-danger
+          //      each msg in req.flash('adminError')
+          //        div #{msg}
+          //  if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
+          //    .alert.alert-success
+          //      each msg in req.flash('adminSuccess')
+          //        div #{msg}
+          div
+            block body
+              | Layout
+    //block footer
+    //  div
+    //    hr
+    //    small Some footer info
+
     script(src="/admin/vendor/jquery/dist/jquery.min.js")
-    script(src="/admin/vendor/bootstrap/dist/js/bootstrap.min.js")
     script(src="/admin/vendor/ckeditor/ckeditor.js")
     block js
