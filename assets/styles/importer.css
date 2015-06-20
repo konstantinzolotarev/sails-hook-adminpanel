@@ -15,35 +15,25 @@
  */
 /* Include this file in your html if you are using the CSP mode. */
 @charset "UTF-8";
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak,
-.ng-hide:not(.ng-animate) {
-  display: none !important;
-}
-ng\:form {
-  display: block;
-}
-body {
-  padding-top: 70px;
-}
-.card {
-  border: 1px solid #efefef;
-  border-radius: 5px;
-  padding: 7px 12px;
-}
-.card.card-shadow {
-  -webkit-box-shadow: 0px 0px 5px -3px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow: 0px 0px 5px -3px rgba(50, 50, 50, 0.75);
-  box-shadow: 0px 0px 5px -3px rgba(50, 50, 50, 0.75);
-}
-table.table.list thead tr th a {
-  color: #000;
+
+#mainLayout {
+    padding: 10px;
 }
 
-.global-action {
-    margin: 0 10px;
+paper-button {
+    color: black;
+}
+
+paper-button a {
+    text-decoration: none;
+}
+
+paper-button.button-green {
+    background: #4CAF50;
+    color: white;
+}
+
+paper-button.button-blue {
+    background: #4285f4;
+    color: white;
 }
