@@ -10,11 +10,7 @@ block body
       div.flex
       div
         +globalActions('list', instance)
-        if instance.config.add
-          a(href='#{instance.uri}/add')
-            paper-button(raised='').button-green
-              iron-icon(icon='check')
-              | &nbsp;Create new record
+
 
   div.layout
     table.flex
@@ -33,3 +29,9 @@ block body
       .alert.alert-info
         i.glyphicon.glyphicon-warning-sign
         | &nbsp;#{__('No records found !')}
+
+    if instance.config.add
+      a(href='#{instance.uri}/add')
+        paper-fab(raised='').button-green
+          iron-icon(icon='plus')
+          | &nbsp;Create new record
