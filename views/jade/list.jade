@@ -13,16 +13,16 @@ block body
 
 
   div.layout
-    table.flex
-      thead
-        +listHead(fields)
-      tbody
-        each obj in list
-          +listRow(obj, instance)
+    material-data-table
+      table.flex
+        thead
+          +listHead(fields)
+        tbody
+          each obj in list
+            +listRow(obj, instance)
 
     if total > 0
       div: mark Total: #{total}
-    hr
     +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
 
     if list.length == 0
@@ -31,7 +31,5 @@ block body
         | &nbsp;#{__('No records found !')}
 
     if instance.config.add
-      a(href='#{instance.uri}/add')
-        paper-fab(raised='').button-green
-          iron-icon(icon='plus')
-          | &nbsp;Create new record
+      a(href='#{instance.uri}/add')#add
+        paper-fab(icon='add')
