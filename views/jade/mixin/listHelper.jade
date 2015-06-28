@@ -45,9 +45,9 @@ mixin listValue(key, field, value)
     when 'boolean'
       td
         if value
-          i.glyphicon.glyphicon-ok-sign
+          iron-icon(icon="check-circle")
         else
-          i.glyphicon.glyphicon-remove-sign
+          iron-icon(icon="cancel")
     default
       if field.config.enum
         td #{field.config.enum[value]}
