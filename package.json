@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "async": "^0.9.0",
+    "gulp-less": "^3.0.3",
     "lodash": "^3.9.0",
     "ncp": "^2.0.0"
   },
