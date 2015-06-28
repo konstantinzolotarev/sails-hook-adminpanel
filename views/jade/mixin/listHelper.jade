@@ -14,23 +14,23 @@ mixin listRow(obj, instance)
     each field, key in fields
       +listValue(key, field, obj[key])
       // adding actions
-    td
+    td.actions
       +inlineListActions(instance, obj)
 
       if instance.config.view
         | &nbsp;
-        a(href='#{instance.uri}/view/#{obj[idField]}').btn.btn-info
-          i.glyphicon.glyphicon-eye-open
+        a(href='#{instance.uri}/view/#{obj[idField]}')
+          iron-icon(icon='visibility')
 
       if instance.config.edit
         | &nbsp;
-        a(href='#{instance.uri}/edit/#{obj[idField]}').btn.btn-info
-          i.glyphicon.glyphicon-pencil
+        a(href='#{instance.uri}/edit/#{obj[idField]}')
+          iron-icon(icon='create')
           //| &nbsp;#{__('Edit')}
       if instance.config.remove
         | &nbsp;
-        a(href='#{instance.uri}/remove/#{obj[idField]}', onclick="return confirm('#{__('Are you sure ?')}')").btn.btn-danger
-          i.glyphicon.glyphicon-trash
+        a(href='#{instance.uri}/remove/#{obj[idField]}', onclick="return confirm('#{__('Are you sure ?')}')")
+          iron-icon(icon='delete')
 
 mixin listValue(key, field, value)
   case field.model.type
