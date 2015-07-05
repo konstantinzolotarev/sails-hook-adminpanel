@@ -23,6 +23,7 @@
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",
     "neon-elements": "PolymerElements/neon-elements#1.0.0",
     "polymer": "Polymer/polymer#^1.0.0",
-    "material-data-table": "*"
+    "material-data-table": "*",
+    "gold-email-input": "PolymerElements/gold-email-input#^1.0.0"
   }
 }

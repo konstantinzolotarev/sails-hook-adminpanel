@@ -10,20 +10,32 @@
     <div>
         <a href="<%= instance.uri %>/">
             <paper-button raised class="button-blue">
-                <iron-icon icon="add"></iron-icon>
+                <iron-icon icon="arrow-back"></iron-icon>
                 Back to list
             </paper-button>
         </a>
     </div>
-    <form action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
+    <form id="form" action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
         <% Object.keys(fields).forEach(function(key) { %>
             <% var field = fields[key] %>
+            <% var value = data[key] %>
             <% include mixin/fieldWidget %>
         <% }) %>
         <div>
             <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
         </div>
+        <p>
+            <paper-button raised class="button-green" id="submit" onclick="submitForm()">
+                Submit
+            </paper-button>
+        </p>
     </form>
 </div>
+
+<script>
+    function submitForm() {
+        document.getElementById('form').submit();
+    }
+</script>
 
 <% include footer %>
