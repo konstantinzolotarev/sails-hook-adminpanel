@@ -1,0 +1,14 @@
+<% if (typeof value == 'undefined' && typeof field.model.defaultsTo !== 'undefined') { %>
+    <% var value = field.model.defaultsTo %>
+<% } %>
+
+<% if (adminpanel.configHelper.isId(field, instance.config.model)) { %>
+    <% field.config.disabled = true %>
+    <% include form/inputText %>
+<% } %>
+
+<% var type = field.config.type || field.model.type %>
+<% var inputTextTypes = ['string', 'password', 'date', 'datetime', 'integer', 'number', 'float'] %>
+<% if (~inputTextTypes.indexOf(type)) { %>
+    <% include form/inputText %>
+<% } %>
