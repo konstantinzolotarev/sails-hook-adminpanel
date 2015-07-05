@@ -1,0 +1,35 @@
+<% include head %>
+
+<div class="horizontal layout">
+    <div class="flex">
+        <% var actionType = 'list' %>
+        <% include mixin/globalActions %>
+    </div>
+</div>
+<div class="layout">
+    <material-data-table>
+        <table class="flex">
+            <thead>
+                <% include mixin/list/listTableHead %>
+            </thead>
+            <tbody>
+                <% list.forEach(function(obj) { %>
+                    <% include mixin/list/listTableRow %>
+                <% }) %>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+    </material-data-table>
+    <div>
+        <mark>Total: <%= total %></mark>
+    </div>
+    <% if (instance.config.add) { %>
+        <a href="<%= instance.uri %>/add" id="add">
+            <paper-fab icon="add"></paper-fab>
+        </a>
+    <% } %>
+</div>
+
+<% include footer %>

@@ -15,7 +15,7 @@ var foldersToCopy = [
 ];
 
 var filesToCopy = [
-    'webcomponentsjs/webcomponents.min.js'
+    'webcomponentsjs/webcomponents-lite.min.js'
 ];
 
 var getPathToFile = function(file) {
@@ -25,7 +25,7 @@ var getPathToFile = function(file) {
 };
 
 gulp.task('clear:assets', function() {
-    del([VENDOR_DIR + '*']);
+    del([VENDOR_DIR]);
 });
 
 gulp.task('copy', function() {

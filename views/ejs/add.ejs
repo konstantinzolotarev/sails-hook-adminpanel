@@ -1,0 +1,29 @@
+<% include head %>
+
+<div class="horizontal layout">
+    <div class="flex">
+        <% var actionType = 'add' %>
+        <% include mixin/globalActions %>
+    </div>
+</div>
+<div class="layout">
+    <div>
+        <a href="<%= instance.uri %>/">
+            <paper-button raised class="button-blue">
+                <iron-icon icon="add"></iron-icon>
+                Back to list
+            </paper-button>
+        </a>
+    </div>
+    <form action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
+        <% Object.keys(fields).forEach(function(key) { %>
+            <% var field = fields[key] %>
+            <% include mixin/fieldWidget %>
+        <% }) %>
+        <div>
+            <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+        </div>
+    </form>
+</div>
+
+<% include footer %>

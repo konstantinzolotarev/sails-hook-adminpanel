@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html"/>
+<link rel="import" href="../../bower_components/paper-item/paper-item.html"/>
+
+<dom-module id="admin-menu-item">
+
+    <style>
+        :host {
+            display: block;
+        }
+
+        :host > ::content a,
+        :host > ::content a:visited {
+            text-decoration: none;
+            color: #000000;
+        }
+    </style>
+
+    <template>
+        <paper-item>
+            <paper-item-body>
+                <content></content>
+            </paper-item-body>
+        </paper-item>
+        <content></content>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'admin-menu-item'
+        });
+    </script>
+</dom-module>
