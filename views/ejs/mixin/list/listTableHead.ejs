@@ -1,0 +1,17 @@
+<tr>
+    <% Object.keys(fields).forEach(function(key) { %>
+        <% var field = fields[key] %>
+        <th>
+            <a href="<%= sortingHelper.generateLink(req, key) %>">
+                <% if (req.sort && req.sort.key == key) { %>
+                    <iron-icon icon="<%= req.sort.order == 'desc' ? "arrow-drop-up" : "arrow-drop-down" %>"></iron-icon>
+                    <!--<iron-icon icon="arrow-drop-up"></iron-icon>-->
+                <% } %>
+                &nbsp;<%= field.config.title %>
+            </a>
+        </th>
+    <% }) %>
+    <th>
+        Actions
+    </th>
+</tr>

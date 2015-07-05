@@ -1,0 +1,13 @@
+<% var record = obj || {} %>
+<% if (adminpanel.menuHelper.hasInlineActions(instance.config, 'list')) { %>
+    <% var actions = locals.adminpanel.menuHelper.getInlineActions(instance.config, 'list') %>
+    <% if (actions && actions.length > 0) { %>
+        <% actions.forEach(function(action) { %>
+            &nbsp;
+            <% var link = adminpanel.menuHelper.replaceModelFields(action.link, record) %>
+            <a href="<%= link %>">
+                <iron-icon icon="<%= action.icon || 'add' %>"></iron-icon>
+            </a>
+        <% }) %>
+    <% } %>
+<% } %>
