@@ -2,6 +2,7 @@
 <tr>
     <% Object.keys(fields).forEach(function(key) { %>
         <% var field = fields[key] %>
+        <% var value = obj[key] || '' %>
         <td>
         <% if (field.model.type == "boolean") { %>
             <iron-icon icon="<%=value ? "check-circle" : "cancel" %>"></iron-icon>
@@ -16,7 +17,9 @@
         <% } else { %>
             <% if (field.config.enum) { %>
                 <%= field.config.enum[value] %>
-            <%}%>
+            <% } else { %>
+                <%= value %>
+            <% } %>
         <% } %>
         </td>
     <% }) %>
@@ -26,17 +29,17 @@
 
         <% if (instance.config.view) { %>
             <a href="<%= instance.uri %>/view/<%= obj[idField] %>">
-                <icon-icon icon="visibility"></icon-icon>
+                <iron-icon icon="visibility"></iron-icon>
             </a>
         <% } %>
         <% if (instance.config.edit) { %>
             <a href="<%= instance.uri %>/edit/<%= obj[idField] %>">
-                <icon-icon icon="create"></icon-icon>
+                <iron-icon icon="create"></iron-icon>
             </a>
         <% } %>
         <% if (instance.config.remove) { %>
             <a href="<%= instance.uri %>/remove/<%= obj[idField] %>" onclick="return confirm('Are you sure ?')">
-                <icon-icon icon="delete"></icon-icon>
+                <iron-icon icon="delete"></iron-icon>
             </a>
         <% } %>
     </td>
