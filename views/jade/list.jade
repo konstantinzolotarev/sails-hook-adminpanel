@@ -20,10 +20,12 @@ block body
         tbody
           each obj in list
             +listRow(obj, instance)
-
-    if total > 0
-      div: mark Total: #{total}
-    +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
+        tfoot
+          tr
+            td
+              span Total: #{total}
+            td(colspan=list.length).pagination
+              +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
 
     if list.length == 0
       .alert.alert-info
