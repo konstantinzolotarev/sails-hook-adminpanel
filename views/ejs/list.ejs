@@ -18,13 +18,17 @@
                 <% }) %>
             </tbody>
             <tfoot>
-
+                <tr>
+                    <td>
+                        <span>Total: <%= total %></span>
+                    </td>
+                    <td class="pagination" colspan="<%= Object.keys(fields).length%>">
+                        <% include mixin/list/pagination %>
+                    </td>
+                </tr>
             </tfoot>
         </table>
     </material-data-table>
-    <div>
-        <mark>Total: <%= total %></mark>
-    </div>
     <% if (instance.config.add) { %>
         <a href="<%= instance.uri %>/add" id="add">
             <paper-fab icon="add"></paper-fab>

@@ -5,8 +5,7 @@
             <a href="<%= sortingHelper.generateLink(req, key) %>">
                 <% if (req.sort && req.sort.key == key) { %>
                     <iron-icon icon="<%= req.sort.order == 'desc' ? "arrow-drop-up" : "arrow-drop-down" %>"></iron-icon>
-                <% } %>
-                &nbsp;<%= field.config.title %>
+                <% } %><%= field.config.title %>
             </a>
         </th>
     <% }) %>
