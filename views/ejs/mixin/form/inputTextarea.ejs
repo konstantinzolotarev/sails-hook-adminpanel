@@ -2,4 +2,5 @@
     <% field.config.required && 'required' %>
     <% field.config.disabled && 'disabled'%>
     value="<%= value || '' %>"
-    name="<%= key %>"></paper-textarea>
+    name="<%= key %>"
+    id="form-<%= key %>"></paper-textarea>
