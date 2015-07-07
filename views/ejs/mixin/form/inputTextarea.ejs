@@ -1,0 +1,5 @@
+<paper-textarea label="<%= field.config.title %>"
+    <% field.config.required && 'required' %>
+    <% field.config.disabled && 'disabled'%>
+    value="<%= value || '' %>"
+    name="<%= key %>"></paper-textarea>

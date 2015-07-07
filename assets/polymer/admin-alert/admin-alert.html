@@ -1,0 +1,58 @@
+<dom-module id="admin-alert">
+
+    <style>
+        :host {
+            display: block;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+
+            border-color: #c7c7c7;
+        }
+
+        [success] {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        [error] {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
+
+    <template>
+        <div class="alert" error$="{{error}}" success$="{{success}}">
+            <pre>
+                <content></content>
+            </pre>
+        </div>
+    </template>
+
+    <script>
+        (function() {
+            Polymer({
+                is: 'admin-alert',
+
+                properties: {
+                    error: {
+                        type: Boolean,
+                        value: false
+                    },
+
+                    success: {
+                        type: Boolean,
+                        value: false
+                    }
+                }
+            });
+        })();
+    </script>
+</dom-module>

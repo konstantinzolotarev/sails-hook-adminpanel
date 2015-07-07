@@ -1,0 +1,15 @@
+<% if (adminpanel.viewHelper.hasFlash(req, 'adminError')) { %>
+    <% req.flash('adminError').forEach(function(msg) { %>
+        <admin-alert error>
+            <%= msg %>
+        </admin-alert>
+    <% }) %>
+<% } %>
+
+<% if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess')) { %>
+    <% req.flash('adminSuccess').forEach(function(msg) { %>
+        <admin-alert success>
+            <%= msg %>
+        </admin-alert>
+    <% }) %>
+<% } %>

@@ -3,6 +3,12 @@
     <title><%= title || "Dashboard"%></title>
     <meta charset="utf8" />
     <meta http-equiv="X-UA-Compatible", content="IE=edge"/>
+
+    <!-- Chrome for Android theme color -->
+    <meta name="theme-color" content="#303F9F">
+    <!-- Tile color for Win8 -->
+    <meta name="msapplication-TileColor" content="#3372DF">
+
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -27,5 +33,7 @@
             <div class="flex"><%= adminpanel.menuHelper.getBrandTitle() %></div>
           </paper-toolbar>
           <div class="layout fill vertical">
+
+            <% include mixin/alerts %>
 
             <div id="mainLayout">
