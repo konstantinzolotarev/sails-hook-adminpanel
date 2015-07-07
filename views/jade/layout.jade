@@ -5,6 +5,9 @@ html
     title #{locals.title}
     meta(charset='utf8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(http-equiv='theme-color', content='#303F9F')
+    meta(http-equiv='msapplication-TileColor', content='#3372DF')
+
     // Viewport mobile tag for sensible mobile support
     meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1")
     // Polymer inject
@@ -32,15 +35,14 @@ html
               a(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
         div.layout.fill.vertical
 
-          //block alerts
-          //  if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
-          //    .alert.alert-danger
-          //      each msg in req.flash('adminError')
-          //        div #{msg}
-          //  if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
-          //    .alert.alert-success
-          //      each msg in req.flash('adminSuccess')
-          //        div #{msg}
+          block alerts
+            if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
+              each msg in req.flash('adminError')
+                admin-alert(error='') #{msg}
+            if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
+              each msg in req.flash('adminSuccess')
+                admin-alert(success='') #{msg}
+dom-
           div#mainLayout
             block body
               | Layout
