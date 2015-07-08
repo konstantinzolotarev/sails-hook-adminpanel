@@ -292,6 +292,8 @@ module.exports = {
              * Could be fetched form config file or file model if not defined in config file.
              */
             fldConfig.type = fldConfig.type || modelField.type;
+            // All field types should be in lower case
+            fldConfig.type = fldConfig.type.toLowerCase();
             //nomalizing configs
             fldConfig = that._normalizeFieldConfig(fldConfig, key)
             //Adding new field to resultset

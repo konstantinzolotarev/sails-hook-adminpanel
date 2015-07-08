@@ -3,7 +3,7 @@ mixin pagination(instancePath, page, total, limit, requestProcessor)
   - page = parseInt(page);
   - if (!limit) limit = 20;
 
-  span #{(page*limit)}-#{(page+1*limit)} of #{total}
+  span #{((page-1)*limit)}-#{(page*limit)} of #{total}
 
   if page > 1
     a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page - 1)})}')
