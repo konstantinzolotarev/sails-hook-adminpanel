@@ -35,13 +35,12 @@ html
               a(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
         div.layout.fill.vertical
 
-          block alerts
-            if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
-              each msg in req.flash('adminError')
-                admin-alert(error='') #{msg}
-            if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
-              each msg in req.flash('adminSuccess')
-                admin-alert(success='') #{msg}
+          if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
+            each msg in req.flash('adminError')
+              admin-alert(error='') #{msg}
+          if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
+            each msg in req.flash('adminSuccess')
+              admin-alert(success='') #{msg}
 
           div#mainLayout
             block body
