@@ -36,6 +36,11 @@
     function submitForm() {
         document.getElementById('form').submit();
     }
+    <% Object.keys(fields).forEach(function(key) { %>
+        <% if (fields[key].config.editor) { %>
+            CKEDITOR.replace( 'form-<%= key %>' );
+        <% } %>
+    <% }) %>
 </script>
 
 <% include footer %>

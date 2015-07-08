@@ -1,6 +1,19 @@
+<% if (field.config.editor) { %>
+<%= field.config.title %> <br/>
+<textarea
+    <% field.config.required && 'required' %>
+    <% field.config.disabled && 'disabled'%>
+    name="<%= key %>"
+    id="form-<%= key %>">
+
+    <%= value || '' %>
+</textarea>
+<% } else { %>
 <paper-textarea label="<%= field.config.title %>"
     <% field.config.required && 'required' %>
     <% field.config.disabled && 'disabled'%>
     value="<%= value || '' %>"
     name="<%= key %>"
     id="form-<%= key %>"></paper-textarea>
+<% } %>
+
