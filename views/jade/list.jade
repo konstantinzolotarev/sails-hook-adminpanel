@@ -5,11 +5,9 @@ include ./mixin/pagination
 include ./mixin/actions
 
 block body
-  div.horizontal.layout
-      h3 List of #{instance.name}
-      div.flex
-      div
-        +globalActions('list', instance)
+  .horizontal.layout
+    .flex
+      +globalActions('list', instance)
 
 
   div.layout

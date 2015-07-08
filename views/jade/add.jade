@@ -14,6 +14,7 @@ block body
         paper-button(raised='').button-blue
           iron-icon(icon='arrow-back')
           | &nbsp;Back to list
+
     form(action='#{instance.uri}/add', method='POST', enctype="multipart/form-data")#form
       each field, key in fields
         +fieldWidget(key, field, data[key], instance)

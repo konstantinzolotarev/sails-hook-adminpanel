@@ -9,25 +9,32 @@ block imports
 
 block body
   - var idField = locals.adminpanel.configHelper.getIdentifierField(instance.config.model);
-  .container-fluid
-    .page-header
-      h3 Edit record
-        +globalActions('edit', instance, record)
-        a(href='#{instance.uri}').btn.btn-info.pull-right
-          i.glyphicon.glyphicon-th-list
+  .layout.horizontal
+    .flex
+      +globalActions('edit', instance, record)
+  .layout
+    div
+      a(href='#{instance.uri}')
+        paper-button(raised='').button-blue
+          iron-icon(icon='arrow-back')
           | &nbsp;Back to list
 
-    form(role='form', action='#{instance.uri}/edit/#{record[idField]}', method='POST', enctype="multipart/form-data").form-horizontal
+    form(action='#{instance.uri}/edit/#{record[idField]}', method='POST', enctype="multipart/form-data")#form
       each field, key in fields
         +fieldWidget(key, field, record[key], instance)
       if adminpanel.configHelper.isCsrfEnabled()
         div
           input(type="hidden", name="_csrf", value=_csrf)
       div
-        button.btn.btn-success
-          i.glyphicon.glyphicon-ok
-          | &nbsp;Save
+        paper-button(raised='', onclick="submitForm()")#submit.button-green
+          | &nbsp;Submit
+
         +inlineActions(instance, record, 'edit')
 
 block js
+  script.
+    function submitForm() {
+      document.getElementById('form').submit();
+    }
+
   +installEditors(fields)

@@ -30,5 +30,7 @@ mixin inlineActions(instance, record, actionType)
         each action in actions
           | &nbsp;
           a(href=locals.adminpanel.menuHelper.replaceModelFields(action.link, record))
-            if action.icon
-              iron-icon(icon=action.icon)
+            paper-button(raised='')
+              if action.icon
+                iron-icon(icon=action.icon)
+              | &nbsp;#{action.title}
