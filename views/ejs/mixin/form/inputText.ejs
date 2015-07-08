@@ -22,6 +22,9 @@
         fieldType = 'number'
     }
     %>
+    <% if (adminpanel.configHelper.isId(field, instance.config.model)) { %>
+        <% field.config.disabled = true %>
+    <% } %>
     <paper-input label="<%= field.config.title %>"
             type="<%= fieldType %>"
             <% field.config.required && 'required' %>
