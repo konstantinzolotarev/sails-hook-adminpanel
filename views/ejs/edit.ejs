@@ -1,0 +1,49 @@
+<% include head %>
+
+<% var idField = adminpanel.configHelper.getIdentifierField(instance.config.model) %>
+<% var data = record %>
+
+<div class="horizontal layout">
+    <div class="flex">
+        <% var actionType = 'edit' %>
+        <% include mixin/globalActions %>
+    </div>
+</div>
+<div class="layout">
+    <div>
+        <a href="<%= instance.uri %>/">
+            <paper-button raised class="button-blue">
+                <iron-icon icon="arrow-back"></iron-icon>
+                Back to list
+            </paper-button>
+        </a>
+    </div>
+    <form id="form" action="<%= instance.uri %>/edit/<%= record[idField] %>" method="POST" enctype="multipart/form-data">
+        <% Object.keys(fields).forEach(function(key) { %>
+            <% var field = fields[key] %>
+            <% var value = data[key] %>
+            <% include mixin/fieldWidget %>
+        <% }) %>
+        <div>
+            <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+        </div>
+        <p>
+            <paper-button raised class="button-green" id="submit" onclick="submitForm()">
+                Submit
+            </paper-button>
+        </p>
+    </form>
+</div>
+
+<script>
+    function submitForm() {
+        document.getElementById('form').submit();
+    }
+    <% Object.keys(fields).forEach(function(key) { %>
+        <% if (fields[key].config.editor) { %>
+            CKEDITOR.replace( 'form-<%= key %>' );
+        <% } %>
+    <% }) %>
+</script>
+
+<% include footer %>
