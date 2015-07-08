@@ -1,7 +1,6 @@
 mixin menuItem(menuItem)
-  paper-item(role='menuitem')
-    paper-item-body
-    a(href=menuItem.link) &nbsp;#{menuItem.title}
+  admin-menu-item(href=menuItem.link)
+    | &nbsp;#{menuItem.title}
     if menuItem.icon
       iron-icon(icon=menuItem.icon)
 
