@@ -6,7 +6,7 @@
     }
 
     a#add {
-        position: absolute;
+        position: fixed;
         bottom: 20px;
         right: 20px;
     }
@@ -24,6 +24,12 @@
         text-decoration: none;
         display: block;
         color: #ffffff;
+    }
+
+    @media(max-width: 460px) {
+        a#add {
+            bottom: 10px;
+        }
     }
 </style>
 
