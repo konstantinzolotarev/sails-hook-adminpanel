@@ -43,6 +43,7 @@
 
 node_modules
 bower_components
+assets/bower_components
 
 
 
