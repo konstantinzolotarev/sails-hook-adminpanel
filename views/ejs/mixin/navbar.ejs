@@ -15,26 +15,22 @@
             </div>
             <div>
                 <% group.menues.forEach(function(menuItem) { %>
-                    <admin-menu-item>
-                        <a href="<%= menuItem.link %>">
-                            <%= menuItem.title %>
-                            <% if(menuItem.icon) { %>
-                                <iron-icon icon="<%= menuItem.icon %>"></iron-icon>
-                            <% }%>
-                        </a>
+                    <admin-menu-item href="<%= menuItem.link %>">
+                        <%= menuItem.title %>
+                        <% if(menuItem.icon) { %>
+                            <iron-icon icon="<%= menuItem.icon %>"></iron-icon>
+                        <% }%>
                     </admin-menu-item>
                 <% })%>
             </div>
         </menu-collapse>
     <% }) %>
     <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
-        <admin-menu-item>
-            <a href="<%= menuItem.link %>">
-                <%= menuItem.title %>
-                <% if(menuItem.icon) { %>
+        <admin-menu-item href="<%= menuItem.link %>">
+            <%= menuItem.title %>
+            <% if(menuItem.icon) { %>
                 <iron-icon icon="<%= menuItem.icon %>"></iron-icon>
-                <% }%>
-            </a>
+            <% }%>
         </admin-menu-item>
     <% }) %>
 </paper-menu>
