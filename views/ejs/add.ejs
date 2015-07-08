@@ -16,7 +16,6 @@
         </a>
     </div>
     <form id="form" action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
-        <% console.log(data); %>
         <% Object.keys(fields).forEach(function(key) { %>
             <% var field = fields[key] %>
             <% var value = data[key] %>
