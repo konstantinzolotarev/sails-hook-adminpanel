@@ -31,8 +31,6 @@ html
         paper-toolbar
           paper-icon-button(icon='menu', paper-drawer-toggle='')
           span.flex #{locals.adminpanel.menuHelper.getBrandTitle()}
-            if locals.adminpanel.menuHelper.hasBrand()
-              a(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
         div.layout.fill.vertical
 
           if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
