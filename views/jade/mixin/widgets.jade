@@ -2,88 +2,92 @@ mixin fieldWidget(key, field, value, instance)
   if (typeof value === 'undefined' && typeof field.model.defaultsTo !== 'undefined')
     - value = field.model.defaultsTo
 
-  .form-group
-    label(for='form-#{key}').col-md-4.control-label #{field.config.title}
-    .col-md-8
-      if locals.adminpanel.configHelper.isId(field, instance.config.model)
-        - field.config.disabled = true; //Disable identifier field
+  if locals.adminpanel.configHelper.isId(field, instance.config.model)
+    - field.config.disabled = true; //Disable identifier field
+    +inputText(key, field, value)
+  else
+    - var type = field.config.type || field.model.type
+    case type
+      when 'association'
+        +inputModel(key, field, value)
+      when 'string'
         +inputText(key, field, value)
-      else
-        - var type = field.config.type || field.model.type
-        case type
-          when 'association'
-            +inputModel(key, field, value)
-          when 'string'
-            +inputText(key, field, value)
-          when 'password'
-            +inputPassword(key, field, value)
-          when 'date'
-            +inputDate(key, field, value)
-          when 'datetime'
-            +inputDatetime(key, field, value)
-          when 'integer'
-            +inputNumber(key, field, value)
-          when 'float'
-            +inputNumber(key, field, value)
-          when 'number'
-            +inputNumber(key, field, value)
-          when 'boolean'
-            +inputCheckbox(key, field, value)
-          when 'text'
-            +textarea(key, field, value)
-          default
-            +inputText(key, field, value)
+      when 'password'
+        +inputPassword(key, field, value)
+      when 'date'
+        +inputDate(key, field, value)
+      when 'datetime'
+        +inputDatetime(key, field, value)
+      when 'integer'
+        +inputNumber(key, field, value)
+      when 'float'
+        +inputNumber(key, field, value)
+      when 'number'
+        +inputNumber(key, field, value)
+      when 'boolean'
+        +inputCheckbox(key, field, value)
+      when 'text'
+        +textarea(key, field, value)
+      default
+        +inputText(key, field, value)
 
 mixin inputText(key, field, value)
   if field.model.enum
     +select(key, field, value)
   else if field.model.email
-    input(type='email', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
+    paper-input(type='email', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
   else if field.config.file
-    input(type='file', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
+    paper-input(type='file', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
   else
-    input(type='text', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
+    paper-input(type='text', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputPassword(key, field, value)
-  input(type='password', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value).form-control
+  paper-input(type='password', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputDate(key, field, value)
-  input(type='date', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
+  paper-input(type='date', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputDatetime(key, field, value)
-  input(type='datetime', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value).form-control
+  paper-input(type='datetime', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputNumber(key, field, value)
-  input(type='number', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value).form-control
+  paper-input(type='number', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputCheckbox(key, field, value)
-  .checkbox
-    input(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value)
+  .widget
+    paper-checkbox(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value) #{field.config.title}
 
 mixin select(key, field, value)
-  select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false).form-control
-    if (field.config.enum && typeof field.config.enum === 'object')
-      each opt, optKey in field.config.enum
-        option(value=optKey, selected=(optKey == value)) #{opt}
-    else
-      each opt in field.model.enum
-        option(value=opt, selected=(opt == value)) #{opt}
+  .widget
+    | &nbsp;#{field.config.title}&nbsp;
+    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+      if (field.config.enum && typeof field.config.enum === 'object')
+        each opt, optKey in field.config.enum
+          option(value=optKey, selected=(optKey == value)) #{opt}
+      else
+        each opt in field.model.enum
+          option(value=opt, selected=(opt == value)) #{opt}
 
 mixin textarea(key, field, value)
-  textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
-
-
+  if field.config.editor
+    | &nbsp;#{field.config.title}
+    br
+    textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+  else
+    paper-textarea(name=key, value=value, label=field.config.title, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
 mixin inputModel(key, field, value)
-  //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
-  select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false).form-control
-    if !field.config.required
-      option(value='') --- Select please ---
-    if field.config.records
-      each opt in field.config.records
-        option(value=opt[field.config.identifierField],
-                selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
-    else
-      option(value='') --- No records found ---
+  .widget
+    | &nbsp;#{field.config.title}&nbsp;
+    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+      if !field.config.required
+        option(value='') --- Select please ---
+      if field.config.records
+        each opt in field.config.records
+          option(value=opt[field.config.identifierField],
+                  selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
+      else
+        option(value='') --- No records found ---
 
 mixin installEditors(fields)
   script(type='text/javascript')
