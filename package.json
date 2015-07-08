@@ -19,12 +19,8 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chance": "^0.7.3",
-    "del": "^1.2.0",
-    "gulp": "^3.9.0",
-    "gulp-vulcanize": "^6.0.1",
     "mocha": "^2.0.1",
-    "sails": "^0.11.0",
-    "vulcanize": "^1.9.3"
+    "sails": "^0.11.0"
   },
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha -b --timeout 5000"
