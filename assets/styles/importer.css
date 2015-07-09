@@ -38,3 +38,17 @@ paper-button.button-blue {
     background: #4285f4;
     color: white;
 }
+
+paper-button.button-red {
+    background: #F44336;
+    color: white;
+}
+
+.field-row {
+    margin: 10px;
+}
+
+.field-name {
+    min-width: 200px;
+    font-weight: bold;
+}

@@ -2,9 +2,9 @@ mixin showValue(key, field, value)
   case field.model.type
     when 'boolean'
       if value
-        i.glyphicon.glyphicon-ok-sign
+        iron-icon(icon="check-circle")
       else
-        i.glyphicon.glyphicon-remove-sign
+        iron-icon(icon="cancel")
     when 'text'
       p !{value}
 
