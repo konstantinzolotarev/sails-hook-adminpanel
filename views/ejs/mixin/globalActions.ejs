@@ -1,5 +1,3 @@
-<% var actionType = actionType || 'list' %>
-<% var record = record || {} %>
 <% if (adminpanel.menuHelper.hasGlobalActions(instance.config, actionType)) { %>
     <% var actions = adminpanel.menuHelper.getGlobalactions(instance.config, actionType) %>
     <% if (actions && actions.length > 0) { %>
