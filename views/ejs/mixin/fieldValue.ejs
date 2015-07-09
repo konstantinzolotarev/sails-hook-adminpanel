@@ -1,13 +1,16 @@
+<% var value = record[key] %>
 <% if (field.model.type == 'boolean') { %>
-    <iron-icon icon="<%= record[key] ? "check-circle" : "cancel" %>"></iron-icon>
+    <iron-icon icon="<%= value ? "check-circle" : "cancel" %>"></iron-icon>
 <% } else if (field.model.type == 'text') { %>
-    <%- record[key] %>
+    <%- value %>
 <% } else if (field.model.type == 'association') { %>
-    <% if (typeof value == 'string') { %>
-        <%= record[key] %>
+    <% if (typeof value == 'undefined') { %>
+        ----------
+    <% } else if (typeof value == 'string') { %>
+        <%= value %>
     <% } else { %>
-        <%= record[key][field.config.displayField] %>
+        <%= value[field.config.displayField] %>
     <% } %>
 <% } else { %>
-    <%= record[key] %>
+    <%= value %>
 <% } %>
