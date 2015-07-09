@@ -1,0 +1,13 @@
+<% if (field.model.type == 'boolean') { %>
+    <iron-icon icon="<%= record[key] ? "check-circle" : "cancel" %>"></iron-icon>
+<% } else if (field.model.type == 'text') { %>
+    <%- record[key] %>
+<% } else if (field.model.type == 'association') { %>
+    <% if (typeof value == 'string') { %>
+        <%= record[key] %>
+    <% } else { %>
+        <%= record[key][field.config.displayField] %>
+    <% } %>
+<% } else { %>
+    <%= record[key] %>
+<% } %>
