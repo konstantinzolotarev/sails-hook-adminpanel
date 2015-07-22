@@ -1,10 +1,10 @@
 <div class="widget">
-    <paper-checkbox name="<%= key %>"
+    <app-checkbox name="<%= key %>"
         value="1"
-        <%= value && 'checked' %>
-        <%= field.config.required && 'required'%>
-        <%= field.config.disabled && 'disabled'%>>
+        <%= value && 'checked' || '' %>
+        <%= field.config.required && 'required' || ''%>
+        <%= field.config.disabled && 'disabled' || ''%>>
 
         <%= field.config.title %>
-    </paper-checkbox>
+    </app-checkbox>
 </div>

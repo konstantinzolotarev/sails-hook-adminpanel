@@ -1,0 +1,39 @@
+<dom-module id="app-checkbox">
+
+    <style>
+        :host {
+            display: block;
+        }
+    </style>
+
+    <template>
+        <paper-checkbox id="paper" name$="[[name]]" checked="{{checked}}" required$="[[required]]" disabled$="[[disabled]]" value$="[[value]]">
+            <content></content>
+        </paper-checkbox>
+        <input type="hidden" name$="[[name]]" value$="{{checkValue(checked)}}"/>
+    </template>
+
+    <script>
+        (function () {
+            Polymer({
+                is: 'app-checkbox',
+
+                properties: {
+                    name: String,
+                    value: String,
+                    required: Boolean,
+                    disabled: Boolean,
+                    checked: {
+                        type: Boolean,
+                        value: false,
+                        notify: true
+                    }
+                },
+
+                checkValue: function(checked) {
+                    return checked ? "1" : "0";
+                }
+            });
+        })();
+    </script>
+</dom-module>
