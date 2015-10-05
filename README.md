@@ -3,7 +3,7 @@ sails-hook-adminpanel
 
 Admin panel generator fro Sails.js applications v0.11+
 
-**This hook is under active development. Please be carefull lot of functionality will be added. And some configs could change from version to version**
+**This hook is under active development. Please be careful lot of functionality will be added. And some configs could change from version to version**
 
 # Installation
 
