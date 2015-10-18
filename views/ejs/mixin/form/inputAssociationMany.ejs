@@ -1,0 +1,31 @@
+<div class="widget">
+
+    <% function isSelected(id, value, identifierField) { %>
+        <% var result = false; %>
+        <% if (!value || !value.length) return false; %>
+        <% value.forEach(function(item) { %>
+            <% if (item[identifierField] == id) { %>
+                <% result = true; %>
+            <% } %>
+        <% }) %>
+        <% return result; %>
+    <% } %>
+
+    <%= field.config.title %>
+    <select name="<%= key %>" id="form-<%= key %>" multiple
+        <% field.config.required && 'required' %>
+        <% field.config.disabled && 'disabled'%>>
+
+        <% if (field.config.records) { %>
+            <% field.config.records.forEach(function(opt) { %>
+            <option value="<%= opt[field.config.identifierField] %>"
+                <%= isSelected(opt[field.config.identifierField], value, field.config.identifierField) && 'selected' %>>
+                <%= opt[field.config.displayField] %>
+            </option>
+            <% }) %>
+        <% } else { %>
+        <option value="">--- No records found ---</option>
+        <% } %>
+    </select>
+    <hr/>
+</div>

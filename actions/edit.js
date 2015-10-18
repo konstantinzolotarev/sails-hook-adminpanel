@@ -22,6 +22,7 @@ module.exports = function(req, res) {
     }
 
     instance.model.findOne(req.param('id'))
+        .populateAll()
         .exec(function(err, record) {
             if (err) {
                 req._sails.log.error('Admin edit error: ');

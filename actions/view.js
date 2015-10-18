@@ -20,7 +20,10 @@ module.exports = function(req, res) {
     }
     var fields = fieldsHelper.getFields(req, instance, 'view');
 
-    var query = instance.model.findOne(req.param('id'))
+    var query = instance.model
+        .findOne(req.param('id'))
+        .populateAll();
+
     fieldsHelper.getFieldsToPopulate(fields).forEach(function(val) {
         query.populate(val);
     });
