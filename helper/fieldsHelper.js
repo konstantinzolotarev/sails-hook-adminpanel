@@ -149,11 +149,16 @@ module.exports = {
          * @param {function=} [cb]
          */
         var loadAssoc = function(key, cb) {
-            if (fields[key].config.type !== 'association') {
+            if (fields[key].config.type !== 'association' && fields[key].config.type !== 'association-many') {
                 return cb();
             }
             fields[key].config.records = [];
-            var Model = util.getModel(fields[key].model.model);
+            var modelName = fields[key].model.model || fields[key].model.collection;
+            if (!modelName) {
+                sails.log.error('No model found for field: ', fields[key]);
+                return cb();
+            }
+            var Model = util.getModel(modelName);
             if (!Model) {
                 return cb();
             }
@@ -183,7 +188,7 @@ module.exports = {
     getFieldsToPopulate: function(fields) {
         var result = [];
         _.forEach(fields, function(field, key) {
-            if (field.config.type === 'association') {
+            if (field.config.type === 'association' || field.config.type === 'association-many') {
                 result.push(key);
             }
         });
@@ -230,7 +235,7 @@ module.exports = {
         var actionConfigFields = _.keys(actionConfig.fields);
         //Getting list of fields from model
         var modelAttributes = _.pick(instance.model.attributes, function(val, key) {
-            return ((_.isPlainObject(val) || _.isString(val)) && !val.collection);
+            return (_.isPlainObject(val) || _.isString(val));
         });
 
         var that = this;
@@ -254,6 +259,9 @@ module.exports = {
             }
             if (_.isObject(modelField) && modelField.model) {
                 modelField.type = 'association';
+            }
+            if (_.isObject(modelField) && modelField.collection) {
+                modelField.type = 'association-many';
             }
             if (type === 'add' && key === req._sails.config.adminpanel.identifierField) {
                 return;
