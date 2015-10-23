@@ -21,7 +21,7 @@
     <form id="form" action="<%= instance.uri %>/edit/<%= record[idField] %>" method="POST" enctype="multipart/form-data">
         <% Object.keys(fields).forEach(function(key) { %>
             <% var field = fields[key] %>
-            <% var value = data[key] %>
+            <% var value = adminpanel.viewHelper.getFieldValue(key, field, data) %>
             <% include mixin/fieldWidget %>
         <% }) %>
         <div>
