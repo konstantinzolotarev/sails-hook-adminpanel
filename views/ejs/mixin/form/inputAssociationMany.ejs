@@ -1,16 +1,5 @@
 <div class="widget">
 
-    <% function isSelected(id, value, identifierField) { %>
-        <% var result = false; %>
-        <% if (!value || !value.length) return false; %>
-        <% value.forEach(function(item) { %>
-            <% if (item[identifierField] == id) { %>
-                <% result = true; %>
-            <% } %>
-        <% }) %>
-        <% return result; %>
-    <% } %>
-
     <%= field.config.title %>
     <select name="<%= key %>" id="form-<%= key %>" multiple
         <% field.config.required && 'required' %>
@@ -19,7 +8,7 @@
         <% if (field.config.records) { %>
             <% field.config.records.forEach(function(opt) { %>
             <option value="<%= opt[field.config.identifierField] %>"
-                <%= isSelected(opt[field.config.identifierField], value, field.config.identifierField) && 'selected' %>>
+                <%= adminpanel.viewHelper.isOptionSelected(opt[field.config.identifierField], value) && 'selected' %>>
                 <%= opt[field.config.displayField] %>
             </option>
             <% }) %>
