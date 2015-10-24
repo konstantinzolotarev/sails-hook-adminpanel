@@ -52,3 +52,7 @@ paper-button.button-red {
     min-width: 200px;
     font-weight: bold;
 }
+
+select.multi {
+    min-height: 200px;
+}

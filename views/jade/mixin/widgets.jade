@@ -96,7 +96,7 @@ mixin inputSelectMany(key, field, value)
   .widget
     | &nbsp;#{field.config.title}&nbsp;
     //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
-    select(name=key, id='form-#{key}', multiple='', required=field.config.required || false, disabled=field.config.disabled || false)
+    select(name=key, id='form-#{key}', multiple='', required=field.config.required || false, disabled=field.config.disabled || false).multi
       if field.config.records
         each opt in field.config.records
           option(value=opt[field.config.identifierField],
