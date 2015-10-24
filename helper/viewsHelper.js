@@ -75,5 +75,29 @@ module.exports = {
         } else {
             return (option == value);
         }
+    },
+
+    /**
+     * Get's field value for view screen
+     *
+     * @param {string|number|boolean|object|Array} value
+     * @param {object} field
+     */
+    getAssociationValue: function (value, field) {
+        if (!value) {
+            return '-----------';
+        }
+        var displayField = field.config.displayField || 'id';
+        if (_.isArray(value)) {
+            var result = '';
+            value.forEach(function (val) {
+                result += val[displayField] + '<br/>';
+            });
+            return result;
+        }
+        if (_.isObject(value)) {
+            return value[displayField];
+        }
+        return value;
     }
 };

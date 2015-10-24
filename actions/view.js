@@ -24,9 +24,9 @@ module.exports = function(req, res) {
         .findOne(req.param('id'))
         .populateAll();
 
-    fieldsHelper.getFieldsToPopulate(fields).forEach(function(val) {
-        query.populate(val);
-    });
+    //fieldsHelper.getFieldsToPopulate(fields).forEach(function(val) {
+    //    query.populate(val);
+    //});
     query.exec(function(err, record) {
             if (err) {
                 req._sails.log.error('Admin edit error: ');

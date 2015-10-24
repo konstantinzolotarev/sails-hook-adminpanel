@@ -4,21 +4,9 @@
 <% } else if (field.model.type == 'text') { %>
     <%- value %>
 <% } else if (field.model.type == 'association') { %>
-    <% if (typeof value == 'undefined') { %>
-        ----------
-    <% } else if (typeof value == 'string') { %>
-        <%= value %>
-    <% } else if (Array.isArray(value)) { %>
-        <% value.forEach(function(item) { %>
-            <%= item[field.config.displayField] %> <br>
-        <% }); %>
-    <% } else { %>
-        <%= value[field.config.displayField] %>
-    <% } %>
+    <%- adminpanel.viewHelper.getAssociationValue(value, field) %>
 <% } else if (field.model.type == 'association-many') { %>
-    <% value.forEach(function(item) { %>
-        <%= item[field.config.displayField] %> <br>
-    <% }); %>
+    <%- adminpanel.viewHelper.getAssociationValue(value, field) %>
 <% } else { %>
     <%= value %>
 <% } %>

@@ -120,13 +120,11 @@ module.exports = {
                 config.title = key;
             }
             //validate associations
-            if (config.type === 'association') {
-                if (!config.identifierField) {
-                    config.identifierField = 'id';
-                }
-                if (!config.displayField) {
-                    config.displayField = 'id';
-                }
+            if (config.type === 'association' || config.type === 'association-many') {
+                _.defaults(config, {
+                    identifierField: 'id',
+                    displayField: 'id'
+                });
             }
             return config;
         }
@@ -232,7 +230,7 @@ module.exports = {
         var fieldsConfig = instance.config.fields || {};
 
         //Get keys from config
-        var actionConfigFields = _.keys(actionConfig.fields);
+        //var actionConfigFields = _.keys(actionConfig.fields);
         //Getting list of fields from model
         var modelAttributes = _.pick(instance.model.attributes, function(val, key) {
             return (_.isPlainObject(val) || _.isString(val));
