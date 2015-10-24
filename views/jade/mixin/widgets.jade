@@ -10,6 +10,8 @@ mixin fieldWidget(key, field, value, instance)
     case type
       when 'association'
         +inputModel(key, field, value)
+      when 'association-many'
+        +inputSelectMany(key, field, value)
       when 'string'
         +inputText(key, field, value)
       when 'password'
@@ -75,6 +77,7 @@ mixin textarea(key, field, value)
     textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
   else
     paper-textarea(name=key, value=value, label=field.config.title, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+
 mixin inputModel(key, field, value)
   .widget
     | &nbsp;#{field.config.title}&nbsp;
@@ -86,6 +89,18 @@ mixin inputModel(key, field, value)
         each opt in field.config.records
           option(value=opt[field.config.identifierField],
                   selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
+      else
+        option(value='') --- No records found ---
+
+mixin inputSelectMany(key, field, value)
+  .widget
+    | &nbsp;#{field.config.title}&nbsp;
+    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    select(name=key, id='form-#{key}', multiple='', required=field.config.required || false, disabled=field.config.disabled || false)
+      if field.config.records
+        each opt in field.config.records
+          option(value=opt[field.config.identifierField],
+            selected=(locals.adminpanel.viewHelper.isOptionSelected(opt[field.config.identifierField], value))) #{opt[field.config.displayField]}
       else
         option(value='') --- No records found ---
 

@@ -17,7 +17,8 @@ block body
 
     form(action='#{instance.uri}/edit/#{record[idField]}', method='POST', enctype="multipart/form-data")#form
       each field, key in fields
-        +fieldWidget(key, field, record[key], instance)
+        - var value = locals.adminpanel.viewHelper.getFieldValue(key, field, record);
+        +fieldWidget(key, field, value, instance)
       if adminpanel.configHelper.isCsrfEnabled()
         div
           input(type="hidden", name="_csrf", value=_csrf)
