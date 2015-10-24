@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-adminpanel",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Implements the basic admin panel for Sails",
   "keywords": [
     "sails-hook",
