@@ -9,12 +9,10 @@ mixin showValue(key, field, value)
       p !{value}
 
     when 'association'
-      if (typeof value == 'undefined')
-        | ------
-      else if (typeof value === 'string')
-        | #{value}
-      else
-        | #{value[field.config.displayField]}
+      | #{locals.adminpanel.viewHelper.getAssociationValue(value, field)}
+
+    when 'association-many'
+      | !{locals.adminpanel.viewHelper.getAssociationValue(value, field)}
 
     default
       | #{value}
