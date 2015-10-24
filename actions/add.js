@@ -27,7 +27,6 @@ module.exports = function(req, res) {
 
         function checkPost(done) {
             if (req.method.toUpperCase() === 'POST') {
-                console.log(req.allParams());
                 var reqData = request.processRequest(req, fields);
                 instance.model.create(reqData).exec(function(err, record) {
                     if (err) {

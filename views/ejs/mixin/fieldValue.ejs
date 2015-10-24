@@ -16,7 +16,6 @@
         <%= value[field.config.displayField] %>
     <% } %>
 <% } else if (field.model.type == 'association-many') { %>
-    <% console.log(value) %>
     <% value.forEach(function(item) { %>
         <%= item[field.config.displayField] %> <br>
     <% }); %>
