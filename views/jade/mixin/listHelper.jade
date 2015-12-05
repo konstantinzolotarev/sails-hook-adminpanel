@@ -41,7 +41,11 @@ mixin listValue(key, field, value)
         td #{value}
       else
         td #{value && value[field.config.displayField] ? value[field.config.displayField] : '&nbsp;'}
-
+    when 'association-many'
+      if(value.length)
+        td #{_.pluck(value, field.config.displayField).join(', ')}
+      else
+        td &nbsp;
     when 'boolean'
       td
         if value
