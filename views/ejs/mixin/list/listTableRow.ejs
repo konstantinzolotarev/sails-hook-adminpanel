@@ -2,8 +2,7 @@
 <tr>
     <% Object.keys(fields).forEach(function(key) { %>
         <% var field = fields[key] %>
-        <%
-            var value = obj[key] || '' %>
+        <% var value = obj[key] || '' %>
         <td>
         <% if (field.model.type == "boolean") { %>
             <iron-icon icon="<%=value ? "check-circle" : "cancel" %>"></iron-icon>
