@@ -2,7 +2,8 @@
 <tr>
     <% Object.keys(fields).forEach(function(key) { %>
         <% var field = fields[key] %>
-        <% var value = obj[key] || '' %>
+        <%
+            var value = obj[key] || '' %>
         <td>
         <% if (field.model.type == "boolean") { %>
             <iron-icon icon="<%=value ? "check-circle" : "cancel" %>"></iron-icon>
@@ -13,6 +14,12 @@
                 <%= value %>
             <% } else { %>
                 <%= value && value[field.config.displayField] ? value[field.config.displayField] : '&nbsp;' %>
+            <% } %>
+        <% } else if(field.model.type == "association-many") { %>
+            <% if(value.length){ %>
+                <%= _.pluck(value, field.config.displayField).join(', ') %>
+            <% }else{ %>
+               &nbsp;
             <% } %>
         <% } else { %>
             <% if (field.config.enum) { %>
