@@ -14,6 +14,12 @@
             <% } else { %>
                 <%= value && value[field.config.displayField] ? value[field.config.displayField] : '&nbsp;' %>
             <% } %>
+        <% } else if(field.model.type == "association-many") { %>
+            <% if(value.length){ %>
+                <%= _.pluck(value, field.config.displayField).join(', ') %>
+            <% }else{ %>
+               &nbsp;
+            <% } %>
         <% } else { %>
             <% if (field.config.enum) { %>
                 <%= field.config.enum[value] %>
