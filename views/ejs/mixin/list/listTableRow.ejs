@@ -20,6 +20,8 @@
             <% }else{ %>
                &nbsp;
             <% } %>
+        <% } else if (field.model.type === 'json' || (field.model.type === 'array' && typeof (value[0]) === 'object')) { %>
+            <%= JSON.stringify(value)%>
         <% } else { %>
             <% if (field.config.enum) { %>
                 <%= field.config.enum[value] %>
