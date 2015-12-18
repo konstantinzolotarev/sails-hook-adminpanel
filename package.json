@@ -1,6 +1,6 @@
 {
-  "name": "sails-hook-adminpanel",
-  "version": "1.0.10",
+  "name": "sails-hook-adminpanel-flexible",
+  "version": "1.0.14",
   "description": "Implements the basic admin panel for Sails",
   "keywords": [
     "sails-hook",
@@ -28,11 +28,14 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:konstantinzolotarev/sails-hook-adminpanel.git"
+    "url": "git@github.com:dardalan/sails-hook-adminpanel.git"
   },
   "sails": {
     "isHook": true
   },
-  "author": "Konstantin Zolotarev",
+  "author": {
+    "name": "Dardalan Svyatoalav",
+    "email": "svyat.9191@gmail.com"
+    },
   "license": "MIT"
 }
