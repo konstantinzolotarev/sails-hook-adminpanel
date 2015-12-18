@@ -1,10 +1,10 @@
 {
-  "name": "sails-hook-adminpanel",
+  "name": "sails-hook-adminpanel-flexible",
   "main": "index.js",
   "version": "0.0.0",
-  "homepage": "https://github.com/konstantinzolotarev/sails-hook-adminpanel",
+  "homepage": "https://github.com/dardalan/sails-hook-adminpanel",
   "authors": [
-    "Konstantin Zolotarev <konstantin.zolotarev@gmail.com>"
+    "Dardalan Svyatoslav <svyat.9191@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [
