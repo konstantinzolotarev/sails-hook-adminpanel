@@ -1,6 +1,8 @@
 sails-hook-adminpanel
 =====================
 
+[![Join the chat at https://gitter.im/konstantinzolotarev/sails-hook-adminpanel](https://badges.gitter.im/konstantinzolotarev/sails-hook-adminpanel.svg)](https://gitter.im/konstantinzolotarev/sails-hook-adminpanel?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Admin panel generator fro Sails.js applications v0.11+
 
 **This hook is under active development. Please be careful lot of functionality will be added. And some configs could change from version to version**
