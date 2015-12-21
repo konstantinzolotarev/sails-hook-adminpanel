@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-adminpanel-flexible",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Implements the basic admin panel for Sails",
   "keywords": [
     "sails-hook",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha -b --timeout 5000",
-    "postinstall": "./node_modules/sails-hook-adminpanel bower install"
+    "postinstall": "bower install"
   },
   "main": "index.js",
   "repository": {
