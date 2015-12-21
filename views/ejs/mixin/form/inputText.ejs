@@ -21,6 +21,9 @@
     if (type == "integer" || type == 'float' || type == "number") {
         fieldType = 'number'
     }
+    if (field.model.type === 'json') {
+      value = JSON.stringify(value);
+    }
     %>
     <% if (adminpanel.configHelper.isId(field, instance.config.model)) { %>
         <% field.config.disabled = true %>
