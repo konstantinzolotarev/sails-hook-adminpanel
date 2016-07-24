@@ -12,7 +12,7 @@
     <% include form/inputBoolean %>
 <% } %>
 
-<% if (type == 'text') { %>
+<% if (type == 'text'  || type === 'longtext') { %>
     <% include form/inputTextarea %>
 <% } %>
 
