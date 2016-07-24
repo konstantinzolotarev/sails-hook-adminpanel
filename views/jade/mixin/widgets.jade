@@ -30,6 +30,14 @@ mixin fieldWidget(key, field, value, instance)
         +inputCheckbox(key, field, value)
       when 'text'
         +textarea(key, field, value)
+      when 'mediumtext'
+        +textarea(key, field, value)
+      when 'longtext'
+        +textarea(key, field, value)
+      when 'json'
+        +textarea(key, field, value)
+      when 'array'
+        +textarea(key, field, value)
       default
         +inputText(key, field, value)
 
