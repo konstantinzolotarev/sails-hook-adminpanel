@@ -8,11 +8,13 @@
     <% include form/inputText %>
 <% } %>
 
-<% if (type == 'boolean') { %>
+<% if (type === 'boolean' || type === 'binary') { %>
     <% include form/inputBoolean %>
 <% } %>
 
-<% if (type == 'text'  || type === 'longtext') { %>
+<% var inputTextAreaTypes = ['text', 'longtext', 'mediumtext', 'json', 'array'] %>
+
+<% if (~inputTextAreaTypes.indexOf(type)) { %>
     <% include form/inputTextarea %>
 <% } %>
 
