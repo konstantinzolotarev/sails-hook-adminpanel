@@ -28,6 +28,8 @@ mixin fieldWidget(key, field, value, instance)
         +inputNumber(key, field, value)
       when 'boolean'
         +inputCheckbox(key, field, value)
+      when 'binary'
+        +inputCheckbox(key, field, value)        
       when 'text'
         +textarea(key, field, value)
       when 'mediumtext'
