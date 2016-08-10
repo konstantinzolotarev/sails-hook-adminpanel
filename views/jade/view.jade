@@ -28,7 +28,7 @@ block body
     paper-material(page='', elevation='1')
       each field, key in fields
         .layout.horizontal.field-row
-          .field-name: strong #{key}
+          .field-name: strong #{field.config.title}
           div(flex='')
             +showValue(key, field, record[key])
 
