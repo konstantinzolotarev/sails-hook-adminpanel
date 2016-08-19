@@ -15,4 +15,7 @@ mixin showValue(key, field, value)
       | !{locals.adminpanel.viewHelper.getAssociationValue(value, field)}
 
     default
-      | #{value}
+      if field.config.enum
+        | #{field.config.enum[value]}
+      else
+        | #{value}
