@@ -37,5 +37,8 @@
     "paper-toast": "PolymerElements/paper-toast#^1.0.0",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
     "jquery": "~2.1.4"
+  },
+  "resolutions": {
+    "polymer": "^1.6.0"
   }
 }
