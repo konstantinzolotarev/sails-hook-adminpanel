@@ -8,6 +8,9 @@ mixin showValue(key, field, value)
     when 'text'
       p !{value}
 
+    when 'json'
+      p !{JSON.stringify(value)}
+
     when 'association'
       | #{locals.adminpanel.viewHelper.getAssociationValue(value, field)}
 

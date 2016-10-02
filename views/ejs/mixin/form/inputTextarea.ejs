@@ -6,13 +6,13 @@
     name="<%= key %>"
     id="form-<%= key %>">
 
-    <%= value || '' %>
+    <%= field.config.type == 'json' && typeof value === 'object' ? JSON.stringify(value) : (value || '') %>
 </textarea>
 <% } else { %>
 <paper-textarea label="<%= field.config.title %>"
     <% field.config.required && 'required' %>
     <% field.config.disabled && 'disabled'%>
-    value="<%= value || '' %>"
+    value="<%= field.config.type == 'json' && typeof value === 'object' ? JSON.stringify(value) : (value || '') %>"
     name="<%= key %>"
     id="form-<%= key %>"></paper-textarea>
 <% } %>
