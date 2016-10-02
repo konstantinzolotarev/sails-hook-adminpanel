@@ -3,6 +3,8 @@
     <iron-icon icon="<%= value ? "check-circle" : "cancel" %>"></iron-icon>
 <% } else if (field.model.type == 'text') { %>
     <%- value %>
+<% } else if (field.model.type == 'json') { %>
+    <%- JSON.stringify(value) %>
 <% } else if (field.model.type == 'association') { %>
     <%- adminpanel.viewHelper.getAssociationValue(value, field) %>
 <% } else if (field.model.type == 'association-many') { %>
