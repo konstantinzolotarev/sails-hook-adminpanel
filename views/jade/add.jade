@@ -30,7 +30,19 @@ block body
 block js
   script.
     function submitForm() {
-        document.getElementById('form').submit();
+      // Assign JSONEditor value to form textarea
+      for (var id in jsonEditor) {
+          try {
+              var json = jsonEditor[id].get();
+              $('#form-' + id).val(JSON.stringify(json));
+          } catch (e) {
+              alert('JSON is invalid.');
+              $('#form-' + id).show().focus().hide();
+              jsonEditor[id].focus();
+              return false;
+          }
+      };
+      document.getElementById('form').submit();
     }
 
-  +installEditors(fields)
+  +installEditors(fields, null)

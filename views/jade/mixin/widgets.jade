@@ -37,7 +37,7 @@ mixin fieldWidget(key, field, value, instance)
       when 'longtext'
         +textarea(key, field, value)
       when 'json'
-        +textarea(key, field, value)
+        +textarea(key, field, JSON.stringify(value))
       when 'array'
         +textarea(key, field, value)
       default
@@ -114,8 +114,20 @@ mixin inputSelectMany(key, field, value)
       else
         option(value='') --- No records found ---
 
-mixin installEditors(fields)
+mixin installEditors(fields, record)
   script(type='text/javascript')
+    | var jsonEditor = {};
     each field, key in fields
       if field.config.editor
-        | CKEDITOR.replace( 'form-#{key}' );
+        if field.config.type == 'text'
+          | CKEDITOR.replace( 'form-#{key}' );
+        else if field.config.type == 'json'
+          - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+          | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:320px;"></div>');
+          | jsonEditor['#{key}'] = new JSONEditor(
+          |   $('#form-#{key}-jsoneditor')[0],
+          |   {
+          |     modes: ['view', 'tree', 'code']
+          |   },
+          |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
+          | );
