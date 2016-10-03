@@ -36,7 +36,8 @@
     "paper-styles": "PolymerElements/paper-styles#^1.0.0",
     "paper-toast": "PolymerElements/paper-toast#^1.0.0",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "jsoneditor": "^5.5.8"
   },
   "resolutions": {
     "polymer": "^1.6.0"
