@@ -11,7 +11,6 @@ cp -r bower_components/jquery vendor
 cp -r bower_components/webcomponentsjs vendor 
 cp -r bower_components/jsoneditor vendor
 cp -r bower_components/ace vendor
-cp -r bower_components/file-upload vendor
 
 cd polymer
 rm elements-vulcanized.html
