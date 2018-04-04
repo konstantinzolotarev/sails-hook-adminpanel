@@ -1,0 +1,237 @@
+include ./widgets/floormaps
+include ./widgets/fileuploader
+
+mixin fieldWidget(key, field, value, instance, id)
+  if (typeof value === 'undefined' && typeof field.model.defaultsTo !== 'undefined')
+    - value = field.model.defaultsTo
+
+  if locals.adminpanel.configHelper.isId(field, instance.config.model)
+    - field.config.disabled = true; //Disable identifier field
+    +inputText(key, field, value)
+  else
+    - var type = field.config.type || field.model.type
+    case type
+      when 'association'
+        +inputModel(key, field, value)
+      when 'association-many'
+        +inputSelectMany(key, field, value)
+      when 'string'
+        +inputText(key, field, value)
+      when 'password'
+        +inputPassword(key, field, value)
+      when 'date'
+        +inputDate(key, field, value)
+      when 'datetime'
+        +inputDatetime(key, field, value)
+      when 'integer'
+        +inputNumber(key, field, value)
+      when 'float'
+        +inputNumber(key, field, value)
+      when 'number'
+        +inputNumber(key, field, value)
+      when 'boolean'
+        +inputCheckbox(key, field, value)
+      when 'binary'
+        +inputCheckbox(key, field, value)
+      when 'text'
+        +textarea(key, field, value)
+      when 'mediumtext'
+        +textarea(key, field, value)
+      when 'longtext'
+        +textarea(key, field, value)
+      when 'json'
+        +json(key, field, value)
+      when 'array'
+        +textarea(key, field, value)
+      default
+        +inputText(key, field, value)
+
+mixin inputText(key, field, value)
+  if field.model.enum
+    +select(key, field, value)
+  else if field.model.email
+    paper-input(type='email', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  else if field.config.file
+    paper-input(type='file', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  else
+    input(type='text', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value, placeholder=field.config.title)
+mixin inputPassword(key, field, value)
+  paper-input(type='password', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+
+mixin inputDate(key, field, value)
+  paper-input(type='date', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+
+mixin inputDatetime(key, field, value)
+  paper-input(type='datetime', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+
+mixin inputNumber(key, field, value)
+  paper-input(type='number', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+
+mixin inputCheckbox(key, field, value)
+  .widget
+     | <input type="checkbox" id="form-#{key}" name="#{key}" checked=#{value}>
+//-  paper-checkbox(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value) #{field.config.title}
+
+mixin select(key, field, value)
+  .widget
+    | &nbsp;#{field.config.title}&nbsp;
+    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+      if (field.config.enum && typeof field.config.enum === 'object')
+        each opt, optKey in field.config.enum
+          option(value=optKey, selected=(optKey == value)) #{opt}
+      else
+        each opt in field.model.enum
+          option(value=opt, selected=(opt == value)) #{opt}
+
+mixin textarea(key, field, value)
+  if field.config.editor
+    | &nbsp;#{field.config.title}
+    br
+    textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+  else
+    paper-textarea(name=key, value=value, label=field.config.title, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+
+// #{key}FMDmap inject
+
+mixin json(key, field, value)
+    - var widget = field.config.widget
+    case widget
+      when 'Map'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
+      when 'GalleryUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+      when 'ImageUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+      when 'FileUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+      when 'FilesUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+      when 'FMDraw'
+        | &nbsp;#{field.config.title}
+        br
+        | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+        | <div id="mapFMD-#{key}" class="map" style="height: #{field.config.FMDraw.height}px"></div>
+      when 'FMSetLevelImage'
+        | &nbsp;#{field.config.title}
+        br
+        | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+        | <div id="mapFMSLI-#{key}" class="map " style="height: #{field.config.FMSetLevelImage.height}px"></div>
+      when 'JsonEditor'
+        h4 #{field.config.title}
+        br
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+      when 'Ace'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="ace-#{key}" style="height: #{field.config.Ace.height}px; font-size: #{field.config.Ace.fontSize}px;">#{value}</div>
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+        style
+          | #form-#{key} {
+          |   display: none;
+          | }
+
+
+mixin inputModel(key, field, value)
+  .widget
+    | &nbsp;#{field.config.title}&nbsp;
+    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+      if !field.config.required
+        option(value='') --- Select please ---
+      if field.config.records
+        each opt in field.config.records
+          option(value=opt[field.config.identifierField],
+                  selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
+      else
+        option(value='') --- No records found ---
+
+mixin inputSelectMany(key, field, value)
+  .widget
+    | &nbsp;#{field.config.title}&nbsp;
+    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    select(name=key, id='form-#{key}', multiple='', required=field.config.required || false, disabled=field.config.disabled || false).multi
+      if field.config.records
+        each opt in field.config.records
+          option(value=opt[field.config.identifierField],
+            selected=(locals.adminpanel.viewHelper.isOptionSelected(opt[field.config.identifierField], value))) #{opt[field.config.displayField]}
+      else
+        option(value='') --- No records found ---
+
+mixin installEditors(fields, record)
+  each field in fields
+    - var widget = field.config.widget
+    case widget
+      when 'ImageUploader'
+        +scripts()
+      when 'GalleryUploader'
+        +scripts()
+      when 'FileUploader'
+        +scripts()
+      when 'FilesUploader'
+        +scripts()
+
+  script(type='text/javascript')
+    | var jsonEditor = {};
+
+    each field, key in fields
+      - var widget = field.config.widget
+      if field.config.editor
+         | CKEDITOR.replace( 'form-#{key}' );
+      case widget
+        when 'Map'
+          |	var mymap = L.map('map_#{key}').setView([51.505, -0.09], 13);
+          |	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+          |		maxZoom: 18,
+          |		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+          |			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          |			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+          |		id: 'mapbox.streets'
+          |	}).addTo(mymap);
+        when 'JsonEditor'
+          - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+          | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');
+          | jsonEditor['#{key}'] = new JSONEditor(
+          |   $('#form-#{key}-jsoneditor')[0],
+          |   {
+          |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
+          |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
+          |   },
+          |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
+          | );
+        when 'Ace'
+          | var editor = ace.edit('ace-#{key}');
+          | editor.setReadonly
+          | editor.setTheme("ace/theme/katzenmilch");
+          | editor.getSession().setMode("ace/mode/html");
+          | var textarea = $('textarea[name="#{key}"]');
+          | editor.getSession().on("change", function () {
+          |    textarea.val(editor.getSession().getValue());
+          | });
+        when 'FMSetLevelImage'
+          +floormapsSetLevelImage(key, field)
+        when 'FMDraw'
+          +floormapsDraw(key, field)
+        when 'ImageUploader'
+          +imageUploader(key, field)
+        when 'GalleryUploader'
+          +galleryUploader(key, field)
+        when 'FileUploader'
+          +fileUploader(key, field)
+        when 'FilesUploader'
+          +filesUploader(key, field)

@@ -1,0 +1,146 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "git+https://github.com/FloorMaps/sails-hook-adminpanel.git",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "git+https://github.com/FloorMaps/sails-hook-adminpanel.git",
+        "spec": "git+https://github.com/FloorMaps/sails-hook-adminpanel.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:FloorMaps/sails-hook-adminpanel.git",
+          "sshUrl": "git+ssh://git@github.com/FloorMaps/sails-hook-adminpanel.git",
+          "httpsUrl": "git+https://github.com/FloorMaps/sails-hook-adminpanel.git",
+          "gitUrl": "git://github.com/FloorMaps/sails-hook-adminpanel.git",
+          "shortcut": "github:FloorMaps/sails-hook-adminpanel",
+          "directUrl": "https://raw.githubusercontent.com/FloorMaps/sails-hook-adminpanel/master/package.json"
+        }
+      },
+      "/prj/tdc-gostiniydvor"
+    ],
+    [
+      {
+        "raw": "git+http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "git+http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "spec": "http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "type": "git"
+      },
+      "/prj/kinza.hm"
+    ],
+    [
+      {
+        "raw": "git+http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "git+http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "spec": "http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "type": "git"
+      },
+      "/prj/tdc-gostiniydvor"
+    ],
+    [
+      {
+        "raw": "git+http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "git+http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "spec": "http://git.42team.ru/SailsJS/sails-hook-adminpanel",
+        "type": "git"
+      },
+      "/prj/kinza.hm"
+    ],
+    [
+      {
+        "raw": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#kinza",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#kinza",
+        "spec": "http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#kinza",
+        "type": "git"
+      },
+      "/prj/kinza.hm"
+    ]
+  ],
+  "_from": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
+  "_id": "sails-hook-adminpanel@1.0.15",
+  "_inBundle": false,
+  "_inCache": true,
+  "_location": "/sails-hook-adminpanel",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "sails-hook-adminpanel@git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
+    "name": "sails-hook-adminpanel",
+    "escapedName": "sails-hook-adminpanel",
+    "rawSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
+    "saveSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
+    "fetchSpec": "http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#36ed10c7594f9d75f075727074b89fe725ee4094",
+  "_shasum": "e587ca2551797dc405303b46db73aad6914bc042",
+  "_shrinkwrap": null,
+  "_spec": "sails-hook-adminpanel@git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
+  "_where": "/home/yroot/adminpanel-new",
+  "author": {
+    "name": "Konstantin Zolotarev"
+  },
+  "bugs": {
+    "url": "https://github.com/konstantinzolotarev/sails-hook-adminpanel/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "async": "^0.9.0",
+    "gulp-less": "^3.0.3",
+    "jimp": "^0.2.28",
+    "lodash": "^3.9.0",
+    "ncp": "^2.0.0"
+  },
+  "deprecated": false,
+  "description": "Implements the basic admin panel for Sails",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "chance": "^0.7.3",
+    "mocha": "^2.0.1",
+    "sails": "^0.11.0"
+  },
+  "gitHead": "3633322ed8356584330f49f14b5755412bf1d56a",
+  "homepage": "https://github.com/konstantinzolotarev/sails-hook-adminpanel#readme",
+  "keywords": [
+    "sails-hook",
+    "sails",
+    "sails.js",
+    "hook",
+    "admin",
+    "admin-panel"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "sails-hook-adminpanel",
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/konstantinzolotarev/sails-hook-adminpanel.git"
+  },
+  "sails": {
+    "isHook": true
+  },
+  "scripts": {
+    "install": "bower install --allow-root && bash ./build.sh",
+    "test": "node ./node_modules/mocha/bin/mocha -b --timeout 5000",
+    "update": "bower install --allow-root &&  bash ./build.sh"
+  },
+  "version": "1.0.15"
+}

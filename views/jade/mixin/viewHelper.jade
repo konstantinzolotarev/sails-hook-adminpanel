@@ -1,0 +1,24 @@
+mixin showValue(key, field, value)
+  case field.model.type
+    when 'boolean'
+      if value
+        iron-icon(icon="check-circle")
+      else
+        iron-icon(icon="cancel")
+    when 'text'
+      p !{value}
+
+    when 'json'
+      p !{JSON.stringify(value)}
+
+    when 'association'
+      | #{locals.adminpanel.viewHelper.getAssociationValue(value, field)}
+
+    when 'association-many'
+      | !{locals.adminpanel.viewHelper.getAssociationValue(value, field)}
+
+    default
+      if field.config.enum
+        | #{field.config.enum[value]}
+      else
+        | #{value}

@@ -1,0 +1,23 @@
+mixin menuItem(menuItem)
+  admin-menu-item(href=menuItem.link)
+    | &nbsp;#{menuItem.title}
+    if menuItem.icon
+      iron-icon(icon=menuItem.icon)
+
+mixin navbar
+  paper-toolbar
+    //paper-icon-button(icon='menu', on-tap="menuAction")
+    if locals.adminpanel.menuHelper.hasBrand()
+      div
+        a(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
+
+  paper-menu
+    each group in locals.adminpanel.menuHelper.getGroups()
+      menu-collapse
+        //i(class='glyphicon-#{group.icon}').glyphicon
+        div.header #{group.title || 'Dropdown'}
+        div
+          each menuItem in group.menues
+            +menuItem(menuItem)
+    each menuItem in locals.adminpanel.menuHelper.getMenuItems()
+      +menuItem(menuItem)

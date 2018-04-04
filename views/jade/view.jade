@@ -1,0 +1,35 @@
+extends ./layout
+
+include ./mixin/widgets
+include ./mixin/viewHelper
+include ./mixin/actions
+
+block body
+  - var idField = locals.adminpanel.configHelper.getIdentifierField(instance.config.model);
+  .layout.horizontal
+    +globalActions('view', instance, record)
+  .layout
+    .horizontal.end-justified.layout
+      a(href='#{instance.uri}')
+        paper-button(raised='').button-blue
+          iron-icon(icon='arrow-back')
+          | &nbsp;Back to list
+      if instance.config.edit
+        a(href='#{instance.uri}/edit/#{record[idField]}')
+          paper-button(raised='').button-green
+            iron-icon(icon='create')
+            | &nbsp;Edit record
+      if instance.config.remove
+        a(href='#{instance.uri}/remove/#{record[idField]}', onclick="return confirm('Are you sure ?');")
+          paper-button(raised='').button-red
+            iron-icon(icon='delete')
+            | &nbsp;Remove record
+
+    paper-material(page='', elevation='1')
+      each field, key in fields
+        .layout.horizontal.field-row
+          .field-name: strong #{field.config.title}
+          div(flex='')
+            +showValue(key, field, record[key])
+
+      +inlineActions(instance, record, 'view')

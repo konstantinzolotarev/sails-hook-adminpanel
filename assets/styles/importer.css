@@ -1,0 +1,58 @@
+/**
+ * importer.less
+ *
+ * By default, new Sails projects are configured to compile this file
+ * from LESS to CSS.  Unlike CSS files, LESS files are not compiled and
+ * included automatically unless they are imported below.
+ *
+ * The LESS files imported below are compiled and included in the order
+ * they are listed.  Mixins, variables, etc. should be imported first
+ * so that they can be accessed by subsequent LESS stylesheets.
+ *
+ * (Just like the rest of the asset pipeline bundled in Sails, you can
+ * always omit, customize, or replace this behavior with SASS, SCSS,
+ * or any other Grunt tasks you like.)
+ */
+/* Include this file in your html if you are using the CSP mode. */
+@charset "UTF-8";
+
+#mainLayout {
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+paper-button {
+    color: black;
+}
+
+paper-button a {
+    text-decoration: none;
+}
+
+paper-button.button-green {
+    background: #4CAF50;
+    color: white;
+}
+
+paper-button.button-blue {
+    background: #4285f4;
+    color: white;
+}
+
+paper-button.button-red {
+    background: #F44336;
+    color: white;
+}
+
+.field-row {
+    margin: 10px;
+}
+
+.field-name {
+    min-width: 200px;
+    font-weight: bold;
+}
+
+select.multi {
+    min-height: 200px;
+}

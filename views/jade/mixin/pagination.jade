@@ -1,0 +1,13 @@
+mixin pagination(instancePath, page, total, limit, requestProcessor)
+  - if (!page) page = 1;
+  - page = parseInt(page);
+  - if (!limit) limit = 20;
+
+  span #{((page-1)*limit)}-#{(page*limit)} of #{total}
+
+  if page > 1
+    a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page - 1)})}')
+      iron-icon(icon="chevron-left")
+  if ((page + 1) * limit) <= total
+    a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page + 1)})}')
+      iron-icon(icon="chevron-left")

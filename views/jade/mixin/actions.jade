@@ -1,0 +1,36 @@
+mixin globalActions(action, instance, record)
+  - record = record || {};
+  if locals.adminpanel.menuHelper.hasGlobalActions(instance.config, action)
+    - var actions = locals.adminpanel.menuHelper.getGlobalActions(instance.config, action)
+    if (actions && actions.length > 0)
+      each action in actions
+        a(href=locals.adminpanel.menuHelper.replaceModelFields(action.link, record))
+          paper-button(raised='')
+            if action.icon
+              iron-icon(icon=action.icon)
+            | &nbsp;#{action.title}
+
+
+mixin inlineListActions(instance, record)
+  - record = record || {};
+  if locals.adminpanel.menuHelper.hasInlineActions(instance.config, 'list')
+    - var actions = locals.adminpanel.menuHelper.getInlineActions(instance.config, 'list')
+    if (actions && actions.length > 0)
+      each action in actions
+        | &nbsp;
+        - var link = locals.adminpanel.menuHelper.replaceModelFields(action.link, record)
+        a(href=link)
+          iron-icon(icon=action.icon)
+
+mixin inlineActions(instance, record, actionType)
+  - record = record || {};
+    if locals.adminpanel.menuHelper.hasInlineActions(instance.config, actionType)
+      - var actions = locals.adminpanel.menuHelper.getInlineActions(instance.config, actionType)
+      if (actions && actions.length > 0)
+        each action in actions
+          | &nbsp;
+          a(href=locals.adminpanel.menuHelper.replaceModelFields(action.link, record))
+            paper-button(raised='')
+              if action.icon
+                iron-icon(icon=action.icon)
+              | &nbsp;#{action.title}
