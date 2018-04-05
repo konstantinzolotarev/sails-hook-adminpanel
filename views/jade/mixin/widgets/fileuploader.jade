@@ -18,9 +18,9 @@ mixin imageUploader(key, field)
     | },
   if (field.config.ImageUploader.size)
     | size: {
-    |   width: '!{field.config.ImageUploader.size.width}',
-    |   height: '!{field.config.ImageUploader.size.height}'
-    | }
+    |   width: '!{JSON.stringify(field.config.ImageUploader.size.width)}',
+    |   height: '!{JSON.stringify(field.config.ImageUploader.size.height)}'
+    | },
   | });
 
 mixin galleryUploader(key, field)
@@ -39,8 +39,8 @@ mixin galleryUploader(key, field)
     | },
   if (field.config.GalleryUploader.size)
     | size: {
-    |   width: '!{field.config.GalleryUploader.size.width}',
-    |   height: '!{field.config.GalleryUploader.size.height}'
+    |   width: '!{JSON.stringify(field.config.GalleryUploader.size.width)}',
+    |   height: '!{JSON.stringify(field.config.GalleryUploader.size.height)}'
     | },
   if (field.config.GalleryUploader.resize)
     | resize: !{JSON.stringify(field.config.GalleryUploader.resize)},

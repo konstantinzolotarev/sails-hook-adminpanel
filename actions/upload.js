@@ -219,7 +219,6 @@ function checkValid(w, h, aspect, size) {
             }
         }
     }
-
     return res;
 }
 
@@ -230,20 +229,12 @@ function rangeToString(size) {
         i = a[i];
         if (!Array.isArray(size[i]))
             size[i] = [size[i]];
-        for (let j in size[i]) {
-            j = size[i][j];
-            if (j.indexOf('>') >= 0) {
-                res[i] += 'больше '
-            }
-            if (j.indexOf('<') >= 0) {
-                res[i] += 'меньше '
-            }
-            if (j.indexOf('=') >= 0) {
-                if (j)
-                    res[i] += 'или '
-                res[i] += 'равна '
-            }
-            res[i] += j.replace(/[><=]/, '') + ' ';
+        for (let j = 0; j < size[i].length; j++) {
+            size[i][j] = size[i][j].replace('>=', "больше или равно ");
+            size[i][j] = size[i][j].replace('>', "больше ");
+            size[i][j] = size[i][j].replace('<=', "меньше или равно ");
+            size[i][j] = size[i][j].replace('<', "меньше ");
+            res[i] += size[i][j] + ' ';
         }
     }
 
