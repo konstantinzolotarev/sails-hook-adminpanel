@@ -66,7 +66,7 @@ module.exports = function (req, res) {
         let size1;
         try {
             size1 = JSON.parse(req.body.size);
-            if (size1){
+            if (size1) {
                 if (!size1.width)
                     size1.width = '>=0';
                 if (!size1.height)
@@ -105,7 +105,7 @@ module.exports = function (req, res) {
                     // check image parametrs
                     const valid = checkValid(width, height, aspect, size1);
                     if (valid === 'size') {
-                        return res.badRequest('Неправильный размер');
+                        return res.badRequest(rangeToString(size1));
                     }
                     else if (valid === 'aspect') {
                         return res.badRequest('Неправильное соотношение сторон');
@@ -221,4 +221,33 @@ function checkValid(w, h, aspect, size) {
     }
 
     return res;
+}
+
+function rangeToString(size) {
+    let res = {width: '', height: ''};
+    const a = ['width', 'height'];
+    for (let i in a) {
+        i = a[i];
+        if (!Array.isArray(size[i]))
+            size[i] = [size[i]];
+        for (let j in size[i]) {
+            j = size[i][j];
+            if (j.indexOf('>') >= 0) {
+                res[i] += 'больше '
+            }
+            if (j.indexOf('<') >= 0) {
+                res[i] += 'меньше '
+            }
+            if (j.indexOf('=') >= 0) {
+                if (j)
+                    res[i] += 'или '
+                res[i] += 'равна '
+            }
+            res[i] += j.replace(/[><=]/, '') + ' ';
+        }
+    }
+
+    res.width = 'Ширина должна быть ' + res.width;
+    res.height = 'и высота ' + res.height;
+    return res.width + res.height;
 }

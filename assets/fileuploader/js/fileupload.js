@@ -155,6 +155,9 @@ class FileUploader {
                 myDropzone.addFile(file);
             },
             thumbnail: function (file) {
+                file.previewElement.addEventListener("click", function () {
+                    t.removeFile(file);
+                });
                 if (!fu.checkValid(file)) {
                     file.done('ERROR');
                     file.reject();
@@ -163,9 +166,6 @@ class FileUploader {
                     file.stop = false;
                 }
                 const t = this;
-                file.previewElement.addEventListener("click", function () {
-                    t.removeFile(file);
-                });
             },
             accept: (file, done) => {
                 file.reject = function () {
