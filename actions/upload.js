@@ -184,7 +184,6 @@ function checkValid(w, h, aspect, size) {
         const b = [w, h];
 
         for (let i = 0; i < a.length; i++) {
-            a[i] = JSON.parse(a[i]);
             if (!Array.isArray(a[i])) {
                 if (/[><=]/.test(a[i]))
                     a[i] = [a[i]];
@@ -232,14 +231,11 @@ function rangeToString(size) {
         if (!Array.isArray(size[i]))
             size[i] = [size[i]];
         for (let j = 0; j < size[i].length; j++) {
-            sails.log.info(size[i]);
-            sails.log.info(size[i][j]);
-            size[i][0][j] = size[i][j].replace('>=', "больше или равно ");
-            size[i][0][j] = size[i][j].replace('>', "больше ");
-            size[i][0][j] = size[i][j].replace('<=', "меньше или равно ");
-            size[i][0][j] = size[i][j].replace('<', "меньше ");
+            size[i][j] = size[i][j].replace('>=', "больше или равно ");
+            size[i][j] = size[i][j].replace('>', "больше ");
+            size[i][j] = size[i][j].replace('<=', "меньше или равно ");
+            size[i][j] = size[i][j].replace('<', "меньше ");
             res[i] += size[i][j] + ', ';
-            sails.log.info(res[i]);
         }
     }
 
