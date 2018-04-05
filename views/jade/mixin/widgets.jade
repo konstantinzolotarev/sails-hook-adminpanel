@@ -104,22 +104,38 @@ mixin json(key, field, value)
         | &nbsp;#{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+        - var v = JSON.stringify(value)
+        if (v !== null)
+          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'ImageUploader'
         | &nbsp;#{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+        - var v = JSON.stringify(value)
+        if (v !== null)
+          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'FileUploader'
         | &nbsp;#{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+        - var v = JSON.stringify(value)
+        if (v !== null)
+          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'FilesUploader'
         | &nbsp;#{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+        - var v = JSON.stringify(value)
+        if (v !== null)
+          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'FMDraw'
         | &nbsp;#{field.config.title}
         br
