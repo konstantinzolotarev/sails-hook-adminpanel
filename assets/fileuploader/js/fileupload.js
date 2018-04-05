@@ -42,10 +42,22 @@ class FileUploader {
                     this.dataPreview = ci.dataPreview;
             this.aspect = config.aspect;
             this.size = config.size;
+            try {
+                this.size.width = JSON.parse(this.size.width);
+            } catch(e) {}
+            try {
+                this.size.height = JSON.parse(this.size.height);
+            } catch(e) {}
         }
         if (this.type === 'image') {
             this.aspect = config.aspect;
             this.size = config.size;
+            try {
+                this.size.width = JSON.parse(this.size.width);
+            } catch(e) {}
+            try {
+                this.size.height = JSON.parse(this.size.height);
+            } catch(e) {}
         }
 
         if (!this.acceptedFiles)
@@ -155,24 +167,10 @@ class FileUploader {
                 myDropzone.addFile(file);
             },
             thumbnail: function (file) {
+                const t = this;
                 file.previewElement.addEventListener("click", function () {
                     t.removeFile(file);
                 });
-                if (!fu.checkValid(file)) {
-                    file.done('ERROR');
-                    file.reject();
-                    file.stop = true;
-                } else {
-                    file.stop = false;
-                }
-                const t = this;
-            },
-            accept: (file, done) => {
-                file.reject = function () {
-                    done('Неправильный размер!');
-                };
-                file.done = done;
-                return done();
             }
         });
 
@@ -385,6 +383,7 @@ class FileUploader {
                 }
             }
         }
+
         return res;
     }
 }
