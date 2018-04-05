@@ -385,7 +385,6 @@ class FileUploader {
                 }
             }
         }
-
         return res;
     }
 }
