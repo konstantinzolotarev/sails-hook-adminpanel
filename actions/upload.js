@@ -26,6 +26,7 @@ module.exports = function (req, res) {
         // set upload directory
         const dirDownload = '/uploads/' + instance.name + '/' + req.body.field + '/';
         const dir = '/.tmp/public' + dirDownload;
+        const assetsDir = process.cwd() + '/assets' + dirDownload;
         const fullDir = process.cwd() + dir;
 
         // small and large sizes
@@ -105,7 +106,7 @@ module.exports = function (req, res) {
                     // check image parametrs
                     const valid = checkValid(width, height, aspect, size1);
                     if (valid === 'size') {
-                        return res.badRequest(rangeToString(size1));
+                        return res.badRequest(invalidSize(width, height));
                     }
                     else if (valid === 'aspect') {
                         return res.badRequest('Неправильное соотношение сторон');
@@ -118,8 +119,10 @@ module.exports = function (req, res) {
                         resizes.push(
                             function (callback) {
                                 const name = fullDir + filename.substr(0, filename.lastIndexOf('.')) + '_' + i.name + '.' + filename.split('.').reverse()[0];
+                                const name2 = assetsDir + filename.substr(0, filename.lastIndexOf('.')) + '_' + i.name + '.' + filename.split('.').reverse()[0];
                                 Jimp.read('.' + dir + filename, function (err, imageTemp) {
                                     imageTemp.resize(i.w === -1 ? Jimp.AUTO : i.w, i.h === -1 ? Jimp.AUTO : i.h).write(name, function (err, image) {
+                                        image.write(name2);
                                         if (err) return callback(err);
                                         return callback(null, name);
                                     });
@@ -135,8 +138,10 @@ module.exports = function (req, res) {
                                 if (err) return res.serverError(err);
                                 image1.scaleToFit(large, large)
                                     .write(fullDir + nameLarge, function () {
+                                        image1.write(assetsDir + nameLarge);
                                         image1.scaleToFit(small, small)
                                             .write(fullDir + nameSmall, function () {
+                                                image1.write(assetsDir + nameSmall);
                                                 // return urls
                                                 const url = dirDownload + filename;
                                                 const urlSmall = dirDownload + nameSmall;
@@ -223,7 +228,7 @@ function checkValid(w, h, aspect, size) {
     return res;
 }
 
-function rangeToString(size) {
+/*function rangeToString(size) {
     let res = {width: '', height: '', width1: '', height1: ''};
     const a = ['width', 'height'];
     for (let i in a) {
@@ -241,5 +246,9 @@ function rangeToString(size) {
 
     res.width = 'Ширина должна быть ' + res.width;
     res.height = 'и высота ' + res.height;
-    return res.width + res.height;
+    return res.width + '<br>' + res.height;
+}*/
+
+function invalidSize(width, height) {
+    return 'Картинка не подходит по разрешению\nШирина: ' + width + ', высота: ' + height;
 }
