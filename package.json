@@ -68,32 +68,44 @@
         "type": "git"
       },
       "/prj/kinza.hm"
+    ],
+    [
+      {
+        "raw": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+        "spec": "http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+        "type": "git"
+      },
+      "/srv/tdc/back"
     ]
   ],
-  "_from": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
+  "_from": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
   "_id": "sails-hook-adminpanel@1.0.15",
   "_inBundle": false,
   "_inCache": true,
   "_location": "/sails-hook-adminpanel",
   "_phantomChildren": {},
   "_requested": {
-    "type": "git",
-    "raw": "sails-hook-adminpanel@git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
-    "name": "sails-hook-adminpanel",
-    "escapedName": "sails-hook-adminpanel",
-    "rawSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
-    "saveSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
-    "fetchSpec": "http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
-    "gitCommittish": null
+    "raw": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+    "spec": "http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+    "type": "git"
   },
   "_requiredBy": [
+    "#USER",
     "/"
   ],
-  "_resolved": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#36ed10c7594f9d75f075727074b89fe725ee4094",
-  "_shasum": "e587ca2551797dc405303b46db73aad6914bc042",
+  "_resolved": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#c8d0d06d74fae3b071a7ca2fe33d8e3c116625e6",
+  "_shasum": "ea626d191367554f1d526f2c991d99b32beced6b",
   "_shrinkwrap": null,
-  "_spec": "sails-hook-adminpanel@git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel",
-  "_where": "/home/yroot/adminpanel-new",
+  "_spec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+  "_where": "/srv/tdc/back",
   "author": {
     "name": "Konstantin Zolotarev"
   },
@@ -130,12 +142,15 @@
   "main": "index.js",
   "name": "sails-hook-adminpanel",
   "optionalDependencies": {},
+  "readme": "sails-hook-adminpanel\n=====================\n\n[![Join the chat at https://gitter.im/konstantinzolotarev/sails-hook-adminpanel](https://badges.gitter.im/konstantinzolotarev/sails-hook-adminpanel.svg)](https://gitter.im/konstantinzolotarev/sails-hook-adminpanel?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n\nAdmin panel generator for Sails.js applications v0.11+\n\n**This hook is under active development. Please be careful lot of functionality will be added. And some configs could change from version to version**\n\n# Installation\n\nTo install this hook you will need to run:\n\n    npm install --save sails-hook-adminpanel\n\nThen you will need to create a config file for admin panel generator into `config/adminpanel.js`\n\nThis is example of this file:\n\n    'use strict';\n\n    module.exports.adminpanel = {\n        instances: {\n\n            users: {\n\n                title: 'Users',\n                model: 'User',\n\n                list: {\n                    fields: {\n                        id: 'ID',\n                        email: 'Email',\n                        active: 'Active',\n                        admin: 'Admin',\n                        createdAt: 'Created'\n                    }\n                },\n\n                edit: {\n                    fields: {\n                        email: 'Email',\n\n                        active: {\n                            title: 'Active'\n                        },\n                        admin: {\n                            title: 'Admin',\n                            disabled: true\n                        }\n                    }\n                }\n            }\n        }\n    };\n\n\nAnd your admin panel will be accesible under: `http://yoururl.com/admin/users`\n\n## Documentation\n\nTake a look into `docs` folder. There are lot of docs about configuration and usage.\n\n#### What is this?\n\nThis repo contains a hook, one of the building blocks Sails is made out of.\n\n#### What version of Sails is this for?\n\nThe versioning of a hook closely mirrors that of the Sails version it depends on.  While the \"patch\" version (i.e. the \"Z\" in \"X.Y.Z\") will normally differ from that of Sails core, the \"minor\" version number (i.e. the \"Y\" in \"X.Y.Z\") of this hook is also the minor version of Sails for which it is designed.  For instance, if a hook is version `0.11.9`, it is designed for Sails `^0.11.0` (that means it'll work from 0.11.0 all the way up until 0.12.0).\n\n#### Does this hook use only Jade for template engine ?\n\nYes. For now only Jade.\n\n#### Are there changes?\n\nYes, see the [v0.11 migration guide](http://sailsjs.org/#/documentation/concepts/Upgrading). You probably won't need to change anything unless you were extensively using the old Socket.io v0.9 configuration.\n\n\n## License\n\nMIT\n",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/konstantinzolotarev/sails-hook-adminpanel.git"
   },
   "sails": {
-    "isHook": true
+    "isHook": true,
+    "hookName": "adminpanel"
   },
   "scripts": {
     "install": "bower install --allow-root && bash ./build.sh",

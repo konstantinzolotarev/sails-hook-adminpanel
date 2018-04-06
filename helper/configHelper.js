@@ -34,8 +34,8 @@ module.exports = function(sails) {
          * @param {Object|string=} [model]
          * @returns {string}
          */
-        getFloorMapsConfig: function() {
-            return sails.config.floormaps
+        getConfig: function() {
+            return sails.config.adminpanel
         },
         getIdentifierField: function(modelOrName) {
             if (config.identifierField != 'id' || !modelOrName) {

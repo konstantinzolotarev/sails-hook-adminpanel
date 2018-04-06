@@ -77,6 +77,8 @@ mixin fileUploader(key, field)
   | acceptedFiles:!{JSON.stringify(field.config.FileUploader.accepted)}
   | });
 
+
+//TODO: И надо будет вынести это в layouts а это удалить от сюда
 mixin scripts()
   link(rel="stylesheet", href="/admin/fileuploader/styles/styles.css")
   link(rel="stylesheet", href="/admin/fileuploader/styles/basic.css")

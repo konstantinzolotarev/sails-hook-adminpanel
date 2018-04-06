@@ -20,6 +20,15 @@ html
     link(rel="stylesheet", href="/admin/styles/importer.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
+    
+    - var config = locals.adminpanel.configHelper.getConfig()
+    | <script>console.log(!{JSON.stringify(config.styles)});</script>
+    each key in config.styles 
+      link(rel="stylesheet", href="#{key}")
+      
+    each script in config.script.header 
+      script(src="#{script}")
+      
     // STYLES END
     block styles
 
@@ -52,8 +61,11 @@ html
 
 
     // stable
-
     script(src="/admin/vendor/ckeditor/ckeditor.js")
     script(src="/admin/vendor/ace/src-min-noconflict/ace.js")
     script(src="/admin/vendor/jsoneditor/dist/jsoneditor.min.js")
+    
+    each script in config.script.footer 
+      script(src="#{script}")
+      
     block js
