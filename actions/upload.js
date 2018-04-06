@@ -41,7 +41,7 @@ module.exports = function (req, res) {
         // resizes
         if (!req.body.resize)
             return res.serverError('No resizes in request');
-        let resize
+        let resize;
         try {
             resize = JSON.parse(req.body.resize);
         } catch (e) {

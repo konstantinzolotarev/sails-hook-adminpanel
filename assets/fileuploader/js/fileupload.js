@@ -44,20 +44,24 @@ class FileUploader {
             this.size = config.size;
             try {
                 this.size.width = JSON.parse(this.size.width);
-            } catch(e) {}
+            } catch (e) {
+            }
             try {
                 this.size.height = JSON.parse(this.size.height);
-            } catch(e) {}
+            } catch (e) {
+            }
         }
         if (this.type === 'image') {
             this.aspect = config.aspect;
             this.size = config.size;
             try {
                 this.size.width = JSON.parse(this.size.width);
-            } catch(e) {}
+            } catch (e) {
+            }
             try {
                 this.size.height = JSON.parse(this.size.height);
-            } catch(e) {}
+            } catch (e) {
+            }
         }
 
         if (!this.acceptedFiles)
@@ -315,12 +319,16 @@ class FileUploader {
     loadData() {
         const data = $('#' + this.dataInput).val();
         if (data) {
-            const files = JSON.parse(data);
-            files.forEach((i) => {
-                const f = new File_(this.files.length, i.name, i.url, i.urlS, i.urlL, i.width, i.height, i.size, i.sizes);
-                this.files.push(f);
-                this.addFile(f);
-            });
+            try {
+                const files = JSON.parse(data);
+                if (Array.isArray(files)) {
+                    files.forEach((i) => {
+                        const f = new File_(this.files.length, i.name, i.url, i.urlS, i.urlL, i.width, i.height, i.size, i.sizes);
+                        this.files.push(f);
+                        this.addFile(f);
+                    });
+                }
+            } catch(e) {}
             const preview = $('#' + this.dataPreview).val();
             if (preview) {
                 $('.' + this.fileContainer).each((i, item) => {
@@ -333,57 +341,5 @@ class FileUploader {
                 });
             }
         }
-    }
-
-    checkValid(file) {
-        // aspect
-        if (this.aspect)
-            if (Math.abs(file.width * this.aspect.width - file.height * this.aspect.height) !== 0)
-                return false;
-
-        // image size
-        let res = true;
-        if (this.size) {
-            const a = [this.size.width, this.size.height];
-            const b = [file.width, file.height];
-
-            for (let i = 0; i < a.length; i++) {
-                if (!Array.isArray(a[i])) {
-                    if (/[><=]/.test(a[i]))
-                        a[i] = [a[i]];
-                    else if (a[i] !== b[i])
-                        res = false;
-                }
-
-                if (res) {
-                    for (let j = 0; j < a[i].length; j++) {
-                        let item = a[i][j];
-                        let equal = false;
-                        if (item.indexOf('=') >= 0)
-                            equal = true;
-                        if (item.indexOf('>') >= 0) {
-                            if (equal) {
-                                if (b[i] < parseInt(item.replace(/\D+/, '')))
-                                    res = false;
-                            } else {
-                                if (b[i] <= parseInt(item.replace(/\D+/, '')))
-                                    res = false;
-                            }
-                        }
-                        if (item.indexOf('<') >= 0) {
-                            if (equal) {
-                                if (b[i] > parseInt(item.replace(/\D+/, '')))
-                                    res = false;
-                            } else {
-                                if (b[i] >= parseInt(item.replace(/\D+/, '')))
-                                    res = false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return res;
     }
 }

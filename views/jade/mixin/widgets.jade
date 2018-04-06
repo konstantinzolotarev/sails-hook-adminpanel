@@ -69,7 +69,7 @@ mixin inputNumber(key, field, value)
 
 mixin inputCheckbox(key, field, value)
   .widget
-     | <input type="checkbox" id="form-#{key}" name="#{key}" checked=#{value}>
+    | <input type="checkbox" id="form-#{key}" name="#{key}" checked=#{value}>
 //-  paper-checkbox(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value) #{field.config.title}
 
 mixin select(key, field, value)
@@ -94,73 +94,73 @@ mixin textarea(key, field, value)
 // #{key}FMDmap inject
 
 mixin json(key, field, value)
-    - var widget = field.config.widget
-    case widget
-      when 'Map'
-        | &nbsp;#{field.config.title}
-        br
-        | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
-      when 'GalleryUploader'
-        | &nbsp;#{field.config.title}
-        br
-        | <div id="#{key}-container"> </div>
-        - var v = JSON.stringify(value);
-        if (v === null)
-          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
-        else
-          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-      when 'ImageUploader'
-        | &nbsp;#{field.config.title}
-        br
-        | <div id="#{key}-container"> </div>
-        - var v = JSON.stringify(value);
-        if (v === null)
-          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
-        else
-          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-      when 'FileUploader'
-        | &nbsp;#{field.config.title}
-        br
-        | <div id="#{key}-container"> </div>
-        - var v = JSON.stringify(value);
-        if (v === null)
-          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
-        else
-          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-      when 'FilesUploader'
-        | &nbsp;#{field.config.title}
-        br
-        | <div id="#{key}-container"> </div>
-        - var v = JSON.stringify(value);
-        if (v === null)
-          | <input type="hidden" id="form-#{key}" name="#{key}" value=''>
-        else
-          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-      when 'FMDraw'
-        | &nbsp;#{field.config.title}
-        br
-        | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
-        | <div id="mapFMD-#{key}" class="map" style="height: #{field.config.FMDraw.height}px"></div>
-      when 'FMSetLevelImage'
-        | &nbsp;#{field.config.title}
-        br
-        | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
-        | <div id="mapFMSLI-#{key}" class="map " style="height: #{field.config.FMSetLevelImage.height}px"></div>
-      when 'JsonEditor'
-        h4 #{field.config.title}
-        br
-        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
-      when 'Ace'
-        | &nbsp;#{field.config.title}
-        br
-        | <div id="ace-#{key}" style="height: #{field.config.Ace.height}px; font-size: #{field.config.Ace.fontSize}px;">#{value}</div>
-        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
-        style
-          | #form-#{key} {
-          |   display: none;
-          | }
+  - var widget = field.config.widget
+  case widget
+    when 'Map'
+      | &nbsp;#{field.config.title}
+      br
+      | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
+    when 'GalleryUploader'
+      | &nbsp;#{field.config.title}
+      br
+      | <div id="#{key}-container"> </div>
+      - var v = JSON.stringify(value);
+      if (v === null || !v)
+        | <input type="hidden" id="form-#{key}" name="#{key}">
+      else
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+    when 'ImageUploader'
+      | &nbsp;#{field.config.title}
+      br
+      | <div id="#{key}-container"> </div>
+      - var v = JSON.stringify(value);
+      if (v === null || !v)
+        | <input type="hidden" id="form-#{key}" name="#{key}">
+      else
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+    when 'FileUploader'
+      | &nbsp;#{field.config.title}
+      br
+      | <div id="#{key}-container"> </div>
+      - var v = JSON.stringify(value);
+      if (v === null || !v)
+        | <input type="hidden" id="form-#{key}" name="#{key}">
+      else
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+    when 'FilesUploader'
+      | &nbsp;#{field.config.title}
+      br
+      | <div id="#{key}-container"> </div>
+      - var v = JSON.stringify(value);
+      if (v === null || !v)
+        | <input type="hidden" id="form-#{key}" name="#{key}">
+      else
+        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+    when 'FMDraw'
+      | &nbsp;#{field.config.title}
+      br
+      | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
+      | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+      | <div id="mapFMD-#{key}" class="map" style="height: #{field.config.FMDraw.height}px"></div>
+    when 'FMSetLevelImage'
+      | &nbsp;#{field.config.title}
+      br
+      | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
+      | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
+      | <div id="mapFMSLI-#{key}" class="map " style="height: #{field.config.FMSetLevelImage.height}px"></div>
+    when 'JsonEditor'
+      h4 #{field.config.title}
+      br
+      textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+    when 'Ace'
+      | &nbsp;#{field.config.title}
+      br
+      | <div id="ace-#{key}" style="height: #{field.config.Ace.height}px; font-size: #{field.config.Ace.fontSize}px;">#{value}</div>
+      textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+      style
+        | #form-#{key} {
+        |   display: none;
+        | }
 
 
 mixin inputModel(key, field, value)
@@ -173,7 +173,7 @@ mixin inputModel(key, field, value)
       if field.config.records
         each opt in field.config.records
           option(value=opt[field.config.identifierField],
-                  selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
+          selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
       else
         option(value='') --- No records found ---
 
@@ -185,7 +185,7 @@ mixin inputSelectMany(key, field, value)
       if field.config.records
         each opt in field.config.records
           option(value=opt[field.config.identifierField],
-            selected=(locals.adminpanel.viewHelper.isOptionSelected(opt[field.config.identifierField], value))) #{opt[field.config.displayField]}
+          selected=(locals.adminpanel.viewHelper.isOptionSelected(opt[field.config.identifierField], value))) #{opt[field.config.displayField]}
       else
         option(value='') --- No records found ---
 
@@ -208,7 +208,7 @@ mixin installEditors(fields, record)
     each field, key in fields
       - var widget = field.config.widget
       if field.config.editor
-         | CKEDITOR.replace( 'form-#{key}' );
+        | CKEDITOR.replace( 'form-#{key}' );
       case widget
         when 'Map'
           |	var mymap = L.map('map_#{key}').setView([51.505, -0.09], 13);
