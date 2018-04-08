@@ -95,72 +95,63 @@ mixin textarea(key, field, value)
 
 mixin json(key, field, value)
   - var widget = field.config.widget
-  case widget
-    when 'Map'
-      | &nbsp;#{field.config.title}
-      br
-      | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
-    when 'GalleryUploader'
-      | &nbsp;#{field.config.title}
-      br
-      | <div id="#{key}-container"> </div>
-      - var v = JSON.stringify(value);
-      if (v === null || !v)
-        | <input type="hidden" id="form-#{key}" name="#{key}">
-      else
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-    when 'ImageUploader'
-      | &nbsp;#{field.config.title}
-      br
-      | <div id="#{key}-container"> </div>
-      - var v = JSON.stringify(value);
-      if (v === null || !v)
-        | <input type="hidden" id="form-#{key}" name="#{key}">
-      else
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-    when 'FileUploader'
-      | &nbsp;#{field.config.title}
-      br
-      | <div id="#{key}-container"> </div>
-      - var v = JSON.stringify(value);
-      if (v === null || !v)
-        | <input type="hidden" id="form-#{key}" name="#{key}">
-      else
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-    when 'FilesUploader'
-      | &nbsp;#{field.config.title}
-      br
-      | <div id="#{key}-container"> </div>
-      - var v = JSON.stringify(value);
-      if (v === null || !v)
-        | <input type="hidden" id="form-#{key}" name="#{key}">
-      else
-        | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
-    when 'FMDraw'
-      | &nbsp;#{field.config.title}
-      br
-      | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
-      | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
-      | <div id="mapFMD-#{key}" class="map" style="height: #{field.config.FMDraw.height}px"></div>
-    when 'FMSetLevelImage'
-      | &nbsp;#{field.config.title}
-      br
-      | <div>Image opacity: <a onclick='#{key}FMDmap.setOpacity(0)'>0%</a> | <a onclick='#{key}FMDmap.setOpacity(0.3)'>30%</a> | <a onclick='#{key}FMDmap.setOpacity(0.5)'>50%</a> | <a onclick='#{key}FMDmap.setOpacity(1)'>100%</a></div>
-      | <input type="hidden" id="form-#{key}" name="#{key}" value='!{JSON.stringify(value)}'>
-      | <div id="mapFMSLI-#{key}" class="map " style="height: #{field.config.FMSetLevelImage.height}px"></div>
-    when 'JsonEditor'
-      h4 #{field.config.title}
-      br
-      textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
-    when 'Ace'
-      | &nbsp;#{field.config.title}
-      br
-      | <div id="ace-#{key}" style="height: #{field.config.Ace.height}px; font-size: #{field.config.Ace.fontSize}px;">#{value}</div>
-      textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
-      style
-        | #form-#{key} {
-        |   display: none;
-        | }
+  if field.config.widget
+    case widget
+      when 'Map'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
+      when 'GalleryUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = JSON.stringify(value);
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+      when 'ImageUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = JSON.stringify(value);
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+      when 'FileUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = JSON.stringify(value);
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+      when 'FilesUploader'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = JSON.stringify(value);
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+      when 'JsonEditor'
+        h4 #{field.config.title}
+        br
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+      when 'Ace'
+        | &nbsp;#{field.config.title}
+        br
+        | <div id="ace-#{key}" style="height: #{field.config.Ace.height}px; font-size: #{field.config.Ace.fontSize}px;">#{value}</div>
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+        style
+          | #form-#{key} {
+          |   display: none;
+          | }
+      default
+        +hookWidgetsDOM(key, field)
 
 
 mixin inputModel(key, field, value)
@@ -209,34 +200,35 @@ mixin installEditors(fields, record)
       - var widget = field.config.widget
       if field.config.editor
         | CKEDITOR.replace( 'form-#{key}' );
-      case widget
-        when 'JsonEditor'
-          - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
-          | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');
-          | jsonEditor['#{key}'] = new JSONEditor(
-          |   $('#form-#{key}-jsoneditor')[0],
-          |   {
-          |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
-          |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
-          |   },
-          |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
-          | );
-        when 'Ace'
-          | var editor = ace.edit('ace-#{key}');
-          | editor.setReadonly
-          | editor.setTheme("ace/theme/katzenmilch");
-          | editor.getSession().setMode("ace/mode/html");
-          | var textarea = $('textarea[name="#{key}"]');
-          | editor.getSession().on("change", function () {
-          |    textarea.val(editor.getSession().getValue());
-          | });
-        when 'ImageUploader'
-          +imageUploader(key, field)
-        when 'GalleryUploader'
-          +galleryUploader(key, field)
-        when 'FileUploader'
-          +fileUploader(key, field)
-        when 'FilesUploader'
-          +filesUploader(key, field)
-        default
-          +hookWidgets(widget, key, field)
+      if field.config.widget
+        case widget
+          when 'JsonEditor'
+            - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+            | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');
+            | jsonEditor['#{key}'] = new JSONEditor(
+            |   $('#form-#{key}-jsoneditor')[0],
+            |   {
+            |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
+            |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
+            |   },
+            |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
+            | );
+          when 'Ace'
+            | var editor = ace.edit('ace-#{key}');
+            | editor.setReadonly
+            | editor.setTheme("ace/theme/katzenmilch");
+            | editor.getSession().setMode("ace/mode/html");
+            | var textarea = $('textarea[name="#{key}"]');
+            | editor.getSession().on("change", function () {
+            |    textarea.val(editor.getSession().getValue());
+            | });
+          when 'ImageUploader'
+            +imageUploader(key, field)
+          when 'GalleryUploader'
+            +galleryUploader(key, field)
+          when 'FileUploader'
+            +fileUploader(key, field)
+          when 'FilesUploader'
+            +filesUploader(key, field)
+          default
+            +hookWidgetsScript(key, field)

@@ -1,4 +1,5 @@
 include ./mixin/navbar
+include ./includes
 doctype html
 html
   head
@@ -22,7 +23,7 @@ html
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
     
     - var config = locals.adminpanel.configHelper.getConfig()
-    | <script>console.log(!{JSON.stringify(config.styles)});</script>
+    | <script>console.log(!{JSON.stringify(locals.adminpanelFloormaps)});</script>
     each key in config.styles 
       link(rel="stylesheet", href="#{key}")
       
