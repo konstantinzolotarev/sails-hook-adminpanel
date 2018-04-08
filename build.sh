@@ -23,7 +23,7 @@ rm -rf ../../.tmp/public/admin
 
 
 
-cp -r ./assets ../../assets/admin  
+cp -r ./assets/* ../../assets/admin  
 
-mkdir -p ./assets ../../.tmp/public/admin
-cp -r ./assets ../../.tmp/public/admin
+mkdir -p ../../.tmp/public/admin
+cp -r ./assets/* ../../.tmp/public/admin
