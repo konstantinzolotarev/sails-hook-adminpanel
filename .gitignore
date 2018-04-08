@@ -45,7 +45,7 @@ node_modules
 bower_components
 assets/bower_components
 assets/vendor
-
+views/jade/includes.jade
 
 
 ################################################
