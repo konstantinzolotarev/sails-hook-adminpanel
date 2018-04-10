@@ -56,3 +56,24 @@ paper-button.button-red {
 select.multi {
     min-height: 200px;
 }
+input {
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, .26);
+    outline: 0;
+    width: 100%;
+    font-size: 16pt;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    color: #212121;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 2px;
+}
+input:focus {
+    border-color: #94beff;
+}
+input::placeholder {
+    color: #aaaaaa;
+}
+input[type="submit"] {
+    background-color: #3f51b5;
+}

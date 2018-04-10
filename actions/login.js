@@ -22,7 +22,7 @@ module.exports = function(req, res) {
             return res.viewAdmin('login');
         }
     } else if (req.url.indexOf('logout') >= 0) {
-        req.session.UserAP = {};
+        req.session.UserAP = undefined;
         res.redirect('/admin');
     }
 };
