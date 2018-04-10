@@ -16,6 +16,9 @@ module.exports = function(req, res) {
     if (!instance.config.remove) {
         return res.redirect(instance.uri);
     }
+
+    if (!sails.adminpanel.havePermission(req, instance.config, __filename))
+        return res.notFound();
     /**
      * Searching for record by model
      */

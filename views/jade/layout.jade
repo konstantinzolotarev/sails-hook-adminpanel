@@ -21,15 +21,15 @@ html
     link(rel="stylesheet", href="/admin/styles/importer.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
-    
+
     - var config = locals.adminpanel.configHelper.getConfig()
     | <script>console.log(!{JSON.stringify(locals.adminpanelFloormaps)});</script>
-    each key in config.styles 
+    each key in config.styles
       link(rel="stylesheet", href="#{key}")
-      
-    each script in config.script.header 
+
+    each script in config.script.header
       script(src="#{script}")
-      
+
     // STYLES END
     block styles
 
@@ -45,6 +45,11 @@ html
         paper-toolbar
           paper-icon-button(icon='menu', paper-drawer-toggle='')
           span.flex #{locals.adminpanel.menuHelper.getBrandTitle()}
+          span.justify-content-end
+            if (!req.session.UserAP)
+              a(href='/admin/userap/login') Login
+            else
+              a(href='/admin/userap/logout') #{req.session.UserAP.username} (logout)
         div.layout.fill.vertical
 
           if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
@@ -65,8 +70,8 @@ html
     script(src="/admin/vendor/ckeditor/ckeditor.js")
     script(src="/admin/vendor/ace/src-min-noconflict/ace.js")
     script(src="/admin/vendor/jsoneditor/dist/jsoneditor.min.js")
-    
-    each script in config.script.footer 
+
+    each script in config.script.footer
       script(src="#{script}")
-      
+
     block js

@@ -16,17 +16,17 @@ mixin listRow(obj, instance)
       // adding actions
     td.actions
       +inlineListActions(instance, obj)
-      if instance.config.view
+      if instance.config.view && sails.adminpanel.havePermission(req, instance.config, 'view')
         | &nbsp;
         a(href='#{instance.uri}/view/#{obj[idField]}')
           iron-icon(icon='visibility')
 
-      if instance.config.edit
+      if instance.config.edit && sails.adminpanel.havePermission(req, instance.config, 'edit')
         | &nbsp;
         a(href='#{instance.uri}/edit/#{obj[idField]}')
           iron-icon(icon='create')
           //| &nbsp;#{__('Edit')}
-      if instance.config.remove
+      if instance.config.remove && sails.adminpanel.havePermission(req, instance.config, 'remove')
         | &nbsp;
         a(href='#{instance.uri}/remove/#{obj[idField]}', onclick="return confirm('#{__('Are you sure ?')}')")
           iron-icon(icon='delete')

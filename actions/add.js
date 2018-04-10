@@ -15,6 +15,10 @@ module.exports = function(req, res) {
     if (!instance.config.add) {
         return res.redirect(instance.uri);
     }
+
+    if (!sails.adminpanel.havePermission(req, instance.config, __filename))
+        return res.notFound();
+
     var fields = fieldsHelper.getFields(req, instance, 'add');
     var data = {}; //list of field values
     async.series([

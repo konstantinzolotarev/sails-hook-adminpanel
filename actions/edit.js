@@ -7,6 +7,7 @@ var fieldsHelper = require('../helper/fieldsHelper');
 
 var async = require('async');
 var _ = require('lodash');
+var path = require('path');
 
 module.exports = function(req, res) {
     //Check id
@@ -21,6 +22,9 @@ module.exports = function(req, res) {
     if (!instance.config.edit) {
         return res.redirect(instance.uri);
     }
+
+    if (!sails.adminpanel.havePermission(req, instance.config, __filename))
+        return res.notFound();
 
     instance.model.findOne(req.param('id'))
         .populateAll()

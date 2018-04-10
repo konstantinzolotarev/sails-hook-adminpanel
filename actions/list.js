@@ -25,6 +25,9 @@ module.exports = function(req, res) {
         page = parseInt(page) || 1;
     }
 
+    if (!sails.adminpanel.havePermission(req, instance.config, __filename))
+        return res.notFound();
+
     var total = 0;
     var records = [];
     var fields = fieldsHelper.getFields(req, instance, 'list');

@@ -194,7 +194,8 @@ module.exports = function menuHelper(config) {
                 menues.push({
                     link: config.routePrefix + '/' + key,
                     title: val.title,
-                    icon: val.icon || null
+                    icon: val.icon || null,
+                    instanceName: key
                 });
             });
             if (config.menu.actions && config.menu.actions.length > 0) {
