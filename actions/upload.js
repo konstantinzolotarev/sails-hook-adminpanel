@@ -99,6 +99,10 @@ module.exports = function (req, res) {
                 Jimp.read('.' + dir + filename, function (err, image) {
                     if (err) return res.serverError(err);
 
+                    image.write(assetsDir + filename, function (err, img) {
+                        if (err) sails.log.error("Can't save image in assets!");
+                    });
+
                     const width = image.bitmap.width;
                     const height = image.bitmap.height;
                     const size = image.bitmap.data.length;
