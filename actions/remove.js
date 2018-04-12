@@ -18,7 +18,7 @@ module.exports = function(req, res) {
     }
 
     if (!sails.adminpanel.havePermission(req, instance.config, __filename))
-        return res.notFound();
+        return res.redirect('/admin/userap/login');
     /**
      * Searching for record by model
      */

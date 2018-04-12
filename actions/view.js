@@ -21,7 +21,7 @@ module.exports = function(req, res) {
     var fields = fieldsHelper.getFields(req, instance, 'view');
 
     if (!sails.adminpanel.havePermission(req, instance.config, __filename))
-        return res.notFound();
+        return res.redirect('/admin/userap/login');
 
     var query = instance.model
         .findOne(req.param('id'))

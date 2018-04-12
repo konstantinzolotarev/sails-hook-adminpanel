@@ -24,7 +24,7 @@ module.exports = function(req, res) {
     }
 
     if (!sails.adminpanel.havePermission(req, instance.config, __filename))
-        return res.notFound();
+        return res.redirect('/admin/userap/login');
 
     instance.model.findOne(req.param('id'))
         .populateAll()
