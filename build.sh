@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "SAILS-HOOK-ADMINPANEL BUILD by 42team"
+echo "SAILS-HOOK-ADMINPANEL"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 cd assets
