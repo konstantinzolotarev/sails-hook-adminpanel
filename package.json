@@ -80,6 +80,18 @@
         "type": "git"
       },
       "/srv/tdc/back"
+    ],
+    [
+      {
+        "raw": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+        "spec": "http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
+        "type": "git"
+      },
+      "/srv/tdc/back"
     ]
   ],
   "_from": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
@@ -101,8 +113,8 @@
     "#USER",
     "/"
   ],
-  "_resolved": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#c8d0d06d74fae3b071a7ca2fe33d8e3c116625e6",
-  "_shasum": "ea626d191367554f1d526f2c991d99b32beced6b",
+  "_resolved": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#f102daabd38645727ad416dcfc65f638c4c5c79f",
+  "_shasum": "dc8f1740e55480d0917bb2d4cf74c500eaff66ff",
   "_shrinkwrap": null,
   "_spec": "git+http://git.42team.ru/SailsAdmin/sails-hook-adminpanel#HEAD",
   "_where": "/srv/tdc/back",
@@ -119,8 +131,8 @@
     "jimp": "^0.2.28",
     "lodash": "^3.9.0",
     "ncp": "^2.0.0",
-    "sails-build-dictionary": "^0.10.1",
-    "password-hash": "^1.2.2"
+    "password-hash": "^1.2.2",
+    "sails-build-dictionary": "^0.10.1"
   },
   "deprecated": false,
   "description": "Implements the basic admin panel for Sails",
