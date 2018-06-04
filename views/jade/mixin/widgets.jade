@@ -203,16 +203,18 @@ mixin installEditors(fields, record)
       if field.config.widget
         case widget
           when 'JsonEditor'
-            - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
-            | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');
-            | jsonEditor['#{key}'] = new JSONEditor(
-            |   $('#form-#{key}-jsoneditor')[0],
-            |   {
-            |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
-            |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
-            |   },
-            |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
-            | );
+            if (value === "" || value === undefined || value === null) 
+              - value = "{}"
+              - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+              | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');
+              | jsonEditor['#{key}'] = new JSONEditor(
+              |   $('#form-#{key}-jsoneditor')[0],
+              |   {
+              |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
+              |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
+              |   },
+              |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
+              | );
           when 'Ace'
             | var editor = ace.edit('ace-#{key}');
             | editor.setReadonly
