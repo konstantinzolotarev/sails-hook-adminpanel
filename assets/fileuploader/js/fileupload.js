@@ -145,8 +145,8 @@ class FileUploader {
                 // send filename and type
                 data.append("filename", file.name);
                 data.append("type", fu.type);
-                data.append("small", 150);
-                data.append("large", 900);
+                data.append("small", fu.small);
+                data.append("large", fu.large);
                 data.append("resize", JSON.stringify(fu.resize));
                 data.append("field", fu.field);
                 data.append("stop", file.stop);
