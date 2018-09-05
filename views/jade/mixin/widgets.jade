@@ -50,26 +50,28 @@ mixin inputText(key, field, value)
   if field.model.enum
     +select(key, field, value)
   else if field.model.email
-    paper-input(type='email', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
-  else if field.config.file
-    paper-input(type='file', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    input(type='email', placeholder=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
   else
-    input(type='text', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value, placeholder=field.config.title)
+    input(type='text', placeholder=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 mixin inputPassword(key, field, value)
-  paper-input(type='password', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+  input(type='password', placeholder=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputDate(key, field, value)
-  paper-input(type='date', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='date', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputDatetime(key, field, value)
-  paper-input(type='datetime', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='datetime', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputNumber(key, field, value)
-  paper-input(type='number', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+  input(type='number', placeholder=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+  //paper-input(type='number', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputCheckbox(key, field, value)
   .widget
-    | <input type="checkbox" id="form-#{key}" name="#{key}" checked=#{value}>
+    input(type='checkbox', id="form-#{key}", name=key, checked=value, disabled=field.config.disabled || false value='1', style="width: auto;")
+    label(for="form-#{key}") #{field.config.title}
 //-  paper-checkbox(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value) #{field.config.title}
 
 mixin select(key, field, value)
@@ -203,6 +205,7 @@ mixin installEditors(fields, record)
       if field.config.widget
         case widget
           when 'JsonEditor'
+            |  console.log('#{value}');
             if (value === "" || value === undefined || value === null)
               - value = "{}"
               - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};

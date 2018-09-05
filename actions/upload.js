@@ -19,6 +19,8 @@ module.exports = function (req, res) {
         if (req.body.stop === true)
             return res.badRequest();
 
+        // sails.log.info(req.body);
+
         // read field
         if (!req.body.field)
             return res.serverError('No field name in request');
