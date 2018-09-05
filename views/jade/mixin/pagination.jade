@@ -7,7 +7,7 @@ mixin pagination(instancePath, page, total, limit, requestProcessor)
 
   if page > 1
     a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page - 1)})}')
-      iron-icon(icon="chevron-left")
+      clr-icon(shape="rewind")
   if ((page + 1) * limit) <= total
     a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page + 1)})}')
-      iron-icon(icon="chevron-left")
+      clr-icon(shape="fast-forward")

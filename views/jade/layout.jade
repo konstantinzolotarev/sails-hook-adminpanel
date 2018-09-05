@@ -12,7 +12,7 @@ html
     // Viewport mobile tag for sensible mobile support
     meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1")
     // Polymer inject
-    script(src="/admin/vendor/webcomponentsjs/webcomponents-lite.min.js")
+    //script(src="/admin/vendor/webcomponentsjs/webcomponents-lite.min.js")
     script(src="/admin/vendor/jquery/dist/jquery.min.js")
 
     link(rel="import", href="/admin/polymer/elements.html")
@@ -21,6 +21,10 @@ html
     link(rel="stylesheet", href="/admin/styles/importer.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-ui/0.10.28/clarity-ui.min.css")
+    //link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-ui/0.10.28/clarity-ui-dark.min.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-icons/0.10.28/clarity-icons.min.css")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/clarity-icons/0.10.28/clarity-icons.min.js")
 
     - var config = locals.adminpanel.configHelper.getConfig()
     | <script>console.log(!{JSON.stringify(locals.adminpanelFloormaps)});</script>
@@ -35,33 +39,45 @@ html
 
     block imports
 
-  body.fullbleed.layout.vertical
+  body.main-container
+    block menu
+    .header
+      .branding
+        if locals.adminpanel.menuHelper.hasBrand()
+          div
+            a.title(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
 
-    paper-drawer-panel
-      paper-header-panel(drawer='')
-        block menu
-          +navbar()
-      paper-header-panel(main='')
-        paper-toolbar
-          paper-icon-button(icon='menu', paper-drawer-toggle='')
-          span.flex #{locals.adminpanel.menuHelper.getBrandTitle()}
-          span.justify-content-end
-            if (!req.session.UserAP)
-              a(href='/admin/userap/login') Login
-            else
-              a(href='/admin/userap/logout') #{req.session.UserAP.username} (logout)
-        div.layout.fill.vertical
+      .header-nav
+        span.nav-link.nav-text #{locals.adminpanel.menuHelper.getBrandTitle()}
+      .header-actions
+        if (!req.session.UserAP)
+          a.nav-link.nav-text(href='/admin/userap/login') Login
+        else
+          a.nav-link.nav-text(href='/admin/userap/logout') #{req.session.UserAP.username} (logout)
 
-          if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
-            each msg in req.flash('adminError')
-              admin-alert(error='') #{msg}
-          if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
-            each msg in req.flash('adminSuccess')
-              admin-alert(success='') #{msg}
+    .content-container
+      .content-area
+        if (adminpanel.viewHelper.hasFlash(req, 'adminError'))
+          each msg in req.flash('adminError')
+            .alert.alert-danger
+              .alert-items
+                .alert-item.static
+                  .alert-icon-wrapper
+                    .clr-icon.alert-icon(shape="alert-icon")
+                  span.alert-text #{msg}
+        if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess'))
+          each msg in req.flash('adminSuccess')
+            .alert.alert-success
+              .alert-items
+                .alert-item.static
+                  .alert-icon-wrapper
+                    .clr-icon.alert-icon(shape="check-circle")
+                  .span class="alert-text">#{msg}
 
-          div#mainLayout
-            block body
-              | Layout
+        div#mainLayout
+          block body
+            | Layout
+      +navbar()
 
 
 

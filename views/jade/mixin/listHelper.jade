@@ -7,6 +7,7 @@ mixin listHead(fields)
           i(class=(req.sort.order == 'desc' ? 'glyphicon-sort-by-alphabet-alt' : 'glyphicon-sort-by-alphabet')).glyphicon
     th #{__('Actions')}
 
+- var iconSize = "20";
 
 mixin listRow(obj, instance)
   - var idField = locals.adminpanel.configHelper.getIdentifierField(instance.config.model);
@@ -19,17 +20,17 @@ mixin listRow(obj, instance)
       if instance.config.view && sails.adminpanel.havePermission(req, instance.config, 'view')
         | &nbsp;
         a(href='#{instance.uri}/view/#{obj[idField]}')
-          iron-icon(icon='visibility')
+          clr-icon(shape="eye", size=iconSize)
 
       if instance.config.edit && sails.adminpanel.havePermission(req, instance.config, 'edit')
         | &nbsp;
         a(href='#{instance.uri}/edit/#{obj[idField]}')
-          iron-icon(icon='create')
-          //| &nbsp;#{__('Edit')}
+          clr-icon(shape="pencil", size=iconSize)
+
       if instance.config.remove && sails.adminpanel.havePermission(req, instance.config, 'remove')
         | &nbsp;
         a(href='#{instance.uri}/remove/#{obj[idField]}', onclick="return confirm('#{__('Are you sure ?')}')")
-          iron-icon(icon='delete')
+          clr-icon(shape="trash", size=iconSize)
 
 mixin listValue(key, field, value)
   case field.model.type
@@ -48,9 +49,9 @@ mixin listValue(key, field, value)
     when 'boolean'
       td
         if value
-          iron-icon(icon="check-circle")
+          clr-icon(shape="success-standard", size="20")
         else
-          iron-icon(icon="cancel")
+          clr-icon(shape="times-circle", size="20")
     default
       if field.config.enum
         td #{field.config.enum[value]}
