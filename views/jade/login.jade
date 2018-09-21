@@ -1,12 +1,12 @@
 extends ./layout
 
 block body
-  .container-fluid
-    .page-header
-      h3 Please login
-      form(method='post', action='/admin/userap/login')
+  .login-wrapper
+    form.login(method='post', action='/admin/userap/login')
+      section.title
+        h3.welcome Welcome!
+        | Please log in
+      .login-group
         input(type='text', placeholder='Username', name='username')
-        br
         input(type='password', placeholder='Password', name='password')
-        br
-        input(type='submit', value='Log in')
+        button.btn.btn-primary(type='submit') Log in

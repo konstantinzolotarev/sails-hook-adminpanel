@@ -33,28 +33,4 @@
   background-color: #44c4e7;
   z-index: 3;
 }
-.modal-dialog {
-  max-width: 932px;
-}
-.block-center {
-  margin: auto;
-  left: 0;
-  right: 0;
-}
-input {
-    border: none;
-    border-bottom: 2px solid rgba(0, 0, 0, .26);
-    outline: 0;
-    width: 100%;
-    font-size: 16pt;
-    font-family: 'Roboto', 'Noto', sans-serif;
-    color: #212121;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-input:focus {
-    border-color: #94beff;
-}
-input::placeholder {
-    color: #aaaaaa;
-}
+

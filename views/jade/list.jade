@@ -7,11 +7,14 @@ include ./mixin/actions
 block body
   .horizontal.layout
     .flex
+      if instance.config.add
+        a(href='#{instance.uri}/add')#add
+          button.btn(class="#{'btn-success' + (button == 'outline' ? '-outline' : '')}")
+            clr-icon(shape="plus")
+            |  Add
       +globalActions('list', instance)
 
-
   div.layout
-    //material-data-table
     table.table
       thead
         +listHead(fields)
@@ -30,6 +33,3 @@ block body
         i.glyphicon.glyphicon-warning-sign
         | &nbsp;#{__('No records found !')}
 
-    if instance.config.add
-      a(href='#{instance.uri}/add')#add
-        paper-fab(icon='add')

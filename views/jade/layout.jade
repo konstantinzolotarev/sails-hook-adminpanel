@@ -10,19 +10,17 @@ html
     meta(http-equiv='msapplication-TileColor', content='#3372DF')
 
     // Viewport mobile tag for sensible mobile support
-    meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1")
-    // Polymer inject
-    //script(src="/admin/vendor/webcomponentsjs/webcomponents-lite.min.js")
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
     script(src="/admin/vendor/jquery/dist/jquery.min.js")
 
-    link(rel="import", href="/admin/polymer/elements.html")
-    link(rel="import", href="/admin/polymer/admin-styles/admin-styles.html")
     // STYLES
     link(rel="stylesheet", href="/admin/styles/importer.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
     link(rel="stylesheet", href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css")
-    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-ui/0.10.28/clarity-ui.min.css")
-    //link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-ui/0.10.28/clarity-ui-dark.min.css")
+    if (theme === 'dark')
+      link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-ui/0.10.28/clarity-ui-dark.min.css")
+    else
+      link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-ui/0.10.28/clarity-ui.min.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/clarity-icons/0.10.28/clarity-icons.min.css")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/clarity-icons/0.10.28/clarity-icons.min.js")
 
@@ -72,7 +70,7 @@ html
                 .alert-item.static
                   .alert-icon-wrapper
                     .clr-icon.alert-icon(shape="check-circle")
-                  .span class="alert-text">#{msg}
+                  span.alert-text #{msg}
 
         div#mainLayout
           block body

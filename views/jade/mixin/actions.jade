@@ -5,10 +5,10 @@ mixin globalActions(action, instance, record)
     if (actions && actions.length > 0)
       each action in actions
         a(href=locals.adminpanel.menuHelper.replaceModelFields(action.link, record))
-          paper-button(raised='')
+          button.btn(class="#{'btn-primary' + button == 'outline' ? '-outline' : ''}")
             if action.icon
-              iron-icon(icon=action.icon)
-            | &nbsp;#{action.title}
+              clr-icon(shape=action.icon)
+            |  #{action.title}
 
 
 mixin inlineListActions(instance, record)
@@ -20,7 +20,7 @@ mixin inlineListActions(instance, record)
         | &nbsp;
         - var link = locals.adminpanel.menuHelper.replaceModelFields(action.link, record)
         a(href=link)
-          iron-icon(icon=action.icon)
+          clr-icon(shape=action.icon)
 
 mixin inlineActions(instance, record, actionType)
   - record = record || {};
@@ -30,7 +30,7 @@ mixin inlineActions(instance, record, actionType)
         each action in actions
           | &nbsp;
           a(href=locals.adminpanel.menuHelper.replaceModelFields(action.link, record))
-            paper-button(raised='')
+            button.btn(class="#{'btn-primary' + button == 'outline' ? '-outline' : ''}")
               if action.icon
-                iron-icon(icon=action.icon)
-              | &nbsp;#{action.title}
+                clr-icon(shape=action.icon)
+              |  #{action.title}
