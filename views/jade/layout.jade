@@ -11,7 +11,7 @@ html
 
     // Viewport mobile tag for sensible mobile support
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
-    script(src="/admin/vendor/jquery/dist/jquery.min.js")
+    script(src="/admin/bower_components/jquery/dist/jquery.min.js")
 
     // STYLES
     link(rel="stylesheet", href="/admin/styles/importer.css")
@@ -81,9 +81,9 @@ html
 
 
     // stable
-    script(src="/admin/vendor/ckeditor/ckeditor.js")
-    script(src="/admin/vendor/ace/src-min-noconflict/ace.js")
-    script(src="/admin/vendor/jsoneditor/dist/jsoneditor.min.js")
+    script(src="/admin/bower_components/ckeditor/ckeditor.js")
+    script(src="/admin/bower_components/ace/src-min-noconflict/ace.js")
+    script(src="/admin/bower_components/jsoneditor/dist/jsoneditor.min.js")
 
     each script in config.script.footer
       script(src="#{script}")
