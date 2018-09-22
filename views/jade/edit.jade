@@ -25,7 +25,7 @@ block body
         div
           input(type="hidden", name="_csrf", value=_csrf)
       div
-        button(onclick="submitForm()")#submit.btn(class="#{'btn-success' + (button == 'outline' ? '-outline' : '')}")
+        button#submit.btn(onclick="submitForm()", class="#{'btn-success' + (button == 'outline' ? '-outline' : '')}")
           |  Submit
         +inlineActions(instance, {}, 'add')
 

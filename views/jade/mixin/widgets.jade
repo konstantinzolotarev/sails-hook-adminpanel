@@ -199,6 +199,9 @@ mixin installEditors(fields, record)
 
   script(type='text/javascript')
     | var jsonEditor = {};
+    - var aceCounter = 0;
+    | let editor = [];
+    | let textarea = [];
 
     each field, key in fields
       - var widget = field.config.widget
@@ -207,28 +210,24 @@ mixin installEditors(fields, record)
       if field.config.widget
         case widget
           when 'JsonEditor'
-            |  console.log('#{value}');
-            if (value === "" || value === undefined || value === null)
-              - value = "{}"
-              - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
-              | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');
-              | jsonEditor['#{key}'] = new JSONEditor(
-              |   $('#form-#{key}-jsoneditor')[0],
-              |   {
-              |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
-              |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
-              |   },
-              |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
-              | );
-              |  console.log('#{key}');
+            - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+            | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');;
+            | jsonEditor['#{key}'] = new JSONEditor(
+            |   $('#form-#{key}-jsoneditor')[0],
+            |   {
+            |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
+            |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
+            |   },
+            |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
+            | );
           when 'Ace'
-            | var editor = ace.edit('ace-#{key}');
-            | editor.setReadonly
-            | editor.setTheme("ace/theme/katzenmilch");
-            | editor.getSession().setMode("ace/mode/html");
-            | var textarea = $('textarea[name="#{key}"]');
-            | editor.getSession().on("change", function () {
-            |   textarea.val(editor.getSession().getValue());
+            | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
+            | editor[#{aceCounter}].setReadonly
+            | editor[#{aceCounter}].setTheme("ace/theme/katzenmilch");
+            | editor[#{aceCounter}].session.setMode("ace/mode/html");
+            | textarea[#{aceCounter}] = $('textarea[name="#{key}"]');
+            | editor[#{aceCounter}].session.on("change", function () {
+            |   textarea[#{aceCounter}].val(editor[#{aceCounter}].getValue());
             | });
           when 'ImageUploader'
             +imageUploader(key, field)
