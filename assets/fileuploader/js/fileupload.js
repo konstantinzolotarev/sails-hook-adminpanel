@@ -76,11 +76,11 @@ class FileUploader {
 
         // add progress, gallery, dropzone and modal
         const modalDOM = [
-            '<div id="file-info-modal" role="dialog" class="modal fade">\n' +
-            '  <div class="modal-dialog">\n' +
+            '<div id="file-info-modal" class="modal">\n' +
+            '  <div class="modal-dialog modal-lg" role="dialog" aria-hidden="true">\n' +
             '    <div class="modal-content">\n' +
             '      <div class="modal-header"></div>\n' +
-            '      <div class="modal-body form-horizontal"><img id="file-image" class="block-center"/>\n' +
+            '      <div class="modal-body"><img id="file-image" class="block-center"/>\n' +
             '        <div class="info">\n' +
             '          <div class="form-group">\n' +
             '            <label for="name" class="col-md-2">File name:</label>\n' +
@@ -118,10 +118,11 @@ class FileUploader {
             '      </div>\n' +
             '      <div class="modal-footer">\n' +
             '        <button id="file-uploader-save" class="btn btn-success">Save</button>\n' +
-            '        <button data-dismiss="modal" class="btn">Close</button>\n' +
+            '        <button id="file-uploader-close" class="btn btn-danger">Close</button>\n' +
             '      </div>\n' +
             '    </div>\n' +
             '  </div>\n' +
+            '  <div class="modal-backdrop" aria-hidden="true"></div>' +
             '</div>'
         ];
         this.progressDiv = "<div class='progress-bar'></div>";
@@ -129,7 +130,10 @@ class FileUploader {
         const containerDiv = "<div class='container' id='" + contId + "'></div>";
         const dzId = this.elName + '-dropzone';
         const dzDiv = "<form method='post' id=" + dzId + " class='dropzone'></form>";
-        this.el.append(this.progressDiv, containerDiv, dzDiv, modalDOM[0]);
+        if (!$('#file-info-modal').length) {
+          this.el.append(this.progressDiv, containerDiv, dzDiv, modalDOM[0]);
+          $('#file-info-modal').hide();
+        }
         this.container = $('#' + contId);
         this.fileContainer = this.elName + '-file-container';
         this.previewName = this.elName + '-preview';
@@ -145,8 +149,8 @@ class FileUploader {
                 // send filename and type
                 data.append("filename", file.name);
                 data.append("type", fu.type);
-                data.append("small", 150);
-                data.append("large", 900);
+                data.append("small", fu.small);
+                data.append("large", fu.large);
                 data.append("resize", JSON.stringify(fu.resize));
                 data.append("field", fu.field);
                 data.append("stop", file.stop);
@@ -202,7 +206,7 @@ class FileUploader {
         const item =
             "<div class='" + this.fileContainer + " file-container'>" +
             control +
-            "  <div class='item-image' data-toggle='modal' data-target='#file-info-modal'>" +
+            "  <div class='item-image'>" +
             "    <img src=" + file.urlS + " id='" + file.id + "'>" +
             "  </div>" +
             "</div>";
@@ -269,8 +273,12 @@ class FileUploader {
             file.year = $(body + 'year').val();
             file.author = $(body + 'author').val();
             this.saveData();
-            $('#file-info-modal').modal('hide');
+            $('#file-info-modal').hide();
         });
+      // save changes
+      $('#file-uploader-close').click(() => {
+        $('#file-info-modal').hide();
+      });
     }
 
     setListeners() {
@@ -281,6 +289,7 @@ class FileUploader {
             const id = fileEl.attr('id');
             const file = fu.files[id];
             fu.setModalFile(file);
+            $('#file-info-modal').show();
         });
 
         // make picture preview

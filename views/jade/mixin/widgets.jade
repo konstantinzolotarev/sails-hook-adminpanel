@@ -50,31 +50,36 @@ mixin inputText(key, field, value)
   if field.model.enum
     +select(key, field, value)
   else if field.model.email
-    paper-input(type='email', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
-  else if field.config.file
-    paper-input(type='file', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    label(for='form-#{key}') #{field.config.title}
+    input(type='email', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
   else
-    input(type='text', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value, placeholder=field.config.title)
+    label(for='form-#{key}') #{field.config.title}
+    input(type='text', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+
 mixin inputPassword(key, field, value)
-  paper-input(type='password', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='password', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputDate(key, field, value)
-  paper-input(type='date', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='date', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputDatetime(key, field, value)
-  paper-input(type='datetime', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputNumber(key, field, value)
-  paper-input(type='number', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='number', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputCheckbox(key, field, value)
-  .widget
-    | <input type="checkbox" id="form-#{key}" name="#{key}" checked=#{value}>
-//-  paper-checkbox(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value) #{field.config.title}
+  .checkbox
+    input(type='checkbox', id="form-#{key}", name=key, checked=value, disabled=field.config.disabled || false value='1', style="width: auto;")
+    label(for="form-#{key}") #{field.config.title}
 
 mixin select(key, field, value)
-  .widget
-    | &nbsp;#{field.config.title}&nbsp;
+  label(for="form-#{key}") #{field.config.title}
+  .select
     select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
       if (field.config.enum && typeof field.config.enum === 'object')
         each opt, optKey in field.config.enum
@@ -84,12 +89,8 @@ mixin select(key, field, value)
           option(value=opt, selected=(opt == value)) #{opt}
 
 mixin textarea(key, field, value)
-  if field.config.editor
-    | &nbsp;#{field.config.title}
-    br
-    textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
-  else
-    paper-textarea(name=key, value=value, label=field.config.title, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+  label(for="form-#{key}") #{field.config.title}
+  textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
 
 // #{key}FMDmap inject
 
@@ -98,11 +99,11 @@ mixin json(key, field, value)
   if field.config.widget
     case widget
       when 'Map'
-        | &nbsp;#{field.config.title}
+        |  #{field.config.title}
         br
         | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
       when 'GalleryUploader'
-        | &nbsp;#{field.config.title}
+        |  #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
         - var v = typeof v === 'object' ? JSON.stringify(value) : value;
@@ -111,7 +112,7 @@ mixin json(key, field, value)
         else
           | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'ImageUploader'
-        | &nbsp;#{field.config.title}
+        label(for="#{key}-container") #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
         - var v = typeof v === 'object' ? JSON.stringify(value) : value;
@@ -119,6 +120,8 @@ mixin json(key, field, value)
           | <input type="hidden" id="form-#{key}" name="#{key}">
         else
           | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+        script
+          | $('##{key}-container').parent().css({display: 'block'});
       when 'FileUploader'
         | &nbsp;#{field.config.title}
         br
@@ -129,7 +132,7 @@ mixin json(key, field, value)
         else
           | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'FilesUploader'
-        | &nbsp;#{field.config.title}
+        |  #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
         - var v = typeof v === 'object' ? JSON.stringify(value) : value;
@@ -138,26 +141,28 @@ mixin json(key, field, value)
         else
           | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'JsonEditor'
-        h4 #{field.config.title}
+        label(for="form-#{key}") #{field.config.title}
         br
         textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+        script
+          | $('#form-#{key}').parent().css({display: 'block'});
       when 'Ace'
-        | &nbsp;#{field.config.title}
-        br
+        label(for="ace-#{key}") #{field.config.title}
         | <div id="ace-#{key}" style="height: #{field.config.Ace.height}px; font-size: #{field.config.Ace.fontSize}px;">#{value}</div>
         textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
         style
           | #form-#{key} {
           |   display: none;
           | }
+        script
+          | $('#form-#{key}').parent().css({display: 'block'});
       default
         +hookWidgetsDOM(key, field, value)
 
 
 mixin inputModel(key, field, value)
-  .widget
-    | &nbsp;#{field.config.title}&nbsp;
-    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for="form-#{key}") #{field.config.title}
+  .select
     select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
       if !field.config.required
         option(value='') --- Select please ---
@@ -169,9 +174,8 @@ mixin inputModel(key, field, value)
         option(value='') --- No records found ---
 
 mixin inputSelectMany(key, field, value)
-  .widget
-    | &nbsp;#{field.config.title}&nbsp;
-    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for="form-#{key}") #{field.config.title}
+  .select
     select(name=key, id='form-#{key}', multiple='', required=field.config.required || false, disabled=field.config.disabled || false).multi
       if field.config.records
         each opt in field.config.records
@@ -195,6 +199,9 @@ mixin installEditors(fields, record)
 
   script(type='text/javascript')
     | var jsonEditor = {};
+    - var aceCounter = 0;
+    | let editor = [];
+    | let textarea = [];
 
     each field, key in fields
       - var widget = field.config.widget
@@ -203,27 +210,24 @@ mixin installEditors(fields, record)
       if field.config.widget
         case widget
           when 'JsonEditor'
-            if (value === "" || value === undefined || value === null)
-              - value = "{}"
-              - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
-              | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');
-              | jsonEditor['#{key}'] = new JSONEditor(
-              |   $('#form-#{key}-jsoneditor')[0],
-              |   {
-              |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
-              |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
-              |   },
-              |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
-              | );
-              |  console.log('#{key}');
+            - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+            | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');;
+            | jsonEditor['#{key}'] = new JSONEditor(
+            |   $('#form-#{key}-jsoneditor')[0],
+            |   {
+            |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
+            |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
+            |   },
+            |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
+            | );
           when 'Ace'
-            | var editor = ace.edit('ace-#{key}');
-            | editor.setReadonly
-            | editor.setTheme("ace/theme/katzenmilch");
-            | editor.getSession().setMode("ace/mode/html");
-            | var textarea = $('textarea[name="#{key}"]');
-            | editor.getSession().on("change", function () {
-            |    textarea.val(editor.getSession().getValue());
+            | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
+            | editor[#{aceCounter}].setReadonly
+            | editor[#{aceCounter}].setTheme("ace/theme/katzenmilch");
+            | editor[#{aceCounter}].session.setMode("ace/mode/html");
+            | textarea[#{aceCounter}] = $('textarea[name="#{key}"]');
+            | editor[#{aceCounter}].session.on("change", function () {
+            |   textarea[#{aceCounter}].val(editor[#{aceCounter}].getValue());
             | });
           when 'ImageUploader'
             +imageUploader(key, field)

@@ -1,8 +1,9 @@
-/*!
+/*
+/!*!
   * Bootstrap v4.0.0 (https://getbootstrap.com)
   * Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-  */
+  *!/
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
@@ -52,19 +53,19 @@ function _inheritsLoose(subClass, superClass) {
   subClass.__proto__ = superClass;
 }
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): util.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Util = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Private TransitionEnd Helpers
    * ------------------------------------------------------------------------
-   */
+   *!/
   var transition = false;
   var MAX_UID = 1000000; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
 
@@ -126,11 +127,11 @@ var Util = function ($$$1) {
     selector = typeof $$$1.escapeSelector === 'function' ? $$$1.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
     return selector;
   }
-  /**
+  /!**
    * --------------------------------------------------------------------------
    * Public Util Api
    * --------------------------------------------------------------------------
-   */
+   *!/
 
 
   var Util = {
@@ -192,19 +193,19 @@ var Util = function ($$$1) {
   return Util;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): alert.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Alert = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'alert';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.alert';
@@ -224,16 +225,16 @@ var Alert = function ($$$1) {
     ALERT: 'alert',
     FADE: 'fade',
     SHOW: 'show'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Alert =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Alert(element) {
       this._element = element;
@@ -339,19 +340,19 @@ var Alert = function ($$$1) {
     }]);
     return Alert;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(document).on(Event.CLICK_DATA_API, Selector.DISMISS, Alert._handleDismiss(new Alert()));
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = Alert._jQueryInterface;
   $$$1.fn[NAME].Constructor = Alert;
@@ -364,19 +365,19 @@ var Alert = function ($$$1) {
   return Alert;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): button.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Button = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'button';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.button';
@@ -398,16 +399,16 @@ var Button = function ($$$1) {
   var Event = {
     CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY,
     FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY + DATA_API_KEY + " " + ("blur" + EVENT_KEY + DATA_API_KEY)
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Button =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Button(element) {
       this._element = element;
@@ -490,11 +491,11 @@ var Button = function ($$$1) {
     }]);
     return Button;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE_CARROT, function (event) {
@@ -510,11 +511,11 @@ var Button = function ($$$1) {
     var button = $$$1(event.target).closest(Selector.BUTTON)[0];
     $$$1(button).toggleClass(ClassName.FOCUS, /^focus(in)?$/.test(event.type));
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = Button._jQueryInterface;
   $$$1.fn[NAME].Constructor = Button;
@@ -527,19 +528,19 @@ var Button = function ($$$1) {
   return Button;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): carousel.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Carousel = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'carousel';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.carousel';
@@ -601,16 +602,16 @@ var Carousel = function ($$$1) {
     INDICATORS: '.carousel-indicators',
     DATA_SLIDE: '[data-slide], [data-slide-to]',
     DATA_RIDE: '[data-ride="carousel"]'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Carousel =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Carousel(element, config) {
       this._items = null;
@@ -994,11 +995,11 @@ var Carousel = function ($$$1) {
     }]);
     return Carousel;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_SLIDE, Carousel._dataApiClickHandler);
@@ -1009,11 +1010,11 @@ var Carousel = function ($$$1) {
       Carousel._jQueryInterface.call($carousel, $carousel.data());
     });
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = Carousel._jQueryInterface;
   $$$1.fn[NAME].Constructor = Carousel;
@@ -1026,19 +1027,19 @@ var Carousel = function ($$$1) {
   return Carousel;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): collapse.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Collapse = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'collapse';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.collapse';
@@ -1074,16 +1075,16 @@ var Collapse = function ($$$1) {
   var Selector = {
     ACTIVES: '.show, .collapsing',
     DATA_TOGGLE: '[data-toggle="collapse"]'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Collapse =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Collapse(element, config) {
       this._isTransitioning = false;
@@ -1355,11 +1356,11 @@ var Collapse = function ($$$1) {
     }]);
     return Collapse;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
@@ -1378,11 +1379,11 @@ var Collapse = function ($$$1) {
       Collapse._jQueryInterface.call($target, config);
     });
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = Collapse._jQueryInterface;
   $$$1.fn[NAME].Constructor = Collapse;
@@ -1395,19 +1396,19 @@ var Collapse = function ($$$1) {
   return Collapse;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): dropdown.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Dropdown = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'dropdown';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.dropdown';
@@ -1473,16 +1474,16 @@ var Dropdown = function ($$$1) {
     offset: '(number|string|function)',
     flip: 'boolean',
     boundary: '(string|element)'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Dropdown =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Dropdown(element, config) {
       this._element = element;
@@ -1525,10 +1526,10 @@ var Dropdown = function ($$$1) {
 
 
       if (!this._inNavbar) {
-        /**
+        /!**
          * Check for Popper dependency
          * Popper - https://popper.js.org
-         */
+         *!/
         if (typeof Popper === 'undefined') {
           throw new TypeError('Bootstrap dropdown require Popper.js (https://popper.js.org)');
         }
@@ -1828,11 +1829,11 @@ var Dropdown = function ($$$1) {
     }]);
     return Dropdown;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(document).on(Event.KEYDOWN_DATA_API, Selector.DATA_TOGGLE, Dropdown._dataApiKeydownHandler).on(Event.KEYDOWN_DATA_API, Selector.MENU, Dropdown._dataApiKeydownHandler).on(Event.CLICK_DATA_API + " " + Event.KEYUP_DATA_API, Dropdown._clearMenus).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
@@ -1843,11 +1844,11 @@ var Dropdown = function ($$$1) {
   }).on(Event.CLICK_DATA_API, Selector.FORM_CHILD, function (e) {
     e.stopPropagation();
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = Dropdown._jQueryInterface;
   $$$1.fn[NAME].Constructor = Dropdown;
@@ -1860,19 +1861,19 @@ var Dropdown = function ($$$1) {
   return Dropdown;
 }($, Popper);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): modal.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Modal = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'modal';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.modal';
@@ -1922,16 +1923,16 @@ var Modal = function ($$$1) {
     FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
     STICKY_CONTENT: '.sticky-top',
     NAVBAR_TOGGLER: '.navbar-toggler'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Modal =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Modal(element, config) {
       this._config = this._getConfig(config);
@@ -2381,11 +2382,11 @@ var Modal = function ($$$1) {
     }]);
     return Modal;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
@@ -2419,11 +2420,11 @@ var Modal = function ($$$1) {
 
     Modal._jQueryInterface.call($$$1(target), config, this);
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = Modal._jQueryInterface;
   $$$1.fn[NAME].Constructor = Modal;
@@ -2436,19 +2437,19 @@ var Modal = function ($$$1) {
   return Modal;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): tooltip.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Tooltip = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'tooltip';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.tooltip';
@@ -2522,22 +2523,22 @@ var Tooltip = function ($$$1) {
     FOCUS: 'focus',
     CLICK: 'click',
     MANUAL: 'manual'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Tooltip =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Tooltip(element, config) {
-      /**
+      /!**
        * Check for Popper dependency
        * Popper - https://popper.js.org
-       */
+       *!/
       if (typeof Popper === 'undefined') {
         throw new TypeError('Bootstrap tooltips require Popper.js (https://popper.js.org)');
       } // private
@@ -3083,11 +3084,11 @@ var Tooltip = function ($$$1) {
     }]);
     return Tooltip;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1.fn[NAME] = Tooltip._jQueryInterface;
@@ -3101,19 +3102,19 @@ var Tooltip = function ($$$1) {
   return Tooltip;
 }($, Popper);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): popover.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Popover = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'popover';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.popover';
@@ -3149,16 +3150,16 @@ var Popover = function ($$$1) {
     FOCUSOUT: "focusout" + EVENT_KEY,
     MOUSEENTER: "mouseenter" + EVENT_KEY,
     MOUSELEAVE: "mouseleave" + EVENT_KEY
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Popover =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function (_Tooltip) {
     _inheritsLoose(Popover, _Tooltip);
 
@@ -3276,11 +3277,11 @@ var Popover = function ($$$1) {
     }]);
     return Popover;
   }(Tooltip);
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1.fn[NAME] = Popover._jQueryInterface;
@@ -3294,19 +3295,19 @@ var Popover = function ($$$1) {
   return Popover;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): scrollspy.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var ScrollSpy = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'scrollspy';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.scrollspy';
@@ -3347,16 +3348,16 @@ var ScrollSpy = function ($$$1) {
   var OffsetMethod = {
     OFFSET: 'offset',
     POSITION: 'position'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var ScrollSpy =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function ScrollSpy(element, config) {
       var _this = this;
@@ -3572,11 +3573,11 @@ var ScrollSpy = function ($$$1) {
     }]);
     return ScrollSpy;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(window).on(Event.LOAD_DATA_API, function () {
@@ -3588,11 +3589,11 @@ var ScrollSpy = function ($$$1) {
       ScrollSpy._jQueryInterface.call($spy, $spy.data());
     }
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = ScrollSpy._jQueryInterface;
   $$$1.fn[NAME].Constructor = ScrollSpy;
@@ -3605,19 +3606,19 @@ var ScrollSpy = function ($$$1) {
   return ScrollSpy;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0): tab.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 var Tab = function ($$$1) {
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
   var NAME = 'tab';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.tab';
@@ -3647,16 +3648,16 @@ var Tab = function ($$$1) {
     DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
     DROPDOWN_TOGGLE: '.dropdown-toggle',
     DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Tab =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Tab(element) {
       this._element = element;
@@ -3823,11 +3824,11 @@ var Tab = function ($$$1) {
     }]);
     return Tab;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
@@ -3835,11 +3836,11 @@ var Tab = function ($$$1) {
 
     Tab._jQueryInterface.call($$$1(this), 'show');
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $$$1.fn[NAME] = Tab._jQueryInterface;
   $$$1.fn[NAME].Constructor = Tab;
@@ -3852,12 +3853,12 @@ var Tab = function ($$$1) {
   return Tab;
 }($);
 
-/**
+/!**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0-alpha.6): index.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
- */
+ *!/
 
 (function ($$$1) {
   if (typeof $$$1 === 'undefined') {
@@ -3892,3 +3893,4 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+*/
