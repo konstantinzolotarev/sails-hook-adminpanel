@@ -7,14 +7,12 @@ mixin menuItem(menuItem)
 mixin navbar
   nav.sidenav
     section.sidenav-content
+      - var i = 1;
       each group in locals.adminpanel.menuHelper.getGroups()
         section.nav-group.collapsible
-          input(id="tabexample1" type="checkbox")
-          label(for="tabexample1") Collapsible Nav Element
-          //i(class='glyphicon-#{group.icon}').glyphicon
-          div.header #{group.title || 'Dropdown'}
-          div
-            ul.nav-list
+          input(id="tabexample#{i}" type="checkbox")
+          label(for="tabexample#{i++}") #{group.title || 'Dropdown'}
+          ul.nav-list
             each menuItem in group.menues
               li
                 +menuItem(menuItem)

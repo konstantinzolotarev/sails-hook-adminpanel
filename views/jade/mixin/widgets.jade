@@ -200,6 +200,7 @@ mixin installEditors(fields, record)
   script(type='text/javascript')
     | var jsonEditor = {};
     - var aceCounter = 0;
+    - var jsonCounter = 0;
     | let editor = [];
     | let textarea = [];
 
@@ -210,6 +211,7 @@ mixin installEditors(fields, record)
       if field.config.widget
         case widget
           when 'JsonEditor'
+
             - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
             | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');;
             | jsonEditor['#{key}'] = new JSONEditor(
@@ -220,6 +222,7 @@ mixin installEditors(fields, record)
             |   },
             |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
             | );
+            |  console.log('#{key}');
           when 'Ace'
             | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
             | editor[#{aceCounter}].setReadonly
