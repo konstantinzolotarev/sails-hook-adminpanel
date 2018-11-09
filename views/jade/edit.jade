@@ -11,12 +11,12 @@ block body
 
   .layout
     div
-      a(href='#{instance.uri}')
+      a(href='./#{instance.uri}')
         button.btn(class="#{'btn-primary' + button == 'outline' ? '-outline' : ''}")
           clr-icon(shape="undo", size=18)
           |  Back to list
 
-    form(action='#{instance.uri}/edit/#{record[idField]}', method='POST', enctype="multipart/form-data")#form
+    form(action='./#{instance.uri}/edit/#{record[idField]}', method='POST', enctype="multipart/form-data")#form
       each field, key in fields
         - var value = locals.adminpanel.viewHelper.getFieldValue(key, field, record);
         .form-group
