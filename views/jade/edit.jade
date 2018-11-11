@@ -16,7 +16,7 @@ block body
           clr-icon(shape="undo", size=18)
           |  Back to list
 
-    form(action='./edit', method='POST', enctype="multipart/form-data")#form
+    form(action='./#{record[idField]}', method='POST', enctype="multipart/form-data")#form
       each field, key in fields
         - var value = locals.adminpanel.viewHelper.getFieldValue(key, field, record);
         .form-group
