@@ -49,9 +49,9 @@ html
         span.nav-link.nav-text #{locals.adminpanel.menuHelper.getBrandTitle()}
       .header-actions
         if (!req.session.UserAP)
-          a.nav-link.nav-text(href='./admin/userap/login') Login
+          a.nav-link.nav-text(href='./userap/login') Login
         else
-          a.nav-link.nav-text(href='./admin/userap/logout') #{req.session.UserAP.username} (logout)
+          a.nav-link.nav-text(href='./userap/logout') #{req.session.UserAP.username} (logout)
 
     .content-container
       .content-area

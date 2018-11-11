@@ -11,18 +11,18 @@ block body
 
   .layout
     .horizontal.end-justified.layout
-      a(href='#{instance.uri}')
+      a(href='..')
         button.btn(class="#{'btn-primary' + button == 'outline' ? '-outline' : ''}")
           clr-icon(shape="undo", size=18)
           |  Back to list
 
       if instance.config.edit
-        a(href='#{instance.uri}/edit/#{record[idField]}')
+        a(href='../edit/#{record[idField]}')
           button.btn(class="#{'btn-success' + (button == 'outline' ? '-outline' : '')}")
             clr-icon(shape="pencil")
             |  Edit record
       if instance.config.remove
-        a(href='#{instance.uri}/remove/#{record[idField]}', onclick="return confirm('Are you sure ?');")
+        a(href='../remove/#{record[idField]}', onclick="return confirm('Are you sure ?');")
           button.btn(class="#{'btn-danger' + (button == 'outline' ? '-outline' : '')}")
             clr-icon(shape="trash")
             |  Remove record

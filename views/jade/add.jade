@@ -10,12 +10,12 @@ block body
 
   .layout
     div
-      a(href='#{instance.uri}')
+      a(href='.')
         button.btn(class="#{'btn-primary' + button == 'outline' ? '-outline' : ''}")
           clr-icon(shape="undo", size=18)
           |  Back to list
 
-    form(action='#{instance.uri}/add', method='POST', enctype="multipart/form-data")#form
+    form(action='./add', method='POST', enctype="multipart/form-data")#form
       each field, key in fields
         .form-group
           +fieldWidget(key, field, data[key], instance)
