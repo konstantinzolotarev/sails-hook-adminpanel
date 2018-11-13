@@ -8,7 +8,7 @@ block body
   .horizontal.layout
     .flex
       if instance.config.add
-        a(href='./add')#add
+        a(href='#{instance.uri}/add')#add
           button.btn(class="#{'btn-success' + (button == 'outline' ? '-outline' : '')}")
             clr-icon(shape="plus")
             |  Add
