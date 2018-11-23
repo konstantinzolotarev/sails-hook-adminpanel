@@ -1,5 +1,5 @@
 mixin menuItem(menuItem)
-  a.nav-link(href=menuItem.link)
+  a.nav-link(href='/admin/' + menuItem.link)
     |  #{menuItem.title}
   if menuItem.icon
     clr-icon(shape=menuItem.icon)

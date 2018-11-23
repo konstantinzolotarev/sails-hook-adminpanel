@@ -115,11 +115,11 @@ mixin json(key, field, value)
         label(for="#{key}-container") #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        - var v = typeof v === 'object' ? JSON.stringify(value) : value;
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
         if (v === null || !v)
           | <input type="hidden" id="form-#{key}" name="#{key}">
         else
-          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='#{v}'>
         script
           | $('##{key}-container').parent().css({display: 'block'});
       when 'FileUploader'
@@ -211,7 +211,6 @@ mixin installEditors(fields, record)
       if field.config.widget
         case widget
           when 'JsonEditor'
-
             - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
             | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');;
             | jsonEditor['#{key}'] = new JSONEditor(
@@ -220,7 +219,7 @@ mixin installEditors(fields, record)
             |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
             |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
             |   },
-            |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
+            |   !{typeof value === 'object' ? JSON.stringify(value) : value}
             | );
             |  console.log('#{key}');
           when 'Ace'
