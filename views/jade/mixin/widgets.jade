@@ -106,7 +106,7 @@ mixin json(key, field, value)
         |  #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        - var v = typeof v === 'object' ? JSON.stringify(value) : value;
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
         if (v === null || !v)
           | <input type="hidden" id="form-#{key}" name="#{key}">
         else
@@ -126,7 +126,7 @@ mixin json(key, field, value)
         | &nbsp;#{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        - var v = typeof v === 'object' ? JSON.stringify(value) : value;
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
         if (v === null || !v)
           | <input type="hidden" id="form-#{key}" name="#{key}">
         else
@@ -135,7 +135,7 @@ mixin json(key, field, value)
         |  #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
-        - var v = typeof v === 'object' ? JSON.stringify(value) : value;
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
         if (v === null || !v)
           | <input type="hidden" id="form-#{key}" name="#{key}">
         else
