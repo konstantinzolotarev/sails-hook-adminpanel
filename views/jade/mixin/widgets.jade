@@ -62,7 +62,9 @@ mixin inputPassword(key, field, value)
 
 mixin inputDate(key, field, value)
   label(for='form-#{key}') #{field.config.title}
-  input(type='date', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  - var date = new Date(value);
+  - var v = date.getFullYear() + '-' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
+  input(type='date', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=v)
 
 mixin inputDatetime(key, field, value)
   label(for='form-#{key}') #{field.config.title}
