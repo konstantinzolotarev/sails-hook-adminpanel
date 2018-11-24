@@ -131,8 +131,8 @@ class FileUploader {
         const dzId = this.elName + '-dropzone';
         const dzDiv = "<form method='post' id=" + dzId + " class='dropzone'></form>";
         if (!$('#file-info-modal').length) {
-          this.el.append(this.progressDiv, containerDiv, dzDiv, modalDOM[0]);
-          $('#file-info-modal').hide();
+            this.el.append(this.progressDiv, containerDiv, dzDiv, modalDOM[0]);
+            $('#file-info-modal').hide();
         }
         this.container = $('#' + contId);
         this.fileContainer = this.elName + '-file-container';
@@ -145,7 +145,7 @@ class FileUploader {
             maxFiles: (this.type === 'image' || this.type === 'file') ? 1 : null,
             maxFilesize: this.filesize,
             addRemoveLinks: true,
-            timeout: 120000,
+            timeout: 240000,
             sending: (file, xhr, data) => {
                 // send filename and type
                 data.append("filename", file.name);
@@ -276,10 +276,10 @@ class FileUploader {
             this.saveData();
             $('#file-info-modal').hide();
         });
-      // save changes
-      $('#file-uploader-close').click(() => {
-        $('#file-info-modal').hide();
-      });
+        // save changes
+        $('#file-uploader-close').click(() => {
+            $('#file-info-modal').hide();
+        });
     }
 
     setListeners() {
@@ -338,7 +338,8 @@ class FileUploader {
                         this.addFile(f);
                     });
                 }
-            } catch(e) {}
+            } catch (e) {
+            }
             const preview = $('#' + this.dataPreview).val();
             if (preview) {
                 $('.' + this.fileContainer).each((i, item) => {
