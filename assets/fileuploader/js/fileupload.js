@@ -117,8 +117,8 @@ class FileUploader {
             '        </div>\n' +
             '      </div>\n' +
             '      <div class="modal-footer">\n' +
-            '        <button id="file-uploader-save" class="btn btn-success">Save</button>\n' +
-            '        <button id="file-uploader-close" class="btn btn-danger">Close</button>\n' +
+            '        <button id="file-uploader-save" class="btn btn-success" type="button">Save</button>\n' +
+            '        <button id="file-uploader-close" class="btn btn-danger" type="button">Close</button>\n' +
             '      </div>\n' +
             '    </div>\n' +
             '  </div>\n' +
