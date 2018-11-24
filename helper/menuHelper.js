@@ -158,7 +158,7 @@ module.exports = function menuHelper(config) {
                 _.forEach(config.instances, function(val, key) {
                     if (val.menuGroup && val.menuGroup == group.key) {
                         groups[idx].menues.push({
-                            link: key,
+                            link: config.routePrefix + '/' + key,
                             title: val.title,
                             icon: val.icon || null
                         });

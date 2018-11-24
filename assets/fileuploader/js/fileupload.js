@@ -145,6 +145,7 @@ class FileUploader {
             maxFiles: (this.type === 'image' || this.type === 'file') ? 1 : null,
             maxFilesize: this.filesize,
             addRemoveLinks: true,
+            timeout: 120000,
             sending: (file, xhr, data) => {
                 // send filename and type
                 data.append("filename", file.name);
