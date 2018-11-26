@@ -221,7 +221,7 @@ mixin installEditors(fields, record)
             |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
             |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
             |   },
-            |   !{typeof value === 'object' ? JSON.stringify(value) : value}
+            |   !{JSON.stringify(value)}
             | );
             |  console.log('#{key}');
           when 'Ace'
