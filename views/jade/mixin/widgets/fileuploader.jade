@@ -49,7 +49,7 @@ mixin galleryUploader(key, field)
     |   dataPreview: "form-#{field.config.GalleryUploader.preview}"
   | }
   | });
-  | $('#form-#{field.config.GalleryUploader.preview}').css({display: 'none'});
+  | $('#form-#{field.config.GalleryUploader.preview}')[0].type = "hidden";
 
 mixin filesUploader(key, field)
   | const #{key}FileManager = new FileUploader({

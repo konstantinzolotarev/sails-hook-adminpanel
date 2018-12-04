@@ -295,9 +295,11 @@ class FileUploader {
 
         // make picture preview
         $('.' + this.fileContainer + ' > .item-control > .fa-check').click(function () {
-            $('.' + fu.fileContainer).removeClass('preview');
+            const fc = $('.' + fu.fileContainer);
+            fc.removeClass('preview');
+            fc.removeClass(fu.previewName);
             $(this).parents('.' + fu.fileContainer).addClass('preview');
-            $(this).parents('.' + fu.fileContainer).addClass(this.previewName);
+            $(this).parents('.' + fu.fileContainer).addClass(fu.previewName);
             fu.saveData();
         });
 
@@ -343,7 +345,7 @@ class FileUploader {
             const preview = $('#' + this.dataPreview).val();
             if (preview) {
                 $('.' + this.fileContainer).each((i, item) => {
-                    const url = $(item).find('img').attr('src').replace('_tumblr', '');
+                    const url = $(item).find('img').attr('src').replace('_tumblrDEFAULT', '');
                     if (url === preview) {
                         $('.' + this.fileContainer).removeClass('preview');
                         $(item).addClass('preview');
