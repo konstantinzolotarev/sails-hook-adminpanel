@@ -202,7 +202,6 @@ mixin installEditors(fields, record)
   script(type='text/javascript')
     | var jsonEditor = {};
     - var aceCounter = 0;
-    - var jsonCounter = 0;
     | let editor = [];
     | let textarea = [];
 
@@ -223,7 +222,6 @@ mixin installEditors(fields, record)
             |   },
             |   !{JSON.stringify(value)}
             | );
-            |  console.log('#{key}');
           when 'Ace'
             | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
             | editor[#{aceCounter}].setReadonly
