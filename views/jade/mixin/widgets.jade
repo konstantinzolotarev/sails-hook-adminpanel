@@ -68,7 +68,7 @@ mixin inputDate(key, field, value)
 
 mixin inputDatetime(key, field, value)
   label(for='form-#{key}') #{field.config.title}
-  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value.toISOString().slice(0,16))
+  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value : value.toISOString().slice(0,16) ? "")
 
 mixin inputNumber(key, field, value)
   label(for='form-#{key}') #{field.config.title}
