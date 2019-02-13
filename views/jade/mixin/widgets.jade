@@ -6,7 +6,7 @@ mixin fieldWidget(key, field, value, instance, id)
     - value = field.model.defaultsTo
 
   if locals.adminpanel.configHelper.isId(field, instance.config.model)
-    - field.config.disabled = true; //Disable identifier field
+    // - field.config.disabled = true; //Disable identifier field
     +inputText(key, field, value)
   else
     - var type = field.config.type || field.model.type
@@ -68,7 +68,7 @@ mixin inputDate(key, field, value)
 
 mixin inputDatetime(key, field, value)
   label(for='form-#{key}') #{field.config.title}
-  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value.toISOString().slice(0,16))
 
 mixin inputNumber(key, field, value)
   label(for='form-#{key}') #{field.config.title}
@@ -121,7 +121,7 @@ mixin json(key, field, value)
         if (v === null || !v)
           | <input type="hidden" id="form-#{key}" name="#{key}">
         else
-          | <input type="hidden" id="form-#{key}" name="#{key}" value='#{v}'>
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
         script
           | $('##{key}-container').parent().css({display: 'block'});
       when 'FileUploader'
@@ -220,7 +220,7 @@ mixin installEditors(fields, record)
             |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
             |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
             |   },
-            |   !{JSON.stringify(value)}
+            |   !{typeof value === 'object' ? JSON.stringify(value) : value}
             | );
           when 'Ace'
             | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
