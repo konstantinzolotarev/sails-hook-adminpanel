@@ -9,7 +9,7 @@ mixin pagination(instancePath, page, total, limit, requestProcessor)
     |  &nbsp;
     a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page - 1)})}')
       clr-icon(shape="rewind")
-  if ((page + 1) * limit) <= total
+  if page * (limit + 1) <= total
     |  &nbsp;
     a(href='#{instancePath}?#{requestProcessor.addGetParams(req, {page: (page + 1)})}')
       clr-icon(shape="fast-forward")
