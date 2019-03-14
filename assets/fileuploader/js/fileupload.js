@@ -76,7 +76,7 @@ class FileUploader {
 
         // add progress, gallery, dropzone and modal
         const modalDOM = [
-            '<div id="file-info-modal" class="modal">\n' +
+            '<div id="file-info-modal-' + this.elName + '" class="modal">\n' +
             '  <div class="modal-dialog modal-lg" role="dialog" aria-hidden="true">\n' +
             '    <div class="modal-content">\n' +
             '      <div class="modal-header"></div>\n' +
@@ -130,15 +130,14 @@ class FileUploader {
         const containerDiv = "<div class='container' id='" + contId + "'></div>";
         const dzId = this.elName + '-dropzone';
         const dzDiv = "<form method='post' id=" + dzId + " class='dropzone'></form>";
-        if (!$('#file-info-modal').length) {
-            this.el.append(this.progressDiv, containerDiv, dzDiv, modalDOM[0]);
-            $('#file-info-modal').hide();
-        }
+        this.el.append(this.progressDiv, containerDiv, dzDiv, modalDOM[0]);
+        $('#file-info-modal-' + this.elName).hide();
         this.container = $('#' + contId);
         this.fileContainer = this.elName + '-file-container';
         this.previewName = this.elName + '-preview';
 
         // init dropzone
+        Dropzone.autoDiscover = false;
         const myDropzone = new Dropzone('#' + dzId, {
             url: this.url,
             acceptedFiles: this.acceptedFiles,
@@ -274,11 +273,11 @@ class FileUploader {
             file.year = $(body + 'year').val();
             file.author = $(body + 'author').val();
             this.saveData();
-            $('#file-info-modal').hide();
+            $('#file-info-modal-' + this.elName).hide();
         });
         // save changes
         $('#file-uploader-close').click(() => {
-            $('#file-info-modal').hide();
+            $('#file-info-modal-' + this.elName).hide();
         });
     }
 
@@ -290,7 +289,7 @@ class FileUploader {
             const id = fileEl.attr('id');
             const file = fu.files[id];
             fu.setModalFile(file);
-            $('#file-info-modal').show();
+            $('#file-info-modal-' + this.elName).show();
         });
 
         // make picture preview
