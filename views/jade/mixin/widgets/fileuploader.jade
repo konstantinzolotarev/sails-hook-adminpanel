@@ -50,6 +50,7 @@ mixin galleryUploader(key, field)
   | }
   | });
   | $('#form-#{field.config.GalleryUploader.preview}')[0].type = "hidden";
+  | $('label[for=form-#{field.config.GalleryUploader.preview}')[0].type = "hidden";
 
 mixin filesUploader(key, field)
   | const #{key}FileManager = new FileUploader({
