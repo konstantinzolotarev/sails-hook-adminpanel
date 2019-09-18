@@ -289,7 +289,7 @@ class FileUploader {
             const id = fileEl.attr('id');
             const file = fu.files[id];
             fu.setModalFile(file);
-            $('#file-info-modal-' + this.elName).show();
+            $('#file-info-modal-' + fu.elName).show();
         });
 
         // make picture preview
