@@ -6,7 +6,7 @@ mixin fieldWidget(key, field, value, instance, id)
     - value = field.model.defaultsTo
 
   if locals.adminpanel.configHelper.isId(field, instance.config.model)
-    // - field.config.disabled = true; //Disable identifier field
+    - field.config.disabled = true; //Disable identifier field
     +inputText(key, field, value)
   else
     - var type = field.config.type || field.model.type
@@ -105,7 +105,7 @@ mixin json(key, field, value)
         br
         | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
       when 'GalleryUploader'
-        |  #{field.config.title}
+        label(for="#{key}-container") #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
         - var v = typeof value === 'object' ? JSON.stringify(value) : value;
@@ -125,7 +125,7 @@ mixin json(key, field, value)
         script
           | $('##{key}-container').parent().css({display: 'block'});
       when 'FileUploader'
-        | &nbsp;#{field.config.title}
+        label(for="#{key}-container") #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
         - var v = typeof value === 'object' ? JSON.stringify(value) : value;
@@ -134,7 +134,7 @@ mixin json(key, field, value)
         else
           | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
       when 'FilesUploader'
-        |  #{field.config.title}
+        label(for="#{key}-container") #{field.config.title}
         br
         | <div id="#{key}-container"> </div>
         - var v = typeof value === 'object' ? JSON.stringify(value) : value;
