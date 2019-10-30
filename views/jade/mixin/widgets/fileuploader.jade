@@ -49,8 +49,9 @@ mixin galleryUploader(key, field)
     |   dataPreview: "form-#{field.config.GalleryUploader.preview}"
   | }
   | });
-  | $('#form-#{field.config.GalleryUploader.preview}')[0].type = "hidden";
-  | $('label[for=form-#{field.config.GalleryUploader.preview}')[0].type = "hidden";
+  if (field.config.GalleryUploader.preview)
+    | $('#form-#{field.config.GalleryUploader.preview}')[0].type = "hidden";
+    | $('label[for="form-#{field.config.GalleryUploader.preview}"')[0].style.display = "none";
 
 mixin filesUploader(key, field)
   | const #{key}FileManager = new FileUploader({

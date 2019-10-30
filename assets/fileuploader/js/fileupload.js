@@ -84,41 +84,41 @@ class FileUploader {
             '        <div class="info">\n' +
             '          <div class="form-group">\n' +
             '            <label for="name" class="col-md-2">File name:</label>\n' +
-            '            <label id="name" class="col-md-8"></label>\n' +
+            '            <label id="name-' + this.elName + '" class="col-md-8"></label>\n' +
             '          </div>\n' +
             '          <div class="form-group">\n' +
             '            <label for="dimensions" class="col-md-2">File dimensions:</label>\n' +
-            '            <label id="dimensions" class="col-md-8"></label>\n' +
+            '            <label id="dimensions-' + this.elName + '" class="col-md-8"></label>\n' +
             '          </div>\n' +
             '          <div class="form-group">\n' +
             '            <label for="size" class="col-md-2">File size:</label>\n' +
-            '            <label id="size" class="col-md-8"></label>\n' +
+            '            <label id="size-' + this.elName + '" class="col-md-8"></label>\n' +
             '          </div>\n' +
             '          <div class="form-group">\n' +
             '            <label for="url">URL:</label>\n' +
-            '            <input id="url" type="text" readonly="readonly" class="form-control"/>\n' +
+            '            <input id="url-' + this.elName + '" type="text" readonly="readonly" class="form-control"/>\n' +
             '          </div>\n' +
             '          <div class="form-group">\n' +
             '            <label for="title">Title:</label>\n' +
-            '            <input id="title" type="text" class="form-control"/>\n' +
+            '            <input id="title-' + this.elName + '" type="text" class="form-control"/>\n' +
             '          </div>\n' +
             '          <div class="form-group">\n' +
             '            <label for="desc">Description:</label>\n' +
-            '            <input id="desc" type="text" class="form-control"/>\n' +
+            '            <input id="desc-' + this.elName + '" type="text" class="form-control"/>\n' +
             '          </div>\n' +
             '          <div class="form-group">\n' +
             '            <label for="year">Year:</label>\n' +
-            '            <input id="year" type="text" class="form-control"/>\n' +
+            '            <input id="year-' + this.elName + '" type="text" class="form-control"/>\n' +
             '          </div>\n' +
             '          <div class="form-group">\n' +
             '            <label for="author">Author:</label>\n' +
-            '            <input id="author" type="text" class="form-control"/>\n' +
+            '            <input id="author-' + this.elName + '" type="text" class="form-control"/>\n' +
             '          </div>\n' +
             '        </div>\n' +
             '      </div>\n' +
             '      <div class="modal-footer">\n' +
-            '        <button id="file-uploader-save" class="btn btn-success" type="button">Save</button>\n' +
-            '        <button id="file-uploader-close" class="btn btn-danger" type="button">Close</button>\n' +
+            '        <button id="file-uploader-save-' + this.elName + '" class="btn btn-success" type="button">Save</button>\n' +
+            '        <button id="file-uploader-close-' + this.elName + '" class="btn btn-danger" type="button">Close</button>\n' +
             '      </div>\n' +
             '    </div>\n' +
             '  </div>\n' +
@@ -256,27 +256,27 @@ class FileUploader {
             d = file.width + 'x' + file.height;
         else
             d = '-----';
-        $(body + 'dimensions').text(d);
-        $(body + 'size').text(file.size);
-        $(body + 'url').val(window.location.hostname + file.url);
+        $(body + 'dimensions-' + this.elName).text(d);
+        $(body + 'size-' + this.elName).text(file.size);
+        $(body + 'url-' + this.elName).val(window.location.hostname + file.url);
 
         // dynamic data
-        $(body + 'title').val(file.title);
-        $(body + 'desc').val(file.description);
-        $(body + 'year').val(file.year);
-        $(body + 'author').val(file.author);
+        $(body + 'title-' + this.elName).val(file.title);
+        $(body + 'desc-' + this.elName).val(file.description);
+        $(body + 'year-' + this.elName).val(file.year);
+        $(body + 'author-' + this.elName).val(file.author);
 
         // save changes
-        $('#file-uploader-save').click(() => {
-            file.title = $(body + 'title').val();
-            file.description = $(body + 'desc').val();
-            file.year = $(body + 'year').val();
-            file.author = $(body + 'author').val();
+        $('#file-uploader-save-' + this.elName).click(() => {
+            file.title = $(body + 'title-' + this.elName).val();
+            file.description = $(body + 'desc-' + this.elName).val();
+            file.year = $(body + 'year-' + this.elName).val();
+            file.author = $(body + 'author-' + this.elName).val();
             this.saveData();
             $('#file-info-modal-' + this.elName).hide();
         });
         // save changes
-        $('#file-uploader-close').click(() => {
+        $('#file-uploader-close-' + this.elName).click(() => {
             $('#file-info-modal-' + this.elName).hide();
         });
     }
@@ -355,3 +355,4 @@ class FileUploader {
         }
     }
 }
+
