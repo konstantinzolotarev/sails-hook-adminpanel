@@ -202,29 +202,27 @@ function checkValid(w, h, aspect, size) {
                     res = 'size';
             }
 
-            if (res) {
-                for (let j = 0; j < a[i].length; j++) {
-                    let item = a[i][j];
-                    let equal = false;
-                    if (item.indexOf('=') >= 0)
-                        equal = true;
-                    if (item.indexOf('>') >= 0) {
-                        if (equal) {
-                            if (b[i] < parseInt(item.replace(/\D+/, '')))
-                                res = 'size';
-                        } else {
-                            if (b[i] <= parseInt(item.replace(/\D+/, '')))
-                                res = 'size';
-                        }
+            for (let j = 0; j < a[i].length; j++) {
+                let item = a[i][j];
+                let equal = false;
+                if (item.indexOf('=') >= 0)
+                    equal = true;
+                if (item.indexOf('>') >= 0) {
+                    if (equal) {
+                        if (b[i] < parseInt(item.replace(/\D+/, '')))
+                            res = 'size';
+                    } else {
+                        if (b[i] <= parseInt(item.replace(/\D+/, '')))
+                            res = 'size';
                     }
-                    if (item.indexOf('<') >= 0) {
-                        if (equal) {
-                            if (b[i] > parseInt(item.replace(/\D+/, '')))
-                                res = 'size';
-                        } else {
-                            if (b[i] >= parseInt(item.replace(/\D+/, '')))
-                                res = 'size';
-                        }
+                }
+                if (item.indexOf('<') >= 0) {
+                    if (equal) {
+                        if (b[i] > parseInt(item.replace(/\D+/, '')))
+                            res = 'size';
+                    } else {
+                        if (b[i] >= parseInt(item.replace(/\D+/, '')))
+                            res = 'size';
                     }
                 }
             }

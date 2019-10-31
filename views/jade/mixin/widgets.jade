@@ -171,7 +171,7 @@ mixin inputModel(key, field, value)
       if field.config.records
         each opt in field.config.records
           option(value=opt[field.config.identifierField],
-          selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
+            selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
       else
         option(value='') --- No records found ---
 
@@ -182,22 +182,28 @@ mixin inputSelectMany(key, field, value)
       if field.config.records
         each opt in field.config.records
           option(value=opt[field.config.identifierField],
-          selected=(locals.adminpanel.viewHelper.isOptionSelected(opt[field.config.identifierField], value))) #{opt[field.config.displayField]}
+            selected=(locals.adminpanel.viewHelper.isOptionSelected(opt[field.config.identifierField], value))) #{opt[field.config.displayField]}
       else
         option(value='') --- No records found ---
 
 mixin installEditors(fields, record)
+  - var scriptExists = false
   each field in fields
     - var widget = field.config.widget
-    case widget
-      when 'ImageUploader'
-        +scripts()
-      when 'GalleryUploader'
-        +scripts()
-      when 'FileUploader'
-        +scripts()
-      when 'FilesUploader'
-        +scripts()
+    unless scriptExists
+      case widget
+        when 'ImageUploader'
+          +scripts()
+          - scriptExists = true
+        when 'GalleryUploader'
+          +scripts()
+          - scriptExists = true
+        when 'FileUploader'
+          +scripts()
+          - scriptExists = true
+        when 'FilesUploader'
+          +scripts()
+          - scriptExists = true
 
   script(type='text/javascript')
     | var jsonEditor = {};
@@ -220,7 +226,7 @@ mixin installEditors(fields, record)
             |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
             |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
             |   },
-            |   !{typeof value === 'object' ? JSON.stringify(value) : value}
+            |   !{JSON.stringify(value)}
             | );
           when 'Ace'
             | editor[#{++aceCounter}] = ace.edit('ace-#{key}');

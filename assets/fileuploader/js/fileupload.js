@@ -1,5 +1,5 @@
 class File_ {
-    constructor(id, name, url, urlS, urlL, width, height, size, sizes) {
+    constructor(id, name, url, urlS, urlL, width, height, size, sizes, title, descritpion, year, author) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -10,10 +10,10 @@ class File_ {
         this.size = size;
         this.sizes = sizes;
 
-        this.title = name.substr(0, name.lastIndexOf('.'));
-        this.description = '';
-        this.year = 0;
-        this.author = '';
+        this.title = title || name.substr(0, name.lastIndexOf('.'));
+        this.description = descritpion || '';
+        this.year = year || 0;
+        this.author = author || '';
     }
 }
 
@@ -334,13 +334,15 @@ class FileUploader {
                 const files = JSON.parse(data);
                 if (Array.isArray(files)) {
                     files.forEach((i) => {
-                        const f = new File_(this.files.length, i.name, i.url, i.urlS, i.urlL, i.width, i.height, i.size, i.sizes);
+                        const f = new File_(this.files.length, i.name, i.url, i.urlS, i.urlL, i.width, i.height, i.size, i.sizes,
+                            i.title, i.description, i.year, i.author);
                         this.files.push(f);
                         this.addFile(f);
                     });
                 }
             } catch (e) {
             }
+
             const preview = $('#' + this.dataPreview).val();
             if (preview) {
                 $('.' + this.fileContainer).each((i, item) => {
