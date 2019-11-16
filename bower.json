@@ -18,7 +18,7 @@
     "ckeditor": "~4.4.7",
     "jquery": "~2.1.4",
     "jsoneditor": "^5.5.8",
-    "ace": "https://github.com/ajaxorg/ace-builds.git#ba3b91e04a5aa559d56ac70964f9054baa0f4caf"
+    "ace": "https://github.com/ajaxorg/ace-builds.git"
   },
   "resolutions": {
     "polymer": "^1.6.0"
