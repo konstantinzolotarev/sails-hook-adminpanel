@@ -52,7 +52,7 @@ module.exports = function(sails) {
             if (!model.definition) {
                 return config.identifierField;
             }
-            var identifier = _.result(_.find(model.definition, function(val, key) {
+            var identifier = _.findKey(model.definition, _.find(model.definition, function(val, key) {
                 if (val.primaryKey) {
                     return key;
                 }
