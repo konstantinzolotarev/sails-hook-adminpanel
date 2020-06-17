@@ -13,7 +13,7 @@ module.exports = function(req, res) {
                 if (!user) return res.notFound();
                 if (passwordHash.verify(username + password, user.passwordHashed)) {
                     req.session.UserAP = user;
-                    res.redirect('/admin');
+                    res.redirect('/admin/');
                 } else {
                     res.forbidden('Wrong username/password');
                 }
