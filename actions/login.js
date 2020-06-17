@@ -23,6 +23,6 @@ module.exports = function(req, res) {
         }
     } else if (req.url.indexOf('logout') >= 0) {
         req.session.UserAP = undefined;
-        res.redirect('/admin');
+        res.redirect('/admin/');
     }
 };
