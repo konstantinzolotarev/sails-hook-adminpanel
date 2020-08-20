@@ -16,9 +16,10 @@
 .file-container .item-image img {
   width: 150px;
   height: 150px;
-  object-fit: cover;
+  object-fit: contain;
   top: 50%;
   left: 50%;
+  background-color: #ffffff;
 }
 .file-container.preview .item-image:after {
   position: absolute;
