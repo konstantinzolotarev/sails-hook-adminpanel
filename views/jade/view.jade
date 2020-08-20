@@ -5,6 +5,8 @@ include ./mixin/viewHelper
 include ./mixin/actions
 
 block body
+  script.
+    console.log(!{JSON.stringify(record)})
   - var idField = locals.adminpanel.configHelper.getIdentifierField(instance.config.model);
   .layout.horizontal
     +globalActions('view', instance, record)
@@ -36,5 +38,6 @@ block body
             .clr-row
               .clr-col-4: strong #{field.config.title}
               .clr-col-8: +showValue(key, field, record[key])
+
 
       +inlineActions(instance, record, 'view')
