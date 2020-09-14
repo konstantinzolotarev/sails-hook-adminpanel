@@ -5,7 +5,9 @@ include ./mixin/pagination
 include ./mixin/actions
 
 block body
-  .horizontal.layout
+  script.
+    console.log(!{JSON.stringify(list)})
+  .horizontal.layout.test
     .flex
       if instance.config.add
         a(href='#{instance.uri}/add')#add
