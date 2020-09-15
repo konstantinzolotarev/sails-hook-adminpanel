@@ -86,7 +86,7 @@ module.exports = {
      * @returns {boolean|Object}
      * @private
      */
-    _normalizeFieldConfig: function(config, key) {
+    _normalizeFieldConfig: function(config, key, modelField) {
         if (_.isUndefined(config) || _.isUndefined(key)) {
             throw new Error('No `config` or `key` passed !');
         }
@@ -123,7 +123,7 @@ module.exports = {
             if (config.type === 'association' || config.type === 'association-many') {
                 _.defaults(config, {
                     identifierField: 'id',
-                    displayField: 'id'
+                    displayField: modelField.displayField !== undefined ? modelField.displayField : 'id'
                 });
             }
             return config;
@@ -301,7 +301,7 @@ module.exports = {
             // All field types should be in lower case
             fldConfig.type = fldConfig.type.toLowerCase();
             //nomalizing configs
-            fldConfig = that._normalizeFieldConfig(fldConfig, key)
+            fldConfig = that._normalizeFieldConfig(fldConfig, key, modelField)
             //Adding new field to resultset
             result[key] = {
                 config: fldConfig,
