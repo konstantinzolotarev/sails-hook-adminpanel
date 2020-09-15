@@ -119,11 +119,37 @@ module.exports = {
             if (!config.title) {
                 config.title = key;
             }
+
             //validate associations
+            console.log(modelField);
             if (config.type === 'association' || config.type === 'association-many') {
+                var associatedModelAtrubutes = {};
+                var displayField;
+                if (config.type === 'association'){
+                    try {
+                        associatedModelAtrubutes = util.getModel(modelField.model.toLowerCase())._attributes;
+                    } catch (e) {
+                        sails.log.error(e);
+                    }
+                } else if (config.type === 'association-many'){
+                    try {
+                        associatedModelAtrubutes = util.getModel(modelField.collection.toLowerCase())._attributes;
+                    } catch (e) {
+                        sails.log.error(e);
+                    }
+                }
+
+                if (associatedModelAtrubutes.hasOwnProperty('name')){
+                    displayField = 'name'
+                } else if (associatedModelAtrubutes.hasOwnProperty('label')){
+                    displayField = 'label'
+                } else {
+                    displayField = 'id'
+                }
+
                 _.defaults(config, {
                     identifierField: 'id',
-                    displayField: modelField.displayField !== undefined ? modelField.displayField : 'id'
+                    displayField: displayField
                 });
             }
             return config;
@@ -273,7 +299,7 @@ module.exports = {
                 if (fieldsConfig[key] === false) {
                     ignoreField = true;
                 } else {
-                    var tmpCfg = that._normalizeFieldConfig(fieldsConfig[key], key);
+                    var tmpCfg = that._normalizeFieldConfig(fieldsConfig[key], key,modelField);
                     _.merge(fldConfig, tmpCfg);
                 }
             }
@@ -283,7 +309,7 @@ module.exports = {
                 if (actionConfig.fields[key] === false) {
                     ignoreField = true;
                 } else {
-                    var tmpCfg = that._normalizeFieldConfig(actionConfig.fields[key], key);
+                    var tmpCfg = that._normalizeFieldConfig(actionConfig.fields[key], key,modelField);
                     ignoreField = false;
                     _.merge(fldConfig, tmpCfg);
                 }
@@ -301,7 +327,7 @@ module.exports = {
             // All field types should be in lower case
             fldConfig.type = fldConfig.type.toLowerCase();
             //nomalizing configs
-            fldConfig = that._normalizeFieldConfig(fldConfig, key, modelField)
+            fldConfig = that._normalizeFieldConfig(fldConfig, key,modelField)
             //Adding new field to resultset
             result[key] = {
                 config: fldConfig,
