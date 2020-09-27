@@ -226,7 +226,7 @@ mixin installEditors(fields, record)
             |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
             |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
             |   },
-            |   !{JSON.stringify(value)}
+            |   !{value}
             | );
           when 'Ace'
             | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
