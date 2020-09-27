@@ -219,6 +219,11 @@ mixin installEditors(fields, record)
         case widget
           when 'JsonEditor'
             - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+            - try {
+            -   JSON.parse(value);  
+            - } catch (e) {
+            -   value = JSON.stringify(value);
+            - }
             | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');;
             | jsonEditor['#{key}'] = new JSONEditor(
             |   $('#form-#{key}-jsoneditor')[0],
