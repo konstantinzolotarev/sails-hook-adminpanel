@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "ckeditor": "~4.4.7",
+    "ckeditor": "~4.15.0",
     "jquery": "~2.1.4",
     "jsoneditor": "^5.5.8",
     "ace": "https://github.com/ajaxorg/ace-builds.git"
