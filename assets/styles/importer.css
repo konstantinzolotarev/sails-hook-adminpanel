@@ -1,3 +1,3 @@
 .ace_line > * { margin-top: 0 !important; margin-bottom: 0 !important; }
 .ace_editor p, .ace_editor div { font-family: 'Monaco', 'Menlo', 'Droid Sans Mono', 'Courier New', monospace !important;}
-.cke_reset {width: 100%;}
+.cke_reset { width: 100% !important;}
