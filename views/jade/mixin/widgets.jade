@@ -42,7 +42,7 @@ mixin fieldWidget(key, field, value, instance, id)
       when 'json'
         +json(key, field, value)
       when 'array'
-        +textarea(key, field, value)
+        +select(key, field, value)
       default
         +inputText(key, field, value)
 
@@ -82,17 +82,18 @@ mixin inputCheckbox(key, field, value)
 mixin select(key, field, value)
   label(for="form-#{key}") #{field.config.title}
   .select
-    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, multiple=(field.config.type == 'array'))
       if (field.config.enum && typeof field.config.enum === 'object')
         each opt, optKey in field.config.enum
-          option(value=optKey, selected=(optKey == value)) #{opt}
+          option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
       else
         each opt in field.model.enum
-          option(value=opt, selected=(opt == value)) #{opt}
+          option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt} 
 
 mixin textarea(key, field, value)
   label(for="form-#{key}") #{field.config.title}
   textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+
 
 // #{key}FMDmap inject
 
