@@ -200,7 +200,7 @@ module.exports = function menuHelper(config) {
             });
             if (config.menu.actions && config.menu.actions.length > 0) {
                 _.forEach(config.menu.actions, function(menu) {
-                    if (!menu.link || !menu.title || menu.menuGroup) {
+                    if (!menu.link || !menu.title || menu.menuGroup || menu.disabled) {
                         return;
                     }
                     menues.push({
