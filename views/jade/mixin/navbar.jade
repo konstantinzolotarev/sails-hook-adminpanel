@@ -1,8 +1,9 @@
 mixin menuItem(menuItem)
   a.nav-link(href=menuItem.link)
+    if menuItem.icon
+      clr-icon(shape=menuItem.icon)  
     |  #{menuItem.title}
-  if menuItem.icon
-    clr-icon(shape=menuItem.icon)
+
 
 mixin navbar
   nav.sidenav

@@ -25,7 +25,6 @@ html
     script(src="//unpkg.com/@clr/icons@1.3.9/clr-icons.min.js")
 
     - var config = locals.adminpanel.configHelper.getConfig()
-    | <script>console.log(!{JSON.stringify(locals.adminpanelFloormaps)});</script>
     each key in config.styles
       link(rel="stylesheet", href="#{key}")
 

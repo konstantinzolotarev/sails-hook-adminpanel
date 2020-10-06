@@ -12,3 +12,11 @@ select {
 input[type=number] {
   max-width: 300px;
 }
+.sidenav a.nav-link {
+  margin: 0 !important;
+  padding: 0.5rem;
+}
+
+a.nav-link clr-icon {
+  margin-right: 10px;
+}
