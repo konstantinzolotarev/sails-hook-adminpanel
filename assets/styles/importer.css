@@ -2,3 +2,13 @@
 .ace_editor p, .ace_editor div { font-family: 'Monaco', 'Menlo', 'Droid Sans Mono', 'Courier New', monospace !important;}
 .cke_reset { width: 100% !important;}
 input {width: 100%;}
+input[type=datetime-local] {
+  max-width: 300px;
+}
+select {
+  max-width: 300px;
+}
+
+input[type=number] {
+  max-width: 300px;
+}
