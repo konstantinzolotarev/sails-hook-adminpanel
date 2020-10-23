@@ -85,7 +85,10 @@ mixin select(key, field, value)
     select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, multiple=(field.config.type == 'array'))
       if (field.config.enum && typeof field.config.enum === 'object')
         each opt, optKey in field.config.enum
-          option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
+          if (value)
+            option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
+          else
+            option(value=optKey) #{opt}
       else
         each opt in field.model.enum
           option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt} 
