@@ -51,7 +51,7 @@ module.exports = function(req, res) {
                     var reqData = request.processRequest(req, fields);
                     // _.merge(record, reqData); // merging values from request to record
                     var params = {};
-                    params[req._sails.config.adminpanel.identifierField] = req.param('id');
+                    params[instance.config.identifierField||req._sails.config.adminpanel.identifierField] = req.param('id');
                     instance.model.update(params, reqData).exec(function(err, newRecord) {
                         if (err) {
                             req._sails.log.error(err);
