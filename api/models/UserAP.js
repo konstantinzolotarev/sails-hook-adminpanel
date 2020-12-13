@@ -9,11 +9,11 @@ var passwordHash = require('password-hash');
 
 module.exports = {
     attributes: {
-        id: {
-            type:'integer',
-            primaryKey: true,
-            autoIncrement: true
-        },
+        // id: {
+        //     type:'integer',
+        //     primaryKey: true,
+        //     autoIncrement: true
+        // },
         username: {
             type: 'string',
         },
