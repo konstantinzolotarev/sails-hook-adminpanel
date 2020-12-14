@@ -44,25 +44,37 @@ module.exports = function(req, res) {
                 }
                 return res.notFound();
             }
-            record.destroy(function(err) {
-                if (err) {
-                    if (req.wantsJSON) {
-                        return res.json({
-                            success: false,
-                            message: err.message || 'Record was not removed'
-                        });
-                    }
-                    req.flash('adminError', err.message || 'Record was not removed');
-                    return res.redirect(instance.uri);
+            console.log('admin > remove > record > ', record);
+            // record.destroyOne(function(err) {
+            //     if (err) {
+            //         if (req.wantsJSON) {
+            //             return res.json({
+            //                 success: false,
+            //                 message: err.message || 'Record was not removed'
+            //             });
+            //         }
+            //         req.flash('adminError', err.message || 'Record was not removed');
+            //         return res.redirect(instance.uri);
+            //     }
+            //     if (req.wantsJSON) {
+            //         return res.json({
+            //             success: true,
+            //             message: 'Record was removed successfuly'
+            //         });
+            //     }
+            //     req.flash('adminSuccess', 'Record was removed successfuly');
+            //     res.redirect(instance.uri);
+            // });
+            instance.model.destroyOne(record).then(function(result){
+                if(result){
+                    req.flash('adminSuccess', 'Record was removed successfuly');
+                }else{
+                    req.flash('adminError', 'Record was not removed');
                 }
-                if (req.wantsJSON) {
-                    return res.json({
-                        success: true,
-                        message: 'Record was removed successfuly'
-                    });
-                }
-                req.flash('adminSuccess', 'Record was removed successfuly');
                 res.redirect(instance.uri);
+            }).catch(function(error){
+                sails.log.error('adminpanel > error', error);
             });
+            
         });
 };

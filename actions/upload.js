@@ -9,6 +9,7 @@ var async = require('async');
 const Jimp = require('jimp');
 
 module.exports = function (req, res) {
+    console.log('admin > upload');
     var instance = util.findInstanceObject(req);
     // if (!instance.model) {
     //     return res.notFound();
@@ -152,7 +153,8 @@ module.exports = function (req, res) {
                                                 const url = dirDownload + filename;
                                                 const urlSmall = dirDownload + nameSmall;
                                                 const urlLarge = dirDownload + nameLarge;
-                                                res.created({
+                                                res.status(201);
+                                                res.send({
                                                     name: filenameOrig,
                                                     url: url,
                                                     urlSmall: urlSmall,
@@ -162,6 +164,16 @@ module.exports = function (req, res) {
                                                     height: height,
                                                     size: size
                                                 });
+                                                // res.created({
+                                                //     name: filenameOrig,
+                                                //     url: url,
+                                                //     urlSmall: urlSmall,
+                                                //     urlLarge: urlLarge,
+                                                //     urls: results,
+                                                //     width: width,
+                                                //     height: height,
+                                                //     size: size
+                                                // });
                                             });
                                     });
                             });
@@ -169,14 +181,24 @@ module.exports = function (req, res) {
                 });
             } else if (type === 'files' || type === 'file') {
                 const ext = filename.substr(filename.lastIndexOf('.') + 1, filename.length);
-                const url = '/admin/icons/' + ext + '/' + ext + '-128_32.png';
-                res.created({
+                // const url = '/admin/icons/' + ext + '/' + ext + '-128_32.png';
+                const urlIcon = '/admin/icons/' + ext + '/' + ext + '-128_32.png';
+                const url = fullDir + filename;
+                res.status(201);
+                res.send({
                     name: filenameOrig,
                     url: url,
-                    urlSmall: url,
-                    urlLarge: url,
+                    urlSmall: urlIcon,
+                    urlLarge: urlIcon,
                     size: file[0].size
                 });
+                // res.created({
+                //     name: filenameOrig,
+                //     url: url,
+                //     urlSmall: url,
+                //     urlLarge: url,
+                //     size: file[0].size
+                // });
             }
         });
     }

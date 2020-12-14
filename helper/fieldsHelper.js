@@ -121,24 +121,26 @@ module.exports = {
             }
 
             //validate associations
-            console.log(modelField);
+            // console.log(modelField);
             if (config.type === 'association' || config.type === 'association-many') {
                 var associatedModelAtrubutes = {};
                 var displayField;
                 if (config.type === 'association'){
                     try {
-                        associatedModelAtrubutes = util.getModel(modelField.model.toLowerCase())._attributes;
+                        associatedModelAtrubutes = util.getModel(modelField.model.toLowerCase()).attributes;
                     } catch (e) {
                         sails.log.error(e);
                     }
                 } else if (config.type === 'association-many'){
                     try {
-                        associatedModelAtrubutes = util.getModel(modelField.collection.toLowerCase())._attributes;
+                        // console.log('admin > helper > collection > ', util.getModel(modelField.collection.toLowerCase()).attributes);
+                        associatedModelAtrubutes = util.getModel(modelField.collection.toLowerCase()).attributes;
                     } catch (e) {
                         sails.log.error(e);
                     }
                 }
 
+                // console.log('admin > helper > model > ', associatedModelAtrubutes);
                 if (associatedModelAtrubutes.hasOwnProperty('name')){
                     displayField = 'name'
                 } else if (associatedModelAtrubutes.hasOwnProperty('label')){
