@@ -47,7 +47,7 @@ mixin fieldWidget(key, field, value, instance, id)
         +inputText(key, field, value)
 
 mixin inputText(key, field, value)
-  if field.model.enum
+  if field.model.validations.isIn
     +select(key, field, value)
   else if field.model.email
     label(for='form-#{key}') #{field.config.title}
@@ -90,8 +90,11 @@ mixin select(key, field, value)
           else
             option(value=optKey) #{opt}
       else
-        each opt in field.model.enum
-          option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt} 
+        each opt in field.model.validations.isIn
+          if (value)
+            option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
+          else
+            option(value=optKey) #{opt}
 
 mixin textarea(key, field, value)
   label(for="form-#{key}") #{field.config.title}

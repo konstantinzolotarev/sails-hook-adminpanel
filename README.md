@@ -7,6 +7,8 @@ sails-hook-adminpanel readme for sails v1.x
 
     npm install consolidate --save
 
+    npm install jade --save
+
 **config/views.js**
     
     extension: 'jade',
