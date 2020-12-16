@@ -47,7 +47,7 @@ mixin fieldWidget(key, field, value, instance, id)
         +inputText(key, field, value)
 
 mixin inputText(key, field, value)
-  if field.model.validations.isIn
+  if field.model.validations && field.model.validations.isIn
     +select(key, field, value)
   else if field.model.email
     label(for='form-#{key}') #{field.config.title}
