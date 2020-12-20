@@ -63,7 +63,7 @@ module.exports = function(req, res) {
                 .exec(function(err, list) {
                     if (err) return done(err);
                     records = list;
-                    console.log('admin > list > find > ', records);
+                    // console.log('admin > list > find > ', records);
                     done();
                 });
         }
