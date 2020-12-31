@@ -32,6 +32,11 @@ module.exports = function(req, res) {
         function checkPost(done) {
             if (req.method.toUpperCase() === 'POST') {
                 var reqData = request.processRequest(req, fields);
+                for(let prop in reqData){
+                    if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json'){
+                        reqData[prop] = JSON.parse(reqData[prop]);
+                    }
+                }
                 instance.model.create(reqData).exec(function(err, record) {
                     if (err) {
                         req._sails.log.error(err);

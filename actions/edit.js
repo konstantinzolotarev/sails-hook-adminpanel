@@ -52,6 +52,11 @@ module.exports = function(req, res) {
                     // _.merge(record, reqData); // merging values from request to record
                     var params = {};
                     params[instance.config.identifierField||req._sails.config.adminpanel.identifierField] = req.param('id');
+                    for(let prop in reqData){
+                        if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json'){
+                            reqData[prop] = JSON.parse(reqData[prop]);
+                        }
+                    }
                     instance.model.update(params, reqData).exec(function(err, newRecord) {
                         if (err) {
                             req._sails.log.error(err);
