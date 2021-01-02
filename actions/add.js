@@ -34,7 +34,11 @@ module.exports = function(req, res) {
                 var reqData = request.processRequest(req, fields);
                 for(let prop in reqData){
                     if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json'){
-                        reqData[prop] = JSON.parse(reqData[prop]);
+                        try{
+                            reqData[prop] = JSON.parse(reqData[prop]);
+                        }catch(e){
+                            sails.log.error(e);
+                        }
                     }
                 }
                 instance.model.create(reqData).exec(function(err, record) {
