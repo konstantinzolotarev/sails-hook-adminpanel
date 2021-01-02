@@ -65,7 +65,7 @@ module.exports = function(req, res) {
             //     req.flash('adminSuccess', 'Record was removed successfuly');
             //     res.redirect(instance.uri);
             // });
-            instance.model.destroyOne(record).then(function(result){
+            instance.model.destroyOne(record[instance.config.identifierField||req._sails.config.adminpanel.identifierField]).then(function(result){
                 if(result){
                     req.flash('adminSuccess', 'Record was removed successfuly');
                 }else{
