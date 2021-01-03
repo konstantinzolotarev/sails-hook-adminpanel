@@ -53,7 +53,7 @@ module.exports = function(req, res) {
                     var params = {};
                     params[instance.config.identifierField||req._sails.config.adminpanel.identifierField] = req.param('id');
                     for(let prop in reqData){
-                        if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json'){
+                        if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json' && reqData[prop] !== ''){
                             try{
                                 reqData[prop] = JSON.parse(reqData[prop]);
                             }catch(e){

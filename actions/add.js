@@ -33,7 +33,7 @@ module.exports = function(req, res) {
             if (req.method.toUpperCase() === 'POST') {
                 var reqData = request.processRequest(req, fields);
                 for(let prop in reqData){
-                    if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json'){
+                    if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json' && reqData[prop] !== ''){
                         try{
                             reqData[prop] = JSON.parse(reqData[prop]);
                         }catch(e){
