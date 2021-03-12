@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x;
-echo whoami
+whoami
 echo "SAILS-HOOK-ADMINPANEL"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
