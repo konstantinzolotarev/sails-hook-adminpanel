@@ -12,6 +12,5 @@ rm -rf ../../.tmp/public/admin
 mkdir -p ../../assets/admin
 cp -r ./assets/* ../../assets/admin  
 
-ls ../../.tmp/public/
 mkdir -p ../../.tmp/public/admin
 cp -r ./assets/* ../../.tmp/public/admin
