@@ -259,6 +259,28 @@ owner: {
 }
 ```
 
+## Auto config
+
+This configuration loads all sail models as they are. Just place  in `config\adminpanel.js`
+
+```javascript
+ const fs = require("fs");
+ let modelPath = __dirname + "/../api/models";
+ let instances = {};
+ fs.readdir(modelPath, function (err, files) {
+   files.forEach(function (file) {
+     let modelName = file.split(".")[0];
+     instances[modelName] = {
+       title: modelName,
+       model: modelName,
+     };
+   });
+ });
+ 
+ module.exports.adminpanel = { instances: instances } ;
+```
+
+
 ## Limitations
 
 + For now admin panel do not fully support waterline associations. So some fields might be ignored ! It's planned.
@@ -266,3 +288,4 @@ owner: {
 + No custom actions support. For now you couldn't add custom actions and pages into admin panel.
 + No template engine support except of `jade`. I primary working with this template engine and didn't create a another templates
 + No custom assets support. You couldn't edit css/js for admin panel for now.
+
