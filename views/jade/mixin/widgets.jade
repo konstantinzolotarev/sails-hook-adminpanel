@@ -280,6 +280,9 @@ mixin installEditors(fields, record)
           | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:500px;"></div>');;
           | jsonEditor['#{key}'] = new JSONEditor(
           |   $('#form-#{key}-jsoneditor')[0],
-          |   {},
+          |   {
+          |     modes: ['code', 'form', 'text', 'tree', 'view'],
+          |     mode: "tree"
+          |   },
           |   !{value}
           | );
