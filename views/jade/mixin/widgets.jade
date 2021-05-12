@@ -167,8 +167,17 @@ mixin json(key, field, value)
         script
           | $('#form-#{key}').parent().css({display: 'block'});
       default
-        +hookWidgetsDOM(key, field, value)
-
+        label(for="form-#{key}") #{field.config.title}
+        br
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+        script
+          | $('#form-#{key}').parent().css({display: 'block'});
+  else
+    label(for="form-#{key}") #{field.config.title}
+    br
+    textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+    script
+      | $('#form-#{key}').parent().css({display: 'block'});
 
 mixin inputModel(key, field, value)
   label(for="form-#{key}") #{field.config.title}
@@ -260,3 +269,17 @@ mixin installEditors(fields, record)
             +filesUploader(key, field)
           default
             +hookWidgetsScript(key, field)
+      else 
+        if field.config.type === "json"
+          - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+          - try {
+          -   JSON.parse(value);  
+          - } catch (e) {
+          -   value = JSON.stringify(value);
+          - }
+          | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:500px;"></div>');;
+          | jsonEditor['#{key}'] = new JSONEditor(
+          |   $('#form-#{key}-jsoneditor')[0],
+          |   {},
+          |   !{value}
+          | );
