@@ -2,7 +2,8 @@ mixin listHead(fields)
   tr
     each field, key in fields
       th #{field.config.title)
-    //- th   
+    th #{__('Actions')}
+     
 - var iconSize = "20";
 
 mixin listRow(obj, instance)

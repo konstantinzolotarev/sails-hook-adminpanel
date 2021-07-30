@@ -1,6 +1,7 @@
 "use strict";
 var util = require("../lib/adminUtil");
 var fieldsHelper = require("../helper/fieldsHelper");
+var configHelper = require("../helper/configHelper")(sails);
 
 module.exports = async function (req, res) {
     var instance = util.findInstanceObject(req);
@@ -16,6 +17,7 @@ module.exports = async function (req, res) {
     records = await instance.model.find();
 
     let fields = fieldsHelper.getFields(req, instance, "list");
+    let identifierField = configHelper.getIdentifierField(instance.config.model);
     fields = Object.keys(fields);
     let result= [];
     records.forEach((item) => {
@@ -23,6 +25,7 @@ module.exports = async function (req, res) {
         fields.forEach((key) => {
             a.push(item[key]);
         });
+        a.push(item[identifierField]); // for Actions
         result.push(a);
     });
     res.json({

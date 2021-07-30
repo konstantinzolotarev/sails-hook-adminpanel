@@ -1,0 +1,15 @@
+
+table.dataTable {
+    width: 100% !important; 
+}
+#list_filter label {
+   display: flex;
+   padding: 10px 0px 5px 10px;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: 15px !important;
+}
