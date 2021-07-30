@@ -6,7 +6,11 @@ include ./mixin/actions
 
 block body
   script.
-    console.log(!{JSON.stringify(list)})
+    $(document).ready(function() {
+        $('#list').DataTable( {
+            "ajax": 'json'
+        } );
+    } );
   .horizontal.layout.test
     .flex
       if instance.config.add
@@ -14,15 +18,15 @@ block body
           button.btn(class="#{'btn-success' + (button == 'outline' ? '-outline' : '')}")
             clr-icon(shape="plus")
             |  Add
-      +globalActions('list', instance)
+      //- +globalActions('list', instance)
 
   div.layout
-    table.table
+    table.table#list
       thead
         +listHead(fields)
       tbody
         each obj in list
-          +listRow(obj, instance)
+          //- +listRow(obj, instance)
       tfoot
         tr
           td

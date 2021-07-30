@@ -1,12 +1,7 @@
 mixin listHead(fields)
   tr
     each field, key in fields
-      th
-        a(href=sortingHelper.generateLink(req, key)) #{field.config.title}&nbsp;
-        if req.sort && req.sort.key == key
-          i(class=(req.sort.order == 'desc' ? 'glyphicon-sort-by-alphabet-alt' : 'glyphicon-sort-by-alphabet')).glyphicon
-    th #{__('Actions')}
-
+      th #{field.config.title}
 - var iconSize = "20";
 
 mixin listRow(obj, instance)
