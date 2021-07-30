@@ -27,6 +27,6 @@ module.exports = async function (req, res) {
     });
     res.json({
         data: result,
-        fileds: fields,
+        //fileds: fields,
     });
 };

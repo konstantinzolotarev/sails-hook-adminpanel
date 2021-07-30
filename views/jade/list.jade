@@ -8,7 +8,7 @@ block body
   script.
     $(document).ready(function() {
         $('#list').DataTable( {
-            "ajax": 'json'
+             "ajax": '#{instance.uri}/json'
         } );
     } );
   .horizontal.layout.test
@@ -24,15 +24,15 @@ block body
     table.table#list
       thead
         +listHead(fields)
-      tbody
-        each obj in list
-          //- +listRow(obj, instance)
-      tfoot
-        tr
-          td
-            span Total: #{total}
-          td(colspan=Object.keys(fields).length).pagination
-            +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
+      //- tbody
+      //-   each obj in list
+      //-     //- +listRow(obj, instance)
+      //- tfoot
+      //-   tr
+      //-     td
+      //-       span Total: #{total}
+      //-     td(colspan=Object.keys(fields).length).pagination
+      //-       +pagination(instance.uri, (req.param('page') || 1), total, instance.config.list.limit, requestProcessor)
 
     if list.length == 0
       .alert.alert-info
