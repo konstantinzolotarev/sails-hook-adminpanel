@@ -12,12 +12,12 @@ block body
              "sDom": 'Rfrtlip',
              "columnDefs": [
               {
-                  targets: -1,
+                  targets: 0,
                   render: function (data, type, row, meta)
                   {
                       if (type === 'display')
                       {
-                          data = '<a href="#{instance.uri}/view/'+row[meta.col]+'">View</a><br><br><a href="#{instance.uri}/edit/'+row[meta.col]+'">Edit</a>';
+                          data = '<a href="#{instance.uri}/view/'+row[0]+'">View</a><br><br><a href="#{instance.uri}/edit/'+row[0]+'">Edit</a>';
                       }
                       return data;
                   }

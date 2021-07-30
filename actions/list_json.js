@@ -22,10 +22,10 @@ module.exports = async function (req, res) {
     let result= [];
     records.forEach((item) => {
         let a = [];
+        a.push(item[identifierField]); // for Actions
         fields.forEach((key) => {
             a.push(item[key]);
         });
-        a.push(item[identifierField]); // for Actions
         result.push(a);
     });
     res.json({
