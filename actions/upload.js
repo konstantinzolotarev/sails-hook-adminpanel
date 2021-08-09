@@ -123,12 +123,15 @@ module.exports = function (req, res) {
                     resize.forEach(i => {
                         i.w = parseInt(i.w);
                         i.h = parseInt(i.h);
+                        if(!i.quality) {
+                            i.quality = 60;
+                        }
                         resizes.push(
                             function (callback) {
                                 const name = fullDir + filename.substr(0, filename.lastIndexOf('.')) + '_' + i.name + '.' + filename.split('.').reverse()[0];
                                 const name2 = assetsDir + filename.substr(0, filename.lastIndexOf('.')) + '_' + i.name + '.' + filename.split('.').reverse()[0];
                                 Jimp.read('.' + dir + filename, function (err, imageTemp) {
-                                    imageTemp.resize(i.w === -1 ? Jimp.AUTO : i.w, i.h === -1 ? Jimp.AUTO : i.h).write(name, function (err, image) {
+                                    imageTemp.resize(i.w === -1 ? Jimp.AUTO : i.w, i.h === -1 ? Jimp.AUTO : i.h).quality(i.quality).write(name, function (err, image) {
                                         image.write(name2);
                                         if (err) return callback(err);
                                         return callback(null, name);
