@@ -7,9 +7,27 @@ include ./mixin/actions
 block body
   script.
     $(document).ready(function() {
-        $('#list').DataTable( {
+        $('#list thead tr').clone(true).insertBefore( '#list thead tr' );
+        $('#list thead tr:eq(0) th').each( function (i) {
+            if (i === 0) return;
+            $(this).html( '<input type="text" placeholder="" />' );
+    
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( table.column(i).search() !== this.value ) {
+                    table
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+
+        var table = $('#list').DataTable( {
              "ajax": '#{instance.uri}/json',
              "sDom": 'Rfrtlip',
+             "scrollX": true,
+              //orderCellsTop: true,
+              fixedHeader: true,
              "columnDefs": [
               {
                   targets: 0,
