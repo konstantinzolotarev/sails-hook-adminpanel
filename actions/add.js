@@ -44,7 +44,7 @@ module.exports = function(req, res) {
                 instance.model.create(reqData).exec(function(err, record) {
                     if (err) {
                         req._sails.log.error(err);
-                        req.flash('adminError', err.details || 'Something went wrong...');
+                        req.flash('adminError', err.message || 'Something went wrong...');
                         data = reqData;
                         return done(err);
                     }
