@@ -251,7 +251,7 @@ mixin installEditors(fields, record)
             |   !{value}
             | );
           when 'Ace'
-            | editor[#{++aceCounter}] = ace.edit('form-#{key}');
+            | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
             | editor[#{aceCounter}].setReadonly
             | editor[#{aceCounter}].setTheme("ace/theme/katzenmilch");
             | editor[#{aceCounter}].session.setMode("ace/mode/html");
