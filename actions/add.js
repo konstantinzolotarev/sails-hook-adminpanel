@@ -41,6 +41,13 @@ module.exports = function(req, res) {
                         }
                     }
                 }
+
+                // callback before save instance
+                if(typeof instance.config.add.instanceModifier === "function"){
+                    reqData = instance.config.edit.instanceModifier(reqData);
+                }
+
+
                 instance.model.create(reqData).exec(function(err, record) {
                     if (err) {
                         req._sails.log.error(err);
