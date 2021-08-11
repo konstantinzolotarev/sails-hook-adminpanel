@@ -34,19 +34,23 @@ module.exports = async function (req, res) {
             let fieldData = "";
             let displayField = fields[key].config.displayField;
             if(fields[key].model.model){
-                if (!instance[key]) return a.push("")
-                
-                // Model
-                fieldData = instance[key][displayField];
-                
+                if (!instance[key]){
+                    fieldData = ""
+                } else {
+                    // Model
+                    fieldData = instance[key][displayField];
+                }
             } else if (fields[key].model.collection) {
-                if (!instance[key] || !instance[key].length) return a.push("")
-                
-                // Collection
-                instance[key].forEach((item)=>{
-                    if (fieldData !== "") fieldData += ", "
-                    fieldData += !item[displayField] ? item[fields[key].config.identifierField] : item[displayField];
-                })
+                if (!instance[key] || !instance[key].length) {
+                    fieldData = ""
+                }  
+                else {
+                    // Collection
+                    instance[key].forEach((item)=>{
+                        if (fieldData !== "") fieldData += ", "
+                        fieldData += !item[displayField] ? item[fields[key].config.identifierField] : item[displayField];
+                    })
+                }
 
             } else {
                 // Plain data
@@ -58,7 +62,6 @@ module.exports = async function (req, res) {
             } else {
                 a.push(fieldData);
             }
-
         });
         result.push(a);
     });
