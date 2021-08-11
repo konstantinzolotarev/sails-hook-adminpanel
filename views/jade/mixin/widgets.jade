@@ -85,17 +85,18 @@ mixin select(key, field, value)
   .select
     select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, multiple=(field.config.type == 'array'))
       if (field.config.enum && typeof field.config.enum === 'object')
-        each opt, optKey in field.config.enum
+        each opt in field.config.enum
           if (value)
-            option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
+            option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt}
           else
-            option(value=optKey) #{opt}
+            option(value=opt) #{opt}
       else
-        each opt in field.model.validations.isIn
-          if (value)
-            option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
-          else
-            option(value=optKey) #{opt}
+        if (field.model.validations && field.model.validations.isIn)
+          each opt in field.model.validations.isIn
+            if (value)
+              option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt}
+            else
+              option(value=opt) #{opt}
 
 mixin textarea(key, field, value)
   label(for="form-#{key}") #{field.config.title}
