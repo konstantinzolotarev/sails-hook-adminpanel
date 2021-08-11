@@ -31,28 +31,34 @@ module.exports = async function (req, res) {
         let a = [];
         a.push(instance[identifierField]); // Push ID for Actions
         keyFields.forEach((key) => {
+            let fieldData = "";
+            let displayField = fields[key].config.displayField;
             if(fields[key].model.model){
-                // If not present displayField try get "name" field or identifierField
-                let displayField = fields[key].config.displayField;
                 if (!instance[key]) return a.push("")
-                // Relation
-                a.push(instance[key][displayField]);
+                
+                // Model
+                fieldData = instance[key][displayField];
                 
             } else if (fields[key].model.collection) {
                 if (!instance[key] || !instance[key].length) return a.push("")
-                let displayField = fields[key].config.displayField;
                 
-                // Collections
-                let plainCollection = "";
+                // Collection
                 instance[key].forEach((item)=>{
-                    if (plainCollection !== "") plainCollection += ", "
-                    plainCollection += !item[displayField] ? item[fields[key].config.identifierField] : item[displayField];
+                    if (fieldData !== "") fieldData += ", "
+                    fieldData += !item[displayField] ? item[fields[key].config.identifierField] : item[displayField];
                 })
-                a.push(plainCollection);
 
             } else {
-                a.push(instance[key]);
+                // Plain data
+                fieldData = instance[key];
             }
+
+            if(typeof fields[key].config.listDisplayModifier === "function"){
+                a.push(fields[key].config.listDisplayModifier(fieldData));
+            } else {
+                a.push(fieldData);
+            }
+
         });
         result.push(a);
     });

@@ -129,6 +129,11 @@ module.exports.adminpanel = {
             fields: {
                 email: 'User Email', // It will define title for this field in all actions (list/add/edit/view)
                 createdAt: false, // Will hide createdAt field in all actions
+                avatar: {
+                    listDisplayModifier: function (img) { // Only for list view 
+                        return `<img src="${img}">`              
+                    }
+                },
                 bio: {
                     title: 'User bio',
                     type: 'text', // LOOK BELOW FOR TYPES DESCRIPTION
