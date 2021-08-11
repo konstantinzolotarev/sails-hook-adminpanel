@@ -1,4 +1,4 @@
 # Edit callback
 
-editInstanceModifier - function in adminpanel config edit sections for modification instance data
-listDisplayModifier 
+instanceModifier - function in adminpanel config edit sections for modification instance data
+displayModifier 

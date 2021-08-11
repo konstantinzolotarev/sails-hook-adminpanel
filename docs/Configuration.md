@@ -130,7 +130,7 @@ module.exports.adminpanel = {
                 email: 'User Email', // It will define title for this field in all actions (list/add/edit/view)
                 createdAt: false, // Will hide createdAt field in all actions
                 avatar: {
-                    listDisplayModifier: function (img) { // Only for list view 
+                    displayModifier: function (img) { // Only for list view  look callback.md for get more info
                         return `<img src="${img}">`              
                     }
                 },

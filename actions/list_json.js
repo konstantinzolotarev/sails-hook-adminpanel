@@ -57,8 +57,8 @@ module.exports = async function (req, res) {
                 fieldData = instance[key];
             }
 
-            if(typeof fields[key].config.listDisplayModifier === "function"){
-                a.push(fields[key].config.listDisplayModifier(fieldData));
+            if(typeof fields[key].config.displayModifier === "function"){
+                a.push(fields[key].config.displayModifier(fieldData));
             } else {
                 a.push(fieldData);
             }
