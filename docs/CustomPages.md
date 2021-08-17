@@ -4,7 +4,7 @@ You can create custom pages for admin panel using default sails controllers/acti
 
 Here is a simple example of action:
 
-`api/controllers/AdminCintroller.js`:
+`api/controllers/AdminController.js`:
 ```javascript
 module.exports = {
     test: function(req, res) {
