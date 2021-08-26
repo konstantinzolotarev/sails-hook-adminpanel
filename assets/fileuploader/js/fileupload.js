@@ -12,7 +12,7 @@ class File_ {
 
         this.title = title || name.substr(0, name.lastIndexOf('.'));
         this.description = descritpion || '';
-        this.year = year || 0;
+        this.year = year || new Date().getFullYear();
         this.author = author || '';
     }
 }

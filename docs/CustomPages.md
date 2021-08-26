@@ -4,7 +4,7 @@ You can create custom pages for admin panel using default sails controllers/acti
 
 Here is a simple example of action:
 
-`api/controllers/AdminCintroller.js`:
+`api/controllers/AdminController.js`:
 ```javascript
 module.exports = {
     test: function(req, res) {
@@ -15,7 +15,7 @@ module.exports = {
 
 `views/admin/test.jade`:
 ```jade
-extends ../../node_modules/sails-hook-adminpanel/views/jade/layout
+extends ../../node_modules/sails-adminpanel/views/jade/layout
 
 block body
   .container
@@ -24,7 +24,7 @@ block body
 ```
 
 **Note!**
-+ You just extending your jade view form `../../node_modules/sails-hook-adminpanel/views/jade/layout`
++ You just extending your jade view form `../../node_modules/sails-adminpanel/views/jade/layout`
 + Use `block body` to show main content
 
 You could use default Sails.js routing system or assign custom route for your action.

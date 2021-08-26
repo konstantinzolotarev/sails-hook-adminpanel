@@ -32,10 +32,26 @@ module.exports = function(req, res) {
         function checkPost(done) {
             if (req.method.toUpperCase() === 'POST') {
                 var reqData = request.processRequest(req, fields);
+                for(let prop in reqData){
+                    if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json' && reqData[prop] !== ''){
+                        try{
+                            reqData[prop] = JSON.parse(reqData[prop]);
+                        }catch(e){
+                            sails.log.error(e);
+                        }
+                    }
+                }
+
+                // callback before save instance
+                if(typeof instance.config.add.instanceModifier === "function"){
+                    reqData = instance.config.edit.instanceModifier(reqData);
+                }
+
+
                 instance.model.create(reqData).exec(function(err, record) {
                     if (err) {
                         req._sails.log.error(err);
-                        req.flash('adminError', err.details || 'Something went wrong...');
+                        req.flash('adminError', err.message || 'Something went wrong...');
                         data = reqData;
                         return done(err);
                     }

@@ -1,7 +1,47 @@
-sails-hook-adminpanel
+sails-adminpanel readme for sails v1.x
 =====================
+# Main project require
+**modules install**
 
-[![Join the chat at https://gitter.im/konstantinzolotarev/sails-hook-adminpanel](https://badges.gitter.im/konstantinzolotarev/sails-hook-adminpanel.svg)](https://gitter.im/konstantinzolotarev/sails-hook-adminpanel?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+    npm install --save connect-flash
+
+    npm install consolidate --save
+
+    npm install jade --save
+
+**config/views.js**
+    
+    extension: 'jade',
+    getRenderFn: function() {
+        // Import `consolidate`.
+        var cons = require('consolidate');
+        // Return the rendering function for Swig.
+        return cons.jade;
+    },
+
+**config/http.js**
+
+    flash: require('connect-flash')(),
+    
+    order: [
+      'cookieParser',
+      'session',
+      'flash',
+      'bodyParser',
+      'compress',
+      'poweredBy',
+      'router',
+      'www',
+      'favicon',
+    ],
+
+**config/security.js**
+for fileUploader
+
+    csrf: false
+
+sails-adminpanel readme for sails v0.11+
+=====================
 
 Admin panel generator for Sails.js applications v0.11+
 
@@ -11,7 +51,7 @@ Admin panel generator for Sails.js applications v0.11+
 
 To install this hook you will need to run:
 
-    npm install --save sails-hook-adminpanel
+    npm install --save sails-adminpanel
 
 Then you will need to create a config file for admin panel generator into `config/adminpanel.js`
 

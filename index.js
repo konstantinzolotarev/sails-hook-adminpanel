@@ -11,7 +11,7 @@ module.exports = function (sails) {
 
         configure: require('./lib/configure')(sails),
 
-        initialize: require('./lib/initialize')(sails),
+        initialize: require('./lib/initialize').default(sails),
 
         addMenuItem: function (link, label, icon, group) {
             if (!link)
@@ -42,3 +42,4 @@ module.exports = function (sails) {
         }
     };
 };
+

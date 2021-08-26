@@ -42,22 +42,28 @@ module.exports = function(req, res) {
                 .exec(function(err, count) {
                     if (err) return done(err);
                     total = count;
+                    console.log('admin > list > count > ', total);
                     done();
                 });
         },
         // Loading list of records for page
         function loadRecords(done) {
             var query = instance.model.find();
+            
             if (req.sort) {
                 query.sort(req.sort.key + ' ' + req.sort.order);
             }
             fieldsHelper.getFieldsToPopulate(fields).forEach(function(val) {
                 query.populate(val);
             });
-            query.paginate({page: page, limit: instance.config.list.limit || 15})
+            // query.paginate({page: page, limit: instance.config.list.limit || 15})
+            console.log('admin > list > page / limit ', page, instance.config.list.limit);
+            query.paginate(page - 1, instance.config.list.limit || 15)
+            // query
                 .exec(function(err, list) {
                     if (err) return done(err);
                     records = list;
+                    // console.log('admin > list > find > ', records);
                     done();
                 });
         }

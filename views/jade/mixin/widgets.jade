@@ -47,7 +47,7 @@ mixin fieldWidget(key, field, value, instance, id)
         +inputText(key, field, value)
 
 mixin inputText(key, field, value)
-  if field.model.enum
+  if field.model.validations && field.model.validations.isIn
     +select(key, field, value)
   else if field.model.email
     label(for='form-#{key}') #{field.config.title}
@@ -68,11 +68,8 @@ mixin inputDate(key, field, value)
 
 mixin inputDatetime(key, field, value)
   label(for='form-#{key}') #{field.config.title}
-  - var v = ""
-  if(value)
-    - var date = new Date(value);
-    - v = date.getFullYear() + '-' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate()) + 'T' + (date.getHours() > 9 ? date.getHours() : '0' + date.getHours()) + ':' + (date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes())
-  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=v)
+  - value = value || '';
+  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputNumber(key, field, value)
   label(for='form-#{key}') #{field.config.title}
@@ -88,14 +85,18 @@ mixin select(key, field, value)
   .select
     select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, multiple=(field.config.type == 'array'))
       if (field.config.enum && typeof field.config.enum === 'object')
-        each opt, optKey in field.config.enum
+        each opt in field.config.enum
           if (value)
-            option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
+            option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt}
           else
-            option(value=optKey) #{opt}
+            option(value=opt) #{opt}
       else
-        each opt in field.model.enum
-          option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt} 
+        if (field.model.validations && field.model.validations.isIn)
+          each opt in field.model.validations.isIn
+            if (value)
+              option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt}
+            else
+              option(value=opt) #{opt}
 
 mixin textarea(key, field, value)
   label(for="form-#{key}") #{field.config.title}
@@ -167,8 +168,17 @@ mixin json(key, field, value)
         script
           | $('#form-#{key}').parent().css({display: 'block'});
       default
-        +hookWidgetsDOM(key, field, value)
-
+        label(for="form-#{key}") #{field.config.title}
+        br
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+        script
+          | $('#form-#{key}').parent().css({display: 'block'});
+  else
+    label(for="form-#{key}") #{field.config.title}
+    br
+    textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+    script
+      | $('#form-#{key}').parent().css({display: 'block'});
 
 mixin inputModel(key, field, value)
   label(for="form-#{key}") #{field.config.title}
@@ -260,3 +270,20 @@ mixin installEditors(fields, record)
             +filesUploader(key, field)
           default
             +hookWidgetsScript(key, field)
+      else 
+        if field.config.type === "json"
+          - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+          - try {
+          -   JSON.parse(value);  
+          - } catch (e) {
+          -   value = JSON.stringify(value);
+          - }
+          | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:500px;"></div>');;
+          | jsonEditor['#{key}'] = new JSONEditor(
+          |   $('#form-#{key}-jsoneditor')[0],
+          |   {
+          |     modes: ['code', 'form', 'text', 'tree', 'view'],
+          |     mode: "tree"
+          |   },
+          |   !{value}
+          | );

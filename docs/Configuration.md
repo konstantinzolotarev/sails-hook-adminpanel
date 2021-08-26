@@ -129,6 +129,11 @@ module.exports.adminpanel = {
             fields: {
                 email: 'User Email', // It will define title for this field in all actions (list/add/edit/view)
                 createdAt: false, // Will hide createdAt field in all actions
+                avatar: {
+                    displayModifier: function (img) { // Only for list view  look callback.md for get more info
+                        return `<img src="${img}">`              
+                    }
+                },
                 bio: {
                     title: 'User bio',
                     type: 'text', // LOOK BELOW FOR TYPES DESCRIPTION
@@ -259,6 +264,28 @@ owner: {
 }
 ```
 
+## Auto config
+
+This configuration loads all sail models as they are. Just place  in `config\adminpanel.js`
+
+```javascript
+ const fs = require("fs");
+ let modelPath = __dirname + "/../api/models";
+ let instances = {};
+ fs.readdir(modelPath, function (err, files) {
+   files.forEach(function (file) {
+     let modelName = file.split(".")[0];
+     instances[modelName] = {
+       title: modelName,
+       model: modelName,
+     };
+   });
+ });
+ 
+ module.exports.adminpanel = { instances: instances } ;
+```
+
+
 ## Limitations
 
 + For now admin panel do not fully support waterline associations. So some fields might be ignored ! It's planned.
@@ -266,3 +293,4 @@ owner: {
 + No custom actions support. For now you couldn't add custom actions and pages into admin panel.
 + No template engine support except of `jade`. I primary working with this template engine and didn't create a another templates
 + No custom assets support. You couldn't edit css/js for admin panel for now.
+

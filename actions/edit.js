@@ -52,10 +52,29 @@ module.exports = function(req, res) {
                     // _.merge(record, reqData); // merging values from request to record
                     var params = {};
                     params[instance.config.identifierField||req._sails.config.adminpanel.identifierField] = req.param('id');
+                    for(let prop in reqData){
+                        if(fields[prop] && fields[prop].model && fields[prop].model.type === 'json' && reqData[prop] !== ''){
+                            try{
+                                reqData[prop] = JSON.parse(reqData[prop]);
+                            }catch(e){
+                                sails.log.error(e);
+                            }
+                        }
+                    }
+                    
+                    console.log(1,reqData,instance);
+
+                    // callback before save instance
+                    if(typeof instance.config.edit.instanceModifier === "function"){
+                        reqData = instance.config.edit.instanceModifier(reqData);
+                    } 
+
+                    console.log(2,reqData);
+
                     instance.model.update(params, reqData).exec(function(err, newRecord) {
                         if (err) {
                             req._sails.log.error(err);
-                            req.flash('adminError', err.details || 'Something went wrong...');
+                            req.flash('adminError', err.message || 'Something went wrong...');
                             return done(err);
                         }
                         req.flash('adminSuccess', 'Your record was updated !');
