@@ -1,0 +1,51 @@
+<% include head %>
+
+<% var idField = adminpanel.configHelper.getIdentifierField(instance.config.model) %>
+
+<div class="horizontal layout">
+    <div class="flex">
+        <% var actionType = 'view' %>
+        <% include mixin/globalActions %>
+    </div>
+</div>
+<div class="layout">
+
+    <div class="horizontal end-justified layout">
+        <a href="<%= instance.uri %>/">
+            <paper-button raised class="button-blue">
+                <iron-icon icon="arrow-back"></iron-icon>
+                Back to list
+            </paper-button>
+        </a>
+        <% if (instance.config.edit) { %>
+            <a href="<%= instance.uri %>/edit/<%= record[idField] %>">
+                <paper-button raised class="button-green">
+                    <iron-icon icon="create"></iron-icon>
+                    Edit record
+                </paper-button>
+            </a>
+        <% } %>
+        <% if (instance.config.remove) { %>
+            <a href="<%= instance.uri %>/remove/<%= record[idField] %>" onclick="return confirm('Are you sure ?');">
+                <paper-button raised class="button-red">
+                    <iron-icon icon="delete"></iron-icon>
+                    Remove record
+                </paper-button>
+            </a>
+        <% } %>
+    </div>
+
+    <paper-material elevation="1" page>
+        <% Object.keys(fields).forEach(function(key) { %>
+        <% var field = fields[key] %>
+            <div class="layout horizontal field-row">
+                <div class="field-name"><%= field.config.title %></div>
+                <div flex>
+                    <% include mixin/fieldValue %>
+                </div>
+            </div>
+        <% }) %>
+    </paper-material>
+</div>
+
+<% include footer %>

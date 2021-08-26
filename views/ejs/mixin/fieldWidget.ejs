@@ -1,0 +1,27 @@
+<% if (typeof value == 'undefined' && typeof field.model.defaultsTo !== 'undefined') { %>
+    <% value = field.model.defaultsTo %>
+<% } %>
+
+<% var type = field.config.type || field.model.type %>
+<% var inputTextTypes = ['string', 'password', 'date', 'datetime', 'integer', 'number', 'float'] %>
+<% if (~inputTextTypes.indexOf(type)) { %>
+    <% include form/inputText %>
+<% } %>
+
+<% if (type === 'boolean' || type === 'binary') { %>
+    <% include form/inputBoolean %>
+<% } %>
+
+<% var inputTextAreaTypes = ['text', 'longtext', 'mediumtext', 'json', 'array'] %>
+
+<% if (~inputTextAreaTypes.indexOf(type)) { %>
+    <% include form/inputTextarea %>
+<% } %>
+
+<% if (type == 'association') { %>
+    <% include form/inputAssociation %>
+<% } %>
+
+<% if (type == 'association-many') { %>
+    <% include form/inputAssociationMany %>
+<% } %>

@@ -1,0 +1,36 @@
+<paper-toolbar>
+  <% if (adminpanel.menuHelper.hasBrand()) {  %>
+    <div>
+        <a href="<%= adminpanel.menuHelper.getBrandLink() %>">
+        <%= adminpanel.menuHelper.getBrandTitle()%>
+        </a>
+    </div>
+  <% } %>
+</paper-toolbar>
+<paper-menu>
+    <% adminpanel.menuHelper.getGroups().forEach(function(group) { %>
+        <menu-collapse>
+            <div class="header">
+                <%= group.title || "Dropdown" %>
+            </div>
+            <div>
+                <% group.menues.forEach(function(menuItem) { %>
+                    <admin-menu-item href="<%= menuItem.link %>">
+                        <%= menuItem.title %>
+                        <% if(menuItem.icon) { %>
+                            <iron-icon icon="<%= menuItem.icon %>"></iron-icon>
+                        <% }%>
+                    </admin-menu-item>
+                <% })%>
+            </div>
+        </menu-collapse>
+    <% }) %>
+    <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
+        <admin-menu-item href="<%= menuItem.link %>">
+            <%= menuItem.title %>
+            <% if(menuItem.icon) { %>
+                <iron-icon icon="<%= menuItem.icon %>"></iron-icon>
+            <% }%>
+        </admin-menu-item>
+    <% }) %>
+</paper-menu>

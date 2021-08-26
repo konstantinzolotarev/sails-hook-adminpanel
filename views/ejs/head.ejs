@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title><%= title || "Dashboard"%></title>
+    <meta charset="utf8" />
+    <meta http-equiv="X-UA-Compatible", content="IE=edge"/>
+
+    <!-- Chrome for Android theme color -->
+    <meta name="theme-color" content="#303F9F">
+    <!-- Tile color for Win8 -->
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <script type="text/javascript" src="/admin/vendor/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <link rel="import" href="/admin/polymer/elements.html">
+    <link rel="import" href="/admin/polymer/admin-styles/admin-styles.html">
+
+    <link rel="stylesheet" type="text/css" href="/admin/styles/importer.css">
+    <link rel="stylesheet" type="text/css" href="/admin/bower_components/jsoneditor/dist/jsoneditor.min.css">
+
+    <script type="text/javascript" src="/admin/vendor/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/admin/vendor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/admin/bower_components/jsoneditor/dist/jsoneditor.min.js"></script>
+  </head>
+  <body class="fullbleed layout vertical">
+      <paper-drawer-panel>
+        <paper-header-panel drawer>
+          <% include mixin/navbar %>
+        </paper-header-panel>
+        <paper-header-panel main>
+          <paper-toolbar>
+            <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+            <div class="flex"><%= adminpanel.menuHelper.getBrandTitle() %></div>
+          </paper-toolbar>
+          <div class="layout fill vertical">
+
+            <% include mixin/alerts %>
+
+            <div id="mainLayout">

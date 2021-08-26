@@ -1,0 +1,75 @@
+<% include head %>
+
+<% var idField = adminpanel.configHelper.getIdentifierField(instance.config.model) %>
+<% var data = record %>
+
+<div class="horizontal layout">
+    <div class="flex">
+        <% var actionType = 'edit' %>
+        <% include mixin/globalActions %>
+    </div>
+</div>
+<div class="layout">
+    <div>
+        <a href="<%= instance.uri %>/">
+            <paper-button raised class="button-blue">
+                <iron-icon icon="arrow-back"></iron-icon>
+                Back to list
+            </paper-button>
+        </a>
+    </div>
+    <form id="form" action="<%= instance.uri %>/edit/<%= record[idField] %>" method="POST" enctype="multipart/form-data">
+        <% Object.keys(fields).forEach(function(key) { %>
+            <% var field = fields[key] %>
+            <% var value = adminpanel.viewHelper.getFieldValue(key, field, data) %>
+            <% include mixin/fieldWidget %>
+        <% }) %>
+        <div>
+            <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+        </div>
+        <p>
+            <paper-button raised class="button-green" id="submit" onclick="submitForm()">
+                Submit
+            </paper-button>
+        </p>
+    </form>
+</div>
+
+<script>
+    function submitForm() {
+        // Assign JSONEditor value to form textarea
+        for (var id in jsonEditor) {
+            try {
+                var json = jsonEditor[id].get();
+                $('#form-' + id).val(JSON.stringify(json));
+            } catch (e) {
+                alert('JSON is invalid.');
+                $('#form-' + id).show().focus().hide();
+                jsonEditor[id].focus();
+                return false;
+            }
+        };
+        document.getElementById('form').submit();
+    }
+    var jsonEditor = {}; // Store JSONEditor instance
+    <% Object.keys(fields).forEach(function(key) { %>
+        <% if (fields[key].config.editor) { %>
+            <% if (fields[key].config.type == 'text') { %>
+                CKEDITOR.replace( 'form-<%= key %>' );
+            <% } else if (fields[key].config.type == 'json') { %>
+                <% var field = fields[key] %>
+                <% var value = adminpanel.viewHelper.getFieldValue(key, field, data) %>
+                $('#form-<%= key %>').hide().after('<div id="form-<%= key %>-jsoneditor" style="height:320px;"></div>');
+                jsonEditor['<%- key %>'] = new JSONEditor(
+                    $('#form-<%= key %>-jsoneditor')[0],
+                    {
+                        modes: ['view', 'tree', 'code']
+                    },
+                    <%- typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value)) %>
+                );
+            <% } %>
+        <% } %>
+    <% }) %>
+</script>
+
+<% include footer %>

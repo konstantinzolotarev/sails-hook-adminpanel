@@ -1,0 +1,17 @@
+<% var page = (req.param('page') || 1) %>
+<% page = parseInt(page) %>
+<% var limit = instance.config.list.limit || 20 %>
+
+<span>
+    <%= ((page-1)*limit) %>-<%= ((page)*limit) %> of <%= total %>
+</span>
+<% if (page > 1) { %>
+<a href="<%= instance.uri %>?<%= requestProcessor.addGetParams(req, {page: (page-1)}) %>">
+    <iron-icon icon="chevron-left"></iron-icon>
+</a>
+<% } %>
+<% if (((page+1) * limit) <= total) { %>
+<a href="<%= instance.uri %>?<%= requestProcessor.addGetParams(req, {page: (page + 1)}) %>">
+    <iron-icon icon="chevron-right"></iron-icon>
+</a>
+<% } %>
