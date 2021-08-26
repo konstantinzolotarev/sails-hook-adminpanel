@@ -44,8 +44,8 @@
 node_modules
 bower_components
 assets/bower_components
-
-
+assets/vendor
+views/jade/includes.jade
 
 
 ################################################
@@ -93,3 +93,5 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+
+views/jade/includes.jade

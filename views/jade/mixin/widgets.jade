@@ -1,4 +1,7 @@
-mixin fieldWidget(key, field, value, instance)
+include ./widgets/hookwidgets
+include ./widgets/fileuploader
+
+mixin fieldWidget(key, field, value, instance, id)
   if (typeof value === 'undefined' && typeof field.model.defaultsTo !== 'undefined')
     - value = field.model.defaultsTo
 
@@ -29,7 +32,7 @@ mixin fieldWidget(key, field, value, instance)
       when 'boolean'
         +inputCheckbox(key, field, value)
       when 'binary'
-        +inputCheckbox(key, field, value)        
+        +inputCheckbox(key, field, value)
       when 'text'
         +textarea(key, field, value)
       when 'mediumtext'
@@ -37,9 +40,9 @@ mixin fieldWidget(key, field, value, instance)
       when 'longtext'
         +textarea(key, field, value)
       when 'json'
-        +textarea(key, field, JSON.stringify(value))
+        +json(key, field, value)
       when 'array'
-        +textarea(key, field, value)
+        +select(key, field, value)
       default
         +inputText(key, field, value)
 
@@ -47,65 +50,142 @@ mixin inputText(key, field, value)
   if field.model.enum
     +select(key, field, value)
   else if field.model.email
-    paper-input(type='email', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
-  else if field.config.file
-    paper-input(type='file', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    label(for='form-#{key}') #{field.config.title}
+    input(type='email', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
   else
-    paper-input(type='text', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+    label(for='form-#{key}') #{field.config.title}
+    input(type='text', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
 
 mixin inputPassword(key, field, value)
-  paper-input(type='password', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='password', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputDate(key, field, value)
-  paper-input(type='date', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for='form-#{key}') #{field.config.title}
+  - var date = new Date(value);
+  - var v = date.getFullYear() + '-' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
+  input(type='date', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=v)
 
 mixin inputDatetime(key, field, value)
-  paper-input(type='datetime', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for='form-#{key}') #{field.config.title}
+  - var v = ""
+  if(value)
+    - var date = new Date(value);
+    - v = date.getFullYear() + '-' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate()) + 'T' + (date.getHours() > 9 ? date.getHours() : '0' + date.getHours()) + ':' + (date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes())
+  input(type='datetime-local', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, value=v)
 
 mixin inputNumber(key, field, value)
-  paper-input(type='number', label=field.config.title, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
+  label(for='form-#{key}') #{field.config.title}
+  input(type='number', placeholder=field.config.description, name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value=value)
 
 mixin inputCheckbox(key, field, value)
-  .widget
-    paper-checkbox(type='checkbox', name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false value='1', checked=value) #{field.config.title}
+  .checkbox
+    input(type='checkbox', id="form-#{key}", name=key, checked=value, disabled=field.config.disabled || false value='1', style="width: auto;")
+    label(for="form-#{key}") #{field.config.title}
 
 mixin select(key, field, value)
-  .widget
-    | &nbsp;#{field.config.title}&nbsp;
-    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+  label(for="form-#{key}") #{field.config.title}
+  .select
+    select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false, multiple=(field.config.type == 'array'))
       if (field.config.enum && typeof field.config.enum === 'object')
         each opt, optKey in field.config.enum
-          option(value=optKey, selected=(optKey == value)) #{opt}
+          if (value)
+            option(value=optKey, selected=((optKey == value) || (value.includes(optKey)))) #{opt}
+          else
+            option(value=optKey) #{opt}
       else
         each opt in field.model.enum
-          option(value=opt, selected=(opt == value)) #{opt}
+          option(value=opt, selected=((opt == value) || (value.includes(opt)))) #{opt} 
 
 mixin textarea(key, field, value)
-  if field.config.editor
-    | &nbsp;#{field.config.title}
-    br
-    textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
-  else
-    paper-textarea(name=key, value=value, label=field.config.title, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
+  label(for="form-#{key}") #{field.config.title}
+  textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+
+
+// #{key}FMDmap inject
+
+mixin json(key, field, value)
+  - var widget = field.config.widget
+  if field.config.widget
+    case widget
+      when 'Map'
+        |  #{field.config.title}
+        br
+        | <div id="map_#{key}" class="map" style="height: #{field.config.Map.height}px"></div>
+      when 'GalleryUploader'
+        label(for="#{key}-container") #{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+      when 'ImageUploader'
+        label(for="#{key}-container") #{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+        script
+          | $('##{key}-container').parent().css({display: 'block'});
+      when 'FileUploader'
+        label(for="#{key}-container") #{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+      when 'FilesUploader'
+        label(for="#{key}-container") #{field.config.title}
+        br
+        | <div id="#{key}-container"> </div>
+        - var v = typeof value === 'object' ? JSON.stringify(value) : value;
+        if (v === null || !v)
+          | <input type="hidden" id="form-#{key}" name="#{key}">
+        else
+          | <input type="hidden" id="form-#{key}" name="#{key}" value='!{v}'>
+      when 'JsonEditor'
+        label(for="form-#{key}") #{field.config.title}
+        br
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+        script
+          | $('#form-#{key}').parent().css({display: 'block'});
+      when 'Ace'
+        label(for="ace-#{key}") #{field.config.title}
+        | <div id="ace-#{key}" style="height: #{field.config.Ace.height}px; font-size: #{field.config.Ace.fontSize}px;">#{value}</div>
+        textarea(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false) #{value}
+        style
+          | #form-#{key} {
+          |   display: none;
+          | }
+        script
+          | $('#form-#{key}').parent().css({display: 'block'});
+      default
+        +hookWidgetsDOM(key, field, value)
+
 
 mixin inputModel(key, field, value)
-  .widget
-    | &nbsp;#{field.config.title}&nbsp;
-    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for="form-#{key}") #{field.config.title}
+  .select
     select(name=key, id='form-#{key}', required=field.config.required || false, disabled=field.config.disabled || false)
       if !field.config.required
         option(value='') --- Select please ---
       if field.config.records
         each opt in field.config.records
           option(value=opt[field.config.identifierField],
-                  selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
+            selected=(opt[field.config.identifierField] == value)) #{opt[field.config.displayField]}
       else
         option(value='') --- No records found ---
 
 mixin inputSelectMany(key, field, value)
-  .widget
-    | &nbsp;#{field.config.title}&nbsp;
-    //model-select(name=key, required=field.config.required || false, disabled=field.config.disabled || false, value=value)
+  label(for="form-#{key}") #{field.config.title}
+  .select
     select(name=key, id='form-#{key}', multiple='', required=field.config.required || false, disabled=field.config.disabled || false).multi
       if field.config.records
         each opt in field.config.records
@@ -115,19 +195,68 @@ mixin inputSelectMany(key, field, value)
         option(value='') --- No records found ---
 
 mixin installEditors(fields, record)
+  - var scriptExists = false
+  each field in fields
+    - var widget = field.config.widget
+    unless scriptExists
+      case widget
+        when 'ImageUploader'
+          +scripts()
+          - scriptExists = true
+        when 'GalleryUploader'
+          +scripts()
+          - scriptExists = true
+        when 'FileUploader'
+          +scripts()
+          - scriptExists = true
+        when 'FilesUploader'
+          +scripts()
+          - scriptExists = true
+
   script(type='text/javascript')
     | var jsonEditor = {};
+    - var aceCounter = 0;
+    | let editor = [];
+    | let textarea = [];
+
     each field, key in fields
+      - var widget = field.config.widget
       if field.config.editor
-        if field.config.type == 'text'
-          | CKEDITOR.replace( 'form-#{key}' );
-        else if field.config.type == 'json'
-          - var value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
-          | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:320px;"></div>');
-          | jsonEditor['#{key}'] = new JSONEditor(
-          |   $('#form-#{key}-jsoneditor')[0],
-          |   {
-          |     modes: ['view', 'tree', 'code']
-          |   },
-          |   !{typeof value === 'object' ? JSON.stringify(value) : JSON.parse(JSON.stringify(value))}
-          | );
+        | CKEDITOR.replace( 'form-#{key}' );
+      if field.config.widget
+        case widget
+          when 'JsonEditor'
+            - let value = record ? locals.adminpanel.viewHelper.getFieldValue(key, field, record) : {};
+            - try {
+            -   JSON.parse(value);  
+            - } catch (e) {
+            -   value = JSON.stringify(value);
+            - }
+            | $('#form-#{key}').hide().after('<div id="form-#{key}-jsoneditor" style="height:#{field.config.JsonEditor.height}px;"></div>');;
+            | jsonEditor['#{key}'] = new JSONEditor(
+            |   $('#form-#{key}-jsoneditor')[0],
+            |   {
+            |     modes: !{JSON.stringify(field.config.JsonEditor.modes)},
+            |     mode: !{JSON.stringify(field.config.JsonEditor.mode)}
+            |   },
+            |   !{value}
+            | );
+          when 'Ace'
+            | editor[#{++aceCounter}] = ace.edit('ace-#{key}');
+            | editor[#{aceCounter}].setReadonly
+            | editor[#{aceCounter}].setTheme("ace/theme/katzenmilch");
+            | editor[#{aceCounter}].session.setMode("ace/mode/html");
+            | textarea[#{aceCounter}] = $('textarea[name="#{key}"]');
+            | editor[#{aceCounter}].session.on("change", function () {
+            |   textarea[#{aceCounter}].val(editor[#{aceCounter}].getValue());
+            | });
+          when 'ImageUploader'
+            +imageUploader(key, field)
+          when 'GalleryUploader'
+            +galleryUploader(key, field)
+          when 'FileUploader'
+            +fileUploader(key, field)
+          when 'FilesUploader'
+            +filesUploader(key, field)
+          default
+            +hookWidgetsScript(key, field)

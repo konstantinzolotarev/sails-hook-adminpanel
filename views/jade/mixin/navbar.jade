@@ -1,23 +1,22 @@
 mixin menuItem(menuItem)
-  admin-menu-item(href=menuItem.link)
-    | &nbsp;#{menuItem.title}
+  a.nav-link(href=menuItem.link)
     if menuItem.icon
-      iron-icon(icon=menuItem.icon)
+      clr-icon(shape=menuItem.icon)  
+    |  #{menuItem.title}
+
 
 mixin navbar
-  paper-toolbar
-    //paper-icon-button(icon='menu', on-tap="menuAction")
-    if locals.adminpanel.menuHelper.hasBrand()
-      div
-        a(href=locals.adminpanel.menuHelper.getBrandLink()) #{locals.adminpanel.menuHelper.getBrandTitle()}
-
-  paper-menu
-    each group in locals.adminpanel.menuHelper.getGroups()
-      menu-collapse
-        //i(class='glyphicon-#{group.icon}').glyphicon
-        div.header #{group.title || 'Dropdown'}
-        div
-          each menuItem in group.menues
-            +menuItem(menuItem)
-    each menuItem in locals.adminpanel.menuHelper.getMenuItems()
-      +menuItem(menuItem)
+  nav.sidenav
+    section.sidenav-content
+      - var i = 1;
+      each group in locals.adminpanel.menuHelper.getGroups()
+        section.nav-group.collapsible
+          input(id="tabexample#{i}" type="checkbox")
+          label(for="tabexample#{i++}") #{group.title || 'Dropdown'}
+          ul.nav-list
+            each menuItem in group.menues
+              li
+                +menuItem(menuItem)
+      each menuItem in locals.adminpanel.menuHelper.getMenuItems()
+        if (sails.adminpanel.havePermission(req, sails.config.adminpanel.instances[menuItem.instanceName], ''))
+          +menuItem(menuItem)

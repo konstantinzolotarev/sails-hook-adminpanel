@@ -25,6 +25,9 @@ module.exports = function(req, res) {
         page = parseInt(page) || 1;
     }
 
+    if (!sails.adminpanel.havePermission(req, instance.config, __filename))
+        return res.redirect('/admin/userap/login');
+
     var total = 0;
     var records = [];
     var fields = fieldsHelper.getFields(req, instance, 'list');
@@ -70,7 +73,8 @@ module.exports = function(req, res) {
             instance: instance,
             total: total,
             list: records,
-            fields: fields
+            fields: fields,
+            config: sails.adminpanel
         });
     });
 

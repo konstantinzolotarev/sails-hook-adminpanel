@@ -7,6 +7,7 @@ var fieldsHelper = require('../helper/fieldsHelper');
 
 var async = require('async');
 var _ = require('lodash');
+var path = require('path');
 
 module.exports = function(req, res) {
     //Check id
@@ -21,6 +22,9 @@ module.exports = function(req, res) {
     if (!instance.config.edit) {
         return res.redirect(instance.uri);
     }
+
+    if (!sails.adminpanel.havePermission(req, instance.config, __filename))
+        return res.redirect('/admin/userap/login');
 
     instance.model.findOne(req.param('id'))
         .populateAll()
@@ -45,9 +49,9 @@ module.exports = function(req, res) {
                         return done();
                     }
                     var reqData = request.processRequest(req, fields);
-                    _.merge(record, reqData); // merging values from request to record
+                    // _.merge(record, reqData); // merging values from request to record
                     var params = {};
-                    params[req._sails.config.adminpanel.identifierField] = req.param('id');
+                    params[instance.config.identifierField||req._sails.config.adminpanel.identifierField] = req.param('id');
                     instance.model.update(params, reqData).exec(function(err, newRecord) {
                         if (err) {
                             req._sails.log.error(err);

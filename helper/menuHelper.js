@@ -194,12 +194,13 @@ module.exports = function menuHelper(config) {
                 menues.push({
                     link: config.routePrefix + '/' + key,
                     title: val.title,
-                    icon: val.icon || null
+                    icon: val.icon || null,
+                    instanceName: key
                 });
             });
             if (config.menu.actions && config.menu.actions.length > 0) {
                 _.forEach(config.menu.actions, function(menu) {
-                    if (!menu.link || !menu.title || menu.menuGroup) {
+                    if (!menu.link || !menu.title || menu.menuGroup || menu.disabled) {
                         return;
                     }
                     menues.push({

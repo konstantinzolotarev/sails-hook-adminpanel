@@ -2,9 +2,9 @@ mixin showValue(key, field, value)
   case field.model.type
     when 'boolean'
       if value
-        iron-icon(icon="check-circle")
+        clr-icon(shape="success-standard", size="20")
       else
-        iron-icon(icon="cancel")
+        clr-icon(shape="times-circle", size="20")
     when 'text'
       p !{value}
 

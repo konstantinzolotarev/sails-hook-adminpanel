@@ -1,13 +1,16 @@
 #!/bin/bash
+set -x;
+whoami
+echo "SAILS-HOOK-ADMINPANEL"
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
-cd assets
+# delete sails assets
+cd $SCRIPTPATH
+rm -rf ../../assets/admin
+rm -rf ../../.tmp/public/admin
 
-rm -rf vendor
-mkdir vendor
-cp -r bower_components/ckeditor vendor
-cp -r bower_components/jquery vendor
-cp -r bower_components/webcomponentsjs vendor
+mkdir -p ../../assets/admin
+cp -r ./assets/* ../../assets/admin  
 
-cd polymer
-rm elements-vulcanized.html
-vulcanize --inline-scripts --inline-css --strip-comments elements.html > elements-vulcanized.html
+mkdir -p ../../.tmp/public/admin
+cp -r ./assets/* ../../.tmp/public/admin

@@ -5,7 +5,7 @@ var _ = require('lodash');
 module.exports = function(sails) {
 
     var config = sails.config.adminpanel;
-
+    
     var ConfigHelper = {
 
         /**
@@ -15,6 +15,9 @@ module.exports = function(sails) {
          * @param {Object|string=} modelOrName
          * @returns {boolean}
          */
+        getId: function(modelOrName) {
+            return (field.config.key == this.getIdentifierField(modelOrName));
+        },
         isId: function(field, modelOrName) {
             return (field.config.key == this.getIdentifierField(modelOrName));
         },
@@ -31,6 +34,9 @@ module.exports = function(sails) {
          * @param {Object|string=} [model]
          * @returns {string}
          */
+        getConfig: function() {
+            return sails.config.adminpanel
+        },
         getIdentifierField: function(modelOrName) {
             if (config.identifierField != 'id' || !modelOrName) {
                 return config.identifierField;
@@ -46,7 +52,7 @@ module.exports = function(sails) {
             if (!model.definition) {
                 return config.identifierField;
             }
-            var identifier = _.result(_.find(model.definition, function(val, key) {
+            var identifier = _.findKey(model.definition, _.find(model.definition, function(val, key) {
                 if (val.primaryKey) {
                     return key;
                 }
