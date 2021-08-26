@@ -1,1 +1,1 @@
-export default function (sails: any): any;
+export default function (sails: any): Promise<void>;

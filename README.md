@@ -1,4 +1,4 @@
-sails-hook-adminpanel readme for sails v1.x
+sails-adminpanel readme for sails v1.x
 =====================
 # Main project require
 **modules install**
@@ -40,7 +40,7 @@ for fileUploader
 
     csrf: false
 
-sails-hook-adminpanel readme for sails v0.11+
+sails-adminpanel readme for sails v0.11+
 =====================
 
 Admin panel generator for Sails.js applications v0.11+
@@ -51,7 +51,7 @@ Admin panel generator for Sails.js applications v0.11+
 
 To install this hook you will need to run:
 
-    npm install --save sails-hook-adminpanel
+    npm install --save sails-adminpanel
 
 Then you will need to create a config file for admin panel generator into `config/adminpanel.js`
 
