@@ -1,0 +1,36 @@
+<% if (field.model.enum) { %>
+    <% include select %>
+<% } else if(field.model.email) { %>
+    <gold-email-input label="<%= field.config.title %>"
+            <% field.config.required && 'required' %>
+            <% field.config.disabled && 'disabled'%>
+            value="<%= value || '' %>"
+            name="<%= key %>"></gold-email-input>
+<% } else { %>
+    <%
+    var fieldType = 'text'
+    if (type == "password") {
+        fieldType = 'password'
+    }
+    if (type == "date") {
+        fieldType = 'date'
+    }
+    if (type == "datetime") {
+        fieldType = 'datetime'
+    }
+    if (type == "integer" || type == 'float' || type == "number") {
+        fieldType = 'number'
+    }
+    %>
+    <% if (adminpanel.configHelper.isId(field, instance.config.model)) { %>
+        <% field.config.disabled = true %>
+    <% } %>
+    <paper-input label="<%= field.config.title %>"
+            type="<%= fieldType %>"
+            <% field.config.required && 'required' %>
+            <% field.config.disabled && 'disabled'%>
+            value="<%= value || '' %>"
+            name="<%= key %>"></paper-input>
+    <br/>
+<% } %>
+

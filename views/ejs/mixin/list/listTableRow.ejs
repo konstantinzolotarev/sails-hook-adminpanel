@@ -1,0 +1,52 @@
+<% var idField = adminpanel.configHelper.getIdentifierField(instance.config.model) %>
+<tr>
+    <% Object.keys(fields).forEach(function(key) { %>
+        <% var field = fields[key] %>
+        <% var value = obj[key] %>
+        <td>
+        <% if (field.model.type == "boolean") { %>
+            <iron-icon icon="<%=value ? "check-circle" : "cancel" %>"></iron-icon>
+        <% } else if (field.model.type == "association") { %>
+            <% if (!value) { %>
+                &nbsp;
+            <% } else if (typeof value === 'string') { %>
+                <%= value %>
+            <% } else { %>
+                <%= value && value[field.config.displayField] ? value[field.config.displayField] : '&nbsp;' %>
+            <% } %>
+        <% } else if(field.model.type == "association-many") { %>
+            <% if(value.length){ %>
+                <%= _.pluck(value, field.config.displayField).join(', ') %>
+            <% }else{ %>
+               &nbsp;
+            <% } %>
+        <% } else { %>
+            <% if (field.config.enum) { %>
+                <%= field.config.enum[value] %>
+            <% } else { %>
+                <%= value %>
+            <% } %>
+        <% } %>
+        </td>
+    <% }) %>
+    <td class="actions">
+
+        <% include inlineActions %>
+
+        <% if (instance.config.view) { %>
+            <a href="<%= instance.uri %>/view/<%= obj[idField] %>">
+                <iron-icon icon="visibility"></iron-icon>
+            </a>
+        <% } %>
+        <% if (instance.config.edit) { %>
+            <a href="<%= instance.uri %>/edit/<%= obj[idField] %>">
+                <iron-icon icon="create"></iron-icon>
+            </a>
+        <% } %>
+        <% if (instance.config.remove) { %>
+            <a href="<%= instance.uri %>/remove/<%= obj[idField] %>" onclick="return confirm('Are you sure ?')">
+                <iron-icon icon="delete"></iron-icon>
+            </a>
+        <% } %>
+    </td>
+</tr>

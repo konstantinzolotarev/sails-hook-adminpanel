@@ -1,0 +1,20 @@
+<div class="widget">
+    <%= field.config.title %>&nbsp;
+    <select name="<%= key %>" id="form-<%= key %>"
+        <% field.config.required && 'required' %>
+        <% field.config.disabled && 'disabled'%>>
+
+        <% if (field.config.enum && typeof field.config.enum === 'object') { %>
+            <% Object.keys(field.config.enum).forEach(function(optKey) { %>
+                <% var opt = field.config.enum[optKey] %>
+                    <option value="<%= optKey%>"
+                        <%= (optKey == value) && 'selected' %>> <%= opt %> </option>
+            <% }) %>
+        <% } else { %>
+            <% field.model.enum.forEach(function(opt) { %>
+                <option value="<%= opt %>"
+                    <%= (opt == value) && 'selected' %>><%= opt %></option>
+            <% }) %>
+        <% } %>
+    </select>
+</div>

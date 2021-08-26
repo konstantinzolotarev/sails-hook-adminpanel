@@ -1,0 +1,19 @@
+<% if (field.config.editor) { %>
+<%= field.config.title %> <br/>
+<textarea
+    <% field.config.required && 'required' %>
+    <% field.config.disabled && 'disabled'%>
+    name="<%= key %>"
+    id="form-<%= key %>">
+
+    <%= field.config.type == 'json' && typeof value === 'object' ? JSON.stringify(value) : (value || '') %>
+</textarea>
+<% } else { %>
+<paper-textarea label="<%= field.config.title %>"
+    <% field.config.required && 'required' %>
+    <% field.config.disabled && 'disabled'%>
+    value="<%= field.config.type == 'json' && typeof value === 'object' ? JSON.stringify(value) : (value || '') %>"
+    name="<%= key %>"
+    id="form-<%= key %>"></paper-textarea>
+<% } %>
+
