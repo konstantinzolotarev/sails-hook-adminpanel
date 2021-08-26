@@ -1,10 +1,13 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
+
 var _ = require('lodash');
 var fs = require('fs');
 var viewsHelper = require('../helper/viewsHelper');
-const bindAssets_1 = require("./bindAssets");
-function ToInitialize(sails) {
+import bindAssets from "./bindAssets"
+
+
+export default function ToInitialize(sails) {
+
     /**
      * List of hooks that required for adminpanel to work
      */
@@ -16,11 +19,14 @@ function ToInitialize(sails) {
         'policies',
         'views'
     ];
-    return async function initialize(cb) {
+
+    return  async function initialize(cb) {
+
         // If disabled. Do not load anything
         if (!sails.config.adminpanel) {
             return cb();
         }
+
         // Set up listener to bind shadow routes when the time is right.
         //
         // Always wait until after router has bound static routes.
@@ -29,6 +35,7 @@ function ToInitialize(sails) {
         // If controllers hook is enabled, also wait until controllers are known.
         var eventsToWaitFor = [];
         eventsToWaitFor.push('router:after');
+
         try {
             /**
              * Check hooks availability
@@ -39,23 +46,24 @@ function ToInitialize(sails) {
                 // }
                 // eventsToWaitFor.push('hook:' + hook + ':loaded');
             });
-        }
-        catch (err) {
+        } catch(err) {
             if (err) {
                 return cb(err);
             }
         }
+
         //Check views engine and check if folder with templates exist
         if (!fs.existsSync(viewsHelper.getPathToEngine(sails.config.views.extension))) {
             return cb(new Error('For now adminpanel hook could work only with Pug template engine.'));
         }
+
         var initAuth = require('./initializeAuthorization')(sails, cb);
+        
         // sails.after(eventsToWaitFor, require('../lib/afterHooksLoaded')(sails));
         sails.on("lifted", require('../lib/afterHooksLoaded')(sails));
+
         // Bind assets
-        await bindAssets_1.default(sails);
+        await bindAssets(sails);
         cb();
-    };
-}
-exports.default = ToInitialize;
-;
+    }
+};
