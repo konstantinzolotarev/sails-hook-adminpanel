@@ -1,11 +1,8 @@
 'use strict';
-
 var util = require('../lib/adminUtil');
 var async = require('async');
 var _ = require('lodash');
-
 module.exports = {
-
     /**
      * Will normalize a field configuration that willl be loaded fro config file.
      *
@@ -86,7 +83,7 @@ module.exports = {
      * @returns {boolean|Object}
      * @private
      */
-    _normalizeFieldConfig: function(config, key, modelField) {
+    _normalizeFieldConfig: function (config, key, modelField) {
         if (_.isUndefined(config) || _.isUndefined(key)) {
             throw new Error('No `config` or `key` passed !');
         }
@@ -96,11 +93,12 @@ module.exports = {
         if (_.isBoolean(config)) {
             if (!config) {
                 return false;
-            } else {
+            }
+            else {
                 return {
                     key: key,
                     title: key
-                }
+                };
             }
         }
         // check for string notation
@@ -119,36 +117,38 @@ module.exports = {
             if (!config.title) {
                 config.title = key;
             }
-
             //validate associations
             // console.log(modelField);
             if (config.type === 'association' || config.type === 'association-many') {
                 var associatedModelAtrubutes = {};
                 var displayField;
-                if (config.type === 'association'){
+                if (config.type === 'association') {
                     try {
                         associatedModelAtrubutes = util.getModel(modelField.model.toLowerCase()).attributes;
-                    } catch (e) {
+                    }
+                    catch (e) {
                         sails.log.error(e);
                     }
-                } else if (config.type === 'association-many'){
+                }
+                else if (config.type === 'association-many') {
                     try {
                         // console.log('admin > helper > collection > ', util.getModel(modelField.collection.toLowerCase()).attributes);
                         associatedModelAtrubutes = util.getModel(modelField.collection.toLowerCase()).attributes;
-                    } catch (e) {
+                    }
+                    catch (e) {
                         sails.log.error(e);
                     }
                 }
-
                 // console.log('admin > helper > model > ', associatedModelAtrubutes);
-                if (associatedModelAtrubutes.hasOwnProperty('name')){
-                    displayField = 'name'
-                } else if (associatedModelAtrubutes.hasOwnProperty('label')){
-                    displayField = 'label'
-                } else {
-                    displayField = 'id'
+                if (associatedModelAtrubutes.hasOwnProperty('name')) {
+                    displayField = 'name';
                 }
-
+                else if (associatedModelAtrubutes.hasOwnProperty('label')) {
+                    displayField = 'label';
+                }
+                else {
+                    displayField = 'id';
+                }
                 _.defaults(config, {
                     identifierField: 'id',
                     displayField: displayField
@@ -158,23 +158,21 @@ module.exports = {
         }
         return false;
     },
-
     /**
      * Load list of records for all associations into `fields`
      *
      * @param {Object} fields
      * @param {function=} [cb]
      */
-    loadAssociations: function(fields, cb) {
-        cb = cb || function() {};
-
+    loadAssociations: function (fields, cb) {
+        cb = cb || function () { };
         /**
          * Load all associated records for given field key
          *
          * @param {string} key
          * @param {function=} [cb]
          */
-        var loadAssoc = function(key, cb) {
+        var loadAssoc = function (key, cb) {
             if (fields[key].config.type !== 'association' && fields[key].config.type !== 'association-many') {
                 return cb();
             }
@@ -188,7 +186,7 @@ module.exports = {
             if (!Model) {
                 return cb();
             }
-            Model.find().exec(function(err, list) {
+            Model.find().exec(function (err, list) {
                 if (err) {
                     return cb();
                 }
@@ -196,31 +194,28 @@ module.exports = {
                 cb();
             });
         };
-
-        async.each(_.keys(fields), loadAssoc, function(err) {
+        async.each(_.keys(fields), loadAssoc, function (err) {
             if (err) {
                 return cb(err);
             }
             return cb(null, fields);
         });
     },
-
     /**
      * Create list of populated models
      *
      * @param {Object} fields
      * @returns {Array}
      */
-    getFieldsToPopulate: function(fields) {
+    getFieldsToPopulate: function (fields) {
         var result = [];
-        _.forEach(fields, function(field, key) {
+        _.forEach(fields, function (field, key) {
             if (field.config.type === 'association' || field.config.type === 'association-many') {
                 result.push(key);
             }
         });
         return result;
     },
-
     /**
      * Basicaly it will fetch all attributes without functions
      *
@@ -247,9 +242,7 @@ module.exports = {
      * @param {string=} [type] Type of action that config should be loaded for. Example: list, edit, add, remove, view. Defaut: list
      * @returns {Object} Empty object or pbject with list of properties
      */
-    getFields: function(req, instance, type) {
-        console.log(instance.model.attributes, type)
-
+    getFields: function (req, instance, type) {
         if (!instance.model || !instance.model.attributes) {
             return {};
         }
@@ -258,16 +251,14 @@ module.exports = {
         //get field config for actions
         var actionConfig = util.findActionConfig(instance, type);
         var fieldsConfig = instance.config.fields || {};
-
         //Get keys from config
         //var actionConfigFields = _.keys(actionConfig.fields);
         //Getting list of fields from model
-        var modelAttributes = _.pick(instance.model.attributes, function(val, key) {
-            return (_.isPlainObject(val) || _.isString(val));
-        });
+        let modelAttributes = instance.model.attributes
+
+        console.log("<<<<",modelAttributes)
 
         var that = this;
-
         /**
          * Iteration function for every field
          *
@@ -275,7 +266,7 @@ module.exports = {
          * @param {string} key
          * @private
          */
-        var _prepareField = function(modelField, key) {
+        var _prepareField = function (modelField, key) {
             /**
              * Checks for short type in waterline:
              * fieldName: 'string'
@@ -302,8 +293,9 @@ module.exports = {
                 //if config set to false ignoring this field
                 if (fieldsConfig[key] === false) {
                     ignoreField = true;
-                } else {
-                    var tmpCfg = that._normalizeFieldConfig(fieldsConfig[key], key,modelField);
+                }
+                else {
+                    var tmpCfg = that._normalizeFieldConfig(fieldsConfig[key], key, modelField);
                     _.merge(fldConfig, tmpCfg);
                 }
             }
@@ -312,8 +304,9 @@ module.exports = {
                 //if config set to false ignoring this field
                 if (actionConfig.fields[key] === false) {
                     ignoreField = true;
-                } else {
-                    var tmpCfg = that._normalizeFieldConfig(actionConfig.fields[key], key,modelField);
+                }
+                else {
+                    var tmpCfg = that._normalizeFieldConfig(actionConfig.fields[key], key, modelField);
                     ignoreField = false;
                     _.merge(fldConfig, tmpCfg);
                 }
@@ -331,14 +324,13 @@ module.exports = {
             // All field types should be in lower case
             fldConfig.type = fldConfig.type.toLowerCase();
             //nomalizing configs
-            fldConfig = that._normalizeFieldConfig(fldConfig, key,modelField)
+            fldConfig = that._normalizeFieldConfig(fldConfig, key, modelField);
             //Adding new field to resultset
             result[key] = {
                 config: fldConfig,
                 model: modelField
             };
         };
-
         // creating result
         var result = {};
         _.forEach(modelAttributes, _prepareField);

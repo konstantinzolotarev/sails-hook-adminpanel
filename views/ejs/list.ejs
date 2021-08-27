@@ -44,23 +44,20 @@ $(document).ready(function() {
     </div>
 </div>
 <div class="layout">
-    <table id="list">
+    <table class="table" id="list">
         <thead>
             <tr>
                 <th>
                     Actions
                 </th>
-                <%- JSON.stringify(fields) %>
                 <% Object.keys(fields).forEach(function(key) { %>
                     <% var field = fields[key] %>
                     <th>
                         <%= field.config.title %>
                     </th>
                 <% }) %>
-            </tr>
+            </tr>            
         </thead>
-        <tbody>
-        </tbody>
     </table>
     <% if (instance.config.add) { %>
         <a href="<%= instance.uri %>/add" id="add">
