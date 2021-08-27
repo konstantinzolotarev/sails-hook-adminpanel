@@ -25,12 +25,12 @@
     <% if (adminpanel.configHelper.isId(field, instance.config.model)) { %>
         <% field.config.disabled = true %>
     <% } %>
-    <paper-input label="<%= field.config.title %>"
+    <input label="<%= field.config.title %>"
             type="<%= fieldType %>"
             <% field.config.required && 'required' %>
             <% field.config.disabled && 'disabled'%>
             value="<%= value || '' %>"
-            name="<%= key %>"></paper-input>
+            name="<%= key %>"></input>
     <br/>
 <% } %>
 

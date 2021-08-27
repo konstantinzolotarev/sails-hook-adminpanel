@@ -22,7 +22,9 @@
   <link rel="stylesheet" href="/admin/assets/new_layout/css/style.css" />
 
   <link rel="stylesheet" href="/admin/assets/styles/clr-icons.min.css"/>
-
+  
+  <!-- если брать другие  иконки то этот скрипт не нужен будет  -->
+  <script src="//unpkg.com/@clr/icons@1.3.9/clr-icons.min.js"></script>
 
 </head>
 
@@ -66,15 +68,15 @@
       <div class="content-inner">
         <!-- 
   <body class="fullbleed layout vertical">
-      <paper-drawer-panel>
-        <paper-header-panel drawer>
+      <drawer-panel>
+        <header-panel drawer>
           
-        </paper-header-panel>
-        <paper-header-panel main>
-          <paper-toolbar>
-            <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+        </header-panel>
+        <header-panel main>
+          <toolbar>
+            <icon-button shape="menu" drawer-toggle></icon-button>
             <div class="flex"><%= adminpanel.menuHelper.getBrandTitle() %></div>
-          </paper-toolbar>
+          </toolbar>
           <div class="layout fill vertical">
 
             <% include mixin/alerts %>

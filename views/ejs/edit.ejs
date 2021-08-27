@@ -12,10 +12,10 @@
 <div class="layout">
     <div>
         <a href="<%= instance.uri %>/">
-            <paper-button raised class="button-blue">
-                <iron-icon icon="arrow-back"></iron-icon>
+            <button raised class="btn">
+                <clr-icon shape="undo"></clr-icon>
                 Back to list
-            </paper-button>
+            </button>
         </a>
     </div>
     <form id="form" action="<%= instance.uri %>/edit/<%= record[idField] %>" method="POST" enctype="multipart/form-data">
@@ -28,9 +28,9 @@
             <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
         </div>
         <p>
-            <paper-button raised class="button-green" id="submit" onclick="submitForm()">
+            <button raised class="button-green" id="submit" onclick="submitForm()">
                 Submit
-            </paper-button>
+            </button>
         </p>
     </form>
 </div>

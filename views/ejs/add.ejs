@@ -9,25 +9,29 @@
 <div class="layout">
     <div>
         <a href="<%= instance.uri %>/">
-            <paper-button raised class="button-blue">
-                <iron-icon icon="arrow-back"></iron-icon>
+            <button raised class="btn">
+                <clr-icon shape="undo"></clr-icon>
                 Back to list
-            </paper-button>
+            </button>
         </a>
     </div>
+    
     <form id="form" action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
         <% Object.keys(fields).forEach(function(key) { %>
-            <% var field = fields[key] %>
-            <% var value = data[key] %>
-            <% include mixin/fieldWidget %>
+            <div class="form-group">
+                <label for="form-<%=key%>"><%=fields[key].config.title %></label>
+                <% var field = fields[key] %>
+                <% var value = data[key] %>
+                <% include mixin/fieldWidget %>
+            </div>
         <% }) %>
         <div>
             <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
         </div>
         <p>
-            <paper-button raised class="button-green" id="submit" onclick="submitForm()">
+            <button raised class="button-green" id="submit" onclick="submitForm()">
                 Submit
-            </paper-button>
+            </button>
         </p>
     </form>
 </div>

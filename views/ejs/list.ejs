@@ -40,6 +40,12 @@ $(document).ready(function() {
 <div class="horizontal layout">
     <div class="flex">
         <% var actionType = 'list' %>
+        <a href="<%=instance.uri%>/add" id="add">
+            <button class="btn btn-success">
+                <clr-icon shape="plus" role="none"></clr-icon>
+                Add
+            </button>
+        </a>
         <% include mixin/globalActions %>
     </div>
 </div>
@@ -61,7 +67,7 @@ $(document).ready(function() {
     </table>
     <% if (instance.config.add) { %>
         <a href="<%= instance.uri %>/add" id="add">
-            <paper-fab icon="add"></paper-fab>
+            <fab shape="add"></fab>
         </a>
     <% } %>
 </div>

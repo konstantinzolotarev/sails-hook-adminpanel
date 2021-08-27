@@ -12,30 +12,30 @@
 
     <div class="horizontal end-justified layout">
         <a href="<%= instance.uri %>/">
-            <paper-button raised class="button-blue">
-                <iron-icon icon="arrow-back"></iron-icon>
+            <button raised class="btn">
+                <clr-icon shape="undo"></clr-icon>
                 Back to list
-            </paper-button>
+            </button>
         </a>
         <% if (instance.config.edit) { %>
             <a href="<%= instance.uri %>/edit/<%= record[idField] %>">
-                <paper-button raised class="button-green">
-                    <iron-icon icon="create"></iron-icon>
+                <button raised class="button-green">
+                    <clr-icon shape="create"></clr-icon>
                     Edit record
-                </paper-button>
+                </button>
             </a>
         <% } %>
         <% if (instance.config.remove) { %>
             <a href="<%= instance.uri %>/remove/<%= record[idField] %>" onclick="return confirm('Are you sure ?');">
-                <paper-button raised class="button-red">
-                    <iron-icon icon="delete"></iron-icon>
+                <button raised class="button-red">
+                    <clr-icon shape="delete"></clr-icon>
                     Remove record
-                </paper-button>
+                </button>
             </a>
         <% } %>
     </div>
 
-    <paper-material elevation="1" page>
+    <material elevation="1" page>
         <% Object.keys(fields).forEach(function(key) { %>
         <% var field = fields[key] %>
             <div class="layout horizontal field-row">
@@ -45,7 +45,7 @@
                 </div>
             </div>
         <% }) %>
-    </paper-material>
+    </material>
 </div>
 
 <% include footer %>
