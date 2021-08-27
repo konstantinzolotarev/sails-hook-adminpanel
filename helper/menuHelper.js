@@ -39,7 +39,7 @@ module.exports = function menuHelper(config) {
          */
         getBrandTitle: function() {
             if (!config.menu || !config.menu.brand) {
-                return 'Dashboard';
+                return 'Adminpanel';
             }
             if (_.isString(config.menu.brand)) {
                 return config.menu.brand;
@@ -47,7 +47,7 @@ module.exports = function menuHelper(config) {
             if (_.isObject(config.menu.brand) && _.isString(config.menu.brand.title)) {
                 return config.menu.brand.title;
             }
-            return 'Dashboard';
+            return 'Adminpanel';
         },
 
         /**

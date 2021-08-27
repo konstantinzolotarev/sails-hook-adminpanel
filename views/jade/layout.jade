@@ -25,9 +25,10 @@ html
     link(rel="stylesheet", href="//unpkg.com/@clr/icons@1.3.9/clr-icons.min.css")
     
     // dataTable
-    link(rel="stylesheet", href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css")
+    link(rel="stylesheet", href="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js")
 
     script(src="//unpkg.com/@clr/icons@1.3.9/clr-icons.min.js")
+    
     - var config = locals.adminpanel.configHelper.getConfig()
     each key in config.styles
       link(rel="stylesheet", href="#{key}")

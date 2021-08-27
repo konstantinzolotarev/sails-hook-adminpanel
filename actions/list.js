@@ -5,7 +5,6 @@ var util = require('../lib/adminUtil');
 var requestProcessor = require('../lib/requestProcessor');
 var views = require('../helper/viewsHelper');
 var fieldsHelper = require('../helper/fieldsHelper');
-var sortingHelper = require('../helper/sortingHelper');
 
 var async = require('async');
 
@@ -33,7 +32,6 @@ module.exports = function(req, res) {
     var fields = fieldsHelper.getFields(req, instance, 'list');
 
     //Processing sorting
-    sortingHelper.processRequest(req);
 
     async.parallel([
         //Fetch total records for page
@@ -73,11 +71,10 @@ module.exports = function(req, res) {
             req._sails.log.error(err);
             return res.serverError(err);
         }
+        console.log(fields);
         res.viewAdmin({
             requestProcessor: requestProcessor,
-            sortingHelper: sortingHelper,
             instance: instance,
-            total: total,
             list: records,
             fields: fields,
             config: sails.adminpanel

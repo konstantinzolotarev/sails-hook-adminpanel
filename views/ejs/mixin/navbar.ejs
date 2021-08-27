@@ -1,13 +1,14 @@
-<paper-toolbar>
-  <% if (adminpanel.menuHelper.hasBrand()) {  %>
-    <div>
-        <a href="<%= adminpanel.menuHelper.getBrandLink() %>">
-        <%= adminpanel.menuHelper.getBrandTitle()%>
-        </a>
-    </div>
-  <% } %>
-</paper-toolbar>
-<paper-menu>
+ <nav class="sidenav sidenav-panel">
+  <section class="sidenav-content">
+    <section class="nav-group">
+      <div class="clr-select-wrapper">
+        <select class="clr-select">
+          <option value="1">Администрирование</option>
+          <option value="2">ДАШБОРД</option>
+        </select>
+      </div>
+
+    <!-- TODO: Нужно проверить что это  -->
     <% adminpanel.menuHelper.getGroups().forEach(function(group) { %>
         <menu-collapse>
             <div class="header">
@@ -25,12 +26,31 @@
             </div>
         </menu-collapse>
     <% }) %>
+
     <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
-        <admin-menu-item href="<%= menuItem.link %>">
-            <%= menuItem.title %>
-            <% if(menuItem.icon) { %>
-                <iron-icon icon="<%= menuItem.icon %>"></iron-icon>
-            <% }%>
-        </admin-menu-item>
+
+      <section class="nav-group collapsible">
+        <input id="tabexample2" type="checkbox" />
+        <label class="active" for="tabexample2">
+          
+          <% if(menuItem.icon) { %>
+            <clr-icon shape="<%= menuItem.icon %>" role="none"/>
+          <% }%>
+          
+          <%= menuItem.title %>
+          <svg>
+            <use
+              xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"
+            ></use>
+          </svg>
+        </label>
+        <ul class="nav-list">
+          <li><a class="nav-link" href="<%= menuItem.link %>">list</a></li>
+          <li><a class="nav-link">Link 2</a></li>
+        </ul>
+      </section> 
     <% }) %>
-</paper-menu>
+
+  </section>
+</section>
+</nav>

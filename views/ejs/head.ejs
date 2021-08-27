@@ -1,159 +1,69 @@
 <!DOCTYPE html>
-<html lang="ru">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin</title>
+
+  <!-- jquery -->
+  <script src="/admin/assets/js/jquery.min.js"></script>
+
+  <!-- dataTable-->
+  <script src="/admin/assets/js/jquery.dataTables.min.js"></script>
+
   <!-- clr -->
-  <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" />
+  <link rel="stylesheet" href="/admin/assets/styles/clr-ui.min.css" />
   <!-- style index -->
-  <link rel="stylesheet" href="/admin/assets/new_layout/css/style.css">
+  <link rel="stylesheet" href="/admin/assets/new_layout/css/style.css" />
+
+  <link rel="stylesheet" href="/admin/assets/styles/clr-icons.min.css"/>
+
+
 </head>
 
-<body>
-
-  <body cds-text="body" cds-theme="dark" cds-layout="vertical gap:lg p:lg">
-    <div class="main-container">
-      <header class="header">
-        <div class="header__inner">
-          <div class="header__menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="clr-select-wrapper">
-            <select class="clr-select">
-              <option value="1">Администрирование</option>
-              <option value="2">ДАШБОРД</option>
-            </select>
-          </div>
-          <div class="header__login">
-            <a class="header__name" href="#">
-              <span>Иванов Иван</span>
-              <svg>
-                <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#user"></use>
-              </svg>
-            </a>
-            <a class="header__out nav-link" href="#">
-              <svg>
-                <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#login-out"></use>
-              </svg>
-            </a>
-          </div>
+<body cds-text="body" cds-theme="dark" cds-layout="vertical gap:lg p:lg">
+  <div class="main-container">
+    <header class="header">
+      <div class="header__inner">
+        <div class="header__menu">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-      </header>
-      <nav class="sidenav sidenav-panel">
-        <section class="sidenav-content">
-          <section class="nav-group">
-            <div class="clr-select-wrapper">
-              <select class="clr-select">
-                <option value="1">Администрирование</option>
-                <option value="2">ДАШБОРД</option>
-              </select>
-            </div>
-            <section class="nav-group collapsible">
-              <input id="tabexample1" type="checkbox">
-              <label for="tabexample1">
-                Страницы
-                <svg>
-                  <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"></use>
-                </svg>
-              </label>
-              <ul class="nav-list">
-                <li><a class="nav-link">Страницы</a></li>
-                <li><a class="nav-link">Link 2</a></li>
-              </ul>
-            </section>
-            <section class="nav-group collapsible">
-              <input id="tabexample2" type="checkbox">
-              <label class="active" for="tabexample2">
-                Адреса самовывоза
-                <svg>
-                  <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"></use>
-                </svg>
-              </label>
-              <ul class="nav-list">
-                <li><a class="nav-link">Страницы</a></li>
-                <li><a class="nav-link">Link 2</a></li>
-              </ul>
-            </section>
-            <section class="nav-group collapsible">
-              <input id="tabexample3" type="checkbox">
-              <label for="tabexample3">
-                Способы оплаты
-                <svg>
-                  <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"></use>
-                </svg>
-              </label>
-              <ul class="nav-list">
-                <li><a class="nav-link">Страницы</a></li>
-                <li><a class="nav-link">Link 2</a></li>
-              </ul>
-            </section>
-            <section class="nav-group collapsible">
-              <input id="tabexample4" type="checkbox">
-              <label for="tabexample4">
-                Навигация
-                <svg>
-                  <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"></use>
-                </svg>
-              </label>
-              <ul class="nav-list">
-                <li><a class="nav-link">Страницы</a></li>
-                <li><a class="nav-link">Link 2</a></li>
-              </ul>
-            </section>
-            <section class="nav-group collapsible">
-              <input id="tabexample5" type="checkbox">
-              <label for="tabexample5">
-                Акции
-                <svg>
-                  <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"></use>
-                </svg>
-              </label>
-              <ul class="nav-list">
-                <li><a class="nav-link">Страницы</a></li>
-                <li><a class="nav-link">Link 2</a></li>
-              </ul>
-            </section>
-            <section class="nav-group collapsible">
-              <input id="tabexample6" type="checkbox">
-              <label for="tabexample6">
-                Скидки
-                <svg>
-                  <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"></use>
-                </svg>
-              </label>
-              <ul class="nav-list">
-                <li><a class="nav-link">Страницы</a></li>
-                <li><a class="nav-link">Link 2</a></li>
-              </ul>
-            </section>
-            <section class="nav-group collapsible">
-              <input id="tabexample7" type="checkbox">
-              <label for="tabexample7">
-                Акции
-                <svg>
-                  <use xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"></use>
-                </svg>
-              </label>
-              <ul class="nav-list">
-                <li><a class="nav-link">Страницы</a></li>
-                <li><a class="nav-link">Link 2</a></li>
-              </ul>
-            </section>
-          </section>
-        </section>
-      </nav>
-
-
-<!-- 
+        <div class="clr-select-wrapper">
+          <select class="clr-select">
+            <option value="1">Администрирование</option>
+            <option value="2">ДАШБОРД</option>
+          </select>
+        </div>
+        <div class="flex"><%= adminpanel.menuHelper.getBrandTitle() %></div>
+        <div class="header__login">
+          <a class="header__name" href="#">
+            <span>Иванов Иван</span>
+            <svg>
+              <use
+                xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#user"
+              ></use>
+            </svg>
+          </a>
+          <a class="header__out nav-link" href="#">
+            <svg>
+              <use
+                xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#login-out"
+              ></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <% include mixin/navbar %>
+      <div class="content-inner">
+        <!-- 
   <body class="fullbleed layout vertical">
       <paper-drawer-panel>
         <paper-header-panel drawer>
-          <% include mixin/navbar %>
+          
         </paper-header-panel>
         <paper-header-panel main>
           <paper-toolbar>
@@ -165,3 +75,4 @@
             <% include mixin/alerts %>
 
             <div id="mainLayout"> -->
+

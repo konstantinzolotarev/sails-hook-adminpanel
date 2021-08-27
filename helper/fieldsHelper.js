@@ -248,6 +248,8 @@ module.exports = {
      * @returns {Object} Empty object or pbject with list of properties
      */
     getFields: function(req, instance, type) {
+        console.log(instance.model.attributes, type)
+
         if (!instance.model || !instance.model.attributes) {
             return {};
         }

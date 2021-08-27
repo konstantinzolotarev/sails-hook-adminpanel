@@ -316,6 +316,14 @@ textarea {
   margin-top: 2px;
 }
 
+.content {
+  display: flex;
+}
+
+.content-inner {
+  width: 100%;
+}
+
 @media (max-width: 576px) {
   .header__inner {
     padding-left: 20px;
