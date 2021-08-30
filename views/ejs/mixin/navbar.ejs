@@ -33,10 +33,11 @@
       <section class="nav-group collapsible">
         <input id="tabexample2" type="checkbox" />
         <label class="active" for="tabexample2">
-          <span class="navbar-icon">
-            <i class="fas fa-smile"></i>
-          </span>
-
+          <% if (menuItem.icon)  { %>
+            <span class="navbar-icon">
+              <i class="fas fa-<%=menuItem.icon%>"></i>
+            </span>
+          <& } &>
           <input id="tab-<%=menuItem.id%>" type="checkbox" />
           <label class="<%= menuItem.instanceName  === instance.name ? 'active' : ''%>" for="tab-<%=menuItem.id%>">
   
