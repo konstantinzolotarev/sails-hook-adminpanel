@@ -9,7 +9,7 @@ sails-adminpanel readme for sails v1.x
 
     npm install jade --save
 
-**config/views.js**
+**config/views.js** 
     
     extension: 'jade',
     getRenderFn: function() {
@@ -121,3 +121,4 @@ Yes, see the [v0.11 migration guide](http://sailsjs.org/#/documentation/concepts
 ## License
 
 MIT
+ 
