@@ -195,6 +195,7 @@ module.exports = function menuHelper(config) {
                     link: config.routePrefix + '/' + key,
                     title: val.title,
                     icon: val.icon || null,
+                    id: val.id || val.title.replace(" ","_"),
                     instanceName: key
                 });
             });
@@ -206,6 +207,7 @@ module.exports = function menuHelper(config) {
                     menues.push({
                         link: menu.link,
                         title: menu.title,
+                        id: menu.id || menu.title.replace(" ","_"),
                         icon: menu.icon || null
                     });
                 });

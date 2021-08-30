@@ -27,14 +27,15 @@
         </menu-collapse>
     <% }) %>
 
+
     <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
 
       <section class="nav-group collapsible">
-        <input id="tabexample2" type="checkbox" />
-        <label class="active" for="tabexample2">
+        <input id="tab-<%=menuItem.id%>" type="checkbox" />
+        <label class="<%= menuItem.instanceName  === instance.name ? 'active' : ''%>" for="tab-<%=menuItem.id%>">
           
           <% if(menuItem.icon) { %>
-            <clr-icon shape="<%= menuItem.icon %>" role="none"/>
+            <clr-icon shape="<%_menuItem.title %>" role="none"/>
           <% }%>
           
           <%= menuItem.title %>
