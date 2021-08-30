@@ -10,18 +10,29 @@
     </div>
 </div>
 <div class="layout">
-    <div>
+    <div class="nav-header">
         <a href="<%= instance.uri %>/">
             <button raised class="btn">
-                <clr-icon shape="undo"></clr-icon>
-                Back to list
+                <i class="fas fa-long-arrow-alt-left"></i>
+                Вернуться
             </button>
         </a>
+        <div class="nav-header-wrap">
+            <button class="btn-nav">
+                Скрыть
+                <i class="far fa-eye-slash"></i>
+            </button>
+            <button class="btn-nav">
+                Удалить
+                <i class="far fa-trash-alt"></i>
+            </button>
+        </div>
     </div>
     <form id="form" action="<%= instance.uri %>/edit/<%= record[idField] %>" method="POST" enctype="multipart/form-data">
         <% Object.keys(fields).forEach(function(key) { %>
             <% var field = fields[key] %>
             <% var value = adminpanel.viewHelper.getFieldValue(key, field, data) %>
+            <div>Заголовок</div>
             <% include mixin/fieldWidget %>
         <% }) %>
         <div>

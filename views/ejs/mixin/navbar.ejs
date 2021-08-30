@@ -32,17 +32,15 @@
       <section class="nav-group collapsible">
         <input id="tabexample2" type="checkbox" />
         <label class="active" for="tabexample2">
-          
+          <span class="navbar-icon">
+            <i class="fas fa-smile"></i>
+          </span>
           <% if(menuItem.icon) { %>
             <clr-icon shape="<%= menuItem.icon %>" role="none"/>
           <% }%>
           
           <%= menuItem.title %>
-          <svg>
-            <use
-              xlink:href="/admin/assets/new_layout/img/sprite_auto.svg#sidenav-arrow"
-            ></use>
-          </svg>
+          <i class="fas fa-chevron-right"></i>
         </label>
         <ul class="nav-list">
           <li><a class="nav-link" href="<%= menuItem.link %>">list</a></li>
