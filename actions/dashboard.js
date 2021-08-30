@@ -11,5 +11,5 @@ var views = require('../helper/viewsHelper');
  * @returns {dashboardController}
  */
 module.exports = function(req, res) {
-    return res.viewAdmin('dashboard');
+    return res.viewAdmin('dashboard',{ instance: "instance"});
 };

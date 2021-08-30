@@ -31,20 +31,16 @@
     <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
 
       <section class="nav-group collapsible">
-        <input id="tabexample2" type="checkbox" />
-        <label class="active" for="tabexample2">
+        <input id="tab-<%=menuItem.id%>" type="checkbox" />
+        <% var active = ""; if (menuItem && menuItem.instanceName && instance && instance.name)  { active = menuItem.instanceName  === instance.name ? 'active' : '' } %>
+        <label class="<%= active %>" for="tab-<%=menuItem.id%>">
+                    
           <% if (menuItem.icon)  { %>
             <span class="navbar-icon">
               <i class="fas fa-<%=menuItem.icon%>"></i>
             </span>
-          <& } &>
-          <input id="tab-<%=menuItem.id%>" type="checkbox" />
-          <label class="<%= menuItem.instanceName  === instance.name ? 'active' : ''%>" for="tab-<%=menuItem.id%>">
-  
-          <% if(menuItem.icon) { %>
-            <clr-icon shape="<%_menuItem.title %>" role="none"/>
-          <% }%>
-          
+          <% } %>
+
           <%= menuItem.title %>
           <i class="fas fa-chevron-right"></i>
         </label>
