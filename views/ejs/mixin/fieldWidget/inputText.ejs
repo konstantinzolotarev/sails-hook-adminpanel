@@ -1,11 +1,11 @@
 <% if (field.model.enum) { %>
     <% include select %>
 <% } else if(field.model.email) { %>
-    <gold-email-input label="<%= field.config.title %>"
+    <input label="<%= field.config.title %>"
             <% field.config.required && 'required' %>
             <% field.config.disabled && 'disabled'%>
             value="<%= value || '' %>"
-            name="<%= key %>"></gold-email-input>
+            name="<%= key %>"></input>
 <% } else { %>
     <%
     var fieldType = 'text'

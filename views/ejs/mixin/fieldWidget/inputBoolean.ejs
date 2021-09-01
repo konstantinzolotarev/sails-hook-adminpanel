@@ -1,10 +1,7 @@
 <div class="widget">
-    <app-checkbox name="<%= key %>"
-        value="1"
-        <%= value && 'checked' || '' %>
-        <%= field.config.required && 'required' || ''%>
-        <%= field.config.disabled && 'disabled' || ''%>>
-
-        <%= field.config.title %>
-    </app-checkbox>
+    <div class="checkbox">
+        <input type="checkbox" id="form-<%= key %>" name="<%= key %>" value="<%= value && 1 || 0 %> <%= field.config.disabled && 'disabled' || ''%>  <%= field.config.required && 'required' || ''%> style="width: auto;">
+        <label for="form-<%= key %>"><%= field.config.title %></label>
+    </div>
 </div>
+

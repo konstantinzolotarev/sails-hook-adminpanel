@@ -32,7 +32,7 @@
         <% Object.keys(fields).forEach(function(key) { %>
             <% var field = fields[key] %>
             <% var value = adminpanel.viewHelper.getFieldValue(key, field, data) %>
-            <div>Заголовок</div>
+            <div><%= field.config.title %></div>
             <% include mixin/fieldWidget %>
         <% }) %>
         <div>
