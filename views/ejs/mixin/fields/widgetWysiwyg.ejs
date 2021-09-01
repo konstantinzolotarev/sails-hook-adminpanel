@@ -1,0 +1,11 @@
+
+<textarea
+    value="<%=value%>"
+    <% field.config.required && 'required' %>
+    <% field.config.disabled && 'disabled'%>
+    name="<%= key %>"
+    id="form-<%= key %>">
+</textarea>
+<script>
+    CKEDITOR.replace( 'form-<%= key %>' );
+</script>

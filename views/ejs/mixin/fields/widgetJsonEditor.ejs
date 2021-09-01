@@ -1,0 +1,19 @@
+<textarea
+    value="<%=value%>"
+    <% field.config.required && 'required' %>
+    <% field.config.disabled && 'disabled'%>
+    name="<%= key %>"
+    id="form-<%= key %>">
+</textarea>
+
+<script>
+
+$('#form-<%= key %>').hide().after('<div id="form-<%= key %>-jsoneditor" style="width:100%; height:320px;"></div>');
+new JSONEditor(
+    $('#form-<%= key %>-jsoneditor')[0],
+    {
+        modes: ['view', 'tree', 'code']
+    },
+    <%=value%>
+)
+</script>

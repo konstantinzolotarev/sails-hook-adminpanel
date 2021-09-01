@@ -13,3 +13,8 @@ table.dataTable {
     background-color: transparent;
     margin-left: 15px !important;
 }
+
+.ace_editor {
+    width: 100%;
+    height: 500px;
+}

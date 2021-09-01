@@ -1,0 +1,18 @@
+
+<textarea
+    value="<%=value%>"
+    <% field.config.required && 'required' %>
+    <% field.config.disabled && 'disabled'%>
+    name="<%= key %>"
+    id="form-<%= key %>">
+</textarea>
+<script>
+    let ace_<%=key%> = ace.edit('form-<%=key%>');
+    ace_<%=key%>.setReadonly
+    ace_<%=key%>.setTheme("ace/theme/katzenmilch");
+    ace_<%=key%>.session.setMode("ace/mode/html");
+    textarea_<%=key%> = $('textarea[name="#{key}"]');
+    ace_<%=key%>.session.on("change", function () {
+        textarea_<%=key%>.val(ace_<%=key%>.getValue());
+    });
+</script>

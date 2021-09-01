@@ -52,23 +52,6 @@
         };
         document.getElementById('form').submit();
     }
-    var jsonEditor = {}; // Store JSONEditor instance
-    <% Object.keys(fields).forEach(function(key) { %>
-        <% if (fields[key].config.editor) { %>
-            <% if (fields[key].config.type == 'text') { %>
-                CKEDITOR.replace( 'form-<%= key %>' );
-            <% } else if (fields[key].config.type == 'json') { %>
-                $('#form-<%= key %>').hide().after('<div id="form-<%= key %>-jsoneditor" style="height:320px;"></div>');
-                jsonEditor['<%- key %>'] = new JSONEditor(
-                    $('#form-<%= key %>-jsoneditor')[0],
-                    {
-                        modes: ['view', 'tree', 'code']
-                    },
-                    {}
-                );
-            <% } %>
-        <% } %>
-    <% }) %>
 </script>
 
 <% include footer %>

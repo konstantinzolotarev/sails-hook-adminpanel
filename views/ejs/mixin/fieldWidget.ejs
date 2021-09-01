@@ -2,22 +2,48 @@
     <% value = field.model.defaultsTo %>
 <% } %>
 
+
+<%# detection type %>
 <% var type = field.config.type || field.model.type %>
+<% type = type.toLowerCase() %>
 
+
+<%# plain inputs %>
 <% var inputTextTypes = ['string', 'password', 'date', 'datetime', 'integer', 'number', 'float'] %>
-
 <% if (~inputTextTypes.indexOf(type)) { %>
     <% include fields/inputText %>
 <% } %>
 
+
+<%# boolean %>
 <% if (type === 'boolean' || type === 'binary') { %>
     <% include fields/inputBoolean %>
 <% } %>
 
-<% var inputTextAreaTypes = ['text', 'longtext', 'mediumtext', 'json', 'array'] %>
 
+<%# textarea %>
+<% var inputTextAreaTypes = ['text', 'longtext', 'mediumtext' ] %>
 <% if (~inputTextAreaTypes.indexOf(type)) { %>
     <% include fields/inputTextarea %>
+<% } %>
+
+<%# wysiwyg %>
+<% var widgetWysiwygTypes = ['ckeditor', 'wysiwyg', 'texteditor', 'word'] %>
+<% if (~widgetWysiwygTypes.indexOf(type)) { %>
+    <% include fields/widgetWysiwyg %>
+<% } %>
+
+<%# jsoneditor %>
+<% var widgetJsonEditorTypes = ['jsoneditor', 'json', 'array', 'object'] %>
+<% if (~widgetJsonEditorTypes.indexOf(type)) { %>
+    <% include fields/widgetJsonEditor %>
+<% } %>
+
+
+<%# ace %>
+<% var widgetAceTypes = ['ace', 'html', 'xml', 'aceeditor'] %>
+<% if (~widgetAceTypes.indexOf(type)) { %>
+    <% include fields/widgetAce %>
 <% } %>
 
 <% if (type == 'association') { %>
