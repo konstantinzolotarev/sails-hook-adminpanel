@@ -29,10 +29,10 @@
 
 
     <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
-
-      <section class="nav-group collapsible">
+      
+      <% var active = ""; if (menuItem && menuItem.instanceName && instance && instance.name)  { active = menuItem.instanceName  === instance.name ? 'active' : '' } %>
+      <section class="nav-group collapsible <%= active %>">
         <input id="tab-<%=menuItem.id%>" type="checkbox" />
-        <% var active = ""; if (menuItem && menuItem.instanceName && instance && instance.name)  { active = menuItem.instanceName  === instance.name ? 'active' : '' } %>
         <label for="tab-<%=menuItem.id%>">
                     
           <% if (menuItem.icon)  { %>
@@ -50,8 +50,9 @@
         </ul>
       </section> 
     <% }) %>
-    <a class="sidenav-panel__link active" href="#">Без стрелки</a>
+    <i class="fas fa-list"></i> <a class="sidenav-panel__link" href="#">Без стрелки</a>
 
   </section>
 </section>
 </nav>
+
