@@ -46,36 +46,6 @@ ul {
   margin: 0;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-input[type="number"]:hover,
-input[type="number"]:focus {
-  -moz-appearance: number-input;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input {
-  margin: 0;
-  padding: 0;
-  border: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
 button {
   background: none;
   border: none;
@@ -366,6 +336,49 @@ textarea {
 .btn-nav i {
   margin-left: 7px;
   font-size: 25px;
+}
+
+.admin-panel__title {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.admin-panel__title i {
+  font-size: 12px;
+  color: #006A91;
+  margin-left: 5px;
+}
+
+.admin-panel__widget {
+  margin-bottom: 35px;
+}
+
+.tooltip-input {
+  margin-left: 5px;
+  width: 100%;
+  max-width: 22px;
+}
+
+.btn-save {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  color: #fff;
+
+  background: #0079B8;
+  border-radius: 3px;
+  padding: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+ background-color: #62A420;
 }
 
 @media (max-width: 576px) {

@@ -32,15 +32,22 @@
         <% Object.keys(fields).forEach(function(key) { %>
             <% var field = fields[key] %>
             <% var value = adminpanel.viewHelper.getFieldValue(key, field, data) %>
-            <div><%= field.config.title %></div>
-            <% include mixin/fieldWidget %>
+            <div class="admin-panel__title"><%= field.config.title %>
+                <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-top-right">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-content">Действие определяется через вкл\выкл.<input class="tooltip-input" type="checkbox" checked/><br> По умолчанию действие вкл при первом совпадении даты и времени</span>
+                </a>
+            </div>
+            <div class="admin-panel__widget">
+                <% include mixin/fieldWidget %>
+            </div>
         <% }) %>
         <div>
             <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
         </div>
         <p>
-            <button raised class="button-green" id="submit" onclick="submitForm()">
-                Submit
+            <button raised class="btn-save" id="submit" onclick="submitForm()">
+                сохранить
             </button>
         </p>
     </form>
