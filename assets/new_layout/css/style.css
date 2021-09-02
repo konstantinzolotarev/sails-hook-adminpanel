@@ -228,6 +228,33 @@ textarea {
   margin-left: 0;
 }
 
+.sidenav-panel .nav-group label:hover {
+  opacity: .6;
+}
+
+.active:hover {
+  opacity: 1 !important;
+}
+
+.sidenav-panel__link {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 600;
+  color: #565656 !important;
+  padding: 11px 24px !important;
+  padding-right: 12px !important;
+  margin-left: 0;
+}
+
+.sidenav-panel__link:hover {
+  opacity: .6;
+  text-decoration: none;
+}
+
 .sidenav-panel .fa-chevron-right {
   font-size: 14px;
   fill: #EEEEEE;
@@ -238,6 +265,10 @@ textarea {
   content: none;
 }
 
+.nav-link:hover {
+  opacity: .6;
+}
+
 .navbar-icon {
   font-size: 16px;
   margin-right: 10px;
@@ -245,7 +276,11 @@ textarea {
 
 .sidenav-panel .nav-list {
   margin: 0 !important;
-  padding-left: 22px !important;
+  padding-left: 0 !important;
+}
+
+.sidenav-panel .nav-list a {
+  padding-left: 34px !important;
 }
 
 .sidenav-panel .active {
@@ -356,10 +391,8 @@ textarea {
   margin-bottom: 35px;
 }
 
-.tooltip-input {
+.tooltip-checkbox {
   margin-left: 5px;
-  width: 100%;
-  max-width: 22px;
 }
 
 .btn-save {
