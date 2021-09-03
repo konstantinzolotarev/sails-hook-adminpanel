@@ -127,7 +127,6 @@ textarea {
   text-transform: uppercase;
   color: #F2F2F2;
   width: 100%;
-  max-width: 202px;
   height: 36px;
   padding-left: 12px;
 }
@@ -143,15 +142,13 @@ textarea {
 }
 
 .header .clr-select-wrapper {
-  width: 100%;
-  max-width: 202px;
   height: 36px;
   padding-right: 13px;
   margin-bottom: 12px;
 }
 
 .header .clr-select-wrapper::after {
-  right: 28px;
+  right: 23px;
   top: 12px;
   background-image: url(../img/sprite/dropdown-arrow.svg);
   margin-top: 2px;
@@ -285,7 +282,7 @@ textarea {
 
 .sidenav-panel .active {
   background-color: #fff !important;
-}
+} 
 
 .sidenav-panel .clr-select {
   border: 1px solid #0079B8;
@@ -416,6 +413,26 @@ textarea {
 
 input[type=number] {
   max-width: 100%;
+}
+
+.btn-add {
+  font-weight: 600;
+  color: #0079B8;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  border: 1px solid #0079B8;
+  border-radius: 3px;
+  padding: 12px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-add:hover {
+  color: #62A420;
+  border: 1px solid #62A420;
 }
 
 @media (max-width: 991px) {

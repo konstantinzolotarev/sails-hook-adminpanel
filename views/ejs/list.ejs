@@ -41,10 +41,7 @@ $(document).ready(function() {
     <div class="flex">
         <% var actionType = 'list' %>
         <a href="<%=instance.uri%>/add" id="add">
-            <button class="btn btn-success">
-                <clr-icon shape="plus" role="none"></clr-icon>
-                Add
-            </button>
+            <button class="btn-add">создать</button>
         </a>
         <% include mixin/globalActions %>
     </div>
