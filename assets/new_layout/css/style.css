@@ -225,7 +225,19 @@ textarea {
   margin-left: 0;
 }
 
-.sidenav-panel .nav-group label:hover {
+.nav-label .active:hover {
+  opacity: 1 !important;
+}
+
+.nav-label {
+  transition: .2s;
+}
+
+.nav-label i {
+  margin-right: 5px;
+}
+
+.nav-label:hover {
   opacity: .6;
 }
 
@@ -247,6 +259,11 @@ textarea {
   margin-left: 0;
 }
 
+.sidenav-panel__link i {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
 .sidenav-panel__link:hover {
   opacity: .6;
   text-decoration: none;
@@ -262,12 +279,16 @@ textarea {
   content: none;
 }
 
+.sidenav-panel .nav-group .active .fa-chevron-right {
+  transform: rotate(90deg);
+}
+
 .nav-link:hover {
   opacity: .6;
 }
 
 .navbar-icon {
-  font-size: 16px;
+  font-size: 20px;
   margin-right: 10px;
 }
 
@@ -281,7 +302,7 @@ textarea {
 }
 
 .sidenav-panel .active {
-  background-color: #fff !important;
+  background: #fff !important;
 } 
 
 .sidenav-panel .clr-select {
@@ -433,6 +454,10 @@ input[type=number] {
 .btn-add:hover {
   color: #62A420;
   border: 1px solid #62A420;
+}
+
+.sidenav-content .active {
+  background-color: #fff;
 }
 
 @media (max-width: 991px) {

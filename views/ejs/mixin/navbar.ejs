@@ -2,9 +2,11 @@
   <section class="sidenav-content">
     <section class="nav-group">
       <div class="clr-select-wrapper">
-        <select class="clr-select">
-          <option value="1">Администрирование</option>
-          <option value="2">ДАШБОРД</option>
+        <select class="clr-select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+          <option value="/admin/dashboard"> Панель управления</option>
+          <option value="/admin">Работа с данными</option>
+          <option value="/store" selected>Магазин приложений</option>
+          <option value="/server">Управление сервером</option>
         </select>
       </div>
 
@@ -31,26 +33,28 @@
     <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
       
       <% var active = ""; if (menuItem && menuItem.instanceName && instance && instance.name)  { active = menuItem.instanceName  === instance.name ? 'active' : '' } %>
-      <section class="nav-group collapsible <%= active %>">
+      <section class="nav-group collapsible">
         <input id="tab-<%=menuItem.id%>" type="checkbox" />
-        <label for="tab-<%=menuItem.id%>">
+        <div class="nav-label <%= active %>">
+          <label for="tab-<%=menuItem.id%>">
                     
-          <% if (menuItem.icon)  { %>
-            <span class="navbar-icon">
-              <i class="fas fa-<%=menuItem.icon%>"></i>
-            </span>
-          <% } %>
-
-          <%= menuItem.title %>
-          <i class="fas fa-chevron-right"></i>
-        </label>
+            <% if (menuItem.icon)  { %>
+              <span class="navbar-icon">
+                <i class="fas fa-<%=menuItem.icon%>"></i>
+              </span>
+            <% } %>
+  
+            <%= menuItem.title %>
+            <i class="fas fa-chevron-right"></i>
+          </label>
+        </div>
         <ul class="nav-list">
           <li><a class="nav-link <%= active %>" href="<%= menuItem.link %>">list</a></li>
           <li><a class="nav-link">Link 2</a></li>
         </ul>
       </section> 
     <% }) %>
-    <i class="fas fa-list"></i> <a class="sidenav-panel__link" href="#">Без стрелки</a>
+    <a class="sidenav-panel__link" href="#"> <i class="fas fa-list"></i> Без стрелки</a>
 
   </section>
 </section>
