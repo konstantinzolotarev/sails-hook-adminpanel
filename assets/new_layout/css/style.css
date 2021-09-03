@@ -414,7 +414,18 @@ textarea {
  background-color: #62A420;
 }
 
-@media (max-width: 576px) {
+input[type=number] {
+  max-width: 100%;
+}
+
+@media (max-width: 991px) {
+  .content .layout {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 640px) {
   .header__inner {
     padding-left: 20px;
     padding-right: 16px;
@@ -465,5 +476,23 @@ textarea {
   .content .layout {
     padding-top: 16px;
     padding-left: 16px;
+  }
+
+  .nav-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-nav {
+    margin-left: 0;
+  }
+
+  .btn-nav:first-child {
+    margin-right: 26px;
+  }
+
+  .nav-header-wrap {
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
 }
