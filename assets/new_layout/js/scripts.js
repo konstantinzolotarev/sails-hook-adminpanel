@@ -6,5 +6,4 @@ $(function(){
       $('.sidenav-panel').toggleClass('sidenav-panel--active')
    })
    /* --- burger menu end --- */
-
 });
