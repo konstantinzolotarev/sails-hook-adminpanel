@@ -347,6 +347,7 @@ textarea {
 
 .content-inner {
   width: 100%;
+  background-color: #F6F7F8;
 }
 
 .content .layout {
