@@ -1,0 +1,156 @@
+<div id="<%=key%>-container"> </div>
+<% var v = typeof value === 'object' ? JSON.stringify(value) : value; %> 
+<% if (v === null || !v)  { %>
+   <input type="hidden" id="form-<%=key%>" name="<%=key%>">
+<% } else  {%>
+  <input type="hidden" id="form-<%=key%>" name="<%=key%>" value='<%=v%>'>
+<% } %>
+
+
+<% var checkConfig = false; if (field.config && field.config.FileUploader) { checkConfig = true; } %>
+<% var filesize = 1; if(checkConfig && field.config.FileUploader.filesize) { filesize =  field.config.FileUploader.filesize } %>
+<% var acceptedFiles = "[]"; if (checkConfig && field.config.FileUploader.accepted){ acceptedFiles = JSON.stringify(field.config.FileUploader.accepted) } %>
+
+<% 
+switch (type) {
+  
+  <!--/////////////////////-->
+  case "file":
+  %>
+    <!-- FILE -->
+    <script>
+      const <%=key%>FileManager = new FileUploader({
+        element: '<%=key%>-container',
+        type: 'files',
+        field: '<%=key%>',
+        filesize: <%=filesize%>,
+        url: '<%=instance.uri%>/upload',
+        data: 'form-<%=key%>',
+        small: '0',
+        large: '0',
+        acceptedFiles:<%-acceptedFiles%>
+        });
+    </script>
+  <%
+    break;
+
+  <!--/////////////////////-->
+  case "files":
+  %>   
+    <!-- FILES -->
+    <script>
+      const <%=key%>FileManager = new FileUploader({
+      element: '<%=key%>-container',
+      type: 'file',
+      field: '<%=key%>',
+      filesize: <%=filesize%>,
+      url: '<%=instance.uri%>/upload',
+      data: 'form-<%=key%>',
+      small: '0',
+      large: '0',
+      acceptedFiles:<%-acceptedFiles%>
+      });
+    </script>
+  <%
+    break;
+
+  <!--/////////////////////-->
+  case "image":
+  %>
+  <!-- IMAGE -->
+  <% if (checkConfig && field.config.FileUploader.accepted){ acceptedFiles = JSON.stringify(field.config.FilesUploader.accepted) } else { acceptedFiles = "['png']"} %>
+  <% var smallSize = 150; if (checkConfig && field.config.FileUploader.small) {smallSize = field.config.FileUploader.small}  %>
+  <% var largeSize = 900; if (checkConfig && field.config.FileUploader.large) {largeSize = field.config.FileUploader.large } %>
+  <script>
+      const <%=key%>FileManager = new FileUploader({
+      element: '<%=key%>-container',
+      type: 'image',
+      field: '<%=key%>',
+      filesize: <%=filesize%>,
+      url: '<%=instance.uri%>/upload',
+      data: 'form-<%=key%>',
+      small: '<%=smallSize%>',
+      large: '<%=largeSize%>',
+      acceptedFiles:<%-acceptedFiles%>,
+
+      <% if(checkConfig && field.config.FileUploader.resize) { %>
+        resize: <%=field.config.FileUploader.resize%>,
+      <% } %>
+      
+      <% if(checkConfig &&field.config.FileUploader.aspect) { %>
+        aspect: {
+          width: <%=field.config.FileUploader.aspect.width%>,
+          height: <%=field.config.ImageUploader.aspect.height%>
+        },
+      <% } %>
+
+      <% if(checkConfig &&field.config.FileUploader.size) { %>
+        size: {
+          width: '<%=field.config.FileUploader.size.width%>',
+          height: '<%=field.config.FileUploader.size.height%>'
+        }
+      <% } %>
+      });
+    </script>
+  <%
+    break;
+    <!--/////////////////////-->  
+  case "images":
+  %>     
+  <!-- IMAGES -->
+  <% if (checkConfig && field.config.FileUploader.accepted){ acceptedFiles = JSON.stringify(field.config.FilesUploader.accepted) } else { acceptedFiles = "['png']"} %>
+  <% var smallSize = 150; if (checkConfig && field.config.FileUploader.small) {smallSize = field.config.FileUploader.small}  %>
+  <% var largeSize = 900; if (checkConfig && field.config.FileUploader.large) {largeSize = field.config.FileUploader.large } %>
+    
+  <script>
+      const <%=key%>FileManager = new FileUploader({
+        element: '<%=key%>-container',
+        type: 'images',
+        field: '<%=key%>',
+        filesize: <%=filesize%>,
+        url: '<%=instance.uri%>/upload',
+        data: 'form-<%=key%>',
+        acceptedFiles:<%-acceptedFiles%>,
+        small: '<%=smallSize%>',
+        large: '<%=largeSize%>',
+
+        <% if(checkConfig && field.config.FileUploader.resize) { %>
+          resize: <%=field.config.FileUploader.resize%>,
+        <% } %>
+      
+        <% if(checkConfig &&field.config.FileUploader.aspect) { %>
+          aspect: {
+            width: <%=field.config.FileUploader.aspect.width%>,
+            height: <%=field.config.ImageUploader.aspect.height%>
+          },
+        <% } %>
+
+        <% if(checkConfig &&field.config.FileUploader.size) { %>
+          size: {
+            width: '<%=field.config.FileUploader.size.width%>',
+            height: '<%=field.config.FileUploader.size.height%>'
+          }
+        <% } %>
+
+        <% if(checkConfig &&field.config.FileUploader.preview) { %>
+          images: {
+            dataPreview: "form-<%=field.config.FileUploader.preview%>"
+          } 
+        <% } %>
+        });
+
+        <% if(checkConfig &&field.config.FileUploader.preview) { %>
+          $('#form-<%=field.config.FileUploader.preview%>')[0].type = "hidden";
+          $('label[for="form-<%=field.config.FileUploader.preview%>"')[0].style.display = "none";
+        <% } %>
+    </script>
+  <%
+    break;
+  default:
+    break;
+}
+%>
+
+<script>
+  $('#<%=key%>-container').parent().css({display: 'block'});
+</script>

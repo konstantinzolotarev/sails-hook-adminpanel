@@ -46,6 +46,14 @@
     <% include fields/widgetAce %>
 <% } %>
 
+
+<%# FileUploader %>
+<% var widgetAceTypes = ['image','images', 'file', 'files'] %>
+<% if (~widgetAceTypes.indexOf(type)) { %>
+    <% include fields/widgetFileUploader %>
+<% } %>
+
+
 <% if (type == 'association') { %>
     <% include fields/inputAssociation %>
 <% } %>
