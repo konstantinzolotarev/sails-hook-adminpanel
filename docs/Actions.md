@@ -11,6 +11,13 @@ module.exports.adminpanel = {
         users: {
             title: 'Users',
             model: 'User',
+            actions: [
+                {
+                    link: "/",
+                    title: "First action",
+                    icon: ""
+                },
+            ],
 
             list: {
                 actions: {

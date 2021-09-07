@@ -10,7 +10,7 @@
         </select>
       </div>
 
-    <!-- TODO: Нужно проверить что это  -->
+    <!--     TODO: Нужно проверить что это  -->
     <% adminpanel.menuHelper.getGroups().forEach(function(group) { %>
         <menu-collapse>
             <div class="header">
@@ -31,29 +31,37 @@
 
 
     <% adminpanel.menuHelper.getMenuItems().forEach(function(menuItem) { %>
-      
+
       <% var active = ""; if (menuItem && menuItem.instanceName && instance && instance.name)  { active = menuItem.instanceName  === instance.name ? 'active' : '' } %>
       <section class="nav-group collapsible">
         <input id="tab-<%=menuItem.id%>" type="checkbox" checked/>
         <div class="nav-label <%= active %>">
           <label for="tab-<%=menuItem.id%>">
-                    
+
             <% if (menuItem.icon)  { %>
               <span class="navbar-icon">
                 <i class="fas fa-<%=menuItem.icon%>"></i>
               </span>
             <% } %>
-  
-            <%= menuItem.title %>
-            <i class="fas fa-chevron-right"></i>
+
+              <% if (menuItem.actions && menuItem.actions.length > 0)  { %>
+                  <%= menuItem.title %>
+                  <i class="fas fa-chevron-right"></i>
+              <% } else { %>
+                  <a href ="<%= menuItem.link %>"><%= menuItem.title %></a>
+              <% } %>
+
           </label>
         </div>
-        <ul class="nav-list">
-          <li><a class="nav-link <%= active %>" href="<%= menuItem.link %>">list</a></li>
-          <li><a class="nav-link">Link 2</a></li>
-        </ul>
-      </section> 
-    <% }) %>
+          <% if (menuItem.actions && menuItem.actions.length > 0)  { %>
+              <% menuItem.actions.forEach(function(action) { %>
+                <ul class="nav-list">
+                    <li><a class="nav-link <%= active %>" href="<%= menuItem.actions.link %>"><span class="navbar-icon"> <i class="fas fa-list"></i></span><%= action.title %></a></li>
+                </ul>
+              <% }) %>
+          <% } %>
+          <% }) %>
+      </section>
     <a class="sidenav-panel__link" href="#"> <span class="navbar-icon"> <i class="fas fa-list"></i></span> Без стрелки</a>
 
   </section>
