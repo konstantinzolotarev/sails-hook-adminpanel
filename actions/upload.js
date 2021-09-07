@@ -184,8 +184,7 @@ module.exports = function (req, res) {
                 });
             } else if (type === 'files' || type === 'file') {
                 const ext = filename.substr(filename.lastIndexOf('.') + 1, filename.length);
-                // const url = '/admin/icons/' + ext + '/' + ext + '-128_32.png';
-                const urlIcon = '/admin/icons/' + ext + '/' + ext + '-128_32.png';
+                const urlIcon = '/admin/assets/fileuploader/icons/' + ext + '.svg';
                 const url = fullDir + filename;
                 res.status(201);
                 res.send({
