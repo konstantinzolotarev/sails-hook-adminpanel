@@ -53,6 +53,12 @@
     <% include fields/widgetFileUploader %>
 <% } %>
 
+<%# EditNavigation %>
+<% var widgetAceTypes = ['menu','navigation'] %>
+<% if (~widgetAceTypes.indexOf(type)) { %>
+    <% include fields/widgetEditNavigation %>
+<% } %>
+
 
 <% if (type == 'association') { %>
     <% include fields/inputAssociation %>
