@@ -1,1 +1,67 @@
-EDIT NAVIGATION!
+<ul class="list-group list-group-flush" id="myList">
+    <li class="list-group-item"><div><i class="fas fa-chevron-right"></i>Whatever you want here<select class="clickable">
+                <option>Пункт 1</option>
+                <option>Пункт 2</option>
+            </select></div></li>
+    <li class="list-group-item"><div>Nested list item</div></li>
+    <li class="list-group-item"><div>Another item</div></li>
+</ul>
+
+<script>
+    let options = {
+        // Like a css class name. Class will be removed after drop.
+        currElClass: 'currElemClass',
+
+        placeholderClass: 'placeholderClass',
+
+        hintClass: 'hintClass',
+
+        listSelector: 'ol',
+        hintWrapperClass: 'hintClass',
+
+        listsClass: 'listsClass',
+
+        // All elements with class clickable will be clickable
+        ignoreClass: 'clickable',
+
+        insertZone: 50,
+
+        insertZonePlus: true,
+
+        scroll: 20,
+
+        opener: {
+            active: true,
+            as: 'html',  // or "class"
+            close: '<i class="fa fa-minus red"></i>', // or 'fa fa-minus'
+            open: '<i class="fa fa-plus"></i>', // or 'fa fa-plus'
+            openerCss: {
+                'display': 'inline-block', // Default value
+                'float': 'left', // Default value
+                'width': '18px',
+                'height': '18px',
+                'margin-left': '-35px',
+                'margin-right': '5px',
+                'background-position': 'center center', // Default value
+                'background-repeat': 'no-repeat' // Default value
+            },
+        },
+
+        isAllowed: function(currEl, hint, target)
+        {
+            if(hint.parents('li').first().data('module') === 'c' && currEl.data('module') !== 'c')
+            {
+                hint.css('background-color', '#ff9999');
+                return false;
+            }
+            else
+            {
+                hint.css('background-color', '#99ff99');
+                return true;
+            }
+        }
+    }
+
+    $('#myList').sortableLists(options);
+
+</script>
