@@ -59,6 +59,13 @@
     <% include fields/widgetEditNavigation %>
 <% } %>
 
+<%# EditSchedule %>
+<% var widgetAceTypes = ['schedule','worktime'] %>
+<% if (~widgetAceTypes.indexOf(type)) { %>
+    <% include fields/widgetEditSchedule %>
+<% } %>
+
+
 
 <% if (type == 'association') { %>
     <% include fields/inputAssociation %>
