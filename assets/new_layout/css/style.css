@@ -229,6 +229,7 @@ textarea {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: #565656 !important; 
 }
 
 .nav-label .active:hover {
