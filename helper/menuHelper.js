@@ -193,8 +193,8 @@ module.exports = function menuHelper(config) {
                 }
                 if (val.actions && val.actions.length > 0 && val.actions[0].title !== "Overview") {
                     val.actions.unshift({
-                        title: "Overview",
                         link: config.routePrefix + '/' + key,
+                        title: "Overview",
                         icon: ""
                     })
                 }
