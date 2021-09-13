@@ -204,7 +204,8 @@ class FileUploader {
             "    <i class='fa fa-times' title='Delete file'></i>" +
             "  </div>";
         let item = "";
-        if (this.type === 'file'){
+        console.log(this.type)
+        if (this.type === 'file' || this.type === 'files'){
         item =
             "<div class='" + this.fileContainer + " file-container'>" +
             "  <div class='item-file'>" +
@@ -213,7 +214,7 @@ class FileUploader {
             "  </div>" + control +
             "</div>";
 
-        } else if (this.type === 'image') {
+        } else if (this.type === 'image' || this.type === 'images') {
         item =
             "<div class='" + this.fileContainer + " file-container'>" +
             "  <div class='item-image'>" +
