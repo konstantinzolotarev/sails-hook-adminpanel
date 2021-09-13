@@ -1,4 +1,4 @@
- <nav class="sidenav sidenav-panel">
+<nav class="sidenav sidenav-panel">
   <section class="sidenav-content">
     <section class="nav-group">
       <div class="clr-select-wrapper">
@@ -56,7 +56,7 @@
           <% if (menuItem.actions && menuItem.actions.length > 0)  { %>
               <% menuItem.actions.forEach(function(action) { %>
                 <ul class="nav-list">
-                    <li><a class="nav-link <%= active %>" href="<%= menuItem.actions.link %>"><span class="navbar-icon"> <i class="fas fa-list"></i></span><%= action.title %></a></li>
+                    <li><a class="nav-link <%= active %>" href="<%= action.link %>"><span class="navbar-icon"> <i class="fas fa-list"></i></span><%= action.title %></a></li>
                 </ul>
               <% }) %>
           <% } %>

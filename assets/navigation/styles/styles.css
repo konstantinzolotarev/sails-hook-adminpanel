@@ -1,1 +1,4 @@
 #myList li, #s-l-base li { padding-left:50px }
+.placeholderClass { background-color:#0e6471 }
+.currElCss { background-color:green; color:#fff }
+.hintClass { background-color:green; border:1px dashed white}

@@ -1,13 +1,48 @@
+<!--    Items should have an id to get representation of the list as array, tree or string. -->
+<!--    To get a string representation required next format of id: xx_yy, xx-yy or xx=yy. -->
+<textarea
+        value="<%=value%>"
+        <% field.config.required && 'required' %>
+        <% field.config.disabled && 'disabled'%>
+        name="<%= key %>"
+        id="form-<%= key %>">
+</textarea>
+
 <ul class="list-group list-group-flush" id="myList">
-    <li class="list-group-item"><div><i class="fas fa-chevron-right"></i>Whatever you want here<select class="clickable">
-                <option>Пункт 1</option>
-                <option>Пункт 2</option>
-            </select></div></li>
-    <li class="list-group-item"><div>Nested list item</div></li>
-    <li class="list-group-item"><div>Another item</div></li>
+    <li id="item_1" class="list-group-item" data-value="123">
+        <div><label class="myText">Whatever you want here</label><label class="clickable">[*]</label></div>
+    </li>
+    <li id="item_2" class="list-group-item"><div><label class="myText">Nested list item</label><label class="clickable">[*]</label></div></li>
+    <li id="item_3" class="list-group-item"><div><label class="myText">Another item</label><label class="clickable">[*]</label></div></li>
 </ul>
 
+<section>
+    <span id="toArrBtn" class="btn">To array</span>
+    <span id="toHierBtn" class="btn">To hierarchy</span>
+    <span id="toStrBtn" class="btn">To string</span>
+    <span id="toHTMLBtn" class="btn">My button</span>
+</section>
+
 <script>
+    function save(obj_ul, tree){
+
+        var obj_lis = obj_ul.find("li")
+
+        if (obj_lis.length === 0) return;
+
+        obj_lis.each(function(){
+            var $this = $(this);
+            if($this.parent("ul").get(0) === obj_ul.get(0))
+            {
+                tree.push({
+                    name : $this.find('> div > .myText').text(),
+                    child : save($this.find("ul").first(), [])
+                });
+            }
+        });
+        return tree;
+    }
+
     let options = {
         // Like a css class name. Class will be removed after drop.
         currElClass: 'currElemClass',
@@ -15,9 +50,6 @@
         placeholderClass: 'placeholderClass',
 
         hintClass: 'hintClass',
-
-        listSelector: 'ol',
-        hintWrapperClass: 'hintClass',
 
         listsClass: 'listsClass',
 
@@ -45,23 +77,18 @@
                 'background-position': 'center center', // Default value
                 'background-repeat': 'no-repeat' // Default value
             },
-        },
-
-        isAllowed: function(currEl, hint, target)
-        {
-            if(hint.parents('li').first().data('module') === 'c' && currEl.data('module') !== 'c')
-            {
-                hint.css('background-color', '#ff9999');
-                return false;
-            }
-            else
-            {
-                hint.css('background-color', '#99ff99');
-                return true;
-            }
         }
     }
 
     $('#myList').sortableLists(options);
+    $('#toArrBtn').on('click', function(){ console.log($('#myList').sortableListsToArray()); });
+    $('#toHierBtn').on('click', function() { console.log(JSON.stringify($('#myList').sortableListsToHierarchy())); });
+    $('#toStrBtn').on('click', function() { console.log($('#myList').sortableListsToString()); });
+    $('.clickable').on('click', function () { alert("Click") });
+
+    $('#toHTMLBtn').on('click', function() {
+        console.log(JSON.stringify(save($('#myList'), [])));
+        console.log(JSON.stringify($('#myList').html()));
+    });
 
 </script>
