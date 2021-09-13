@@ -3,7 +3,8 @@
 }
 .file-container {
   display: inline-block;
-  margin: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
   position: relative;
 }
 .file-container .item-image {
@@ -20,7 +21,8 @@
   top: 50%;
   left: 50%;
   background-color: #ffffff;
-  border: 1px solid #bebcbc;
+  border: 1px solid #0079B8;
+  object-fit: cover;
 }
 .file-container.preview .item-image:after {
   position: absolute;

@@ -174,10 +174,14 @@
   box-sizing: border-box; }
 
 .dropzone {
-  min-height: 150px;
+  min-height: 60px;
+  width: 100%;
+  max-width: 220px;
   border: 2px solid rgba(0, 0, 0, 0.3);
   background: white;
-  padding: 20px 20px; }
+  padding: 20px 20px;
+  border: 1px solid #0079B8;
+  color:#0079B8; }
   .dropzone.dz-clickable {
     cursor: pointer; }
     .dropzone.dz-clickable * {
