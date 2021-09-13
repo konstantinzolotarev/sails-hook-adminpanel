@@ -225,6 +225,12 @@ textarea {
   margin-left: 0;
 }
 
+.sidenav-panel .nav-group a {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .nav-label .active:hover {
   opacity: 1 !important;
 }
@@ -354,6 +360,7 @@ textarea {
   padding-top: 30px;
   padding-left: 50px;
   padding-right: 62px;
+  padding-bottom: 40px;
 }
 
 .nav-header {
