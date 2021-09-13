@@ -469,6 +469,178 @@ input[type=number] {
   background-color: #fff;
 }
 
+.editor {
+  margin-top: 10px;
+}
+
+.editor__wrap {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 16px;
+}
+
+.editor__content {
+  display: flex;
+}
+
+.editor__content {
+  border: 1px solid #0079B8;
+  border-radius: 3px;
+  border-right: none;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.editor__content input {
+  position: absolute;
+  left: 99999px;
+  z-index: -33;
+  opacity: 0;
+  font-size: 0;
+  width: 0;
+  height: 0;
+}
+
+.editor__content label {
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #0079B8;
+  padding: 9px 13px;
+  cursor: pointer;
+  border-right: 1px solid #0079B8;
+  transition: .2s;
+}
+
+.editor__content label:hover {
+  opacity: .6;
+}
+
+.editor__form {
+  border: 1px solid #CCCCCC;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding-left: 15px;
+  padding-right: 8px;
+  padding-top: 10px;
+  padding-bottom: 9px;
+}
+
+.editor__content input:checked + label {
+  background: #0079B8;
+  color: #FFFFFF;
+}
+
+.editor__nav {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  margin-bottom: 15px;
+}
+
+.editor__nav button {
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.editor button {
+  cursor: pointer;
+  transition: .2s;
+}
+
+.editor button:hover {
+  opacity: .6;
+}
+
+.editor__nav span {
+  display: flex;
+  align-items: center;
+
+  font-size: 14px;
+  line-height: 14px;
+  color: #828282;
+}
+
+.editor__nav i {
+  font-size: 16px;
+  color: #565656;
+  margin-right: 13px;
+}
+
+.editor__close {
+  color: #737373;
+  font-size: 12px;
+}
+
+.editor__dots {
+  color: #737373;
+  font-size: 16px;
+}
+
+.editor__arrow {
+  font-size: 18px;
+  margin-right: 20px;
+  color: #737373;;
+}
+
+.editor__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor__time {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.editor__time label {
+  font-size: 13px;
+  line-height: 14px;
+  color: #828282;
+  margin-right: 13px;
+}
+
+.editor__time span {
+  position: relative;
+  margin-right: 5px;
+}
+
+.editor__time span i {
+  position: absolute;
+  right: 4px;
+  top: 7px;
+  font-size: 8px;
+}
+
+.editor__time input {
+  font-size: 13px;
+  width: 70px;
+  color: #000000;
+}
+
+.editor__time--date input {
+  width: 100px;
+}
+
+.editor__time input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  background: none;
+}
+
+.editor__time .editor__close i {
+  font-size: 12px;
+}
+
 @media (max-width: 991px) {
   .content .layout {
     padding-left: 16px;
