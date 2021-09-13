@@ -203,13 +203,25 @@ class FileUploader {
             check +
             "    <i class='fa fa-times' title='Delete file'></i>" +
             "  </div>";
-        const item =
+        let item = "";
+        if (this.type === 'file'){
+        item =
             "<div class='" + this.fileContainer + " file-container'>" +
-            control +
+            "  <div class='item-file'>" +
+            "    <img src=" + file.urlS + " id='" + file.id + "'>" +
+            "     <div class='fileuploader_name'>"  + file.name + "</div>" +
+            "  </div>" + control +
+            "</div>";
+
+        } else if (this.type === 'image') {
+        item =
+            "<div class='" + this.fileContainer + " file-container'>" +
             "  <div class='item-image'>" +
             "    <img src=" + file.urlS + " id='" + file.id + "'>" +
-            "  </div>" +
-            "</div>";
+            "  </div>" + control +
+            "</div>" ;
+    
+        }
 
         /*
         How it looks
