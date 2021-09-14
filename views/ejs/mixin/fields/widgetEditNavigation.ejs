@@ -1,46 +1,37 @@
 <!--    Items should have an id to get representation of the list as array, tree or string. -->
 <!--    To get a string representation required next format of id: xx_yy, xx-yy or xx=yy. -->
-<textarea
-        value="<%=value%>"
-        <% field.config.required && 'required' %>
-        <% field.config.disabled && 'disabled'%>
-        name="<%= key %>"
-        id="form-<%= key %>">
-</textarea>
 
 <ul class="list-group list-group-flush" id="myList">
-    <li id="item_1" class="list-group-item" data-value="123">
-        <div><label class="myText">Whatever you want here</label><label class="clickable">[*]</label></div>
+    <li id="item_1" class="list-group-item" data-value="Whatever you want here">
+        <div><label>Whatever you want here</label><label class="clickable">[*]</label></div>
     </li>
-    <li id="item_2" class="list-group-item"><div><label class="myText">Nested list item</label><label class="clickable">[*]</label></div></li>
-    <li id="item_3" class="list-group-item"><div><label class="myText">Another item</label><label class="clickable">[*]</label></div></li>
+    <li id="item_2" class="list-group-item" data-value="Nested list item">
+        <div><label>Nested list item</label><label class="clickable">[*]</label></div>
+    </li>
+    <li id="item_3" class="list-group-item" data-value="Another item">
+        <div><label>Another item</label><label class="clickable">[*]</label></div>
+    </li>
 </ul>
 
-<section>
-    <span id="toArrBtn" class="btn">To array</span>
-    <span id="toHierBtn" class="btn">To hierarchy</span>
-    <span id="toStrBtn" class="btn">To string</span>
-    <span id="toHTMLBtn" class="btn">My button</span>
-</section>
+<textarea
+        name="<%= key %>"
+        id="form-<%= key %>"
+        rows="10">
+</textarea>
 
 <script>
-    function save(obj_ul, tree){
 
-        var obj_lis = obj_ul.find("li")
-
-        if (obj_lis.length === 0) return;
-
-        obj_lis.each(function(){
-            var $this = $(this);
-            if($this.parent("ul").get(0) === obj_ul.get(0))
-            {
-                tree.push({
-                    name : $this.find('> div > .myText').text(),
-                    child : save($this.find("ul").first(), [])
-                });
+    function createDOM(data) {
+        let ul = document.createElement('ul');
+        for (let item of data) {
+            $(ul).append(`<li id="${item.id}" class="list-group-item" data-value="${item.value}">` +
+                `<div><label>${item.value}</label><label class="clickable">[*]</label></div>` +
+                '</li>');
+            if (item.children.length > 0) {
+                $(" > li[id=" + item.id + "]", ul).append(createDOM(item.children));
             }
-        });
-        return tree;
+        }
+        return ul;
     }
 
     let options = {
@@ -77,18 +68,23 @@
                 'background-position': 'center center', // Default value
                 'background-repeat': 'no-repeat' // Default value
             },
+        },
+
+        onChange: function()
+        {
+            $('textarea').val(JSON.stringify($('#myList').sortableListsToHierarchy()));
+            const <%=key%>EditNavigation = new EditNavigation({
+                element: '<%=key%>-container',
+                field: '<%=key%>',
+                data: $('#form-<%=key%>').val()
+            });
+
+            <%=key%>EditNavigation.logConfig();
+            $('#myList').after(createDOM(JSON.parse($('#form-<%= key %>').val())));
         }
     }
 
     $('#myList').sortableLists(options);
-    $('#toArrBtn').on('click', function(){ console.log($('#myList').sortableListsToArray()); });
-    $('#toHierBtn').on('click', function() { console.log(JSON.stringify($('#myList').sortableListsToHierarchy())); });
-    $('#toStrBtn').on('click', function() { console.log($('#myList').sortableListsToString()); });
     $('.clickable').on('click', function () { alert("Click") });
-
-    $('#toHTMLBtn').on('click', function() {
-        console.log(JSON.stringify(save($('#myList'), [])));
-        console.log(JSON.stringify($('#myList').html()));
-    });
 
 </script>
