@@ -38,3 +38,21 @@
   z-index: 3;
 }
 
+
+.item-file {
+  margin-right: 15px;
+  margin-bottom: 25px;
+}
+
+.item-file img {
+  width: 100%;
+  max-width: 140px;
+
+  margin-bottom: 15px;
+}
+
+.fileuploader_name {
+  font-size: 14px;
+  line-height: 14px;
+  color: #828282;
+}
