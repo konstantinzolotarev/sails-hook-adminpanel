@@ -7,28 +7,28 @@
     </div>
 </div>
 <div class="layout">
-    <div>
+    <div class="nav-header">
         <a href="<%= instance.uri %>/">
             <button raised class="btn">
-                <clr-icon shape="undo"></clr-icon>
-                Back to list
+                <i class="fas fa-long-arrow-alt-left"></i>
+                Вернуться
             </button>
         </a>
     </div>
     
     <form id="form" action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
         <% Object.keys(fields).forEach(function(key) { %>
-            <div class="form-group">
-                <label for="form-<%=key%>"><%=fields[key].config.title %></label>
-                <% var field = fields[key] %>
-                <% var value = data[key] %>
+            <label class="admin-panel__title" for="form-<%=key%>"><%=fields[key].config.title %></label>
+            <% var field = fields[key] %>
+            <% var value = data[key] %>
+            <div class="admin-panel__widget">
                 <% include mixin/fieldWidget %>
             </div>
         <% }) %>
         <div>
             <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
         </div>
-        <p>
+        <p class="layout-btn">
             <button raised class="btn-save" id="submit" onclick="submitForm()">
                 Сохранить
             </button>

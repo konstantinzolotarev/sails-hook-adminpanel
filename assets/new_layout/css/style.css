@@ -643,10 +643,20 @@ input[type=number] {
   font-size: 12px;
 }
 
+.layout-btn {
+  padding-left: 50px;
+  margin-top: 0;
+  padding-bottom: 40px;
+}
+
 @media (max-width: 991px) {
   .content .layout {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .layout-btn {
+    padding-left: 20px;
   }
 }
 
@@ -784,5 +794,10 @@ input[type=number] {
 
   .editor__content label {
     padding: 7px 9px;
+  }
+
+  .layout-btn {
+    margin-top: -30px;
+    padding-left: 16px;
   }
 }
