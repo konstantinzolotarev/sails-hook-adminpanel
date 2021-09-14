@@ -2,7 +2,8 @@
   text-align: center;
 }
 .file-container {
-  display: inline-block;
+  display: flex;
+  flex-direction: column-reverse;
   margin-right: 5px;
   margin-top: 5px;
   position: relative;
