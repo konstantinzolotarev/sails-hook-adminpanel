@@ -129,14 +129,14 @@ switch (type) {
           size: {
             width: '<%=field.config.FileUploader.size.width%>',
             height: '<%=field.config.FileUploader.size.height%>'
-          }
+          },
         <% } %>
 
-        <% if(checkConfig &&field.config.FileUploader.preview) { %>
-          images: {
+        images: {
+            <% if(checkConfig &&field.config.FileUploader.preview) { %>
             dataPreview: "form-<%=field.config.FileUploader.preview%>"
+            <% } %>
           } 
-        <% } %>
         });
 
         <% if(checkConfig &&field.config.FileUploader.preview) { %>
