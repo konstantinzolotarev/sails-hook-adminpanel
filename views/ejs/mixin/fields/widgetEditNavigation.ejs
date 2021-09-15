@@ -1,17 +1,37 @@
 <!--    Items should have an id to get representation of the list as array, tree or string. -->
 <!--    To get a string representation required next format of id: xx_yy, xx-yy or xx=yy. -->
 
-<ul class="list-group list-group-flush" id="myList">
+<ul class="list-group list-group-flush" id="sortableList" style="width: max-content;">
     <li id="item_1" class="list-group-item" data-value="Whatever you want here">
-        <div><label>Whatever you want here</label><label class="clickable">[*]</label></div>
+        <div>
+            <label>Whatever you want here</label>
+            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
+            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
+            <a href="#" class="clickable editItem popup-open btn btn-sm">[Edit]</a>
+            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
+        </div>
     </li>
     <li id="item_2" class="list-group-item" data-value="Nested list item">
-        <div><label>Nested list item</label><label class="clickable">[*]</label></div>
+        <div>
+            <label>Nested list item</label>
+            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
+            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
+            <a href="#" class="clickable editItem popup-open btn btn-sm">[Edit]</a>
+            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
+        </div>
     </li>
     <li id="item_3" class="list-group-item" data-value="Another item">
-        <div><label>Another item</label><label class="clickable">[*]</label></div>
+        <div>
+            <label>Another item</label>
+            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
+            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
+            <a href="#" class="clickable editItem popup-open btn btn-sm">[Edit]</a>
+            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
+        </div>
     </li>
 </ul>
+
+<button type="button" id="addBtn" class="btn">Add elem</button>
 
 <textarea
         name="<%= key %>"
@@ -19,19 +39,87 @@
         rows="10">
 </textarea>
 
+<div class="popup-fade">
+    <div class="popup">
+        <a class="popup-close" href="#">Закрыть</a>
+        <p>Pop-up window for editing items</p>
+    </div>
+</div>
+
 <script>
 
     function createDOM(data) {
         let ul = document.createElement('ul');
         for (let item of data) {
             $(ul).append(`<li id="${item.id}" class="list-group-item" data-value="${item.value}">` +
-                `<div><label>${item.value}</label><label class="clickable">[*]</label></div>` +
+                `<div><label>${item.value}</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>` +
+            '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
+                '<a href="#" class="clickable editItem popup-open btn btn-sm">[Edit]</a>' +
+            `<a href="#" class="clickable deleteItem btn btn-sm">[X]</a></div>` +
                 '</li>');
+            $(ul).append();
             if (item.children.length > 0) {
                 $(" > li[id=" + item.id + "]", ul).append(createDOM(item.children));
             }
         }
         return ul;
+    }
+
+    function giveItemsUniqueId() {
+        $('li').each(function (index, element) {
+            $(element).attr('id', "item_" + index);
+        })
+    }
+
+    function addItem() {
+        $('#sortableList').append('<li id="item_1" class="list-group-item" data-value="Whatever you want here">' +
+            '<div><label>Whatever you want here</label>' +
+            '<a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
+            '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
+            '<a href="#" class="clickable editItem popup-open btn btn-sm">[Edit]</a>' +
+            '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
+            '</div>' +
+            '</li>');
+        giveItemsUniqueId();
+        textareaValue();
+    }
+
+    function deleteItem(item) {
+        $(item).parent().parent().remove();
+        textareaValue();
+    }
+
+    function editItem(item) {
+    }
+
+    function itemUp(item) {
+        let currentItem = $(item).parent().parent();
+        let prevItem = $(currentItem).prev();  // returns prev item or empty jQuery object
+
+        if (prevItem && prevItem.length > 0) {
+            $(currentItem).insertBefore($(prevItem));
+        } else {
+            console.log("Previous item not found");
+            // there will be children to sibling action
+        }
+        textareaValue();
+    }
+
+    function itemDown(item) {
+        let currentItem = $(item).parent().parent();
+        let nextItem = $(currentItem).next();
+
+        if (nextItem && nextItem.length > 0) {
+            $(currentItem).insertAfter($(nextItem));
+        } else {
+            console.log("Next item not found");
+            // there will be children to sibling action
+        }
+        textareaValue();
+    }
+
+    function textareaValue() {
+        $('textarea').val(JSON.stringify($('#sortableList').sortableListsToHierarchy()));
     }
 
     let options = {
@@ -72,7 +160,9 @@
 
         onChange: function()
         {
-            $('textarea').val(JSON.stringify($('#myList').sortableListsToHierarchy()));
+            textareaValue();
+
+            // take this code to submit button action
             const <%=key%>EditNavigation = new EditNavigation({
                 element: '<%=key%>-container',
                 field: '<%=key%>',
@@ -80,11 +170,40 @@
             });
 
             <%=key%>EditNavigation.logConfig();
-            $('#myList').after(createDOM(JSON.parse($('#form-<%= key %>').val())));
+            <!--$('#sortableList').after(createDOM(JSON.parse($('#form-<%= key %>').val())));-->
         }
     }
 
-    $('#myList').sortableLists(options);
-    $('.clickable').on('click', function () { alert("Click") });
+    $('#sortableList').sortableLists(options);
+    $('#sortableList').on('click', '.deleteItem', function() { deleteItem(this) });
+    $('#addBtn').on('click', function() { addItem() });
+    $('#sortableList').on('click', '.itemUp', function() { itemUp(this) });
+    $('#sortableList').on('click', '.itemDown', function() { itemDown(this) });
+    $('#sortableList').on('click', '.editItem', function() { editItem(this) })
+
+    $(document).ready(function($) {
+        $('.popup-open').click(function() {
+            $('.popup-fade').fadeIn();
+            return false;
+        });
+
+        $('.popup-close').click(function() {
+            $(this).parents('.popup-fade').fadeOut();
+            return false;
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode === 27) {
+                e.stopPropagation();
+                $('.popup-fade').fadeOut();
+            }
+        });
+
+        $('.popup-fade').click(function(e) {
+            if ($(e.target).closest('.popup').length == 0) {
+                $(this).fadeOut();
+            }
+        });
+    });
 
 </script>
