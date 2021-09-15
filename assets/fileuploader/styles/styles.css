@@ -13,6 +13,7 @@
   bottom: 1px;
   left: 1px;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 .file-container .item-image img {
   width: 150px;
