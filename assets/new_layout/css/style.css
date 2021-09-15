@@ -528,6 +528,8 @@ input[type=number] {
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 9px;
+  width: 100%;
+  max-width: 415px;
 }
 
 .editor__content input:checked + label {
@@ -616,19 +618,19 @@ input[type=number] {
 
 .editor__time span i {
   position: absolute;
-  right: 4px;
+  right: -4px;
   top: 7px;
   font-size: 8px;
 }
 
 .editor__time input {
   font-size: 13px;
-  width: 70px;
+  width: 80px;
   color: #000000;
 }
 
 .editor__time--date input {
-  width: 100px;
+  width: 110px;
 }
 
 .editor__time input::-webkit-calendar-picker-indicator {
@@ -762,7 +764,6 @@ input[type=number] {
   }
 
   .editor__form {
-    width: 100%;
     padding: 5px 10px;
   }
 
