@@ -34,9 +34,11 @@
 <button type="button" id="addBtn" class="btn">Add elem</button>
 
 <textarea
+        <% field.config.required && 'required' %>
+        <% field.config.disabled && 'disabled'%>
         name="<%= key %>"
         id="form-<%= key %>"
-        rows="10">
+        rows="10"><%-JSON.stringify(value)%>
 </textarea>
 
 <div class="popup-fade">
