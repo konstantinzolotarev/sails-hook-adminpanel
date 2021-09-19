@@ -176,12 +176,11 @@
 .dropzone {
   min-height: 60px;
   width: 100%;
-  max-width: 220px;
   border: 2px solid rgba(0, 0, 0, 0.3);
-  background: white;
+  background: #fefefe;
   padding: 20px 20px;
-  border: 1px solid #0079B8;
-  color:#0079B8; }
+  border: 2px dotted #5D5D5D;
+  color: #6F6F6F; }
   .dropzone.dz-clickable {
     cursor: pointer; }
     .dropzone.dz-clickable * {

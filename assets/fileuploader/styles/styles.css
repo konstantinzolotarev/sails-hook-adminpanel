@@ -22,9 +22,8 @@
   object-fit: contain;
   top: 50%;
   left: 50%;
-  background-color: #ffffff;
+  background-color: #000;
   border: 1px solid #0079B8;
-  object-fit: cover;
 }
 .file-container.preview .item-image:after {
   position: absolute;
@@ -51,6 +50,12 @@
   align-items: center;
   width: auto;
   margin-bottom: 10px;
+
+  border: 1px solid #4e4e4e;
+  padding: 10px;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
 }
 
 .fileUploader-container-file-container {
@@ -73,9 +78,20 @@
 .item-control {
   margin-left: 10px;
   cursor: pointer;
+  transition: .2s;
+}
+
+.item-control:hover {
+  opacity: .6;
 }
 
 .ui-sortable {
   display: flex;
   flex-wrap: wrap;
+}
+
+.modal-body img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
 }
