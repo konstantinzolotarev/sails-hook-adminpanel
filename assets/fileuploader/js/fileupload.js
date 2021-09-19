@@ -129,7 +129,7 @@ class FileUploader {
         const contId = this.elName + '-container';
         const containerDiv = "<div class='container' id='" + contId + "'></div>";
         const dzId = this.elName + '-dropzone';
-        const dzDiv = "<form method='post' id=" + dzId + " class='dropzone'></form>";
+        const dzDiv = "<form method='post' id=" + dzId + " class='dropzone dropzone-fileuploader'></form>";
         this.el.append(this.progressDiv, containerDiv, dzDiv, modalDOM[0]);
         $('#file-info-modal-' + this.elName).hide();
         this.container = $('#' + contId);
@@ -304,6 +304,15 @@ class FileUploader {
             fu.setModalFile(file);
             $('#file-info-modal-' + fu.elName).show();
         });
+
+        $('.' + this.fileContainer + ' > .item-file').click(function () {
+            const fileEl = $(this).find('img');
+            const id = fileEl.attr('id');
+            const file = fu.files[id];
+            fu.setModalFile(file);
+            $('#file-info-modal-' + fu.elName).show();
+        });
+
 
         // make picture preview
         $('.' + this.fileContainer + ' > .item-control > .fa-check').click(function () {
