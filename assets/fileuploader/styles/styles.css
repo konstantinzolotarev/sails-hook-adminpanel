@@ -3,6 +3,7 @@
 }
 .file-container {
   display: flex;
+  width: auto;
   margin-right: 5px;
   margin-top: 5px;
   position: relative;
@@ -46,17 +47,21 @@
 
 
 .item-file {
-  width: 100%;
-  max-width: 140px;
+  display: flex;
+  align-items: center;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.fileUploader-container-file-container {
   margin-right: 15px;
-  margin-bottom: 25px;
 }
 
 .item-file img {
   width: 100%;
-  max-width: 140px;
-
-  margin-bottom: 15px;
+  max-width: 21px;
+  height: 21px;
+  margin-right: 10px;
 }
 
 .fileuploader_name {
@@ -67,4 +72,10 @@
 
 .item-control {
   margin-left: 10px;
+  cursor: pointer;
+}
+
+.ui-sortable {
+  display: flex;
+  flex-wrap: wrap;
 }
