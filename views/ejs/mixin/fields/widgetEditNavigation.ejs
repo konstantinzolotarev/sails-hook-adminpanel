@@ -3,27 +3,27 @@
 
 <!--Sortable list-->
 <ul class="list-group list-group-flush" id="sortableList" style="width: max-content;">
-    <li id="item_1" class="list-group-item" data-value="Whatever you want here" data-value2="123">
+    <li id="item_1" class="list-group-item" data-hint="Whatever you want here" data-link="/" data-title="Home">
         <div>
-            <label>Whatever you want here</label>
+            <label>Home</label>
             <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
             <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
             <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
             <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
         </div>
     </li>
-    <li id="item_2" class="list-group-item" data-value="Nested list item">
+    <li id="item_2" class="list-group-item" data-hint="About page" data-link="#about" data-title="About us">
         <div>
-            <label>Nested list item</label>
+            <label>About us</label>
             <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
             <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
             <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
             <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
         </div>
     </li>
-    <li id="item_3" class="list-group-item" data-value="Another item">
+    <li id="item_3" class="list-group-item" data-hint="Feedback" data-link="#feedback" data-title="Feedback">
         <div>
-            <label>Another item</label>
+            <label>Feedback</label>
             <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
             <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
             <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
@@ -45,16 +45,42 @@
 <!--Modal window-->
 <div class="popup-fade">
     <div class="popup">
-        <a class="popup-close" href="#">Close</a>
-        <div id="data-value" style="display: none;">
-            <label for="itemValue">Value</label>
-            <input type="text" id="itemValue" placeholder="Enter the value">
+        <a class="popup-close close-btn" href="#">Close</a>
+        <div id="data-hint" style="display: none;">
+            <label for="itemHint">Hint</label>
+            <input type="text" id="itemHint">
         </div>
-        <div id="data-value2" style="display: none;">
-            <label for="itemValue2">Value2</label>
-            <input type="text" id="itemValue2" placeholder="Enter the value2">
+        <div id="data-link" style="display: none;">
+            <label for="itemLink">Link</label>
+            <input type="text" id="itemLink">
         </div>
-        <a class="editItem" itemid="" href="#">Edit</a>
+        <div id="data-title" style="display: none;">
+            <label for="itemTitle">Title</label>
+            <input type="text" id="itemTitle">
+        </div>
+        <div id="data-something" style="display: none;">
+            <label for="itemSomething">Something</label>
+            <input type="text" id="itemSomething">
+        </div>
+        <div id="data-thing" style="display: none;">
+            <label for="itemthing">thing</label>
+            <input type="text" id="itemthing">
+        </div>
+        <div>
+            <label for="parentSelector">Choose parent</label>
+            <select class="form-select" id="parentSelector" aria-label="Default select example">
+            </select>
+        </div>
+        <div>
+            <label for="propertyAdder">Add property</label>
+            <select class="form-select" id="propertyAdder" aria-label="Default select example">
+            </select>
+            <a class="addProperty" href="#">Add</a>
+        </div>
+        <div>
+            <a class="editItem" itemid="" href="#">Save</a>
+            <a class="close-btn" href="#">Cancel</a>
+        </div>
     </div>
 </div>
 
@@ -63,14 +89,22 @@
     function createDOM(data) {
         let ul = document.createElement('ul');
         for (let item of data) {
-            $(ul).append(`<li id="${item.id}" class="list-group-item" data-value="New element">` +
-                `<div><label>${item.value.value}</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>` +
+            $(ul).append(`<li id="${item.id}" class="list-group-item" data-hint="" data-link="" data-title="">` +
+                `<div><label>${item.title}</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>` +
                 '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
                 '<a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>' +
                 `<a href="#" class="clickable deleteItem btn btn-sm">[X]</a></div>` +
                 '</li>');
-            for (let [key, value] of Object.entries(item.value)) {
-                $(' > li[id=' + item.id + ']', ul).attr(`data-${key}`, value);
+            // let dataAttributes = {};
+            // for (let [key, value] of Object.entries(item)) {
+            //     if (key !== 'id' && key !== 'order' && key !== 'children') {
+            //         dataAttributes[key] = value;
+            //     }
+            // }
+            for (let [key, value] of Object.entries(item)) {
+                if (key !== 'id' && key !== 'order' && key !== 'children') {
+                    $(' > li[id=' + item.id + ']', ul).attr(`data-${key}`, value);
+                }
             }
             if (item.children.length > 0) {
                 $(" > li[id=" + item.id + "]", ul).append(createDOM(item.children));
@@ -80,38 +114,67 @@
     }
 
     function giveItemsUniqueId() {
-        $('li').each(function (index, element) {
+        $('li[id^="item_"]').each(function (index, element) {
             $(element).attr('id', "item_" + index);
         })
     }
 
+    function addProperty() {
+        $('.popup > div[id^="data-"]').each(function(index, element) {
+            console.log($(element).attr('id'));
+            if ($(element).attr('id') === $('#propertyAdder').val()) {
+                $(element).show();
+                $('li[id^="item_"]').attr($('#propertyAdder').val(), "");
+                $('#propertyAdder option:selected').remove();
+
+            }
+        })
+        saveChanges();
+    }
+
     function addItem() {
-        $('#sortableList').append('<li id="item_1" class="list-group-item" data-value="Whatever you want here">' +
-            '<div><label>Whatever you want here</label>' +
+        $('#sortableList').append('<li id="item_new" class="list-group-item" data-hint="Whatever you want here" data-link="/" data-title="New element">' +
+            '<div><label>New element</label>' +
             '<a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
             '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
             '<a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>' +
             '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
             '</div>' +
             '</li>');
+        for (let key of Object.keys($('#sortableList > li').getAttr())) {
+            if ($('#item_new').attr(key) === undefined) {
+                $('#item_new').attr(key, "");
+            }
+        }
         giveItemsUniqueId();
-        textareaValue();
+        saveChanges();
     }
 
     function deleteItem(item) {
         $(item).parent().parent().remove();
-        textareaValue();
+        saveChanges();
     }
 
     function editItem() {
-        let itemId = '#' + $('.popup > .editItem').attr('itemid');
-        $(' > div > label', itemId).text($('.popup > div[id="data-value"] > input').val());
+        let itemId = '#' + $('.popup > div > .editItem').attr('itemid');
+        $(' > div > label', itemId).text($('.popup > div[id="data-title"] > input').val());
         $('.popup > div').each(function(index, element) {
-            if ($(itemId).attr($(element).attr('id'))) {
+            if ($(element).is(":visible") && $(element).attr('id')) {
                 $(itemId).attr($(element).attr('id'), $('input', element).val());
             }
         })
-        textareaValue();
+        if ($('.popup > div > select').val() === 'global') {
+            $('#sortableList').append($(itemId));
+        } else if ($('#' + $('.popup > div > select').val()).children().length === 1) {
+            $('#' + $('.popup > div > select').val()).append(document.createElement('ul'));
+            $('#' + $('.popup > div > select').val() + ' > ul').append($(itemId));
+        } else {
+            $('#' + $('.popup > div > select').val() + ' > ul').append($(itemId));
+        }
+        saveChanges();
+        closePopup();
+        $('#parentSelector').empty();
+        $('#propertyAdder').empty();
     }
 
     function itemUp(item) {
@@ -121,7 +184,7 @@
         if (prevItem && prevItem.length > 0) {
             $(currentItem).insertBefore($(prevItem));
         }
-        textareaValue();
+        saveChanges();
     }
 
     function itemDown(item) {
@@ -131,26 +194,29 @@
         if (nextItem && nextItem.length > 0) {
             $(currentItem).insertAfter($(nextItem));
         }
-        textareaValue();
+        saveChanges();
     }
 
-    function textareaValue() {
+    function saveChanges() {
         $('textarea').val(JSON.stringify($('#sortableList').toHierarchy()));
+        const <%=key%>EditNavigation = new EditNavigation({
+            element: '<%=key%>-container',
+            field: '<%=key%>',
+            data: $('#form-<%=key%>').val()
+        });
+
+        <%=key%>EditNavigation.logConfig();
+        let replica = createDOM(JSON.parse($('#form-<%= key %>').val()));
+        console.log(replica);
     }
 
     function fillPopUp(item) {
-        // add filter for attrs (should contain data-) and create pop-up fields so many as attrs (data-)
         let attributes = $(item).parent().parent().getAttr(); // getAttr() gives an object with attributes and their values
-        // let dataAttributes = {};
-        // for (let [key, value] of Object.entries(attributes)) {
-        //     if (key.startsWith('data-')) {
-        //         dataAttributes[key.slice(5)] = value;
-        //     }
-        // }
-        // console.log(dataAttributes);
+        let itemId;
         for (let [key, value] of Object.entries(attributes)) {
             if (key === 'id') {
-                $(".popup > .editItem").attr('itemid', value);
+                itemId = value;
+                $(".popup > div > .editItem").attr('itemid', value);
             }
             $(".popup").children().each(function(index, element) {
                 if ($(element).getAttr().id === key) {
@@ -159,6 +225,44 @@
                 }
             })
         }
+        $('#parentSelector').append($('<option>', {
+            value: 'global',
+            text: 'global'
+        }))
+        $('li[id^="item_"]').each(function(index, element) {
+            if ($(element).attr('id') !== itemId) {
+                $('#parentSelector').append($('<option>', {
+                    value: $(element).attr('id'),
+                    text: $(element).attr('id')
+                }))
+            }
+        })
+        $('#propertyAdder').append($('<option>', {
+            value: 'None',
+            text: 'None'
+        }))
+        $('.popup > div[id^="data-"]').each(function(index, element) {
+            if ($('#' + itemId).attr($(element).attr('id')) === undefined) {
+                console.log($(element))
+                $('#propertyAdder').append($('<option>', {
+                    value: $(element).attr('id'),
+                    text: $(element).attr('id')
+                }))
+            }
+        })
+    }
+
+    function closePopup() {
+        $('.popup-fade').fadeOut();
+        // $('.popup > div').each(function(index, element) {
+        //     if ($(element).attr('id')) {
+        //         $(element).hide();
+        //     }
+        //     // maybe add here erasing data in input types
+        // })
+        $('#parentSelector').empty();
+        $('#propertyAdder').empty();
+        return false;
     }
 
     // function that improves attr()
@@ -182,7 +286,7 @@
         };
     })($.fn.attr);
 
-
+    // function that replaces sortableListsToHierarchy function from original module
     $.fn.toHierarchy = function()
     {
         var arr = [],
@@ -207,7 +311,9 @@
                 }
             }
             console.log(dataAttributes);
-            listItem.value = dataAttributes;
+            for (let [key, value] of Object.entries(dataAttributes)) {
+                listItem[key] = value;
+            }
             listItem.order = order;
             arr.push( listItem );
             listItem.children = li.children( 'ul,ol' ).toHierarchy();
@@ -256,18 +362,11 @@
 
         onChange: function()
         {
-            textareaValue();
+            saveChanges();
 
-            // take this code to submit button action
-            const <%=key%>EditNavigation = new EditNavigation({
-                element: '<%=key%>-container',
-                field: '<%=key%>',
-                data: $('#form-<%=key%>').val()
-            });
+            // use parentsUntil and isAllowed option to replace maxLevel option
+            console.log($('#item_1').parentsUntil('#sortableList').length)
 
-            <%=key%>EditNavigation.logConfig();
-            let replica = createDOM(JSON.parse($('#form-<%= key %>').val()));
-            console.log(replica);
             <!--$(replica).attr('id', 'sortableList');-->
             <!--$('#sortableList').replaceWith(replica);-->
         }
@@ -278,7 +377,9 @@
     $('#sortableList').on('click', '.deleteItem', function() { deleteItem(this) });
     $('#sortableList').on('click', '.itemUp', function() { itemUp(this) });
     $('#sortableList').on('click', '.itemDown', function() { itemDown(this) });
-    $('.popup-fade').on('click', '.editItem', function() { editItem() })
+    $('.popup-fade').on('click', '.editItem', function() { editItem() });
+    $('.close-btn').click(function() { closePopup() });
+    $('.popup-fade').on('click', '.addProperty', function() { addProperty() });
 
     $('#sortableList').on('click', '.popup-open', function() {
         fillPopUp(this);
@@ -286,25 +387,16 @@
         return false;
     });
 
-    $('.popup-close').click(function() {
-        $(this).parents('.popup-fade').fadeOut();
-        $('.popup > div').each(function(index, element) {
-            $(element).hide();
-            // maybe add here erasing data in input types
-        })
-        return false;
-    });
-
     $(document).keydown(function(e) {
         if (e.keyCode === 27) {
             e.stopPropagation();
-            $('.popup-fade').fadeOut();
+            closePopup();
         }
     });
 
     $('.popup-fade').click(function(e) {
         if ($(e.target).closest('.popup').length === 0) {
-            $(this).fadeOut();
+            closePopup();
         }
     });
 
