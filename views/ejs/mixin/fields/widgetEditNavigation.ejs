@@ -1,5 +1,4 @@
 <!--    Items should have an id to get representation of the list as array, tree or string. -->
-<!--    To get a string representation required next format of id: xx_yy, xx-yy or xx=yy. -->
 
 <!--Sortable list-->
 <ul class="list-group list-group-flush" id="sortableList" style="width: max-content;">
@@ -8,7 +7,7 @@
             <label>Home</label>
             <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
             <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
+            <a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>
             <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
         </div>
     </li>
@@ -17,7 +16,7 @@
             <label>About us</label>
             <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
             <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
+            <a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>
             <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
         </div>
     </li>
@@ -26,13 +25,13 @@
             <label>Feedback</label>
             <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
             <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
+            <a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>
             <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
         </div>
     </li>
 </ul>
 
-<button type="button" id="addBtn" class="btn">Add elem</button>
+<button type="button" id="addBtn" class="btn">Add element</button>
 
 <textarea
         <% field.config.required && 'required' %>
@@ -43,43 +42,56 @@
 </textarea>
 
 <!--Modal window-->
-<div class="popup-fade">
-    <div class="popup">
-        <a class="popup-close close-btn" href="#">Close</a>
-        <div id="data-hint" style="display: none;">
-            <label for="itemHint">Hint</label>
-            <input type="text" id="itemHint">
-        </div>
-        <div id="data-link" style="display: none;">
-            <label for="itemLink">Link</label>
-            <input type="text" id="itemLink">
-        </div>
-        <div id="data-title" style="display: none;">
-            <label for="itemTitle">Title</label>
-            <input type="text" id="itemTitle">
-        </div>
-        <div id="data-something" style="display: none;">
-            <label for="itemSomething">Something</label>
-            <input type="text" id="itemSomething">
-        </div>
-        <div id="data-thing" style="display: none;">
-            <label for="itemthing">thing</label>
-            <input type="text" id="itemthing">
-        </div>
-        <div>
-            <label for="parentSelector">Choose parent</label>
-            <select class="form-select" id="parentSelector" aria-label="Default select example">
-            </select>
-        </div>
-        <div>
-            <label for="propertyAdder">Add property</label>
-            <select class="form-select" id="propertyAdder" aria-label="Default select example">
-            </select>
-            <a class="addProperty" href="#">Add</a>
-        </div>
-        <div>
-            <a class="editItem" itemid="" href="#">Save</a>
-            <a class="close-btn" href="#">Cancel</a>
+<div class="modal fade" id="popUp">
+    <div class="modal-dialog modal-dialog-centered" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Header
+            </div>
+            <div class="modal-body">
+                <div id="data-hint" style="display: none;">
+                    <label for="itemHint">Hint</label>
+                    <input type="text" id="itemHint">
+                    <a href="#" class="applyToAll">Apply to all</a>
+                </div>
+                <div id="data-link" style="display: none;">
+                    <label for="itemLink">Link</label>
+                    <input type="text" id="itemLink">
+                    <a href="#" class="applyToAll">Apply to all</a>
+                </div>
+                <div id="data-title" style="display: none;">
+                    <label for="itemTitle">Title</label>
+                    <input type="text" id="itemTitle">
+                    <a href="#" class="applyToAll">Apply to all</a>
+                </div>
+                <div id="data-something" style="display: none;">
+                    <label for="itemSomething">Something</label>
+                    <input type="text" id="itemSomething">
+                    <a href="#" class="applyToAll">Apply to all</a>
+                    <a href="#" class="deleteProp">[X]</a>
+                </div>
+                <div id="data-thing" style="display: none;">
+                    <label for="itemthing">thing</label>
+                    <input type="text" id="itemthing">
+                    <a href="#" class="applyToAll">Apply to all</a>
+                    <a href="#" class="deleteProp">[X]</a>
+                </div>
+                <div>
+                    <label for="parentSelector">Choose parent</label>
+                    <select class="form-select" id="parentSelector" aria-label="Default select example">
+                    </select>
+                </div>
+                <div>
+                    <label for="propertyAdder">Add property</label>
+                    <select class="form-select" id="propertyAdder" aria-label="Default select example">
+                    </select>
+                    <a class="addProperty" href="#">Add</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="editItem btn btn-success" data-dismiss="modal" itemid="" href="#">Save</a>
+                <a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>
+            </div>
         </div>
     </div>
 </div>
@@ -92,15 +104,9 @@
             $(ul).append(`<li id="${item.id}" class="list-group-item" data-hint="" data-link="" data-title="">` +
                 `<div><label>${item.title}</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>` +
                 '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-                '<a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>' +
+                '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
                 `<a href="#" class="clickable deleteItem btn btn-sm">[X]</a></div>` +
                 '</li>');
-            // let dataAttributes = {};
-            // for (let [key, value] of Object.entries(item)) {
-            //     if (key !== 'id' && key !== 'order' && key !== 'children') {
-            //         dataAttributes[key] = value;
-            //     }
-            // }
             for (let [key, value] of Object.entries(item)) {
                 if (key !== 'id' && key !== 'order' && key !== 'children') {
                     $(' > li[id=' + item.id + ']', ul).attr(`data-${key}`, value);
@@ -120,8 +126,7 @@
     }
 
     function addProperty() {
-        $('.popup > div[id^="data-"]').each(function(index, element) {
-            console.log($(element).attr('id'));
+        $('.modal-body > div[id^="data-"]').each(function(index, element) {
             if ($(element).attr('id') === $('#propertyAdder').val()) {
                 $(element).show();
                 $('li[id^="item_"]').attr($('#propertyAdder').val(), "");
@@ -132,12 +137,25 @@
         saveChanges();
     }
 
+    function deleteProp(prop) {
+        $(prop).parent().hide();
+        $('li[id^="item_"]').removeAttr($(prop).parent().attr('id'));
+        saveChanges();
+    }
+
+    function applyToAll(prop) {
+        $('li[id^="item_"]').attr($(prop).parent().attr('id'), $(prop).siblings('input').val());
+        if ($(prop).parent().attr('id') === 'data-title') {
+            $('li[id^="item_"] > div > label').text($(prop).siblings('input').val())
+        }
+    }
+
     function addItem() {
         $('#sortableList').append('<li id="item_new" class="list-group-item" data-hint="Whatever you want here" data-link="/" data-title="New element">' +
             '<div><label>New element</label>' +
             '<a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
             '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-            '<a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>' +
+            '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
             '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
             '</div>' +
             '</li>');
@@ -156,25 +174,23 @@
     }
 
     function editItem() {
-        let itemId = '#' + $('.popup > div > .editItem').attr('itemid');
-        $(' > div > label', itemId).text($('.popup > div[id="data-title"] > input').val());
-        $('.popup > div').each(function(index, element) {
+        let itemId = '#' + $('.modal-footer > .editItem').attr('itemid');
+        $(' > div > label', itemId).text($('.modal-body > div[id="data-title"] > input').val());
+        $('.modal-body > div').each(function(index, element) {
             if ($(element).is(":visible") && $(element).attr('id')) {
                 $(itemId).attr($(element).attr('id'), $('input', element).val());
             }
         })
-        if ($('.popup > div > select').val() === 'global') {
+        if ($('#parentSelector').val() === 'global') {
             $('#sortableList').append($(itemId));
-        } else if ($('#' + $('.popup > div > select').val()).children().length === 1) {
-            $('#' + $('.popup > div > select').val()).append(document.createElement('ul'));
-            $('#' + $('.popup > div > select').val() + ' > ul').append($(itemId));
+        } else if ($('#' + $('.modal-body > div > select').val()).children().length === 1) {
+            $('#' + $('#parentSelector').val()).append(document.createElement('ul'));
+            $('#' + $('#parentSelector').val() + ' > ul').append($(itemId));
         } else {
-            $('#' + $('.popup > div > select').val() + ' > ul').append($(itemId));
+            $('#' + $('#parentSelector').val() + ' > ul').append($(itemId));
         }
         saveChanges();
-        closePopup();
-        $('#parentSelector').empty();
-        $('#propertyAdder').empty();
+        cleanSelects();
     }
 
     function itemUp(item) {
@@ -216,9 +232,9 @@
         for (let [key, value] of Object.entries(attributes)) {
             if (key === 'id') {
                 itemId = value;
-                $(".popup > div > .editItem").attr('itemid', value);
+                $(".editItem").attr('itemid', value);
             }
-            $(".popup").children().each(function(index, element) {
+            $(".modal-body").children().each(function(index, element) {
                 if ($(element).getAttr().id === key) {
                     $('> input', element).val(value);
                     $(element).show();
@@ -237,13 +253,17 @@
                 }))
             }
         })
+        $('#parentSelector').children().each(function(index, element) {
+            if ($(item).parent().parent().parent().parent().attr('id') === $(element).val()) {
+                $(element).prop('selected', true)
+            }
+        })
         $('#propertyAdder').append($('<option>', {
             value: 'None',
             text: 'None'
         }))
-        $('.popup > div[id^="data-"]').each(function(index, element) {
+        $('.modal-body > div[id^="data-"]').each(function(index, element) {
             if ($('#' + itemId).attr($(element).attr('id')) === undefined) {
-                console.log($(element))
                 $('#propertyAdder').append($('<option>', {
                     value: $(element).attr('id'),
                     text: $(element).attr('id')
@@ -252,17 +272,9 @@
         })
     }
 
-    function closePopup() {
-        $('.popup-fade').fadeOut();
-        // $('.popup > div').each(function(index, element) {
-        //     if ($(element).attr('id')) {
-        //         $(element).hide();
-        //     }
-        //     // maybe add here erasing data in input types
-        // })
+    function cleanSelects() {
         $('#parentSelector').empty();
         $('#propertyAdder').empty();
-        return false;
     }
 
     // function that improves attr()
@@ -310,7 +322,6 @@
                     dataAttributes[key.slice(5)] = value;
                 }
             }
-            console.log(dataAttributes);
             for (let [key, value] of Object.entries(dataAttributes)) {
                 listItem[key] = value;
             }
@@ -346,7 +357,7 @@
         opener: {
             active: true,
             as: 'html',  // or "class"
-            close: '<i class="fa fa-minus red"></i>', // or 'fa fa-minus'
+            close: '<i class="fa fa-minus"></i>', // or 'fa fa-minus'
             open: '<i class="fa fa-plus"></i>', // or 'fa fa-plus'
             openerCss: {
                 'display': 'inline-block', // Default value
@@ -367,8 +378,8 @@
             // use parentsUntil and isAllowed option to replace maxLevel option
             console.log($('#item_1').parentsUntil('#sortableList').length)
 
-            <!--$(replica).attr('id', 'sortableList');-->
-            <!--$('#sortableList').replaceWith(replica);-->
+            // <!--$(replica).attr('id', 'sortableList');-->
+            // <!--$('#sortableList').replaceWith(replica);-->
         }
     }
 
@@ -377,26 +388,23 @@
     $('#sortableList').on('click', '.deleteItem', function() { deleteItem(this) });
     $('#sortableList').on('click', '.itemUp', function() { itemUp(this) });
     $('#sortableList').on('click', '.itemDown', function() { itemDown(this) });
-    $('.popup-fade').on('click', '.editItem', function() { editItem() });
-    $('.close-btn').click(function() { closePopup() });
-    $('.popup-fade').on('click', '.addProperty', function() { addProperty() });
-
-    $('#sortableList').on('click', '.popup-open', function() {
-        fillPopUp(this);
-        $('.popup-fade').fadeIn();
-        return false;
-    });
+    $('#popUp').on('click', '.editItem', function() { editItem() });
+    $('.close-btn').click(function() { cleanSelects() });
+    $('#popUp').on('click', '.addProperty', function() { addProperty() });
+    $('#popUp').on('click', '.deleteProp', function() { deleteProp(this) });
+    $('#popUp').on('click', '.applyToAll', function() { applyToAll(this) });
+    $('#sortableList').on('click', '.popUpOpen', function() { fillPopUp(this) });
 
     $(document).keydown(function(e) {
         if (e.keyCode === 27) {
             e.stopPropagation();
-            closePopup();
+            cleanSelects();
         }
     });
 
-    $('.popup-fade').click(function(e) {
-        if ($(e.target).closest('.popup').length === 0) {
-            closePopup();
+    $('.modal').click(function(e) {
+        if ($(e.target).closest('.modal-body').length === 0) {
+            cleanSelects();
         }
     });
 
