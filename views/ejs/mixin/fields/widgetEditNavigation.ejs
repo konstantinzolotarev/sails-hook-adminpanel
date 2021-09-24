@@ -1,36 +1,3 @@
-<!--    Items should have an id to get representation of the list as array, tree or string. -->
-
-<!--Sortable list-->
-<ul class="list-group list-group-flush" id="sortableList" style="width: max-content;">
-    <li id="item_1" class="list-group-item" data-hint="Whatever you want here" data-link="/" data-title="Home">
-        <div>
-            <label>Home</label>
-            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
-            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>
-            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
-        </div>
-    </li>
-    <li id="item_2" class="list-group-item" data-hint="About page" data-link="#about" data-title="About us">
-        <div>
-            <label>About us</label>
-            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
-            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>
-            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
-        </div>
-    </li>
-    <li id="item_3" class="list-group-item" data-hint="Feedback" data-link="#feedback" data-title="Feedback">
-        <div>
-            <label>Feedback</label>
-            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
-            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>
-            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
-        </div>
-    </li>
-</ul>
-
 <button type="button" id="addBtn" class="btn">Add element</button>
 
 <textarea
@@ -246,7 +213,8 @@
             text: 'global'
         }))
         $('li[id^="item_"]').each(function(index, element) {
-            if ($(element).attr('id') !== itemId) {
+            console.log($(element).attr('id'), ($('#' + $(element).attr('id')).parentsUntil('#sortableList').length) + 2)
+            if ($(element).attr('id') !== itemId && (($('#' + $(element).attr('id')).parentsUntil('#sortableList').length) + 2)/2 < 3) {// there will be nesting value, maxLevel = 3
                 $('#parentSelector').append($('<option>', {
                     value: $(element).attr('id'),
                     text: $(element).attr('id')
@@ -371,16 +339,45 @@
             },
         },
 
+        isAllowed: function(currEl, hint, target)
+        {
+            if((hint.parentsUntil('#sortableList').length)/2 >= 3) { // there will be nesting value, maxLevel = 3
+                hint.css('background-color', '#8B0000');
+                return false;
+            }
+            else {
+                hint.css('background-color', '#008000');
+                return true;
+            }
+        },
+
         onChange: function()
         {
             saveChanges();
-
-            // use parentsUntil and isAllowed option to replace maxLevel option
-            console.log($('#item_1').parentsUntil('#sortableList').length)
-
-            // <!--$(replica).attr('id', 'sortableList');-->
-            // <!--$('#sortableList').replaceWith(replica);-->
         }
+    }
+
+    if ($('textarea').val() && $('textarea').val().startsWith('[{')) {
+        let list = createDOM(JSON.parse($('textarea').val()));
+        $(list).attr('id', 'sortableList').addClass('list-group list-group-flush').width('max-content');
+        $('#addBtn').before(list);
+    } else {
+        $('#addBtn').before('<ul class="list-group list-group-flush" id="sortableList" style="width: max-content;">' +
+            '<li id="item_1" class="list-group-item" data-hint="Whatever you want here" data-link="/" data-title="Home">' +
+            '<div><label>Home</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
+            '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
+            '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
+            '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
+            '</div></li><li id="item_2" class="list-group-item" data-hint="About page" data-link="#about" data-title="About us">' +
+            '<div><label>About us</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
+            '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
+            '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
+            '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
+            '</div></li><li id="item_3" class="list-group-item" data-hint="Feedback" data-link="#feedback" data-title="Feedback">' +
+            '<div><label>Feedback</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
+            '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
+            '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
+            '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a></div></li></ul>')
     }
 
     $('#sortableList').sortableLists(options);
