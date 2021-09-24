@@ -9,7 +9,7 @@
 
 
 <%# plain inputs %>
-<% var inputTextTypes = ['string', 'password', 'date', 'datetime', 'integer', 'number', 'float'] %>
+<% var inputTextTypes = ['string', 'password', 'date', 'datetime', 'time',  'integer', 'number', 'float','color','email','month', 'week', 'range'] %>
 <% if (~inputTextTypes.indexOf(type)) { %>
     <% include fields/inputText %>
 <% } %>

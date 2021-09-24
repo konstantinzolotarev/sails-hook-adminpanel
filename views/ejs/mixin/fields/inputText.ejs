@@ -16,8 +16,31 @@
         fieldType = 'date'
     }
     if (type == "datetime") {
-        fieldType = 'datetime'
+        fieldType = 'datetime-local'
     }
+
+    if (type == "time") {
+        fieldType = 'time'
+    }
+
+    if (type == "color") {
+        fieldType = 'color'
+    }
+
+    if (type == "email") {
+        fieldType = 'email'
+    }
+    if (type == "month") {
+        fieldType = 'month'
+    }
+    if (type == "week") {
+        fieldType = 'week'
+    }
+
+    if (type == "range") {
+        fieldType = 'range'
+    }
+
     if (type == "integer" || type == 'float' || type == "number") {
         fieldType = 'number'
     }
