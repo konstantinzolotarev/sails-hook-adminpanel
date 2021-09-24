@@ -3,6 +3,40 @@ class EditNavigation {
         this.elName = config.element;
         this.field = config.field;
         this.dataInput = config.data;
+
+        this.logConfig();
+        this.getSortableList();
+        this.getModal();
+        this.getAttr();
+        this.listToHierarchy();
+        var that = this;                
+        $('#sortableList').sortableLists(this.getOptions());
+        $('#addBtn').on('click', function() { this.addItem() });
+        $('#sortableList').on('click', '.deleteItem', function() { this.deleteItem(this) });
+        $('#sortableList').on('click', '.itemUp', function() { this.itemUp(this) });
+        $('#sortableList').on('click', '.itemDown', function() { this.itemDown(this) });
+        $('#popUp').on('click', '.editItem', function() { this.editItem() });
+        $('.close-btn').click(function() { this.cleanSelects() });
+        $('#popUp').on('click', '.addProperty', function() { this.addProperty() });
+        $('#popUp').on('click', '.deleteProp', function() { this.deleteProp(this) });
+        $('#popUp').on('click', '.applyToAll', function() { this.applyToAll(this) });
+        $('#sortableList').on('click', '.popUpOpen', function() { that.fillPopUp(this) });
+    
+        $(document).keydown(function(e) {
+            if (e.keyCode === 27) {
+                e.stopPropagation();
+                this.cleanSelects();
+            }
+        });
+    
+        $('.modal').click(function(e) {
+            if ($(e.target).closest('.modal-body').length === 0) {
+                this.cleanSelects();
+            }
+        });
+    
+
+
     }
 
     logConfig() {

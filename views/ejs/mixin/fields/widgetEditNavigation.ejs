@@ -64,41 +64,9 @@
 
 <script>
 
-    const <%=key%>EditNavigation = new EditNavigation({
+    new EditNavigation({
         element: '<%=key%>-container',
         field: '<%=key%>',
         data: $('#form-<%=key%>').val()
     });
-
-    <%=key%>EditNavigation.logConfig();
-    <%=key%>EditNavigation.getSortableList();
-    <%=key%>EditNavigation.getModal();
-    <%=key%>EditNavigation.getAttr();
-    <%=key%>EditNavigation.listToHierarchy();
-
-    $('#sortableList').sortableLists(<%=key%>EditNavigation.getOptions());
-    $('#addBtn').on('click', function() { <%=key%>EditNavigation.addItem() });
-    $('#sortableList').on('click', '.deleteItem', function() { <%=key%>EditNavigation.deleteItem(this) });
-    $('#sortableList').on('click', '.itemUp', function() { <%=key%>EditNavigation.itemUp(this) });
-    $('#sortableList').on('click', '.itemDown', function() { <%=key%>EditNavigation.itemDown(this) });
-    $('#popUp').on('click', '.editItem', function() { <%=key%>EditNavigation.editItem() });
-    $('.close-btn').click(function() { <%=key%>EditNavigation.cleanSelects() });
-    $('#popUp').on('click', '.addProperty', function() { <%=key%>EditNavigation.addProperty() });
-    $('#popUp').on('click', '.deleteProp', function() { <%=key%>EditNavigation.deleteProp(this) });
-    $('#popUp').on('click', '.applyToAll', function() { <%=key%>EditNavigation.applyToAll(this) });
-    $('#sortableList').on('click', '.popUpOpen', function() { <%=key%>EditNavigation.fillPopUp(this) });
-
-    $(document).keydown(function(e) {
-        if (e.keyCode === 27) {
-            e.stopPropagation();
-            <%=key%>EditNavigation.cleanSelects();
-        }
-    });
-
-    $('.modal').click(function(e) {
-        if ($(e.target).closest('.modal-body').length === 0) {
-            <%=key%>EditNavigation.cleanSelects();
-        }
-    });
-
 </script>
