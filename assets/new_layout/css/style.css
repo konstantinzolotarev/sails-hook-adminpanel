@@ -645,12 +645,6 @@ input[type=number] {
   font-size: 12px;
 }
 
-.layout-btn {
-  padding-left: 50px;
-  margin-top: 0;
-  padding-bottom: 40px;
-}
-
 .editor-wrapper {
   margin-bottom: 20px;
 }
@@ -834,10 +828,6 @@ input[type=number] {
     padding-right: 16px;
   }
 
-  .layout-btn {
-    padding-left: 20px;
-  }
-
   .control__wrap {
     max-width: 100%;
     margin-right: 0;
@@ -981,11 +971,6 @@ input[type=number] {
 
   .editor__content label {
     padding: 7px 9px;
-  }
-
-  .layout-btn {
-    margin-top: -30px;
-    padding-left: 16px;
   }
 
   .title {
