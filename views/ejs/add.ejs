@@ -19,6 +19,12 @@
     <form id="form" action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
         <% Object.keys(fields).forEach(function(key) { %>
             <label class="admin-panel__title" for="form-<%=key%>"><%=fields[key].config.title %></label>
+            <% if(fields[key].config.tooltip) {%>
+                <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-top-right">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-content"><%=fields[key].config.tooltip%></span>
+                </a>
+            <% } %>
             <% var field = fields[key] %>
             <% var value = data[key] %>
             <div class="admin-panel__widget">

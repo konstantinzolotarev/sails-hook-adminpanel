@@ -1,38 +1,4 @@
-<!--    Items should have an id to get representation of the list as array, tree or string. -->
-<!--    To get a string representation required next format of id: xx_yy, xx-yy or xx=yy. -->
-
-<!--Sortable list-->
-<ul class="list-group list-group-flush" id="sortableList" style="width: max-content;">
-    <li id="item_1" class="list-group-item" data-value="Whatever you want here" data-value2="123">
-        <div>
-            <label>Whatever you want here</label>
-            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
-            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
-            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
-        </div>
-    </li>
-    <li id="item_2" class="list-group-item" data-value="Nested list item">
-        <div>
-            <label>Nested list item</label>
-            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
-            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
-            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
-        </div>
-    </li>
-    <li id="item_3" class="list-group-item" data-value="Another item">
-        <div>
-            <label>Another item</label>
-            <a href="#" class="clickable itemUp btn btn-sm">[↑]</a>
-            <a href="#" class="clickable itemDown btn btn-sm">[↓]</a>
-            <a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>
-            <a href="#" class="clickable deleteItem btn btn-sm">[X]</a>
-        </div>
-    </li>
-</ul>
-
-<button type="button" id="addBtn" class="btn">Add elem</button>
+<button type="button" id="addBtn" class="btn">Add element</button>
 
 <textarea
         <% field.config.required && 'required' %>
@@ -42,270 +8,65 @@
         rows="10"><%-JSON.stringify(value)%>
 </textarea>
 
-<!--Modal window-->
-<div class="popup-fade">
-    <div class="popup">
-        <a class="popup-close" href="#">Close</a>
-        <div id="data-value" style="display: none;">
-            <label for="itemValue">Value</label>
-            <input type="text" id="itemValue" placeholder="Enter the value">
-        </div>
-        <div id="data-value2" style="display: none;">
-            <label for="itemValue2">Value2</label>
-            <input type="text" id="itemValue2" placeholder="Enter the value2">
-        </div>
-        <a class="editItem" itemid="" href="#">Edit</a>
-    </div>
-</div>
+<!--<div class="modal fade" id="popUp">-->
+<!--    <div class="modal-dialog modal-dialog-centered" role="dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                Header-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div id="data-hint" style="display: none;">-->
+<!--                    <label for="itemHint">Hint</label>-->
+<!--                    <input type="text" id="itemHint">-->
+<!--                    <a href="#" class="applyToAll">Apply to all</a>-->
+<!--                </div>-->
+<!--                <div id="data-link" style="display: none;">-->
+<!--                    <label for="itemLink">Link</label>-->
+<!--                    <input type="text" id="itemLink">-->
+<!--                    <a href="#" class="applyToAll">Apply to all</a>-->
+<!--                </div>-->
+<!--                <div id="data-title" style="display: none;">-->
+<!--                    <label for="itemTitle">Title</label>-->
+<!--                    <input type="text" id="itemTitle">-->
+<!--                    <a href="#" class="applyToAll">Apply to all</a>-->
+<!--                </div>-->
+<!--                <div id="data-something" style="display: none;">-->
+<!--                    <label for="itemSomething">Something</label>-->
+<!--                    <input type="text" id="itemSomething">-->
+<!--                    <a href="#" class="applyToAll">Apply to all</a>-->
+<!--                    <a href="#" class="deleteProp">[X]</a>-->
+<!--                </div>-->
+<!--                <div id="data-thing" style="display: none;">-->
+<!--                    <label for="itemthing">thing</label>-->
+<!--                    <input type="text" id="itemthing">-->
+<!--                    <a href="#" class="applyToAll">Apply to all</a>-->
+<!--                    <a href="#" class="deleteProp">[X]</a>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label for="parentSelector">Choose parent</label>-->
+<!--                    <select class="form-select" id="parentSelector" aria-label="Default select example">-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label for="propertyAdder">Add property</label>-->
+<!--                    <select class="form-select" id="propertyAdder" aria-label="Default select example">-->
+<!--                    </select>-->
+<!--                    <a class="addProperty" href="#">Add</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <a class="editItem btn btn-success" data-dismiss="modal" itemid="" href="#">Save</a>-->
+<!--                <a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <script>
 
-    function createDOM(data) {
-        let ul = document.createElement('ul');
-        for (let item of data) {
-            $(ul).append(`<li id="${item.id}" class="list-group-item" data-value="New element">` +
-                `<div><label>${item.value.value}</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>` +
-                '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-                '<a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>' +
-                `<a href="#" class="clickable deleteItem btn btn-sm">[X]</a></div>` +
-                '</li>');
-            for (let [key, value] of Object.entries(item.value)) {
-                $(' > li[id=' + item.id + ']', ul).attr(`data-${key}`, value);
-            }
-            if (item.children.length > 0) {
-                $(" > li[id=" + item.id + "]", ul).append(createDOM(item.children));
-            }
-        }
-        return ul;
-    }
-
-    function giveItemsUniqueId() {
-        $('li').each(function (index, element) {
-            $(element).attr('id', "item_" + index);
-        })
-    }
-
-    function addItem() {
-        $('#sortableList').append('<li id="item_1" class="list-group-item" data-value="Whatever you want here">' +
-            '<div><label>Whatever you want here</label>' +
-            '<a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
-            '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-            '<a href="#" class="clickable popup-open btn btn-sm">[Edit]</a>' +
-            '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
-            '</div>' +
-            '</li>');
-        giveItemsUniqueId();
-        textareaValue();
-    }
-
-    function deleteItem(item) {
-        $(item).parent().parent().remove();
-        textareaValue();
-    }
-
-    function editItem() {
-        let itemId = '#' + $('.popup > .editItem').attr('itemid');
-        $(' > div > label', itemId).text($('.popup > div[id="data-value"] > input').val());
-        $('.popup > div').each(function(index, element) {
-            if ($(itemId).attr($(element).attr('id'))) {
-                $(itemId).attr($(element).attr('id'), $('input', element).val());
-            }
-        })
-        textareaValue();
-    }
-
-    function itemUp(item) {
-        let currentItem = $(item).parent().parent();
-        let prevItem = $(currentItem).prev();  // returns prev item or empty jQuery object
-
-        if (prevItem && prevItem.length > 0) {
-            $(currentItem).insertBefore($(prevItem));
-        }
-        textareaValue();
-    }
-
-    function itemDown(item) {
-        let currentItem = $(item).parent().parent();
-        let nextItem = $(currentItem).next();
-
-        if (nextItem && nextItem.length > 0) {
-            $(currentItem).insertAfter($(nextItem));
-        }
-        textareaValue();
-    }
-
-    function textareaValue() {
-        $('textarea').val(JSON.stringify($('#sortableList').toHierarchy()));
-    }
-
-    function fillPopUp(item) {
-        // add filter for attrs (should contain data-) and create pop-up fields so many as attrs (data-)
-        let attributes = $(item).parent().parent().getAttr(); // getAttr() gives an object with attributes and their values
-        // let dataAttributes = {};
-        // for (let [key, value] of Object.entries(attributes)) {
-        //     if (key.startsWith('data-')) {
-        //         dataAttributes[key.slice(5)] = value;
-        //     }
-        // }
-        // console.log(dataAttributes);
-        for (let [key, value] of Object.entries(attributes)) {
-            if (key === 'id') {
-                $(".popup > .editItem").attr('itemid', value);
-            }
-            $(".popup").children().each(function(index, element) {
-                if ($(element).getAttr().id === key) {
-                    $('> input', element).val(value);
-                    $(element).show();
-                }
-            })
-        }
-    }
-
-    // function that improves attr()
-    (function(old) {
-        $.fn.getAttr = function() {
-            if(arguments.length === 0) {
-                if(this.length === 0) {
-                    return null;
-                }
-
-                var obj = {};
-                $.each(this[0].attributes, function() {
-                    if(this.specified) {
-                        obj[this.name] = this.value;
-                    }
-                });
-                return obj;
-            }
-
-            return old.apply(this, arguments);
-        };
-    })($.fn.attr);
-
-
-    $.fn.toHierarchy = function()
-    {
-        var arr = [],
-            order = 0;
-
-        $( this ).children( 'li' ).each( function()
-        {
-            var li = $( this ),
-                listItem = {},
-                id = li.attr( 'id' );
-
-            if ( ! id )
-            {
-                console.log( li ); // Have to be here! Read next exception message.
-                throw 'Previous item in console.log has no id. It is necessary to create the array.';
-            }
-            listItem.id = id;
-            let dataAttributes = {};
-            for (let [key, value] of Object.entries($(li).getAttr())) {
-                if (key.startsWith('data-')) {
-                    dataAttributes[key.slice(5)] = value;
-                }
-            }
-            console.log(dataAttributes);
-            listItem.value = dataAttributes;
-            listItem.order = order;
-            arr.push( listItem );
-            listItem.children = li.children( 'ul,ol' ).toHierarchy();
-            order ++;
-        } );
-
-        return arr;
-
-    };
-
-    let options = {
-        // Like a css class name. Class will be removed after drop.
-        currElClass: 'currElemClass',
-
-        placeholderClass: 'placeholderClass',
-
-        hintClass: 'hintClass',
-
-        listsClass: 'listsClass',
-
-        // All elements with class clickable will be clickable
-        ignoreClass: 'clickable',
-
-        insertZone: 50,
-
-        insertZonePlus: true,
-
-        scroll: 20,
-
-        opener: {
-            active: true,
-            as: 'html',  // or "class"
-            close: '<i class="fa fa-minus red"></i>', // or 'fa fa-minus'
-            open: '<i class="fa fa-plus"></i>', // or 'fa fa-plus'
-            openerCss: {
-                'display': 'inline-block', // Default value
-                'float': 'left', // Default value
-                'width': '18px',
-                'height': '18px',
-                'margin-left': '-35px',
-                'margin-right': '5px',
-                'background-position': 'center center', // Default value
-                'background-repeat': 'no-repeat' // Default value
-            },
-        },
-
-        onChange: function()
-        {
-            textareaValue();
-
-            // take this code to submit button action
-            const <%=key%>EditNavigation = new EditNavigation({
-                element: '<%=key%>-container',
-                field: '<%=key%>',
-                data: $('#form-<%=key%>').val()
-            });
-
-            <%=key%>EditNavigation.logConfig();
-            let replica = createDOM(JSON.parse($('#form-<%= key %>').val()));
-            console.log(replica);
-            <!--$(replica).attr('id', 'sortableList');-->
-            <!--$('#sortableList').replaceWith(replica);-->
-        }
-    }
-
-    $('#sortableList').sortableLists(options);
-    $('#addBtn').on('click', function() { addItem() });
-    $('#sortableList').on('click', '.deleteItem', function() { deleteItem(this) });
-    $('#sortableList').on('click', '.itemUp', function() { itemUp(this) });
-    $('#sortableList').on('click', '.itemDown', function() { itemDown(this) });
-    $('.popup-fade').on('click', '.editItem', function() { editItem() })
-
-    $('#sortableList').on('click', '.popup-open', function() {
-        fillPopUp(this);
-        $('.popup-fade').fadeIn();
-        return false;
+    new EditNavigation({
+        element: '<%=key%>-container',
+        field: '<%=key%>',
+        data: $('#form-<%=key%>').val()
     });
-
-    $('.popup-close').click(function() {
-        $(this).parents('.popup-fade').fadeOut();
-        $('.popup > div').each(function(index, element) {
-            $(element).hide();
-            // maybe add here erasing data in input types
-        })
-        return false;
-    });
-
-    $(document).keydown(function(e) {
-        if (e.keyCode === 27) {
-            e.stopPropagation();
-            $('.popup-fade').fadeOut();
-        }
-    });
-
-    $('.popup-fade').click(function(e) {
-        if ($(e.target).closest('.popup').length === 0) {
-            $(this).fadeOut();
-        }
-    });
-
 </script>

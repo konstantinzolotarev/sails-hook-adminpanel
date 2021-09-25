@@ -110,6 +110,7 @@ fieldName: {
     title: "Field title", // You can overwrite field title
     type: "string", //you can overwrite default field type in admin panel
     required: true, // you can mark field required or not
+    tooltip: 'tooltip for field', // You can define tooltip for field 
     editor: true, // you can add WYSTYG editor for the field in admin panel
 }
 ```

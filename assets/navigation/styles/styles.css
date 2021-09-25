@@ -1,36 +1,31 @@
 #myList li, #s-l-base li { padding-left:50px }
 .placeholderClass { background-color:#0e6471 }
 .currElCss { background-color:green; color:#fff }
-.hintClass { background-color:green; border:1px dashed white}
-.popup-fade {
-    display: none;
-}
-.popup-fade:before {
-    content: '';
-    background: #000;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.7;
-    z-index: 9999;
-}
-.popup {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    padding: 20px;
-    width: 360px;
-    margin-left: -200px;
-    background: #fff;
-    border: 1px solid orange;
-    border-radius: 4px;
-    z-index: 99999;
-    opacity: 1;
-}
-.popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+.hintClass { background-color: #008000; border:1px dashed white}
+/*.modal {*/
+/*    display: none;*/
+/*}*/
+/*.modal:before {*/
+/*    content: '';*/
+/*    background: #000;*/
+/*    position: fixed;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    opacity: 0.7;*/
+/*    z-index: 9999;*/
+/*}*/
+/*.modal-content {*/
+/*    position: fixed;*/
+/*    top: 20%;*/
+/*    left: 50%;*/
+/*    padding: 20px;*/
+/*    width: 360px;*/
+/*    margin-left: -200px;*/
+/*    background: #fff;*/
+/*    border: 1px solid orange;*/
+/*    border-radius: 4px;*/
+/*    z-index: 99999;*/
+/*    opacity: 1;*/
+/*}*/
