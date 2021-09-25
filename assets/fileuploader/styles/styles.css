@@ -3,7 +3,6 @@
 }
 .file-container {
   display: flex;
-  width: auto;
   margin-right: 5px;
   margin-top: 5px;
   position: relative;
@@ -48,14 +47,20 @@
 .item-file {
   display: flex;
   align-items: center;
-  width: auto;
-  margin-bottom: 10px;
-
-  border: 1px solid #4e4e4e;
-  padding: 10px;
   border-radius: 4px;
-  background: #fff;
   cursor: pointer;
+}
+
+.file-container {
+  border: 1px solid #4e4e4e;
+  background: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+#filesUploader-container-container, #imageUploader-container-container {
+  display: flex;
+  width: auto;
 }
 
 .fileUploader-container-file-container {
