@@ -8,10 +8,11 @@ table.dataTable {
 }
 
 .dataTables_wrapper .dataTables_filter input {
-    border-radius: 3px;
-    padding: 5px;
-    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #9A9A9A;
+    background: none;
     margin-left: 15px !important;
+    width: 100%;
 }
 
 .ace_editor {

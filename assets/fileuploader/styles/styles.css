@@ -47,7 +47,6 @@
 .item-file {
   display: flex;
   align-items: center;
-  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -56,6 +55,7 @@
   background: #fff;
   margin-bottom: 10px;
   padding: 10px;
+  border-radius: 4px;
 }
 
 #filesUploader-container-container, #imageUploader-container-container {
