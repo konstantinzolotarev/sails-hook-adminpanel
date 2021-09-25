@@ -287,7 +287,11 @@ textarea {
   content: none;
 }
 
-.sidenav-panel .nav-group .active .fa-chevron-right {
+.sidenav-panel .nav-group .fa-chevron-right {
+  transition: .3s;
+}
+
+.active-arrow {
   transform: rotate(90deg);
 }
 
