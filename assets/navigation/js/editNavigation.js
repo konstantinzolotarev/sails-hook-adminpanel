@@ -5,38 +5,111 @@ class EditNavigation {
         this.dataInput = config.data;
 
         this.logConfig();
-        this.getSortableList();
-        this.getModal();
-        this.getAttr();
-        this.listToHierarchy();
-        var that = this;                
+        this.main(this);
+    }
+
+    main(menu) {
+
+        // if textarea has value { render ul } else { add empty ul }
+        if ($(`#form-${this.field}`).val() && $(`#form-${this.field}`).val().startsWith('[{')) {
+            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
+            $(list).attr('id', 'sortableList').addClass('list-group list-group-flush').width('max-content');
+            $(`#form-${this.field}`).before(list);
+        } else { // use here empty ul
+            $(`#form-${this.field}`).before('<ul class="list-group list-group-flush" id="sortableList" style="width: max-content;"></ul>')
+        }
+
+        // set options to sortableList
         $('#sortableList').sortableLists(this.getOptions());
-        $('#addBtn').on('click', function() { this.addItem() });
-        $('#sortableList').on('click', '.deleteItem', function() { this.deleteItem(this) });
-        $('#sortableList').on('click', '.itemUp', function() { this.itemUp(this) });
-        $('#sortableList').on('click', '.itemDown', function() { this.itemDown(this) });
-        $('#popUp').on('click', '.editItem', function() { this.editItem() });
-        $('.close-btn').click(function() { this.cleanSelects() });
-        $('#popUp').on('click', '.addProperty', function() { this.addProperty() });
-        $('#popUp').on('click', '.deleteProp', function() { this.deleteProp(this) });
-        $('#popUp').on('click', '.applyToAll', function() { this.applyToAll(this) });
-        $('#sortableList').on('click', '.popUpOpen', function() { that.fillPopUp(this) });
-    
+
+        // creates jquery method toHierarchy, that gives creates json from sortable list
+        this.listToHierarchy();
+
+        // handlers for sortableList items
+        $('#sortableList').on('click', '.deleteItem', function() { menu.deleteItem(this) });
+        $('#sortableList').on('click', '.itemUp', function() { menu.itemUp(this) });
+        $('#sortableList').on('click', '.itemDown', function() { menu.itemDown(this) });
+
+        // add "Add item button"
+        $(`#form-${this.field}`).before('<button type="button" id="addBtn" class="btn">Add element</button>')
+
+        // handler for add button
+        $('#addBtn').on('click', function() { menu.addItem() });
+
+        // create modal window, append it and hide
+        let modal = '<div className="modal fade" id="popUp">' +
+                        '<div className="modal-dialog modal-dialog-centered" role="dialog">' +
+                            '<div className="modal-content">' +
+                                '<div className="modal-header">' +
+                                    'Header' +
+                                '</div>' +
+                                '<div className="modal-body">' +
+                                    '<div id="data-hint" style="display: none;">' +
+                                        '<label htmlFor="itemHint">Hint</label>' +
+                                        '<input type="text" id="itemHint">' +
+                                        '<a href="#" className="applyToAll">Apply to all</a>' +
+                                    '</div>' +
+                                    '<div id="data-link" style="display: none;">' +
+                                        '<label htmlFor="itemLink">Link</label>' +
+                                        '<input type="text" id="itemLink">' +
+                                        '<a href="#" className="applyToAll">Apply to all</a>' +
+                                    '</div>' +
+                                    '<div id="data-title" style="display: none;">' +
+                                        '<label htmlFor="itemTitle">Title</label>' +
+                                        '<input type="text" id="itemTitle">' +
+                                        '<a href="#" className="applyToAll">Apply to all</a>' +
+                                    '</div>' +
+                                    '<div id="data-something" style="display: none;">' +
+                                        '<label htmlFor="itemSomething">Something</label>' +
+                                        '<input type="text" id="itemSomething">' +
+                                        '<a href="#" className="applyToAll">Apply to all</a>' +
+                                        '<a href="#" className="deleteProp">[X]</a>' +
+                                    '</div>' +
+                                    '<div>' +
+                                        '<label htmlFor="parentSelector">Choose parent</label>' +
+                                        '<select className="form-select" id="parentSelector" aria-label="Default select example">' +
+                                        '</select>' +
+                                    '</div>' +
+                                    '<div>' +
+                                        '<label htmlFor="propertyAdder">Add property</label>' +
+                                        '<select className="form-select" id="propertyAdder" aria-label="Default select example">' +
+                                        '</select>' +
+                                        '<a className="addProperty" href="#">Add</a>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div className="modal-footer">' +
+                                    '<a className="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
+                                    '<a className="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+        // $(`#form-${this.field}`).after(modal);
+        // $('#popUp').hide();
+
+        // getAttr() creates jquery method .getAttr(), that gives an object with attributes and their values
+        this.getAttr();
+
+        // handlers for modal window
+        $('#sortableList').on('click', '.popUpOpen', function() { menu.fillPopUp(this) });
+        $('#popUp').on('click', '.addProperty', function() { menu.addProperty() });
+        $('#popUp').on('click', '.deleteProp', function() { menu.deleteProp(this) });
+        $('#popUp').on('click', '.applyToAll', function() { menu.applyToAll(this) });
+        $('#popUp').on('click', '.editItem', function() { menu.editItem() });
+        $('.close-btn').on('click', function() { menu.cleanSelects() });
+
+        // add closing modal window using click and esc
         $(document).keydown(function(e) {
             if (e.keyCode === 27) {
                 e.stopPropagation();
-                this.cleanSelects();
+                menu.cleanSelects();
             }
         });
-    
         $('.modal').click(function(e) {
             if ($(e.target).closest('.modal-body').length === 0) {
-                this.cleanSelects();
+                menu.cleanSelects();
             }
         });
-    
-
-
     }
 
     logConfig() {
@@ -336,113 +409,4 @@ class EditNavigation {
         }
         return options;
     }
-
-    getModal() {
-        let modal = '<div className="modal fade" id="popUp">' +
-            '<div className="modal-dialog modal-dialog-centered" role="dialog">' +
-                '<div className="modal-content">' +
-                    '<div className="modal-header">' +
-                        'Header' +
-                    '</div>' +
-                    '<div className="modal-body">' +
-                        '<div id="data-hint" style="display: none;">' +
-                            '<label htmlFor="itemHint">Hint</label>' +
-                            '<input type="text" id="itemHint">' +
-                                '<a href="#" className="applyToAll">Apply to all</a>' +
-                        '</div>' +
-                        '<div id="data-link" style="display: none;">' +
-                            '<label htmlFor="itemLink">Link</label>' +
-                            '<input type="text" id="itemLink">' +
-                                '<a href="#" className="applyToAll">Apply to all</a>' +
-                        '</div>' +
-                        '<div id="data-title" style="display: none;">' +
-                            '<label htmlFor="itemTitle">Title</label>' +
-                            '<input type="text" id="itemTitle">' +
-                                '<a href="#" className="applyToAll">Apply to all</a>' +
-                        '</div>' +
-                        '<div id="data-something" style="display: none;">' +
-                            '<label htmlFor="itemSomething">Something</label>' +
-                            '<input type="text" id="itemSomething">' +
-                                '<a href="#" className="applyToAll">Apply to all</a>' +
-                                '<a href="#" className="deleteProp">[X]</a>' +
-                        '</div>' +
-                        '<div id="data-thing" style="display: none;">' +
-                            '<label htmlFor="itemthing">thing</label>' +
-                            '<input type="text" id="itemthing">' +
-                                '<a href="#" className="applyToAll">Apply to all</a>' +
-                                '<a href="#" className="deleteProp">[X]</a>' +
-                        '</div>' +
-                        '<div>' +
-                            '<label htmlFor="parentSelector">Choose parent</label>' +
-                            '<select className="form-select" id="parentSelector" aria-label="Default select example">' +
-                            '</select>' +
-                        '</div>' +
-                        '<div>' +
-                            '<label htmlFor="propertyAdder">Add property</label>' +
-                            '<select className="form-select" id="propertyAdder" aria-label="Default select example">' +
-                            '</select>' +
-                            '<a className="addProperty" href="#">Add</a>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div className="modal-footer">' +
-                        '<a className="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
-                        '<a className="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
-                    '</div>' +
-                '</div>' +
-            '</div>' +
-        '</div>';
-        $(`#form-${this.field}`).after(modal);
-        $('#popUp').hide();
-    }
-
-    getSortableList() {
-        if ($(`#form-${this.field}`).val() && $(`#form-${this.field}`).val().startsWith('[{')) {
-            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
-            $(list).attr('id', 'sortableList').addClass('list-group list-group-flush').width('max-content');
-            $('#addBtn').before(list);
-        } else {
-            $('#addBtn').before('<ul class="list-group list-group-flush" id="sortableList" style="width: max-content;">' +
-                '<li id="item_1" class="list-group-item" data-hint="Whatever you want here" data-link="/" data-title="Home">' +
-                    '<div><label>Home</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
-                        '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-                        '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
-                        '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
-                        '</div></li><li id="item_2" class="list-group-item" data-hint="About page" data-link="#about" data-title="About us">' +
-                    '<div><label>About us</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
-                        '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-                        '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
-                        '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
-                        '</div></li><li id="item_3" class="list-group-item" data-hint="Feedback" data-link="#feedback" data-title="Feedback">' +
-                    '<div><label>Feedback</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
-                        '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-                        '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
-                        '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a></div></li></ul>')
-        }
-    }
-
-    // getHandlers() {
-    //     $('#addBtn').on('click', function() { this.addItem() });
-    //     $('#sortableList').on('click', '.deleteItem', function() { this.deleteItem(this) });
-    //     $('#sortableList').on('click', '.itemUp', function() { this.itemUp(this) });
-    //     $('#sortableList').on('click', '.itemDown', function() { this.itemDown(this) });
-    //     $('#popUp').on('click', '.editItem', function() { this.editItem() });
-    //     $('.close-btn').click(function() { this.cleanSelects() });
-    //     $('#popUp').on('click', '.addProperty', function() { this.addProperty() });
-    //     $('#popUp').on('click', '.deleteProp', function() { this.deleteProp(this) });
-    //     $('#popUp').on('click', '.applyToAll', function() { this.applyToAll(this) });
-    //     $('#sortableList').on('click', '.popUpOpen', function() { this.fillPopUp(this) });
-    //
-    //     $(document).keydown(function(e) {
-    //         if (e.keyCode === 27) {
-    //             e.stopPropagation();
-    //             this.cleanSelects();
-    //         }
-    //     });
-    //
-    //     $('.modal').click(function(e) {
-    //         if ($(e.target).closest('.modal-body').length === 0) {
-    //             this.cleanSelects();
-    //         }
-    //     });
-    // }
 }
