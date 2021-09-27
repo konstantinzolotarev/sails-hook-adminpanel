@@ -37,55 +37,55 @@ class EditNavigation {
         $('#addBtn').on('click', function() { menu.addItem() });
 
         // create modal window, append it and hide
-        let modal = '<div className="modal fade" id="popUp">' +
-                        '<div className="modal-dialog modal-dialog-centered" role="dialog">' +
-                            '<div className="modal-content">' +
-                                '<div className="modal-header">' +
+        let modal = '<div class="modal fade" id="popUp">' +
+                        '<div class="modal-dialog modal-dialog-centered" role="dialog">' +
+                            '<div class="modal-content">' +
+                                '<div class="modal-header">' +
                                     'Header' +
                                 '</div>' +
-                                '<div className="modal-body">' +
+                                '<div class="modal-body">' +
                                     '<div id="data-hint" style="display: none;">' +
                                         '<label htmlFor="itemHint">Hint</label>' +
                                         '<input type="text" id="itemHint">' +
-                                        '<a href="#" className="applyToAll">Apply to all</a>' +
+                                        '<a href="#" class="applyToAll">Apply to all</a>' +
                                     '</div>' +
                                     '<div id="data-link" style="display: none;">' +
                                         '<label htmlFor="itemLink">Link</label>' +
                                         '<input type="text" id="itemLink">' +
-                                        '<a href="#" className="applyToAll">Apply to all</a>' +
+                                        '<a href="#" class="applyToAll">Apply to all</a>' +
                                     '</div>' +
                                     '<div id="data-title" style="display: none;">' +
                                         '<label htmlFor="itemTitle">Title</label>' +
                                         '<input type="text" id="itemTitle">' +
-                                        '<a href="#" className="applyToAll">Apply to all</a>' +
+                                        '<a href="#" class="applyToAll">Apply to all</a>' +
                                     '</div>' +
                                     '<div id="data-something" style="display: none;">' +
                                         '<label htmlFor="itemSomething">Something</label>' +
                                         '<input type="text" id="itemSomething">' +
-                                        '<a href="#" className="applyToAll">Apply to all</a>' +
-                                        '<a href="#" className="deleteProp">[X]</a>' +
+                                        '<a href="#" class="applyToAll">Apply to all</a>' +
+                                        '<a href="#" class="deleteProp">[X]</a>' +
                                     '</div>' +
                                     '<div>' +
                                         '<label htmlFor="parentSelector">Choose parent</label>' +
-                                        '<select className="form-select" id="parentSelector" aria-label="Default select example">' +
+                                        '<select class="form-select" id="parentSelector" aria-label="Default select example">' +
                                         '</select>' +
                                     '</div>' +
                                     '<div>' +
                                         '<label htmlFor="propertyAdder">Add property</label>' +
-                                        '<select className="form-select" id="propertyAdder" aria-label="Default select example">' +
+                                        '<select class="form-select" id="propertyAdder" aria-label="Default select example">' +
                                         '</select>' +
-                                        '<a className="addProperty" href="#">Add</a>' +
+                                        '<a class="addProperty" href="#">Add</a>' +
                                     '</div>' +
                                 '</div>' +
-                                '<div className="modal-footer">' +
-                                    '<a className="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
-                                    '<a className="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
+                                '<div class="modal-footer">' +
+                                    '<a class="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
+                                    '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
-        // $(`#form-${this.field}`).after(modal);
-        // $('#popUp').hide();
+        $(`#form-${this.field}`).after(modal);
+        $('#popUp').hide();
 
         // getAttr() creates jquery method .getAttr(), that gives an object with attributes and their values
         this.getAttr();

@@ -6,60 +6,6 @@
         rows="10"><%-JSON.stringify(value)%>
 </textarea>
 
-<div class="modal fade" id="popUp">
-    <div class="modal-dialog modal-dialog-centered" role="dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                Header
-            </div>
-            <div class="modal-body">
-                <div id="data-hint" style="display: none;">
-                    <label for="itemHint">Hint</label>
-                    <input type="text" id="itemHint">
-                    <a href="#" class="applyToAll">Apply to all</a>
-                </div>
-                <div id="data-link" style="display: none;">
-                    <label for="itemLink">Link</label>
-                    <input type="text" id="itemLink">
-                    <a href="#" class="applyToAll">Apply to all</a>
-                </div>
-                <div id="data-title" style="display: none;">
-                    <label for="itemTitle">Title</label>
-                    <input type="text" id="itemTitle">
-                    <a href="#" class="applyToAll">Apply to all</a>
-                </div>
-                <div id="data-something" style="display: none;">
-                    <label for="itemSomething">Something</label>
-                    <input type="text" id="itemSomething">
-                    <a href="#" class="applyToAll">Apply to all</a>
-                    <a href="#" class="deleteProp">[X]</a>
-                </div>
-                <div id="data-thing" style="display: none;">
-                    <label for="itemthing">thing</label>
-                    <input type="text" id="itemthing">
-                    <a href="#" class="applyToAll">Apply to all</a>
-                    <a href="#" class="deleteProp">[X]</a>
-                </div>
-                <div>
-                    <label for="parentSelector">Choose parent</label>
-                    <select class="form-select" id="parentSelector" aria-label="Default select example">
-                    </select>
-                </div>
-                <div>
-                    <label for="propertyAdder">Add property</label>
-                    <select class="form-select" id="propertyAdder" aria-label="Default select example">
-                    </select>
-                    <a class="addProperty" href="#">Add</a>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a class="editItem btn btn-success" data-dismiss="modal" itemid="" href="#">Save</a>
-                <a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
 
     new EditNavigation({

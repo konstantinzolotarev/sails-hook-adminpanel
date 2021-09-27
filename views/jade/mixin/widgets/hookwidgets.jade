@@ -1,9 +1,0 @@
-mixin hookWidgetsScript(key, field)
-  - var ws = field.config.widget+"Script"
-  //- | <script>console.log("hookWidgetsScript","!{ws}");</script>
-  +#{ws}(key, field)
-
-mixin hookWidgetsDOM(key, field, value)
-  - var wd = field.config.widget+"DOM"
-  //- | <script>console.log("hookWidgetsDOM","!{wd}");</script>
-  +#{wd}(key, field , value)
