@@ -2,9 +2,9 @@
 .placeholderClass { background-color:#0e6471 }
 .currElCss { background-color:green; color:#fff }
 .hintClass { background-color: #008000; border:1px dashed white}
-/*.modal {*/
-/*    display: none;*/
-/*}*/
+.modal {
+    display: none;
+}
 /*.modal:before {*/
 /*    content: '';*/
 /*    background: #000;*/
