@@ -7,6 +7,10 @@ table.dataTable {
    padding: 10px 0px 5px 10px;
 }
 
+.dataTables_wrapper {
+    overflow: scroll;
+}
+
 .dataTables_wrapper .dataTables_filter input {
     border: none;
     border-bottom: 1px solid #9A9A9A;
