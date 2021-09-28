@@ -1232,7 +1232,7 @@ body.no-scrolling, body.no-scrolling .main-container .content-container .content
 }
 .modal-dialog { position: relative; z-index: 1050; width: 24rem; max-width: 100%; }
 .modal-dialog.modal-sm { width: 12rem; }
-.modal-dialog.modal-lg { width: 36rem; }
+.modal-dialog.modal-lg { width: 36rem;margin: 0 auto; }
 .modal-dialog.modal-xl { width: 48rem; }
 .modal-dialog .modal-content { padding: 1rem; background-color: rgb(255, 255, 255); border-radius: 0.125rem; box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 2px; }
 .modal-header { border-bottom: none; padding: 0px 0px 1rem; }
