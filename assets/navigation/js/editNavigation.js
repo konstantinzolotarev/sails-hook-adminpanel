@@ -4,9 +4,13 @@ class EditNavigation {
         this.field = config.field;
         this.dataInput = config.data;
         this.counter = 0;
-        this.maxNestedItems = 3;
+        this.maxNestedItems = 4;
+        this.obligatoryProperty = 'data-title';
+        this.propertyList = ['data-item', 'data-icon', 'data-hint', 'data-link', 'data-email'];
+        this.displacementControl = true;
+        this.nestedTree = {}
 
-        this.logConfig();
+        //this.logConfig();
         this.main(this);
     }
 
@@ -53,7 +57,8 @@ class EditNavigation {
             '</div>' +
             '<div>' +
             '<label for="propertyAdder">Add property</label>' +
-            '<input type="text" id="propertyAdder" placeholder="Just words and numbers without spaces and special characters">' +
+            '<select class="form-select" id="propertyAdder" aria-label="Default select example">' +
+            '</select>' +
             '<a class="addProperty" href="#">Add</a>' +
             '</div>' +
             '</div>' +
@@ -98,7 +103,7 @@ class EditNavigation {
     saveChanges() {
         $(`#form-${this.field}`).val(JSON.stringify($('#sortableList').toHierarchy()));
         this.dataInput = $(`#form-${this.field}`).val();
-        this.logConfig();
+        // this.logConfig();
         // let replica = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
         // console.log(replica);
     }
@@ -131,20 +136,15 @@ class EditNavigation {
     }
 
     addProperty() {
-        let input = $('#propertyAdder').val().trim();
-        if (input.match(/^[0-9A-Za-zа-яА-ЯёЁ]+$/) == null) {
-            alert("Property can't contain whitespaces and special characters");
-        } else {
-            let property = input.charAt(0).toUpperCase() + input.slice(1);
-            $("#propertyAdder").parent().before(`<div id="data-${property.charAt(0).toLowerCase() + input.slice(1)}">` +
-                `<label for="item${property}">${property}</label>` +
-                `<input type="text" id="item${property}">` +
-                '<a href="#" class="deleteProp">[X]</a>' +
-                '</div>');
-            $('li[id^="item_"]').attr(`data-${property}`, "");
-            this.saveChanges();
-            $('#propertyAdder').val('');
-        }
+        let capitalizedKey = $('#propertyAdder').val().slice(5).charAt(0).toUpperCase() + $('#propertyAdder').val().slice(6);
+        $("#propertyAdder").parent().before(`<div id="${$('#propertyAdder').val()}">` +
+            `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
+            `<input type="text" id="item${capitalizedKey}">` +
+            '<a href="#" class="deleteProp">[X]</a>' +
+            '</div>')
+        $('li[id^="item_"]').attr($('#propertyAdder').val(), "");
+        $('#propertyAdder option:selected').remove();
+        this.saveChanges();
     }
 
     deleteProp(prop) {
@@ -218,14 +218,15 @@ class EditNavigation {
     }
 
     fillPopUp(item, menu) {
-        let attributes = $(item).parent().parent().getAttr(); // getAttr() gives an object with attributes and their values
+        let currentItem = $(item).parent().parent();
+        let attributes = $(currentItem).getAttr(); // getAttr() gives an object with attributes and their values
         let itemId;
         for (let [key, value] of Object.entries(attributes)) {
             if (key === 'id') {
                 itemId = value;
                 $(".editItem").attr('itemid', value);
             } else if (key.startsWith('data-')) {
-                if (key === 'data-title') { // here add obligatory properties
+                if (key === menu.obligatoryProperty) { // here add obligatory properties
                     let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
                     $("#propertyAdder").parent().before(`<div id="${key}">` +
                         `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
@@ -241,21 +242,18 @@ class EditNavigation {
                 }
             }
         }
-        $('#parentSelector').append($('<option>', {
-            value: 'global',
-            text: 'global'
-        }))
-        $('li[id^="item_"]').each(function(index, element) {
-            console.log($(element).attr('id'), ($('#' + $(element).attr('id')).parentsUntil('#sortableList').length) + 2)
-            if ($(element).attr('id') !== itemId && (($('#' + $(element).attr('id')).parentsUntil('#sortableList').length) + 2)/2 < menu.maxNestedItems) {// there will be nesting value, maxLevel = 3
-                $('#parentSelector').append($('<option>', {
-                    value: $(element).attr('id'),
-                    text: $(element).attr('data-title')
-                }))
+        // cant move items with children if displacementControl on
+        if (menu.displacementControl) {
+            if ($(currentItem).children().length === 1) {
+                menu.fillParentSelector(itemId, menu.maxNestedItems);
+            } else {
+                $('#parentSelector').parent().hide();
             }
-        })
+        } else {
+            menu.fillParentSelector(itemId, menu.maxNestedItems);
+        }
         $('#parentSelector').children().each(function(index, element) {
-            if ($(item).parent().parent().parent().parent().attr('id') === $(element).val()) {
+            if ($(currentItem).parent().parent().attr('id') === $(element).val()) {
                 $(element).prop('selected', true)
             }
         })
@@ -263,11 +261,38 @@ class EditNavigation {
             value: 'None',
             text: 'None'
         }))
-        $('.modal-body > div[id^="data-"]').each(function(index, element) {
-            if ($('#' + itemId).attr($(element).attr('id')) === undefined) {
-                $('#propertyAdder').append($('<option>', {
+        let proposedList = [];
+        for (let item of menu.propertyList) {
+            let unique = true;
+            for (let key of Object.keys($('#' + itemId).getAttr())) {
+                if (item === key) {
+                    unique = false;
+                    break;
+                }
+            }
+            if (unique === true) {
+                proposedList.push(item)
+            }
+        }
+        for (let item of proposedList) {
+            $('#propertyAdder').append($('<option>', {
+                value: item,
+                text: item
+            }))
+        }
+    }
+
+    fillParentSelector(itemId, maxNestedItems) {
+        $('#parentSelector').append($('<option>', {
+            value: 'global',
+            text: 'global'
+        }))
+        $('li[id^="item_"]').each(function(index, element) {
+            let nestedLevel = $('#' + $(element).attr('id')).parentsUntil('#sortableList').length;
+            if ($(element).attr('id') !== itemId && (nestedLevel + 2)/2 < maxNestedItems) {// there will be nesting value, maxLevel = 3
+                $('#parentSelector').append($('<option>', {
                     value: $(element).attr('id'),
-                    text: $(element).attr('id')
+                    text: '- '.repeat(nestedLevel/2) + $(element).attr('data-title')
                 }))
             }
         })
@@ -276,7 +301,7 @@ class EditNavigation {
     clearPopup() {
         $('.modal-body > div[id^="data-"]').remove()
         $('#parentSelector').empty();
-        $('#propertyAdder').val('');
+        $('#propertyAdder').empty();
     }
 
     // function that replaces sortableListsToHierarchy function from original module
@@ -378,15 +403,30 @@ class EditNavigation {
                 },
             },
 
-            isAllowed: function(currEl, hint, target)
-            {
-                if((hint.parentsUntil('#sortableList').length)/2 >= menu.maxNestedItems) { // there will be nesting value, maxLevel = 3
-                    hint.css('background-color', '#8B0000');
-                    return false;
-                }
-                else {
-                    hint.css('background-color', '#008000');
-                    return true;
+            isAllowed: function(currEl, hint, target) {
+                if (menu.displacementControl) {
+                    if ($(currEl).children().length === 1) {
+                        if((hint.parentsUntil('#sortableList').length)/2 >= menu.maxNestedItems) { // there will be nesting value, maxLevel = 3
+                            hint.css('background-color', '#8B0000');
+                            return false;
+                        }
+                        else {
+                            hint.css('background-color', '#008000');
+                            return true;
+                        }
+                    } else {
+                        hint.css('background-color', '#8B0000');
+                        return false;
+                    }
+                } else {
+                    if((hint.parentsUntil('#sortableList').length)/2 >= menu.maxNestedItems) { // there will be nesting value, maxLevel = 3
+                        hint.css('background-color', '#8B0000');
+                        return false;
+                    }
+                    else {
+                        hint.css('background-color', '#008000');
+                        return true;
+                    }
                 }
             },
 
