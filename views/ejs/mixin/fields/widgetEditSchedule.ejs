@@ -1,10 +1,18 @@
+<div class="admin-panel__title">
+   Настройки показа
+   <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-top-right">
+   <i class="fas fa-info-circle"></i>
+   <span class="tooltip-content">Действие определяется через вкл\выкл. <img class="tooltip-checkbox" src="../../assets/new_layout/img/sprite/checkbox.svg" alt="##"><br> По умолчанию действие вкл припервом совпадении даты и времени</span>
+   </a>
+   </div>
+
 <ul class="editor-content">
 
 </ul>
 
-<button class="editor-add">
+<a href="#" class="editor-add">
    <i class="fas fa-plus"></i>
-</button>
+</a>
 
 <textarea
         <% field.config.required && 'required' %>
@@ -16,7 +24,37 @@
 
 <script>
    let counter = 0;
-   let propertyList = ['data-item', 'data-icon', 'data-hint', 'data-link', 'data-email'];
+   let propertyList = {
+      'item': {
+         'type': 'string',
+         'title': 'Item',
+         'description': "this is the Item"
+      },
+      'title': {
+         'type': 'string',
+         'title': 'Title',
+         'description': "this is the title"
+      },
+      'checkmark': {
+         'type': 'boolean',
+         'title': 'Checkmark',
+         'description': "this is the checkmark"
+      },
+      'hint': {
+         'type': 'string',
+         'title': 'Hint',
+         'description': "this is the hint"
+      },
+      'link': {
+         'type': 'string',
+         'title': 'Link',
+         'description': "this is the link"
+      },
+      'age':{
+         'type': 'number',
+         'title': 'Age',
+         'description': "this is the age"
+      }};
    let permutations = {
       "time": true,
       "date": true,
@@ -27,13 +65,16 @@
    let input =    [
       {
          "dayOfWeek": "all",
+         "timeStart": "15:00",
          "timeStop": "21:00",
          "break": "00:00-00:15",
          "dateStart": "2021-10-01",
-         "dateStop": "",
+         "dateStop": "2021-11-01",
          "options": {
             "title": 'Element',
-            "hint": "Some element"
+            "hint": "Some element",
+            "checkmark": "true",
+            "age": "33"
          }
       },
       {
@@ -42,13 +83,16 @@
                  "tuesday"
             ],
          "timeStart": "10:00",
+         "timeStop": "23:00",
          "break": "00:00-00:00",
-         "dateStart": "",
+         "dateStart": "2020-12-30",
          "dateStop": "2021-12-30",
          "options": {
             "title": 'Carbon',
             "hint": "Awesome element",
-            "link": "#"
+            "link": "#",
+            "checkmark": "false",
+            "age": "54"
          }
       }
    ]
@@ -78,7 +122,7 @@
    $('#popUp').hide();
 
    $(".editor-content").sortable({
-      change: function() { saveChanges() }
+      update: function() { saveChanges() }
    });
 
    getAttr();
@@ -113,17 +157,17 @@
       if (!permutations.time) {
          $('.add_editor__time').last().remove();
       } else {
-         if (input[i].timeStart || input[i].timeStop) {
+         if (input[i].timeStart && input[i].timeStop) {
             let timeStart = input[i].timeStart || '';
             let timeStop = input[i].timeStop || '';
             $('.add_editor__time').last().replaceWith('<div class="editor__time time_editor">' +
                     '<label for="">от</label>' +
                     '<span>' +
-                    `<input type="time" value="${timeStart}" required>` +
+                    `<input type="time" value="${timeStart}">` +
                     '</span>' +
                     '<label for="">до</label>' +
                     '<span>' +
-                    `<input type="time" value="${timeStop}" required>` +
+                    `<input type="time" value="${timeStop}">` +
                     '</span>' +
                     '<button class="editor__close delete-time">' +
                     '<i class="fas fa-times"></i>' +
@@ -136,18 +180,18 @@
       if (!permutations.date) {
          $('.add_editor__date').last().remove();
       } else {
-         if (input[i].dateStart || input[i].dateStop) {
+         if (input[i].dateStart && input[i].dateStop) {
             let dateStart = input[i].dateStart || '';
             let dateStop = input[i].dateStop || '';
             $('.add_editor__date').last().replaceWith('<div class="editor__time editor__time--date date_editor">' +
                     '<label for="">от</label>' +
                     '<span>' +
-                    `<input type="date" value="${dateStart}" required>` +
+                    `<input type="date" value="${dateStart}">` +
                     '<i class="fas fa-chevron-down"></i>' +
                     '</span>' +
                     '<label for="">до</label>' +
                     '<span>' +
-                    `<input type="date" value="${dateStop}" required>` +
+                    `<input type="date" value="${dateStop}">` +
                     '<i class="fas fa-chevron-down"></i>' +
                     '</span>' +
                     '<button class="editor__close delete-date">' +
@@ -166,11 +210,11 @@
             $('.add_editor__break').last().replaceWith('<div class="editor__time break_editor">' +
                     '<label for="">от</label>' +
                     '<span>' +
-                    `<input type="time" value="${breakStart}" required>` +
+                    `<input type="time" value="${breakStart}">` +
                     '</span>' +
                     '<label for="">до</label>' +
                     '<span>' +
-                    `<input type="time" value="${breakStop}" required>` +
+                    `<input type="time" value="${breakStop}">` +
                     '</span>' +
                     '<button class="editor__close delete-break">' +
                     '<i class="fas fa-times"></i>' +
@@ -198,6 +242,8 @@
    $('#popUp').on('click', '.deleteProp', function() { deleteProp(this) });
    $('#popUp').on('click', '.editItem', function() { editItem() });
    $('.close-btn').on('click', function() { clearPopup() });
+
+   $('input').change(function() { saveChanges() });
 
    function itemDown(button) {
       let currentItem = $(button).closest('.editor-wrapper');
@@ -237,6 +283,7 @@
       }
 
       counter++;
+      $('.editor__content > input').change(function() { saveChanges() });
       saveChanges();
    }
 
@@ -249,16 +296,17 @@
       $(button).replaceWith('<div class="editor__time time_editor">' +
               '<label for="">от</label>' +
               '<span>' +
-              `<input type="time" value="" required>` +
+              `<input type="time" value="">` +
               '</span>' +
               '<label for="">до</label>' +
               '<span>' +
-              `<input type="time" value="" required>` +
+              `<input type="time" value="">` +
               '</span>' +
               '<button class="editor__close delete-time">' +
               '<i class="fas fa-times"></i>' +
               '</button>' +
               '</div>')
+      $('.time_editor > span > input[type="time"]').change(function() { saveChanges() });
       saveChanges();
    }
 
@@ -266,18 +314,19 @@
       $(button).replaceWith('<div class="editor__time editor__time--date date_editor">' +
               '<label for="">от</label>' +
               '<span>' +
-              `<input type="date" value="" required>` +
+              `<input type="date" value="">` +
               '<i class="fas fa-chevron-down"></i>' +
               '</span>' +
               '<label for="">до</label>' +
               '<span>' +
-              `<input type="date" value="" required>` +
+              `<input type="date" value="">` +
               '<i class="fas fa-chevron-down"></i>' +
               '</span>' +
               '<button class="editor__close delete-date">' +
               '<i class="fas fa-times"></i>' +
               '</button>' +
               '</div>')
+      $('.date_editor > span > input[type="date"]').change(function() { saveChanges() });
       saveChanges();
    }
 
@@ -285,16 +334,17 @@
       $(button).replaceWith('<div class="editor__time break_editor">' +
               '<label for="">от</label>' +
               '<span>' +
-              `<input type="time" value="" required>` +
+              `<input type="time" value="">` +
               '</span>' +
               '<label for="">до</label>' +
               '<span>' +
-              `<input type="time" value="" required>` +
+              `<input type="time" value="">` +
               '</span>' +
               '<button class="editor__close delete-break">' +
               '<i class="fas fa-times"></i>' +
               '</button>' +
               '</div>')
+      $('.break_editor > span > input[type="time"]').change(function() { saveChanges() });
       saveChanges();
    }
 
@@ -391,12 +441,20 @@
             itemId = value;
             $(".editItem").attr('itemid', value);
          } else if (key.startsWith('data-')) {
+            let typeRecognition = recognizeType(key.slice(5));
             let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
             $("#propertyAdder").parent().before(`<div id="${key}">` +
                     `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
-                    `<input type="text" id="item${capitalizedKey}" value="${value}">` +
+                    `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                     '<a href="#" class="deleteProp">[X]</a>' +
                     '</div>')
+            if (typeRecognition.inputType === 'checkbox') {
+               if (value === 'true') {
+                  $(`#${key} > input`).prop("checked", "checked");
+               }
+            } else {
+               $(`#${key} > input`).attr('value', value);
+            }
          }
       }
       $('#propertyAdder').append($('<option>', {
@@ -404,22 +462,22 @@
          text: 'None'
       }))
       let proposedList = [];
-      for (let item of propertyList) {
+      for (let [item, value] of Object.entries(propertyList)) {
          let unique = true;
          for (let key of Object.keys($('#' + itemId).getAttr())) {
-            if (item === key) {
+            if (`data-${item}` === key) {
                unique = false;
                break;
             }
          }
          if (unique === true) {
-            proposedList.push(item)
+            proposedList[item] = value;
          }
       }
-      for (let item of proposedList) {
+      for (let [item, value] of Object.entries(proposedList)) {
          $('#propertyAdder').append($('<option>', {
             value: item,
-            text: item
+            text: value.title
          }))
       }
    }
@@ -443,15 +501,44 @@
    });
 
    function addProperty() {
-      let capitalizedKey = $('#propertyAdder').val().slice(5).charAt(0).toUpperCase() + $('#propertyAdder').val().slice(6);
-      $("#propertyAdder").parent().before(`<div id="${$('#propertyAdder').val()}">` +
-              `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
-              `<input type="text" id="item${capitalizedKey}">` +
-              '<a href="#" class="deleteProp">[X]</a>' +
-              '</div>')
-      $("#" + $(".editItem").attr('itemid')).attr($('#propertyAdder').val(), "");
-      $('#propertyAdder option:selected').remove();
-      saveChanges();
+      if ($('#propertyAdder').val() !== "None") {
+         let typeRecognition = recognizeType($('#propertyAdder').val());
+         let capitalizedKey = $('#propertyAdder').val().charAt(0).toUpperCase() + $('#propertyAdder').val().slice(1);
+         $("#propertyAdder").parent().before(`<div id="data-${$('#propertyAdder').val()}">` +
+                 `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
+                 `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
+                 '<a href="#" class="deleteProp">[X]</a>' +
+                 '</div>')
+         $("#" + $(".editItem").attr('itemid')).attr(`data-${$('#propertyAdder').val()}`, typeRecognition.defaultValue);
+         $('#propertyAdder option:selected').remove();
+         saveChanges();
+      }
+   }
+
+   function recognizeType(inputValue) {
+      let output = {
+         'inputType': "",
+         'defaultValue': ""
+      }
+      for (let [key, value] of Object.entries(propertyList)) {
+         if (inputValue === key) {
+            switch (value.type) {
+               case 'string':
+                  output.inputType = "text";
+                  output.defaultValue = "";
+                  break;
+               case 'number':
+                  output.inputType = "number";
+                  output.defaultValue = 0;
+                  break;
+               case "boolean":
+                  output.inputType = "checkbox";
+                  output.defaultValue = "false";
+                  break;
+            }
+         }
+      }
+      return output;
    }
 
    function deleteProp(prop) {
@@ -464,7 +551,12 @@
       let itemId = '#' + $('.editItem').attr('itemid');
       $('.modal-body > div').each(function(index, element) {
          if ($(element).is(":visible") && $(element).attr('id')) {
-            $(itemId).attr($(element).attr('id'), $('input', element).val());
+            if ((recognizeType(($(element).attr('id')).slice(5))).inputType === 'checkbox') {
+               $(itemId).attr($(element).attr('id'), $(' > input', element).prop("checked"));
+            } else {
+               $(itemId).attr($(element).attr('id'), $(' > input', element).val());
+            }
+
          }
       })
       saveChanges();
@@ -474,16 +566,6 @@
    function getEditor() {
       return `<li class="editor-wrapper" id="editor${counter}">` +
                '<div class="editor">' +
-                  '<div class="admin-panel__title">' +
-                     'Настройки показа' +
-                     '<a href="javascript:void(0)" role="tooltip" aria-haspopup="true"' +
-                        ' class="tooltip tooltip-md tooltip-top-right">' +
-                        '<i class="fas fa-info-circle"></i>' +
-                        '<span class="tooltip-content">Действие определяется через вкл\выкл. <img class="tooltip-checkbox"' +
-                        ' src="../../assets/new_layout/img/sprite/checkbox.svg" alt="##"><br> По умолчанию действие вкл при' +
-                        'первом совпадении даты и времени</span>' +
-                     '</a>' +
-                  '</div>' +
                   '<div class="editor__form">' +
                      '<div class="editor__wrap">' +
                         '<button class="editor__dots">' +
@@ -533,17 +615,17 @@
                      '</div>' +
                      '<div class="editor__bottom">' +
                         '<div class="editor__arrows">' +
-                           '<button class="editor__arrow itemDown">' +
+                           '<a href="#" class="editor__arrow itemDown">' +
                               '<i class="fas fa-chevron-down"></i>' +
-                           '</button>' +
-                           '<button class="editor__arrow itemUp">' +
+                           '</a>' +
+                           '<a href="#" class="editor__arrow itemUp">' +
                               '<i class="fas fa-chevron-up"></i>' +
-                           '</button>' +
+                           '</a>' +
                         '</div>' +
                         '<div class="popUpButton">' +
-                           '<button class="editor__arrow popUpOpen" data-toggle="modal" data-target="#popUp">' +
+                           '<a href="#" class="editor__arrow popUpOpen" data-toggle="modal" data-target="#popUp">' +
                               '<i>{}</i>' +
-                           '</button>' +
+                           '</a>' +
                         '</div>' +
                      '</div>' +
                   '</div>' +

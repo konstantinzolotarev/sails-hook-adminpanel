@@ -229,7 +229,7 @@ textarea {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: #565656 !important; 
+  color: #565656 !important;
 }
 
 .nav-label .active:hover {
@@ -315,7 +315,7 @@ textarea {
 
 .sidenav-panel .active {
   background: #fff !important;
-} 
+}
 
 .sidenav-panel .clr-select {
   border: 1px solid #0079B8;
@@ -916,7 +916,7 @@ input[type=number] {
   .editor {
     width: 100%;
   }
-  
+
   .editor__bottom .checkbox {
     display: flex;
     justify-content: flex-end;
