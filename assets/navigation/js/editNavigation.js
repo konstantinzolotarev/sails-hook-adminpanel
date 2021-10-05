@@ -5,10 +5,39 @@ class EditNavigation {
         this.dataInput = config.data;
         this.counter = 0;
         this.maxNestedItems = 4;
-        this.obligatoryProperty = 'data-title';
-        this.propertyList = ['data-item', 'data-icon', 'data-hint', 'data-link', 'data-email'];
+        this.propertyList = {
+            'item': {
+                'type': 'string',
+                'title': 'Item',
+                'description': "this is the Item"
+            },
+            'title': {
+                'type': 'string',
+                'title': 'Title',
+                'description': "this is the title",
+                'required': 'true'
+            },
+            'checkmark': {
+                'type': 'boolean',
+                'title': 'Checkmark',
+                'description': "this is the checkmark"
+            },
+            'hint': {
+                'type': 'string',
+                'title': 'Hint',
+                'description': "this is the hint"
+            },
+            'link': {
+                'type': 'string',
+                'title': 'Link',
+                'description': "this is the link"
+            },
+            'age':{
+                'type': 'number',
+                'title': 'Age',
+                'description': "this is the age"
+            }};
         this.displacementControl = true;
-        this.nestedTree = {}
 
         //this.logConfig();
         this.main(this);
@@ -79,7 +108,7 @@ class EditNavigation {
         $('#sortableList').on('click', '.popUpOpen', function() { menu.fillPopUp(this, menu) });
         $('#popUp').on('click', '.addProperty', function() { menu.addProperty() });
         $('#popUp').on('click', '.deleteProp', function() { menu.deleteProp(this) });
-        $('#popUp').on('click', '.editItem', function() { menu.editItem() });
+        $('#popUp').on('click', '.editItem', function() { menu.editItem(menu) });
         $('.close-btn').on('click', function() { menu.clearPopup() });
 
         // add closing modal window using click and esc
@@ -136,15 +165,21 @@ class EditNavigation {
     }
 
     addProperty() {
-        let capitalizedKey = $('#propertyAdder').val().slice(5).charAt(0).toUpperCase() + $('#propertyAdder').val().slice(6);
-        $("#propertyAdder").parent().before(`<div id="${$('#propertyAdder').val()}">` +
-            `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
-            `<input type="text" id="item${capitalizedKey}">` +
-            '<a href="#" class="deleteProp">[X]</a>' +
-            '</div>')
-        $('li[id^="item_"]').attr($('#propertyAdder').val(), "");
-        $('#propertyAdder option:selected').remove();
-        this.saveChanges();
+        if ($('#propertyAdder').val() !== "None") {
+            let typeRecognition = this.recognizeType($('#propertyAdder').val());
+            let capitalizedKey = $('#propertyAdder').val().charAt(0).toUpperCase() + $('#propertyAdder').val().slice(1);
+            $("#propertyAdder").parent().before(`<div id="data-${$('#propertyAdder').val()}">` +
+                `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
+                `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
+                '<a href="#" class="deleteProp">[X]</a>' +
+                '</div>')
+            if (typeRecognition.required === "true") {
+                $(`data-${$('#propertyAdder').val()} > .deleteProp`).remove();
+            }
+            $('li[id^="item_"]').attr(`data-${$('#propertyAdder').val()}`, typeRecognition.defaultValue);
+            $('#propertyAdder option:selected').remove();
+            this.saveChanges();
+        }
     }
 
     deleteProp(prop) {
@@ -164,7 +199,8 @@ class EditNavigation {
             '</li>');
         for (let key of Object.keys($('#sortableList > li').getAttr())) {
             if ($('#item_new').attr(key) === undefined) {
-                $('#item_new').attr(key, "");
+                let typeRecognition = this.recognizeType(key.slice(5))
+                $('#item_new').attr(key, typeRecognition.defaultValue);
             }
         }
         this.counter++;
@@ -177,12 +213,47 @@ class EditNavigation {
         this.saveChanges();
     }
 
-    editItem() {
+    recognizeType(inputValue) {
+        let output = {
+            'inputType': "",
+            'defaultValue': "",
+            'required': "false"
+        }
+        for (let [key, value] of Object.entries(this.propertyList)) {
+            if (inputValue === key) {
+                switch (value.type) {
+                    case 'string':
+                        output.inputType = "text";
+                        output.defaultValue = "";
+                        break;
+                    case 'number':
+                        output.inputType = "number";
+                        output.defaultValue = 0;
+                        break;
+                    case "boolean":
+                        output.inputType = "checkbox";
+                        output.defaultValue = "false";
+                        break;
+                }
+
+                if (value.required === 'true') {
+                    output.required = "true"
+                }
+            }
+        }
+        return output;
+    }
+
+    editItem(menu) {
         let itemId = '#' + $('.modal-footer > .editItem').attr('itemid');
         $(' > div > label', itemId).text($('.modal-body > div[id="data-title"] > input').val());
         $('.modal-body > div').each(function(index, element) {
             if ($(element).is(":visible") && $(element).attr('id')) {
-                $(itemId).attr($(element).attr('id'), $('input', element).val());
+                if ((menu.recognizeType(($(element).attr('id')).slice(5))).inputType === 'checkbox') {
+                    $(itemId).attr($(element).attr('id'), $(' > input', element).prop("checked"));
+                } else {
+                    $(itemId).attr($(element).attr('id'), $(' > input', element).val());
+                }
             }
         })
         if ($('#parentSelector').val() === 'global') {
@@ -226,19 +297,22 @@ class EditNavigation {
                 itemId = value;
                 $(".editItem").attr('itemid', value);
             } else if (key.startsWith('data-')) {
-                if (key === menu.obligatoryProperty) { // here add obligatory properties
-                    let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
-                    $("#propertyAdder").parent().before(`<div id="${key}">` +
-                        `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
-                        `<input type="text" id="item${capitalizedKey}" value="${value}">` +
-                        '</div>')
+                let typeRecognition = menu.recognizeType(key.slice(5));
+                let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
+                $("#propertyAdder").parent().before(`<div id="${key}">` +
+                    `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
+                    `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
+                    '<a href="#" class="deleteProp">[X]</a>' +
+                    '</div>')
+                if (typeRecognition.inputType === 'checkbox') {
+                    if (value === 'true') {
+                        $(`#${key} > input`).prop("checked", "checked");
+                    }
                 } else {
-                    let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
-                    $("#propertyAdder").parent().before(`<div id="${key}">` +
-                        `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
-                        `<input type="text" id="item${capitalizedKey}" value="${value}">` +
-                        '<a href="#" class="deleteProp">[X]</a>' +
-                        '</div>')
+                    $(`#${key} > input`).attr('value', value);
+                }
+                if (typeRecognition.required === "true") {
+                    $(`#${key} > .deleteProp`).remove();
                 }
             }
         }
@@ -261,23 +335,23 @@ class EditNavigation {
             value: 'None',
             text: 'None'
         }))
-        let proposedList = [];
-        for (let item of menu.propertyList) {
+        let proposedList = {};
+        for (let [item, value] of Object.entries(this.propertyList)) {
             let unique = true;
             for (let key of Object.keys($('#' + itemId).getAttr())) {
-                if (item === key) {
+                if (`data-${item}` === key) {
                     unique = false;
                     break;
                 }
             }
             if (unique === true) {
-                proposedList.push(item)
+                proposedList[item] = value;
             }
         }
-        for (let item of proposedList) {
+        for (let [item, value] of Object.entries(proposedList)) {
             $('#propertyAdder').append($('<option>', {
                 value: item,
-                text: item
+                text: value.title
             }))
         }
     }

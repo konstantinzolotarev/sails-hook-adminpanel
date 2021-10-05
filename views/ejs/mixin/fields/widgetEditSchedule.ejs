@@ -461,7 +461,7 @@
          value: 'None',
          text: 'None'
       }))
-      let proposedList = [];
+      let proposedList = {};
       for (let [item, value] of Object.entries(propertyList)) {
          let unique = true;
          for (let key of Object.keys($('#' + itemId).getAttr())) {
