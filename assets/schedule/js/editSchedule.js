@@ -108,7 +108,7 @@ class EditSchedule {
                         '<span>' +
                         `<input type="time" value="${timeStop}">` +
                         '</span>' +
-                        '<button class="editor__close delete-time">' +
+                        '<button type="button" class="editor__close delete-time">' +
                         '<i class="fas fa-times"></i>' +
                         '</button>' +
                         '</div>')
@@ -133,7 +133,7 @@ class EditSchedule {
                         `<input type="date" value="${dateStop}">` +
                         '<i class="fas fa-chevron-down"></i>' +
                         '</span>' +
-                        '<button class="editor__close delete-date">' +
+                        '<button type="button" class="editor__close delete-date">' +
                         '<i class="fas fa-times"></i>' +
                         '</button>' +
                         '</div>')
@@ -155,7 +155,7 @@ class EditSchedule {
                         '<span>' +
                         `<input type="time" value="${breakStop}">` +
                         '</span>' +
-                        '<button class="editor__close delete-break">' +
+                        '<button type="button" class="editor__close delete-break">' +
                         '<i class="fas fa-times"></i>' +
                         '</button>' +
                         '</div>')
@@ -180,9 +180,9 @@ class EditSchedule {
         $('.editor-content').on('click', '.add_editor__break', function() { schedule.addBreak(this, schedule) });
 
         // add add-editor button
-        $(`#form-${this.field}`).before('<a href="#" class="editor-add">' +
+        $(`#form-${this.field}`).before('<button type="button" class="editor-add">' +
             '   <i class="fas fa-plus"></i>' +
-            '</a>')
+            '</button>')
 
         // add handler for add-button
         $('.editor-add').on('click', function() { schedule.addEditor(schedule) });
@@ -293,7 +293,7 @@ class EditSchedule {
             '<span>' +
             `<input type="time" value="">` +
             '</span>' +
-            '<button class="editor__close delete-time">' +
+            '<button type="button" class="editor__close delete-time">' +
             '<i class="fas fa-times"></i>' +
             '</button>' +
             '</div>')
@@ -313,7 +313,7 @@ class EditSchedule {
             `<input type="date" value="">` +
             '<i class="fas fa-chevron-down"></i>' +
             '</span>' +
-            '<button class="editor__close delete-date">' +
+            '<button type="button" class="editor__close delete-date">' +
             '<i class="fas fa-times"></i>' +
             '</button>' +
             '</div>')
@@ -331,7 +331,7 @@ class EditSchedule {
             '<span>' +
             `<input type="time" value="">` +
             '</span>' +
-            '<button class="editor__close delete-break">' +
+            '<button type="button" class="editor__close delete-break">' +
             '<i class="fas fa-times"></i>' +
             '</button>' +
             '</div>')
@@ -340,19 +340,19 @@ class EditSchedule {
     }
 
     deleteTime(button) {
-        $(button).parent().replaceWith('<button class="add_editor__time">' +
+        $(button).parent().replaceWith('<button type="button" class="add_editor__time">' +
             '<span><i class="fas fa-plus"></i>Добавить время</span></button>');
         this.saveChanges();
     }
 
     deleteDate(button) {
-        $(button).parent().replaceWith('<button class="add_editor__date">' +
+        $(button).parent().replaceWith('<button type="button" class="add_editor__date">' +
             '<span><i class="fas fa-plus"></i>Добавить дату</span></button>');
         this.saveChanges();
     }
 
     deleteBreak(button) {
-        $(button).parent().replaceWith('<button class="add_editor__break">' +
+        $(button).parent().replaceWith('<button type="button" class="add_editor__break">' +
             '<span><i class="fas fa-plus"></i>Добавить перерыв</span></button>')
         this.saveChanges();
     }
@@ -546,7 +546,7 @@ class EditSchedule {
             '<div class="editor">' +
             '<div class="editor__form">' +
             '<div class="editor__wrap">' +
-            '<button class="editor__dots">' +
+            '<button type="button" class="editor__dots">' +
             '<i class="fas fa-ellipsis-v"></i>' +
             '</button>' +
             '<div class="editor__content">' +
@@ -579,31 +579,31 @@ class EditSchedule {
             'вс' +
             '</label>' +
             '</div>' +
-            '<button class="editor__close delete-editor">' +
+            '<button type="button" class="editor__close delete-editor">' +
             '<i class="fas fa-times"></i>' +
             '</button>' +
             '</div>' +
             '<div class="editor__nav">' +
-            '<button class="add_editor__time">' +
+            '<button type="button" class="add_editor__time">' +
             '<span><i class="fas fa-plus"></i>Добавить время</span></button>' +
-            '<button class="add_editor__date">' +
+            '<button type="button" class="add_editor__date">' +
             '<span><i class="fas fa-plus"></i>Добавить дату</span></button>' +
-            '<button class="add_editor__break">' +
+            '<button type="button" class="add_editor__break">' +
             '<span><i class="fas fa-plus"></i>Добавить перерыв</span></button>' +
             '</div>' +
             '<div class="editor__bottom">' +
             '<div class="editor__arrows">' +
-            '<a href="#" class="editor__arrow itemDown">' +
+            '<button type="button" class="editor__arrow itemDown">' +
             '<i class="fas fa-chevron-down"></i>' +
-            '</a>' +
-            '<a href="#" class="editor__arrow itemUp">' +
+            '</button>' +
+            '<button type="button" class="editor__arrow itemUp">' +
             '<i class="fas fa-chevron-up"></i>' +
-            '</a>' +
+            '</button>' +
             '</div>' +
             '<div class="popUpButton">' +
-            '<a href="#" class="editor__arrow popUpOpen" data-toggle="modal" data-target="#popUp">' +
+            '<button type="button" class="editor__arrow popUpOpen" data-toggle="modal" data-target="#popUp">' +
             '<i>{}</i>' +
-            '</a>' +
+            '</button>' +
             '</div>' +
             '</div>' +
             '</div>' +
