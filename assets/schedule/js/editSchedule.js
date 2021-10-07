@@ -2,7 +2,7 @@ class EditSchedule {
     constructor(config) {
         this.elName = config.element;
         this.field = config.field;
-        this.dataInput = config.data;
+        this.dataInput = JSON.parse(config.data);
         this.counter = 0;
         this.propertyList = {
             'item': {
@@ -66,7 +66,7 @@ class EditSchedule {
         });
 
         // create existing editors
-        for (let i = 0; i < this.dataInput.length; i++) {
+        for (let i = 0; i < schedule.dataInput.length; i++) {
 
             // generating editor frames
             $('.editor-content').append(this.getEditor());
@@ -75,7 +75,7 @@ class EditSchedule {
             if (!this.permutations.options) {
                 $('.popUpButton').last().remove();
             } else {
-                for (let [key, value] of Object.entries(this.dataInput[i].options)) {
+                for (let [key, value] of Object.entries(schedule.dataInput[i].options)) {
                     $('.editor-wrapper').last().attr(`data-${key}`, value)
                 }
             }
