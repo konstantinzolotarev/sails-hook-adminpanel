@@ -193,6 +193,13 @@
    font-size: 16px;
  }
 
+ .schedule-placeholder {
+    max-width: 410px;
+    min-height: 200px;
+    margin-top: 10px;
+    margin-right: 30px;
+ }
+
  
 @media (max-width: 640px) {
    .schedule {

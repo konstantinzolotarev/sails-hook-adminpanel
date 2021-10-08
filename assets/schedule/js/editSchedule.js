@@ -66,6 +66,8 @@ class EditSchedule {
 
     // make schedules sortable
     $(".schedule-content").sortable({
+      placeholder: "schedule-placeholder",
+      forcePlaceholderSize: true,
       update: function () {
         schedule.saveChanges();
       },
