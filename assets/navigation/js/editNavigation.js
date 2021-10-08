@@ -447,7 +447,6 @@ class EditNavigation {
         let options = {
             // Like a css class name. Class will be removed after drop.
             currElClass: 'currElemClass',
-
             placeholderClass: 'placeholderClass',
 
             hintClass: 'hintClass',
@@ -510,6 +509,10 @@ class EditNavigation {
             onChange: function()
             {
                 menu.saveChanges();
+            },
+            start: function(e, ui){
+                ui.placeholder.height(ui.item.height());
+                ui.placeholder.css('visibility', 'visible');
             }
         }
         return options;
