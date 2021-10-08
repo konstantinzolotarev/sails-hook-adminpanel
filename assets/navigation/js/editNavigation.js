@@ -266,6 +266,7 @@ class EditNavigation {
         }
         this.saveChanges();
         this.clearPopup();
+        $('#parentSelector').parent().show();
     }
 
     itemUp(item) {
@@ -376,6 +377,7 @@ class EditNavigation {
         $('.modal-body > div[id^="data-"]').remove()
         $('#parentSelector').empty();
         $('#propertyAdder').empty();
+        $('#parentSelector').parent().show();
     }
 
     // function that replaces sortableListsToHierarchy function from original module
