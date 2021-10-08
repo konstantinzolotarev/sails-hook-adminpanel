@@ -309,6 +309,10 @@ textarea {
   padding-left: 0 !important;
 }
 
+.sidenav-panel .nav-list li {
+  display: flex;
+}
+
 .sidenav-panel .nav-list a {
   padding-left: 34px !important;
 }

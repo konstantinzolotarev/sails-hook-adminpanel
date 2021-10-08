@@ -34,7 +34,7 @@
 
       <% var active = ""; if (menuItem && menuItem.instanceName && instance && instance.name)  { active = menuItem.instanceName  === instance.name ? 'active' : '' } %>
       <section class="nav-group collapsible">
-        <input id="tab-<%=menuItem.id%>" type="checkbox" checked/>
+        <input id="tab-<%=menuItem.id%>" type="checkbox"/>
         <div class="nav-label <%= active %>">
           <label for="tab-<%=menuItem.id%>">
 
