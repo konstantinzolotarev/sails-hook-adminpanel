@@ -1,5 +1,7 @@
 .schedule {
    margin-top: 10px;
+   margin-right: 30px;
+   height: 100%;
  }
  
  .schedule__wrap {
@@ -30,7 +32,7 @@
    width: 0;
    height: 0;
  }
- 
+
  .schedule__content label {
    font-size: 12px;
    line-height: 12px;
@@ -49,6 +51,9 @@
  }
  
  .schedule__form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
    border: 1px solid #CCCCCC;
    box-sizing: border-box;
    border-radius: 3px;
@@ -123,6 +128,7 @@
    align-items: center;
    justify-content: space-between;
    width: 100%;
+   margin-top: auto;
  }
  
  .schedule__time {
