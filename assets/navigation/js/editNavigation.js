@@ -116,6 +116,7 @@ class EditNavigation {
             if (e.keyCode === 27) {
                 e.stopPropagation();
                 menu.clearPopup();
+                $('#popUp').modal('hide');
             }
         });
         $('.modal').click(function(e) {
