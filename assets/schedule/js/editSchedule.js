@@ -2,7 +2,7 @@ class EditSchedule {
   constructor(config) {
     this.elName = config.element;
     this.field = config.field;
-    this.dataInput = JSON.parse(config.data);
+    this.dataInput = config.data;
     this.counter = 0;
     this.propertyList = {
       item: {
@@ -48,6 +48,8 @@ class EditSchedule {
   }
 
   main(schedule) {
+
+    console.log("Here")
     // add main hint
     $(`#form-${this.field}`).before(
       '<div class="admin-panel__title">\n' +
@@ -75,114 +77,116 @@ class EditSchedule {
     });
 
     // create existing editors
-    for (let i = 0; i < schedule.dataInput.length; i++) {
-      // generating editor frames
-      $(".editor-content").append(this.getEditor());
+    if ($(`#form-${this.field}`).val()) {
+      let dataInput = JSON.parse(this.dataInput);
+      for (let i = 0; i < dataInput.length; i++) {
+        // generating editor frames
+        $(".editor-content").append(this.getEditor());
 
-      // choosing options
-      if (!this.permutations.options) {
-        $(".popUpButton").last().remove();
-      } else {
-        for (let [key, value] of Object.entries(schedule.dataInput[i].options)) {
-          $(".editor-wrapper").last().attr(`data-${key}`, value);
+        // choosing options
+        if (!this.permutations.options) {
+          $(".popUpButton").last().remove();
+        } else {
+          for (let [key, value] of Object.entries(dataInput[i].options)) {
+            $(".editor-wrapper").last().attr(`data-${key}`, value);
+          }
         }
+
+        // choosing days of week
+        if (typeof dataInput[i].dayOfWeek === "string") {
+          $(` > input[id^=${dataInput[i].dayOfWeek}]`, $(".editor__content")[i]).prop("checked", "checked");
+          if (dataInput[i].dayOfWeek === "all") {
+            $(` > input`, $(".editor__content")[i]).prop("checked", "checked");
+          }
+        } else {
+          for (let j = 0; j < dataInput[i].dayOfWeek.length; j++) {
+            $(` > input[id^=${dataInput[i].dayOfWeek[j]}]`, $(".editor__content")[i]).prop("checked", "checked");
+          }
+        }
+
+        // choosing time
+        if (!this.permutations.time) {
+          $(".add_editor__time").last().remove();
+        } else {
+          if (dataInput[i].timeStart && dataInput[i].timeStop) {
+            let timeStart = dataInput[i].timeStart || "";
+            let timeStop = dataInput[i].timeStop || "";
+            $(".add_editor__time")
+                .last()
+                .replaceWith(
+                    '<div class="editor__time time_editor">' +
+                    '<label for="">от</label>' +
+                    "<span>" +
+                    `<input type="time" value="${timeStart}">` +
+                    "</span>" +
+                    '<label for="">до</label>' +
+                    "<span>" +
+                    `<input type="time" value="${timeStop}">` +
+                    "</span>" +
+                    '<button type="button" class="editor__close delete-time">' +
+                    '<i class="fas fa-times"></i>' +
+                    "</button>" +
+                    "</div>"
+                );
+          }
+        }
+
+        // choosing date
+        if (!this.permutations.date) {
+          $(".add_editor__date").last().remove();
+        } else {
+          if (dataInput[i].dateStart && dataInput[i].dateStop) {
+            let dateStart = dataInput[i].dateStart || "";
+            let dateStop = dataInput[i].dateStop || "";
+            $(".add_editor__date")
+                .last()
+                .replaceWith(
+                    '<div class="editor__time editor__time--date date_editor">' +
+                    '<label for="">от</label>' +
+                    "<span>" +
+                    `<input type="date" value="${dateStart}">` +
+                    '<i class="fas fa-chevron-down"></i>' +
+                    "</span>" +
+                    '<label for="">до</label>' +
+                    "<span>" +
+                    `<input type="date" value="${dateStop}">` +
+                    '<i class="fas fa-chevron-down"></i>' +
+                    "</span>" +
+                    '<button type="button" class="editor__close delete-date">' +
+                    '<i class="fas fa-times"></i>' +
+                    "</button>" +
+                    "</div>"
+                );
+          }
+        }
+
+        // choosing break
+        if (!this.permutations.break) {
+          $(".add_editor__break").last().remove();
+        } else {
+          if (dataInput[i].break) {
+            let [breakStart, breakStop] = dataInput[i].break.split("-");
+            $(".add_editor__break")
+                .last()
+                .replaceWith(
+                    '<div class="editor__time break_editor">' +
+                    '<label for="">от</label>' +
+                    "<span>" +
+                    `<input type="time" value="${breakStart}">` +
+                    "</span>" +
+                    '<label for="">до</label>' +
+                    "<span>" +
+                    `<input type="time" value="${breakStop}">` +
+                    "</span>" +
+                    '<button type="button" class="editor__close delete-break">' +
+                    '<i class="fas fa-times"></i>' +
+                    "</button>" +
+                    "</div>"
+                );
+          }
+        }
+        this.counter++;
       }
-
-      // choosing days of week
-      if (typeof this.dataInput[i].dayOfWeek === "string") {
-        $(` > input[id^=${this.dataInput[i].dayOfWeek}]`, $(".editor__content")[i]).prop("checked", "checked");
-        if (this.dataInput[i].dayOfWeek === "all") {
-          $(` > input`, $(".editor__content")[i]).prop("checked", "checked");
-        }
-      } else {
-        for (let j = 0; j < this.dataInput[i].dayOfWeek.length; j++) {
-          $(` > input[id^=${this.dataInput[i].dayOfWeek[j]}]`, $(".editor__content")[i]).prop("checked", "checked");
-        }
-      }
-
-      // choosing time
-      if (!this.permutations.time) {
-        $(".add_editor__time").last().remove();
-      } else {
-        if (this.dataInput[i].timeStart && this.dataInput[i].timeStop) {
-          let timeStart = this.dataInput[i].timeStart || "";
-          let timeStop = this.dataInput[i].timeStop || "";
-          $(".add_editor__time")
-            .last()
-            .replaceWith(
-              '<div class="editor__time time_editor">' +
-                '<label for="">от</label>' +
-                "<span>" +
-                `<input type="time" value="${timeStart}">` +
-                "</span>" +
-                '<label for="">до</label>' +
-                "<span>" +
-                `<input type="time" value="${timeStop}">` +
-                "</span>" +
-                '<button type="button" class="editor__close delete-time">' +
-                '<i class="fas fa-times"></i>' +
-                "</button>" +
-                "</div>"
-            );
-        }
-      }
-
-      // choosing date
-      if (!this.permutations.date) {
-        $(".add_editor__date").last().remove();
-      } else {
-        if (this.dataInput[i].dateStart && this.dataInput[i].dateStop) {
-          let dateStart = this.dataInput[i].dateStart || "";
-          let dateStop = this.dataInput[i].dateStop || "";
-          $(".add_editor__date")
-            .last()
-            .replaceWith(
-              '<div class="editor__time editor__time--date date_editor">' +
-                '<label for="">от</label>' +
-                "<span>" +
-                `<input type="date" value="${dateStart}">` +
-                '<i class="fas fa-chevron-down"></i>' +
-                "</span>" +
-                '<label for="">до</label>' +
-                "<span>" +
-                `<input type="date" value="${dateStop}">` +
-                '<i class="fas fa-chevron-down"></i>' +
-                "</span>" +
-                '<button type="button" class="editor__close delete-date">' +
-                '<i class="fas fa-times"></i>' +
-                "</button>" +
-                "</div>"
-            );
-        }
-      }
-
-      // choosing break
-      if (!this.permutations.break) {
-        $(".add_editor__break").last().remove();
-      } else {
-        if (this.dataInput[i].break) {
-          let [breakStart, breakStop] = this.dataInput[i].break.split("-");
-          $(".add_editor__break")
-            .last()
-            .replaceWith(
-              '<div class="editor__time break_editor">' +
-                '<label for="">от</label>' +
-                "<span>" +
-                `<input type="time" value="${breakStart}">` +
-                "</span>" +
-                '<label for="">до</label>' +
-                "<span>" +
-                `<input type="time" value="${breakStop}">` +
-                "</span>" +
-                '<button type="button" class="editor__close delete-break">' +
-                '<i class="fas fa-times"></i>' +
-                "</button>" +
-                "</div>"
-            );
-        }
-      }
-
-      this.counter++;
     }
 
     // handler for change event
