@@ -61,11 +61,11 @@ class EditSchedule {
         "   </div>"
     );
 
-    // add editor-content
-    $(`#form-${this.field}`).before('<ul class="editor-content"></ul>');
+    // add schedule-content
+    $(`#form-${this.field}`).before('<ul class="schedule-content"></ul>');
 
-    // make editors sortable
-    $(".editor-content").sortable({
+    // make schedules sortable
+    $(".schedule-content").sortable({
       update: function () {
         schedule.saveChanges();
       },
@@ -76,45 +76,45 @@ class EditSchedule {
       },
     });
 
-    // create existing editors
+    // create existing schedules
     if ($(`#form-${this.field}`).val()) {
       let dataInput = JSON.parse(this.dataInput);
       for (let i = 0; i < dataInput.length; i++) {
-        // generating editor frames
-        $(".editor-content").append(this.getEditor());
+        // generating schedule frames
+        $(".schedule-content").append(this.getschedule());
 
         // choosing options
         if (!this.permutations.options) {
           $(".popUpButton").last().remove();
         } else {
           for (let [key, value] of Object.entries(dataInput[i].options)) {
-            $(".editor-wrapper").last().attr(`data-${key}`, value);
+            $(".schedule-wrapper").last().attr(`data-${key}`, value);
           }
         }
 
         // choosing days of week
         if (typeof dataInput[i].dayOfWeek === "string") {
-          $(` > input[id^=${dataInput[i].dayOfWeek}]`, $(".editor__content")[i]).prop("checked", "checked");
+          $(` > input[id^=${dataInput[i].dayOfWeek}]`, $(".schedule__content")[i]).prop("checked", "checked");
           if (dataInput[i].dayOfWeek === "all") {
-            $(` > input`, $(".editor__content")[i]).prop("checked", "checked");
+            $(` > input`, $(".schedule__content")[i]).prop("checked", "checked");
           }
         } else {
           for (let j = 0; j < dataInput[i].dayOfWeek.length; j++) {
-            $(` > input[id^=${dataInput[i].dayOfWeek[j]}]`, $(".editor__content")[i]).prop("checked", "checked");
+            $(` > input[id^=${dataInput[i].dayOfWeek[j]}]`, $(".schedule__content")[i]).prop("checked", "checked");
           }
         }
 
         // choosing time
         if (!this.permutations.time) {
-          $(".add_editor__time").last().remove();
+          $(".add_schedule__time").last().remove();
         } else {
           if (dataInput[i].timeStart && dataInput[i].timeStop) {
             let timeStart = dataInput[i].timeStart || "";
             let timeStop = dataInput[i].timeStop || "";
-            $(".add_editor__time")
+            $(".add_schedule__time")
                 .last()
                 .replaceWith(
-                    '<div class="editor__time time_editor">' +
+                    '<div class="schedule__time time_schedule">' +
                     '<label for="">от</label>' +
                     "<span>" +
                     `<input type="time" value="${timeStart}">` +
@@ -123,7 +123,7 @@ class EditSchedule {
                     "<span>" +
                     `<input type="time" value="${timeStop}">` +
                     "</span>" +
-                    '<button type="button" class="editor__close delete-time">' +
+                    '<button type="button" class="schedule__close delete-time">' +
                     '<i class="fas fa-times"></i>' +
                     "</button>" +
                     "</div>"
@@ -133,15 +133,15 @@ class EditSchedule {
 
         // choosing date
         if (!this.permutations.date) {
-          $(".add_editor__date").last().remove();
+          $(".add_schedule__date").last().remove();
         } else {
           if (dataInput[i].dateStart && dataInput[i].dateStop) {
             let dateStart = dataInput[i].dateStart || "";
             let dateStop = dataInput[i].dateStop || "";
-            $(".add_editor__date")
+            $(".add_schedule__date")
                 .last()
                 .replaceWith(
-                    '<div class="editor__time editor__time--date date_editor">' +
+                    '<div class="schedule__time schedule__time--date date_schedule">' +
                     '<label for="">от</label>' +
                     "<span>" +
                     `<input type="date" value="${dateStart}">` +
@@ -152,7 +152,7 @@ class EditSchedule {
                     `<input type="date" value="${dateStop}">` +
                     '<i class="fas fa-chevron-down"></i>' +
                     "</span>" +
-                    '<button type="button" class="editor__close delete-date">' +
+                    '<button type="button" class="schedule__close delete-date">' +
                     '<i class="fas fa-times"></i>' +
                     "</button>" +
                     "</div>"
@@ -162,14 +162,14 @@ class EditSchedule {
 
         // choosing break
         if (!this.permutations.break) {
-          $(".add_editor__break").last().remove();
+          $(".add_schedule__break").last().remove();
         } else {
           if (dataInput[i].break) {
             let [breakStart, breakStop] = dataInput[i].break.split("-");
-            $(".add_editor__break")
+            $(".add_schedule__break")
                 .last()
                 .replaceWith(
-                    '<div class="editor__time break_editor">' +
+                    '<div class="schedule__time break_schedule">' +
                     '<label for="">от</label>' +
                     "<span>" +
                     `<input type="time" value="${breakStart}">` +
@@ -178,7 +178,7 @@ class EditSchedule {
                     "<span>" +
                     `<input type="time" value="${breakStop}">` +
                     "</span>" +
-                    '<button type="button" class="editor__close delete-break">' +
+                    '<button type="button" class="schedule__close delete-break">' +
                     '<i class="fas fa-times"></i>' +
                     "</button>" +
                     "</div>"
@@ -194,41 +194,41 @@ class EditSchedule {
       schedule.saveChanges();
     });
 
-    // handlers for editors
-    $(".editor-content").on("click", ".itemDown", function () {
+    // handlers for schedules
+    $(".schedule-content").on("click", ".itemDown", function () {
       schedule.itemDown(this);
     });
-    $(".editor-content").on("click", ".itemUp", function () {
+    $(".schedule-content").on("click", ".itemUp", function () {
       schedule.itemUp(this);
     });
-    $(".editor-content").on("click", ".delete-editor", function () {
-      schedule.deleteEditor(this);
+    $(".schedule-content").on("click", ".delete-schedule", function () {
+      schedule.deleteschedule(this);
     });
-    $(".editor-content").on("click", ".delete-time", function () {
+    $(".schedule-content").on("click", ".delete-time", function () {
       schedule.deleteTime(this);
     });
-    $(".editor-content").on("click", ".delete-date", function () {
+    $(".schedule-content").on("click", ".delete-date", function () {
       schedule.deleteDate(this);
     });
-    $(".editor-content").on("click", ".delete-break", function () {
+    $(".schedule-content").on("click", ".delete-break", function () {
       schedule.deleteBreak(this);
     });
-    $(".editor-content").on("click", ".add_editor__time", function () {
+    $(".schedule-content").on("click", ".add_schedule__time", function () {
       schedule.addTime(this, schedule);
     });
-    $(".editor-content").on("click", ".add_editor__date", function () {
+    $(".schedule-content").on("click", ".add_schedule__date", function () {
       schedule.addDate(this, schedule);
     });
-    $(".editor-content").on("click", ".add_editor__break", function () {
+    $(".schedule-content").on("click", ".add_schedule__break", function () {
       schedule.addBreak(this, schedule);
     });
 
-    // add add-editor button
-    $(`#form-${this.field}`).before('<button type="button" class="editor-add">' + '   <i class="fas fa-plus"></i>' + "</button>");
+    // add add-schedule button
+    $(`#form-${this.field}`).before('<button type="button" class="schedule-add">' + '   <i class="fas fa-plus"></i>' + "</button>");
 
     // add handler for add-button
-    $(".editor-add").on("click", function () {
-      schedule.addEditor(schedule);
+    $(".schedule-add").on("click", function () {
+      schedule.addschedule(schedule);
     });
 
     // create modal window, append it and hide
@@ -258,7 +258,7 @@ class EditSchedule {
     $("#popUp").hide();
 
     // handlers for modal window
-    $(".editor-content").on("click", ".popUpOpen", function () {
+    $(".schedule-content").on("click", ".popUpOpen", function () {
       schedule.fillPopUp(this);
     });
     $("#popUp").on("click", ".addProperty", function () {
@@ -292,7 +292,7 @@ class EditSchedule {
   }
 
   itemDown(button) {
-    let currentItem = $(button).closest(".editor-wrapper");
+    let currentItem = $(button).closest(".schedule-wrapper");
     let nextItem = $(currentItem).next();
 
     if (nextItem && nextItem.length > 0) {
@@ -302,7 +302,7 @@ class EditSchedule {
   }
 
   itemUp(button) {
-    let currentItem = $(button).closest(".editor-wrapper");
+    let currentItem = $(button).closest(".schedule-wrapper");
     let prevItem = $(currentItem).prev(); // returns prev item or empty jQuery object
 
     if (prevItem && prevItem.length > 0) {
@@ -311,38 +311,38 @@ class EditSchedule {
     this.saveChanges();
   }
 
-  addEditor(schedule) {
-    $(".editor-content").append(schedule.getEditor());
+  addschedule(schedule) {
+    $(".schedule-content").append(schedule.getschedule());
 
     console.log(this.permutations);
     if (!this.permutations.options) {
       $(".popUpButton").last().remove();
     }
     if (!this.permutations.time) {
-      $(".add_editor__time").last().remove();
+      $(".add_schedule__time").last().remove();
     }
     if (!this.permutations.date) {
-      $(".add_editor__date").last().remove();
+      $(".add_schedule__date").last().remove();
     }
     if (!this.permutations.break) {
-      $(".add_editor__break").last().remove();
+      $(".add_schedule__break").last().remove();
     }
 
     this.counter++;
-    $(".editor__content > input").change(function () {
+    $(".schedule__content > input").change(function () {
       schedule.saveChanges();
     });
     this.saveChanges();
   }
 
-  deleteEditor(button) {
-    $(button).closest(".editor-wrapper").remove();
+  deleteschedule(button) {
+    $(button).closest(".schedule-wrapper").remove();
     this.saveChanges();
   }
 
   addTime(button, schedule) {
     $(button).replaceWith(
-      '<div class="editor__time time_editor">' +
+      '<div class="schedule__time time_schedule">' +
         '<label for="">от</label>' +
         "<span>" +
         `<input type="time" value="">` +
@@ -351,12 +351,12 @@ class EditSchedule {
         "<span>" +
         `<input type="time" value="">` +
         "</span>" +
-        '<button type="button" class="editor__close delete-time">' +
+        '<button type="button" class="schedule__close delete-time">' +
         '<i class="fas fa-times"></i>' +
         "</button>" +
         "</div>"
     );
-    $('.time_editor > span > input[type="time"]').change(function () {
+    $('.time_schedule > span > input[type="time"]').change(function () {
       schedule.saveChanges();
     });
     this.saveChanges();
@@ -364,7 +364,7 @@ class EditSchedule {
 
   addDate(button, schedule) {
     $(button).replaceWith(
-      '<div class="editor__time editor__time--date date_editor">' +
+      '<div class="schedule__time schedule__time--date date_schedule">' +
         '<label for="">от</label>' +
         "<span>" +
         `<input type="date" value="">` +
@@ -375,12 +375,12 @@ class EditSchedule {
         `<input type="date" value="">` +
         '<i class="fas fa-chevron-down"></i>' +
         "</span>" +
-        '<button type="button" class="editor__close delete-date">' +
+        '<button type="button" class="schedule__close delete-date">' +
         '<i class="fas fa-times"></i>' +
         "</button>" +
         "</div>"
     );
-    $('.date_editor > span > input[type="date"]').change(function () {
+    $('.date_schedule > span > input[type="date"]').change(function () {
       schedule.saveChanges();
     });
     this.saveChanges();
@@ -388,7 +388,7 @@ class EditSchedule {
 
   addBreak(button, schedule) {
     $(button).replaceWith(
-      '<div class="editor__time break_editor">' +
+      '<div class="schedule__time break_schedule">' +
         '<label for="">от</label>' +
         "<span>" +
         `<input type="time" value="">` +
@@ -397,12 +397,12 @@ class EditSchedule {
         "<span>" +
         `<input type="time" value="">` +
         "</span>" +
-        '<button type="button" class="editor__close delete-break">' +
+        '<button type="button" class="schedule__close delete-break">' +
         '<i class="fas fa-times"></i>' +
         "</button>" +
         "</div>"
     );
-    $('.break_editor > span > input[type="time"]').change(function () {
+    $('.break_schedule > span > input[type="time"]').change(function () {
       schedule.saveChanges();
     });
     this.saveChanges();
@@ -411,32 +411,32 @@ class EditSchedule {
   deleteTime(button) {
     $(button)
       .parent()
-      .replaceWith('<button type="button" class="add_editor__time">' + '<span><i class="fas fa-plus"></i>Добавить время</span></button>');
+      .replaceWith('<button type="button" class="add_schedule__time">' + '<span><i class="fas fa-plus"></i>Добавить время</span></button>');
     this.saveChanges();
   }
 
   deleteDate(button) {
     $(button)
       .parent()
-      .replaceWith('<button type="button" class="add_editor__date">' + '<span><i class="fas fa-plus"></i>Добавить дату</span></button>');
+      .replaceWith('<button type="button" class="add_schedule__date">' + '<span><i class="fas fa-plus"></i>Добавить дату</span></button>');
     this.saveChanges();
   }
 
   deleteBreak(button) {
     $(button)
       .parent()
-      .replaceWith('<button type="button" class="add_editor__break">' + '<span><i class="fas fa-plus"></i>Добавить перерыв</span></button>');
+      .replaceWith('<button type="button" class="add_schedule__break">' + '<span><i class="fas fa-plus"></i>Добавить перерыв</span></button>');
     this.saveChanges();
   }
 
   saveChanges() {
-    let editorList = [];
-    for (let i = 0; i < $(".editor-content").children().length; i++) {
+    let scheduleList = [];
+    for (let i = 0; i < $(".schedule-content").children().length; i++) {
       let container = {};
 
       // dayOfWeek
       let daysOfWeek = [];
-      $(" > input", $(".editor__content")[i]).each(function (index, element) {
+      $(" > input", $(".schedule__content")[i]).each(function (index, element) {
         if ($(element).prop("checked") === true) {
           let day = $(element).attr("id");
           daysOfWeek.push(day.substring(0, day.indexOf("day") + 3));
@@ -452,7 +452,7 @@ class EditSchedule {
       // time
       let timeStart = "";
       let timeStop = "";
-      let times = $(" > .time_editor > span > input", $(".editor__nav")[i]);
+      let times = $(" > .time_schedule > span > input", $(".schedule__nav")[i]);
       if (times && times.length > 0) {
         timeStart = $(times[0]).val();
         timeStop = $(times[1]).val();
@@ -463,7 +463,7 @@ class EditSchedule {
       // date
       let dateStart = "";
       let dateStop = "";
-      let dates = $(" > .date_editor > span > input", $(".editor__nav")[i]);
+      let dates = $(" > .date_schedule > span > input", $(".schedule__nav")[i]);
       if (dates && dates.length > 0) {
         dateStart = $(dates[0]).val();
         dateStop = $(dates[1]).val();
@@ -473,7 +473,7 @@ class EditSchedule {
 
       // break
       let breakTime = "";
-      let breaks = $(" > .break_editor > span > input", $(".editor__nav")[i]);
+      let breaks = $(" > .break_schedule > span > input", $(".schedule__nav")[i]);
       if (breaks && breaks.length > 0) {
         breakTime = [$(breaks[0]).val(), $(breaks[1]).val()].join("-");
       }
@@ -481,7 +481,7 @@ class EditSchedule {
 
       // options
       let options = {};
-      let attrs = $($(".editor-wrapper")[i]).getAttr();
+      let attrs = $($(".schedule-wrapper")[i]).getAttr();
       for (let [key, value] of Object.entries(attrs)) {
         if (key.startsWith("data-")) {
           options[key.slice(5)] = value;
@@ -489,14 +489,14 @@ class EditSchedule {
       }
       container.options = options;
 
-      editorList.push(container);
+      scheduleList.push(container);
     }
-    console.log(editorList);
-    $(`#form-${this.field}`).val(JSON.stringify(editorList));
+    console.log(scheduleList);
+    $(`#form-${this.field}`).val(JSON.stringify(scheduleList));
   }
 
   fillPopUp(button) {
-    let currentItem = $(button).closest(".editor-wrapper");
+    let currentItem = $(button).closest(".schedule-wrapper");
     let attributes = $(currentItem).getAttr(); // getAttr() gives an object with attributes and their values
     let itemId;
     for (let [key, value] of Object.entries(attributes)) {
@@ -612,16 +612,16 @@ class EditSchedule {
     this.clearPopup();
   }
 
-  getEditor() {
+  getschedule() {
     return (
-      `<li class="editor-wrapper" id="editor${this.counter}">` +
-      '<div class="editor">' +
-      '<div class="editor__form">' +
-      '<div class="editor__wrap">' +
-      '<button type="button" class="editor__dots">' +
+      `<li class="schedule-wrapper" id="schedule${this.counter}">` +
+      '<div class="schedule">' +
+      '<div class="schedule__form">' +
+      '<div class="schedule__wrap">' +
+      '<button type="button" class="schedule__dots">' +
       '<i class="fas fa-ellipsis-v"></i>' +
       "</button>" +
-      '<div class="editor__content">' +
+      '<div class="schedule__content">' +
       `<input type="checkbox" id="monday${this.counter}">` +
       `<label for="monday${this.counter}">` +
       "пн" +
@@ -651,29 +651,29 @@ class EditSchedule {
       "вс" +
       "</label>" +
       "</div>" +
-      '<button type="button" class="editor__close delete-editor">' +
+      '<button type="button" class="schedule__close delete-schedule">' +
       '<i class="fas fa-times"></i>' +
       "</button>" +
       "</div>" +
-      '<div class="editor__nav">' +
-      '<button type="button" class="add_editor__time">' +
+      '<div class="schedule__nav">' +
+      '<button type="button" class="add_schedule__time">' +
       '<span><i class="fas fa-plus"></i>Добавить время</span></button>' +
-      '<button type="button" class="add_editor__date">' +
+      '<button type="button" class="add_schedule__date">' +
       '<span><i class="fas fa-plus"></i>Добавить дату</span></button>' +
-      '<button type="button" class="add_editor__break">' +
+      '<button type="button" class="add_schedule__break">' +
       '<span><i class="fas fa-plus"></i>Добавить перерыв</span></button>' +
       "</div>" +
-      '<div class="editor__bottom">' +
-      '<div class="editor__arrows">' +
-      '<button type="button" class="editor__arrow itemDown">' +
+      '<div class="schedule__bottom">' +
+      '<div class="schedule__arrows">' +
+      '<button type="button" class="schedule__arrow itemDown">' +
       '<i class="fas fa-chevron-down"></i>' +
       "</button>" +
-      '<button type="button" class="editor__arrow itemUp">' +
+      '<button type="button" class="schedule__arrow itemUp">' +
       '<i class="fas fa-chevron-up"></i>' +
       "</button>" +
       "</div>" +
       '<div class="popUpButton">' +
-      '<button type="button" class="editor__arrow popUpOpen" data-toggle="modal" data-target="#popUp">' +
+      '<button type="button" class="schedule__arrow popUpOpen" data-toggle="modal" data-target="#popUp">' +
       "<i>{}</i>" +
       "</button>" +
       "</div>" +
