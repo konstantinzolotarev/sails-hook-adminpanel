@@ -10,9 +10,8 @@
 
 .navigation-list {
    padding-bottom: 5px;
-   border-bottom: rgba(154, 154, 154, 0.5);
+   border-bottom: 1px solid rgba(154, 154, 154, 0.5);
    margin-bottom: 5px;
-   width: 100%;
 }
 
 .navigation-btn:hover {
@@ -53,4 +52,20 @@
    font-size: 13px;
    line-height: 14px;
    color: #000000;
+}
+
+.navigation-eye i {
+   font-size: 18px;
+   color: #0079B8;
+   margin-right: 21px;
+}
+
+.s-l-opener {
+   margin-right: 10px;
+   cursor: pointer;
+}
+
+.navigation-list .root-navigation {
+   margin-top: 5px;
+   margin-left: 35px;
 }

@@ -144,7 +144,7 @@ class EditNavigation {
  
         for (let item of data) {
             $(ul).append(`<li id="${item.id}" class="navigation-list" data-hint="" data-link="" data-title="">` +
-                `<div class="navigation-content"><i class="far fa-eye"></i><label class="navigation-label">${item.title}</label><div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>` +
+                `<div class="navigation-content"><a href="#" class="navigation-eye"><i class="far fa-eye"></i></a><label class="navigation-label">${item.title}</label><div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>` +
                 '<a href="#" class="clickable navigation-btn navigation-arrow itemDown"><i class="fas fa-chevron-down"></i></a>' +
                 '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp"><i class="fas fa-pencil-alt"></i></a>' +
                 `<a href="#" class="clickable navigation-btn navigation-close deleteItem"><i class="fas fa-times"></i></a></div></div>` +
@@ -468,18 +468,8 @@ class EditNavigation {
             opener: {
                 active: true,
                 as: 'html',  // or "class"
-                close: '<i class="fa fa-minus"></i>', // or 'fa fa-minus'
-                open: '<i class="fa fa-plus"></i>', // or 'fa fa-plus'
-                openerCss: {
-                    'display': 'inline-block', // Default value
-                    'float': 'left', // Default value
-                    'width': '18px',
-                    'height': '18px',
-                    'margin-left': '-35px',
-                    'margin-right': '5px',
-                    'background-position': 'center center', // Default value
-                    'background-repeat': 'no-repeat' // Default value
-                },
+                close: '<i class="fas fa-chevron-up"></i>', // or 'fa fa-minus'
+                open: '<i class="fas fa-chevron-down"></i>', // or 'fa fa-plus'
             },
 
             isAllowed: function(currEl, hint, target) {
