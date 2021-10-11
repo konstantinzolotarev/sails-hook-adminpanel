@@ -120,6 +120,15 @@
    margin-top: 47px;
 }
 
+.navigation-new {
+   margin-top: 10px;
+}
+
+.navigation-left {
+   display: flex;
+   align-items: center;
+}
+
 @media (max-width: 640px) {
    .navigation-popup {
       padding-right: 10px;

@@ -196,12 +196,12 @@ class EditNavigation {
     }
 
     addItem() {
-        $('#sortableList').append(`<li id="item_new" class="list-group-item" data-title="New element #${this.counter}">` +
-            `<div><label>New element #${this.counter}</label>` +
-            '<a href="#" class="clickable itemUp btn btn-sm">[↑]</a>' +
-            '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-            '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
-            '<a href="#" class="clickable deleteItem btn btn-sm">[X]</a>' +
+        $('#sortableList').append(`<li id="item_new" class="navigation-list navigation-new" data-title="New element #${this.counter}">` +
+            `<div class="navigation-content"><div class="navigation-left"><a href="#" class="navigation-eye"><i class="far fa-eye"></i></a><label class="navigation-label">New element #${this.counter}</label></div>` +
+            '<div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>' +
+            '<a href="#" class="clickable navigation-btn navigation-arrow itemDown"><i class="fas fa-chevron-down"></i></a>' +
+            '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp"><i class="fas fa-pencil-alt"></i></a>' +
+            '<a href="#" class="clickable navigation-btn navigation-close deleteItem"><i class="fas fa-times"></i></a></div>' +
             '</div>' +
             '</li>');
         for (let key of Object.keys($('#sortableList > li').getAttr())) {
