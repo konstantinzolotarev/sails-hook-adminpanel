@@ -48,10 +48,10 @@ class EditNavigation {
         // if textarea has value { render ul } else { add empty ul }
         if ($(`#form-${this.field}`).val() && $(`#form-${this.field}`).val().startsWith('[{')) {
             let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
-            $(list).attr('id', 'sortableList').addClass('list-group list-group-flush').width('max-content');
+            $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
         } else { // use here empty ul
-            $(`#form-${this.field}`).before('<ul class="list-group list-group-flush" id="sortableList" style="width: max-content;"></ul>')
+            $(`#form-${this.field}`).before('<ul class="navigation-item" id="sortableList" style="width: max-content;"></ul>')
         }
 
         // set options to sortableList
@@ -141,11 +141,11 @@ class EditNavigation {
     createDOM(data) {
         let ul = document.createElement('ul');
         for (let item of data) {
-            $(ul).append(`<li id="${item.id}" class="list-group-item" data-hint="" data-link="" data-title="">` +
-                `<div><label>${item.title}</label><a href="#" class="clickable itemUp btn btn-sm">[↑]</a>` +
-                '<a href="#" class="clickable itemDown btn btn-sm">[↓]</a>' +
-                '<a href="#" class="clickable popUpOpen btn btn-sm" data-toggle="modal" data-target="#popUp">[Edit]</a>' +
-                `<a href="#" class="clickable deleteItem btn btn-sm">[X]</a></div>` +
+            $(ul).append(`<li id="${item.id}" class="navigation-list" data-hint="" data-link="" data-title="">` +
+                `<div class="navigation-content"><label class="navigation-label">${item.title}</label><div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>` +
+                '<a href="#" class="clickable navigation-btn navigation-arrow itemDown"><i class="fas fa-chevron-down"></i></a>' +
+                '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp"><i class="fas fa-pencil-alt"></i></a>' +
+                `<a href="#" class="clickable navigation-btn navigation-close deleteItem"><i class="fas fa-times"></i></a></div></div>` +
                 '</li>');
             for (let [key, value] of Object.entries(item)) {
                 if (key !== 'id' && key !== 'order' && key !== 'children') {
