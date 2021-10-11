@@ -1,15 +1,8 @@
 <nav class="sidenav sidenav-panel">
   <section class="sidenav-content">
     <section class="nav-group">
-      <div class="clr-select-wrapper">
-        <select class="clr-select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-          <option value="/admin/dashboard"> Панель управления</option>
-          <option value="/admin">Работа с данными</option>
-          <option value="/store" selected>Магазин приложений</option>
-          <option value="/server">Управление сервером</option>
-        </select>
-      </div>
-
+      <% include sections %>
+      
     <!--     TODO: Нужно проверить что это  -->
     <% adminpanel.menuHelper.getGroups().forEach(function(group) { %>
         <menu-collapse>

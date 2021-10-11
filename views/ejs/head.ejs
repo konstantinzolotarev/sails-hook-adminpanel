@@ -65,18 +65,11 @@
           <span></span>
           <span></span>
         </div>
-        <div class="clr-select-wrapper">
-          <select class="clr-select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-            <option value="/admin/dashboard"> Панель управления</option>
-            <option value="/admin">Работа с данными</option>
-            <option value="/store" selected>Магазин приложений</option>
-            <option value="/server">Управление сервером</option>
-          </select>
-        </div>
+        <% include mixin/sections %>
         <div class="flex"><%= adminpanel.menuHelper.getBrandTitle() %></div>
         <div class="header__login">
           <a class="header__name" href="#">
-            <span>Иванов Иван</span>
+            <span>Username</span>
             <i class="far fa-user"></i>
           </a>
           <a class="header__out nav-link" href="#">

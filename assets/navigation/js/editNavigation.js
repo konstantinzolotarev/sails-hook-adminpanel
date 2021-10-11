@@ -267,7 +267,7 @@ class EditNavigation {
             $('#sortableList').append($(itemId));
         } else if ($('#' + $('.modal-body > div > select').val()).children().length === 1) {
             $('#' + $('#parentSelector').val()).append(document.createElement('ul'));
-            $('#' + $('#parentSelector').val() + ' > ul').addClass('child-list')
+            $('#' + $('#parentSelector').val() + ' > ul').addClass()
             $('#' + $('#parentSelector').val() + ' > ul').append($(itemId));
         } else {
             $('#' + $('#parentSelector').val() + ' > ul').append($(itemId));

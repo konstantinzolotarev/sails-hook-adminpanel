@@ -1,0 +1,15 @@
+<% var sections = (adminpanel.configHelper.getConfig()).sections %>
+<% var routePrefix = (adminpanel.configHelper.getConfig()).routePrefix %>
+
+<% if (Array.isArray(sections)) { %>
+  <div class="clr-select-wrapper">
+    <select class="clr-select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+      <option value="<%=routePrefix%>">Adminpanel</option>
+      <% sections.forEach(function(itemSection) { %>
+        <% if (itemSection.link && itemSection.title) { %>
+          <option value="<%=itemSection.link%>"><%=itemSection.title%></option>
+        <% } %>
+      <% }) %>
+    </select>
+  </div>
+<% } %>
