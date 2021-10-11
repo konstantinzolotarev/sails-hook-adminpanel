@@ -140,9 +140,11 @@ class EditNavigation {
 
     createDOM(data) {
         let ul = document.createElement('ul');
+        $(ul).addClass("root-navigation");
+ 
         for (let item of data) {
             $(ul).append(`<li id="${item.id}" class="navigation-list" data-hint="" data-link="" data-title="">` +
-                `<div class="navigation-content"><label class="navigation-label">${item.title}</label><div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>` +
+                `<div class="navigation-content"><i class="far fa-eye"></i><label class="navigation-label">${item.title}</label><div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>` +
                 '<a href="#" class="clickable navigation-btn navigation-arrow itemDown"><i class="fas fa-chevron-down"></i></a>' +
                 '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp"><i class="fas fa-pencil-alt"></i></a>' +
                 `<a href="#" class="clickable navigation-btn navigation-close deleteItem"><i class="fas fa-times"></i></a></div></div>` +
@@ -261,6 +263,7 @@ class EditNavigation {
             $('#sortableList').append($(itemId));
         } else if ($('#' + $('.modal-body > div > select').val()).children().length === 1) {
             $('#' + $('#parentSelector').val()).append(document.createElement('ul'));
+            $('#' + $('#parentSelector').val() + ' > ul').addClass('child-list')
             $('#' + $('#parentSelector').val() + ' > ul').append($(itemId));
         } else {
             $('#' + $('#parentSelector').val() + ' > ul').append($(itemId));
