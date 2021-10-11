@@ -72,26 +72,30 @@ class EditNavigation {
         $('#addBtn').on('click', function() { menu.addItem() });
 
         // create modal window, append it and hide
-        let modal = '<div class="modal fade" id="popUp">' +
-            '<div class="modal-dialog modal-dialog-centered" role="dialog">' +
+        let modal = '<div class="modal fade navigation-popup" id="popUp">' +
+            '<div class="modal-dialog modal-dialog-centered navigation-modal" role="dialog">' +
             '<div class="modal-content">' +
-            '<div class="modal-header">' +
+            '<div class="modal-header navigation-header">' +
             'Header' +
             '</div>' +
             '<div class="modal-body">' +
-            '<div>' +
+            '<div class="navigation-block">' +
+            '<div class="navigation-wrap">' +
             '<label for="parentSelector">Choose parent</label>' +
-            '<select class="form-select" id="parentSelector" aria-label="Default select example">' +
+            '<select class="form-select navigation-select" id="parentSelector" aria-label="Default select example">' +
             '</select>' +
             '</div>' +
-            '<div>' +
-            '<label for="propertyAdder">Add property</label>' +
-            '<select class="form-select" id="propertyAdder" aria-label="Default select example">' +
+            '</div>' +
+            '<div class="navigation-block">' +
+            '<div class="navigation-wrap">' +
+            '<label for="propertyAdder navigation-text">Add property</label>' +
+            '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
             '</select>' +
-            '<a class="addProperty" href="#">Add</a>' +
+            '</div>' +
+            '<a class="addProperty navigation-plus" href="#"><i class="fas fa-plus"></i></a>' +
             '</div>' +
             '</div>' +
-            '<div class="modal-footer">' +
+            '<div class="modal-footer navigation-footer">' +
             '<a class="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
             '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
             '</div>' +
