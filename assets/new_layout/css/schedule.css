@@ -219,6 +219,7 @@
   
     .schedule__content {
       margin-left: 0;
+      margin-right: 0;
     }
   
     .schedule__dots {
@@ -263,6 +264,10 @@
   
     .schedule__content label {
       padding: 7px 9px;
+    }
+
+    .schedule-wrapper {
+      width: 100%;
     }
  }
  

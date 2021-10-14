@@ -658,6 +658,14 @@ input[type=number] {
 }
 
 @media (max-width: 640px) {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 22;
+    width: 100%;
+  }
+
   .header__inner {
     padding-left: 20px;
     padding-right: 16px;
