@@ -373,10 +373,12 @@ class EditNavigation {
             } else if (key.startsWith('data-')) {
                 let typeRecognition = menu.recognizeType(key.slice(5));
                 let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
-                $("#propertyAdder").closest('.navigation-block').before(`<div id="${key}">` +
+                $("#propertyAdder").closest('.navigation-block').before(`<div class="navigation-wrapper" id="${key}">` +
+                    `<div class="navigation-inner">` +
                     `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                     `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
-                    '<a href="#" class="deleteProp">[X]</a>' +
+                    `</div>` +
+                    '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
                     '</div>')
                 if (typeRecognition.inputType === 'checkbox') {
                     if (value === 'true') {
