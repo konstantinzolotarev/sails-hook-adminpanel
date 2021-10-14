@@ -699,7 +699,7 @@ input[type=number] {
     left: -100vh;
     z-index: 2;
     width: 100%;
-    max-width: 95%;
+    max-width: 99.99999%;
     -webkit-transition: .5s;
     -o-transition: .5s;
     transition: .5s;
@@ -716,6 +716,11 @@ input[type=number] {
   .content .layout {
     padding-top: 16px;
     padding-left: 16px;
+  }
+
+  .content {
+    padding-top: 10px;
+    height: 100%;
   }
 
   .nav-header {
