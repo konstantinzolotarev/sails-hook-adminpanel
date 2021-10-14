@@ -119,11 +119,11 @@ class EditSchedule {
                     '<div class="schedule__time time_schedule">' +
                     '<label for="">от</label>' +
                     "<span>" +
-                    `<input type="time" value="${timeStart}">` +
+                    `<input type="time" value="${timeStart}" required>` +
                     "</span>" +
                     '<label for="">до</label>' +
                     "<span>" +
-                    `<input type="time" value="${timeStop}">` +
+                    `<input type="time" value="${timeStop}" required>` +
                     "</span>" +
                     '<button type="button" class="schedule__close delete-time">' +
                     '<i class="fas fa-times"></i>' +
@@ -146,12 +146,12 @@ class EditSchedule {
                     '<div class="schedule__time schedule__time--date date_schedule">' +
                     '<label for="">от</label>' +
                     "<span>" +
-                    `<input type="date" value="${dateStart}">` +
+                    `<input type="date" value="${dateStart}" required>` +
                     '<i class="fas fa-chevron-down"></i>' +
                     "</span>" +
                     '<label for="">до</label>' +
                     "<span>" +
-                    `<input type="date" value="${dateStop}">` +
+                    `<input type="date" value="${dateStop}" required>` +
                     '<i class="fas fa-chevron-down"></i>' +
                     "</span>" +
                     '<button type="button" class="schedule__close delete-date">' +
@@ -174,11 +174,11 @@ class EditSchedule {
                     '<div class="schedule__time break_schedule">' +
                     '<label for="">от</label>' +
                     "<span>" +
-                    `<input type="time" value="${breakStart}">` +
+                    `<input type="time" value="${breakStart}" required>` +
                     "</span>" +
                     '<label for="">до</label>' +
                     "<span>" +
-                    `<input type="time" value="${breakStop}">` +
+                    `<input type="time" value="${breakStop}" required>` +
                     "</span>" +
                     '<button type="button" class="schedule__close delete-break">' +
                     '<i class="fas fa-times"></i>' +
@@ -347,11 +347,11 @@ class EditSchedule {
       '<div class="schedule__time time_schedule">' +
         '<label for="">от</label>' +
         "<span>" +
-        `<input type="time" value="">` +
+        `<input type="time" value="" required>` +
         "</span>" +
         '<label for="">до</label>' +
         "<span>" +
-        `<input type="time" value="">` +
+        `<input type="time" value="" required>` +
         "</span>" +
         '<button type="button" class="schedule__close delete-time">' +
         '<i class="fas fa-times"></i>' +
@@ -369,12 +369,12 @@ class EditSchedule {
       '<div class="schedule__time schedule__time--date date_schedule">' +
         '<label for="">от</label>' +
         "<span>" +
-        `<input type="date" value="">` +
+        `<input type="date" value="" required>` +
         '<i class="fas fa-chevron-down"></i>' +
         "</span>" +
         '<label for="">до</label>' +
         "<span>" +
-        `<input type="date" value="">` +
+        `<input type="date" value="" required>` +
         '<i class="fas fa-chevron-down"></i>' +
         "</span>" +
         '<button type="button" class="schedule__close delete-date">' +
@@ -393,11 +393,11 @@ class EditSchedule {
       '<div class="schedule__time break_schedule">' +
         '<label for="">от</label>' +
         "<span>" +
-        `<input type="time" value="">` +
+        `<input type="time" value="" required>` +
         "</span>" +
         '<label for="">до</label>' +
         "<span>" +
-        `<input type="time" value="">` +
+        `<input type="time" value="" required>` +
         "</span>" +
         '<button type="button" class="schedule__close delete-break">' +
         '<i class="fas fa-times"></i>' +

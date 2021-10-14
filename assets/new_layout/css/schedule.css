@@ -24,9 +24,8 @@
  }
  
  .schedule__content input {
-   position: absolute;
-   left: 99999px;
-   z-index: -33;
+   position: fixed;
+   z-index: -1;
    opacity: 0;
    font-size: 0;
    width: 0;
