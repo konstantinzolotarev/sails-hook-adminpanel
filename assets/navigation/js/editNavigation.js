@@ -5,6 +5,7 @@ class EditNavigation {
         this.dataInput = config.data;
         this.counter = 0;
         this.maxNestedItems = 4;
+        this.visibleElement = 'visible'; // can be 'visible', 'hidden', false
         this.propertyList = {
             'item': {
                 'type': 'string',
@@ -15,6 +16,12 @@ class EditNavigation {
                 'type': 'string',
                 'title': 'Title',
                 'description': "this is the title",
+                'required': 'true'
+            },
+            'visible': {
+                'type': 'boolean',
+                'title': 'Visible',
+                'description': "element visibility",
                 'required': 'true'
             },
             'checkmark': {
@@ -50,6 +57,14 @@ class EditNavigation {
             let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
             $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
+            if (this.visibleElement === 'hidden') {
+                $('.fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
+                $('li[id^="item_"]').attr('data-visible', 'false')
+            } else if (this.visibleElement === false) {
+                $('.navigation-eye').remove();
+            } else {
+                $('li[id^="item_"]').attr('data-visible', 'true')
+            }
         } else { // use here empty ul
             $(`#form-${this.field}`).before('<ul class="navigation-item" id="sortableList" style="width: max-content;"></ul>')
         }
@@ -73,35 +88,34 @@ class EditNavigation {
 
         // create modal window, append it and hide
         let modal = '<div class="modal fade navigation-popup" id="popUp">' +
-            '<div class="modal-dialog modal-dialog-centered navigation-modal" role="dialog">' +
-            '<div class="modal-content">' +
-            '<div class="modal-header navigation-header">' +
-            'Header' +
-            '</div>' +
-            '<div class="modal-body">' +
-            '<div class="navigation-block">' +
-            '<div class="navigation-wrap">' +
-            '<label for="parentSelector">Choose parent</label>' +
-            '<select class="form-select navigation-select" id="parentSelector" aria-label="Default select example">' +
-            '</select>' +
-            '</div>' +
-            '</div>' +
-            '<div class="navigation-block">' +
-            '<div class="navigation-wrap">' +
-            '<label for="propertyAdder navigation-text">Add property</label>' +
-            '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
-            '</select>' +
-            '</div>' +
-            '<a class="addProperty navigation-plus" href="#"><i class="fas fa-plus"></i></a>' +
-            '</div>' +
-            '</div>' +
-            '<div class="modal-footer navigation-footer">' +
-            '<a class="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
-            '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
+                        '<div class="modal-dialog modal-dialog-centered navigation-modal" role="dialog">' +
+                            '<div class="modal-content">' +
+                                '<div class="modal-header navigation-header">' +
+                                '</div>' +
+                                '<div class="modal-body">' +
+                                    '<div class="navigation-block">' +
+                                        '<div class="navigation-wrap">' +
+                                            '<label for="parentSelector">Choose parent</label>' +
+                                            '<select class="form-select navigation-select" id="parentSelector" aria-label="Default select example">' +
+                                            '</select>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="navigation-block">' +
+                                        '<div class="navigation-wrap">' +
+                                            '<label for="propertyAdder navigation-text">Add property</label>' +
+                                            '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
+                                            '</select>' +
+                                        '</div>' +
+                                        '<a class="addProperty navigation-plus" href="#"><i class="fas fa-plus"></i></a>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="modal-footer navigation-footer">' +
+                                    '<a class="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
+                                    '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
         $(`#form-${this.field}`).after(modal);
         $('#popUp').hide();
 
@@ -145,13 +159,31 @@ class EditNavigation {
     createDOM(data) {
         let ul = document.createElement('ul');
         $(ul).addClass("root-navigation");
- 
+
         for (let item of data) {
-            $(ul).append(`<li id="${item.id}" class="navigation-list" data-hint="" data-link="" data-title="">` +
-                `<div class="navigation-content"><div class="navigation-left"><a href="#" class="navigation-eye"><i class="far fa-eye"></i></a><label class="navigation-label">${item.title}</label></div><div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>` +
-                '<a href="#" class="clickable navigation-btn navigation-arrow itemDown"><i class="fas fa-chevron-down"></i></a>' +
-                '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp"><i class="fas fa-pencil-alt"></i></a>' +
-                `<a href="#" class="clickable navigation-btn navigation-close deleteItem"><i class="fas fa-times"></i></a></div></div>` +
+            $(ul).append(`<li id="${item.id}" class="navigation-list">` +
+                `<div class="navigation-content">` +
+                    `<div class="navigation-left">` +
+                        `<a href="#" class="navigation-eye">` +
+                            '<i class="far fa-eye"></i>' +
+                        '</a>' +
+                        `<label class="navigation-label">${item.title}</label>` +
+                    `</div>` +
+                    `<div class="navigation-right">` +
+                        `<a href="#" class="clickable navigation-btn navigation-arrow itemUp">` +
+                            `<i class="fas fa-chevron-up"></i>` +
+                        `</a>` +
+                        '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
+                            '<i class="fas fa-chevron-down"></i>' +
+                        '</a>' +
+                        '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
+                            '<i class="fas fa-pencil-alt"></i>' +
+                        '</a>' +
+                        `<a href="#" class="clickable navigation-btn navigation-close deleteItem">` +
+                            '<i class="fas fa-times"></i>' +
+                        '</a>' +
+                    '</div>' +
+                `</div>` +
                 '</li>');
             for (let [key, value] of Object.entries(item)) {
                 if (key !== 'id' && key !== 'order' && key !== 'children') {
@@ -175,7 +207,7 @@ class EditNavigation {
         if ($('#propertyAdder').val() !== "None") {
             let typeRecognition = this.recognizeType($('#propertyAdder').val());
             let capitalizedKey = $('#propertyAdder').val().charAt(0).toUpperCase() + $('#propertyAdder').val().slice(1);
-            $("#propertyAdder").parent().before(`<div id="data-${$('#propertyAdder').val()}">` +
+            $("#propertyAdder").closest('.navigation-block').before(`<div id="data-${$('#propertyAdder').val()}">` +
                 `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                 `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                 '<a href="#" class="deleteProp">[X]</a>' +
@@ -196,12 +228,28 @@ class EditNavigation {
     }
 
     addItem() {
-        $('#sortableList').append(`<li id="item_new" class="navigation-list navigation-new" data-title="New element #${this.counter}">` +
-            `<div class="navigation-content"><div class="navigation-left"><a href="#" class="navigation-eye"><i class="far fa-eye"></i></a><label class="navigation-label">New element #${this.counter}</label></div>` +
-            '<div class="navigation-right"><a href="#" class="clickable navigation-btn navigation-arrow itemUp"><i class="fas fa-chevron-up"></i></a>' +
-            '<a href="#" class="clickable navigation-btn navigation-arrow itemDown"><i class="fas fa-chevron-down"></i></a>' +
-            '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp"><i class="fas fa-pencil-alt"></i></a>' +
-            '<a href="#" class="clickable navigation-btn navigation-close deleteItem"><i class="fas fa-times"></i></a></div>' +
+        $('#sortableList').append(`<li id="item_new" class="navigation-list navigation-new" data-title='New element #${this.counter}'>` +
+            `<div class="navigation-content">` +
+                   '<div class="navigation-left">' +
+                        '<a href="#" class="navigation-eye">' +
+                            '<i class="far fa-eye"></i>' +
+                        '</a>' +
+                        `<label class="navigation-label">New element #${this.counter}</label>` +
+                   `</div>` +
+                   '<div class="navigation-right">' +
+                        '<a href="#" class="clickable navigation-btn navigation-arrow itemUp">' +
+                            '<i class="fas fa-chevron-up"></i>' +
+                        '</a>' +
+                        '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
+                            '<i class="fas fa-chevron-down"></i>' +
+                        '</a>' +
+                        '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
+                            '<i class="fas fa-pencil-alt"></i>' +
+                        '</a>' +
+                        '<a href="#" class="clickable navigation-btn navigation-close deleteItem">' +
+                            '<i class="fas fa-times"></i>' +
+                        '</a>' +
+                   '</div>' +
             '</div>' +
             '</li>');
         for (let key of Object.keys($('#sortableList > li').getAttr())) {
@@ -210,13 +258,21 @@ class EditNavigation {
                 $('#item_new').attr(key, typeRecognition.defaultValue);
             }
         }
+        if (this.visibleElement === 'hidden') {
+            $('#item_new > div > div > .navigation-eye > .fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
+            $('li[id="item_new"]').attr('data-visible', 'false')
+        } else if (this.visibleElement === false) {
+            $('#item_new > div > div > .navigation-eye').remove();
+        } else {
+            $('li[id="item_new"]').attr('data-visible', 'true')
+        }
         this.counter++;
         this.giveItemsUniqueId();
         this.saveChanges();
     }
 
     deleteItem(item) {
-        $(item).parent().parent().remove();
+        $(item).closest('li').remove();
         this.saveChanges();
     }
 
@@ -253,11 +309,20 @@ class EditNavigation {
 
     editItem(menu) {
         let itemId = '#' + $('.modal-footer > .editItem').attr('itemid');
-        $(' > div > label', itemId).text($('.modal-body > div[id="data-title"] > input').val());
+        $(' > div > div > label', itemId).text($('.modal-body > div[id="data-title"] > input').val());
         $('.modal-body > div').each(function(index, element) {
             if ($(element).is(":visible") && $(element).attr('id')) {
                 if ((menu.recognizeType(($(element).attr('id')).slice(5))).inputType === 'checkbox') {
                     $(itemId).attr($(element).attr('id'), $(' > input', element).prop("checked"));
+                    if (this.visibleElement !== false) {
+                        if ($(element).attr('id') === 'data-visible') {
+                            if ($(' > input', element).prop("checked") === true) {
+                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye');
+                            } else {
+                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye-slash');
+                            }
+                        }
+                    }
                 } else {
                     $(itemId).attr($(element).attr('id'), $(' > input', element).val());
                 }
@@ -265,7 +330,7 @@ class EditNavigation {
         })
         if ($('#parentSelector').val() === 'global') {
             $('#sortableList').append($(itemId));
-        } else if ($('#' + $('.modal-body > div > select').val()).children().length === 1) {
+        } else if ($('#' + $('#parentSelector').val()).children().length === 1) {
             $('#' + $('#parentSelector').val()).append(document.createElement('ul'));
             $('#' + $('#parentSelector').val() + ' > ul').addClass()
             $('#' + $('#parentSelector').val() + ' > ul').append($(itemId));
@@ -274,11 +339,11 @@ class EditNavigation {
         }
         this.saveChanges();
         this.clearPopup();
-        $('#parentSelector').parent().show();
+        $('#parentSelector').closest('.navigation-block').show();
     }
 
     itemUp(item) {
-        let currentItem = $(item).parent().parent();
+        let currentItem = $(item).closest('li');
         let prevItem = $(currentItem).prev();  // returns prev item or empty jQuery object
 
         if (prevItem && prevItem.length > 0) {
@@ -288,7 +353,7 @@ class EditNavigation {
     }
 
     itemDown(item) {
-        let currentItem = $(item).parent().parent();
+        let currentItem = $(item).closest('li');
         let nextItem = $(currentItem).next();
 
         if (nextItem && nextItem.length > 0) {
@@ -298,7 +363,7 @@ class EditNavigation {
     }
 
     fillPopUp(item, menu) {
-        let currentItem = $(item).parent().parent();
+        let currentItem = $(item).closest('li');
         let attributes = $(currentItem).getAttr(); // getAttr() gives an object with attributes and their values
         let itemId;
         for (let [key, value] of Object.entries(attributes)) {
@@ -308,7 +373,7 @@ class EditNavigation {
             } else if (key.startsWith('data-')) {
                 let typeRecognition = menu.recognizeType(key.slice(5));
                 let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
-                $("#propertyAdder").parent().before(`<div id="${key}">` +
+                $("#propertyAdder").closest('.navigation-block').before(`<div id="${key}">` +
                     `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                     `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                     '<a href="#" class="deleteProp">[X]</a>' +
@@ -330,7 +395,7 @@ class EditNavigation {
             if ($(currentItem).children().length === 1) {
                 menu.fillParentSelector(itemId, menu.maxNestedItems);
             } else {
-                $('#parentSelector').parent().hide();
+                $('#parentSelector').closest('.navigation-block').hide();
             }
         } else {
             menu.fillParentSelector(itemId, menu.maxNestedItems);
@@ -382,10 +447,10 @@ class EditNavigation {
     }
 
     clearPopup() {
-        $('.modal-body > div[id^="data-"]').remove()
+        $('.modal-body > div[id^="data-"]').remove();
         $('#parentSelector').empty();
         $('#propertyAdder').empty();
-        $('#parentSelector').parent().show();
+        $('#parentSelector').closest('.navigation-block').show();
     }
 
     // function that replaces sortableListsToHierarchy function from original module
