@@ -79,6 +79,7 @@ class EditNavigation {
         $('#sortableList').on('click', '.deleteItem', function() { menu.deleteItem(this) });
         $('#sortableList').on('click', '.itemUp', function() { menu.itemUp(this) });
         $('#sortableList').on('click', '.itemDown', function() { menu.itemDown(this) });
+        $('#sortableList').on('click', '.changeEye', function() { menu.changeEye(this) });
 
         // add "Add item button"
         $(`#form-${this.field}`).before('<button type="button" id="addBtn" class="btn">Add element</button>')
@@ -164,7 +165,7 @@ class EditNavigation {
             $(ul).append(`<li id="${item.id}" class="navigation-list">` +
                 `<div class="navigation-content">` +
                     `<div class="navigation-left">` +
-                        `<a href="#" class="navigation-eye">` +
+                        `<a href="#" class="clickable navigation-eye changeEye">` +
                             '<i class="far fa-eye"></i>' +
                         '</a>' +
                         `<label class="navigation-label">${item.title}</label>` +
@@ -231,7 +232,7 @@ class EditNavigation {
         $('#sortableList').append(`<li id="item_new" class="navigation-list navigation-new" data-title='New element #${this.counter}'>` +
             `<div class="navigation-content">` +
                    '<div class="navigation-left">' +
-                        '<a href="#" class="navigation-eye">' +
+                        '<a href="#" class="clickable navigation-eye changeEye">' +
                             '<i class="far fa-eye"></i>' +
                         '</a>' +
                         `<label class="navigation-label">New element #${this.counter}</label>` +
@@ -358,6 +359,19 @@ class EditNavigation {
 
         if (nextItem && nextItem.length > 0) {
             $(currentItem).insertAfter($(nextItem));
+        }
+        this.saveChanges();
+    }
+
+    changeEye(item) {
+        let currentItem = $(item).closest('li');
+        let currentEye = $(' > i', item);
+        if ($(currentEye).attr('class') === 'far fa-eye') {
+            $(currentEye).attr('class', 'far fa-eye-slash');
+            $(currentItem).attr('data-visible', 'false')
+        } else if ($(currentEye).attr('class') === 'far fa-eye-slash') {
+            $(currentEye).attr('class', 'far fa-eye');
+            $(currentItem).attr('data-visible', 'true')
         }
         this.saveChanges();
     }
