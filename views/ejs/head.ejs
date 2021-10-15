@@ -1,87 +1,90 @@
 <!DOCTYPE html>
+
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
 
 
-  <link rel="stylesheet" href="/admin/assets/styles/importer.css"/>
-  <link rel="stylesheet" href="/admin/assets/styles/custom.css"/>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.5.5/jsoneditor.min.css"/>
+    <link rel="stylesheet" href="/admin/assets/styles/importer.css" />
+    <link rel="stylesheet" href="/admin/assets/styles/custom.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.5.5/jsoneditor.min.css" />
 
-  <!-- fontawesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- fontawesome -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- jquery -->
+    <script src="/admin/assets/js/jquery.min.js"></script>
 
-  <!-- jquery -->
-  <script src="/admin/assets/js/jquery.min.js"></script>
+    <!-- dataTable-->
+    <script src="/admin/assets/js/jquery.dataTables.min.js"></script>
 
-  <!-- dataTable-->
-  <script src="/admin/assets/js/jquery.dataTables.min.js"></script>
-
-  <!-- clr -->
-  <link rel="stylesheet" href="/admin/assets/styles/clr-ui.min.css" />
-  <!-- style index -->
-  <link rel="stylesheet" href="/admin/assets/new_layout/css/style.css" />
-  <link rel="stylesheet" href="/admin/assets/new_layout/css/fileuploader.css" />
-  <link rel="stylesheet" href="/admin/assets/new_layout/css/navigation.css" />
-  <link rel="stylesheet" href="/admin/assets/new_layout/css/schedule.css" />
-
-
+    <!-- clr -->
+    <link rel="stylesheet" href="/admin/assets/styles/clr-ui.min.css" />
+    <!-- style index -->
+    <link rel="stylesheet" href="/admin/assets/new_layout/css/style.css" />
+    <link rel="stylesheet" href="/admin/assets/new_layout/css/fileuploader.css" />
+    <link rel="stylesheet" href="/admin/assets/new_layout/css/navigation.css" />
+    <link rel="stylesheet" href="/admin/assets/new_layout/css/schedule.css" />
 
 
-  <script src="//unpkg.com/ckeditor@4.12.1/ckeditor.js"></script>
-  <script src="//unpkg.com/ace-builds@1.4.12/src-min-noconflict/ace.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.5.5/jsoneditor.min.js"></script>
-  <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
 
-  <link rel="stylesheet" href="/admin/assets/fileuploader/styles/styles.css"/>
-  <link rel="stylesheet" href="/admin/assets/fileuploader/styles/basic.css"/>
-  <link rel="stylesheet" href="/admin/assets/fileuploader/styles/dropzone.css"/>
-  <link rel="stylesheet" href="/admin/assets/fileuploader/styles/bootstrap.css"/>
-  <link rel="stylesheet" href="/admin/assets/fileuploader/styles/jquery-ui.min.css"/>
-  <script src="/admin/assets/fileuploader/js/dropzone.js"></script>
-  <script src="/admin/assets/fileuploader/js/jquery-ui.min.js"></script>
-  <script src="/admin/assets/fileuploader/js/bootstrap.js"></script>
-  <script src="/admin/assets/fileuploader/js/fileupload.js"></script>
+    <script src="//unpkg.com/ckeditor@4.12.1/ckeditor.js"></script>
+    <script src="//unpkg.com/ace-builds@1.4.12/src-min-noconflict/ace.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.5.5/jsoneditor.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
-  <link rel="stylesheet" href="/admin/assets/navigation/styles/styles.css"/>
-  <script src="/admin/assets/navigation/js/jquery-sortable-lists.min.js"></script>
-  <script src="/admin/assets/navigation/js/editNavigation.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <script src="/admin/assets/schedule/js/jquery-ui.min.js"></script>
-  <script src="/admin/assets/schedule/js/editSchedule.js"></script>
+    <link rel="stylesheet" href="/admin/assets/fileuploader/styles/styles.css" />
+    <link rel="stylesheet" href="/admin/assets/fileuploader/styles/basic.css" />
+    <link rel="stylesheet" href="/admin/assets/fileuploader/styles/dropzone.css" />
+    <link rel="stylesheet" href="/admin/assets/fileuploader/styles/bootstrap.css" />
+    <link rel="stylesheet" href="/admin/assets/fileuploader/styles/jquery-ui.min.css" />
+    <script src="/admin/assets/fileuploader/js/dropzone.js"></script>
+    <script src="/admin/assets/fileuploader/js/jquery-ui.min.js"></script>
+    <script src="/admin/assets/fileuploader/js/bootstrap.js"></script>
+    <script src="/admin/assets/fileuploader/js/fileupload.js"></script>
+
+    <link rel="stylesheet" href="/admin/assets/navigation/styles/styles.css" />
+    <script src="/admin/assets/navigation/js/jquery-sortable-lists.min.js"></script>
+    <script src="/admin/assets/navigation/js/editNavigation.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="/admin/assets/schedule/js/jquery-ui.min.js"></script>
+    <script src="/admin/assets/schedule/js/editSchedule.js"></script>
 
 </head>
 
 <body cds-text="body" cds-theme="dark" cds-layout="vertical gap:lg p:lg">
-  <div class="main-container">
-    <header class="header">
-      <div class="header__inner">
-        <div class="header__menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <% include mixin/sections %>
-        <div class="flex"><%= adminpanel.menuHelper.getBrandTitle() %></div>
-        <div class="header__login">
-          <a class="header__name" href="#">
-            <span>Username</span>
-            <i class="far fa-user"></i>
-          </a>
-          <a class="header__out nav-link" href="#">
-            <i class="fas fa-door-open"></i>
-          </a>
-        </div>
-      </div>
-    </header>
-    <div class="content">
-      <% include mixin/navbar %>
-      <div class="content-inner">
-        <!--
+    <div class="main-container">
+        <header class="header">
+            <div class="header__inner">
+                <div class="header__menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <% include mixin/sections %>
+                    <div class="flex">
+                        <%= adminpanel.menuHelper.getBrandTitle() %>
+                    </div>
+                    <div class="header__login">
+                        <a class="header__name" href="#">
+                            <span>Username</span>
+                            <i class="las la-user"></i>
+                        </a>
+                        <a class="header__out nav-link" href="#">
+                            <i class="las la-door-open"></i>
+                        </a>
+                    </div>
+            </div>
+        </header>
+        <div class="content">
+            <% include mixin/navbar %>
+                <div class="content-inner">
+                    <!--
   <body class="fullbleed layout vertical">
       <drawer-panel>
         <header-panel drawer>
@@ -97,4 +100,3 @@
             <% include mixin/alerts %>
 
             <div id="mainLayout"> -->
-

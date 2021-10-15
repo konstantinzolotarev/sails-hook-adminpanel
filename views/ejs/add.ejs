@@ -1,63 +1,63 @@
 <% include head %>
 
-<div class="horizontal layout">
-    <div class="flex">
-        <% var actionType = 'add' %>
-        <% include mixin/globalActions %>
+    <div class="horizontal layout">
+        <div class="flex">
+            <% var actionType = 'add' %>
+                <% include mixin/globalActions %>
+        </div>
     </div>
-</div>
-<div class="layout">
-    <div class="nav-header">
-        <a href="<%= instance.uri %>/">
-            <button raised class="btn">
-                <i class="fas fa-long-arrow-alt-left"></i>
+    <div class="layout">
+        <div class="nav-header">
+            <a href="<%= instance.uri %>/">
+                <button raised class="btn">
+                <i class="las la-long-arrow-alt-left"></i>
                 Вернуться
             </button>
-        </a>
-    </div>
-    
-    <form id="form" action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
-        <% Object.keys(fields).forEach(function(key) { %>
-            <label class="admin-panel__title" for="form-<%=key%>"><%=fields[key].config.title %></label>
-            <% if(fields[key].config.tooltip) {%>
-                <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-top-right">
-                    <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-content"><%=fields[key].config.tooltip%></span>
-                </a>
-            <% } %>
-            <% var field = fields[key] %>
-            <% var value = data[key] %>
-            <div class="admin-panel__widget">
-                <% include mixin/fieldWidget %>
-            </div>
-        <% }) %>
-        <div>
-            <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+            </a>
         </div>
-        <p>
-            <button raised class="btn-save" id="submit" onclick="submitForm()">
+
+        <form id="form" action="<%= instance.uri %>/add" method="POST" enctype="multipart/form-data">
+            <% Object.keys(fields).forEach(function(key) { %>
+                <label class="admin-panel__title" for="form-<%=key%>"><%=fields[key].config.title %></label>
+                <% if(fields[key].config.tooltip) {%>
+                    <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-top-right">
+                        <i class="las la-info-circle"></i>
+                        <span class="tooltip-content"><%=fields[key].config.tooltip%></span>
+                    </a>
+                    <% } %>
+                        <% var field = fields[key] %>
+                            <% var value = data[key] %>
+                                <div class="admin-panel__widget">
+                                    <% include mixin/fieldWidget %>
+                                </div>
+                                <% }) %>
+                                    <div>
+                                        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                                    </div>
+                                    <p>
+                                        <button raised class="btn-save" id="submit" onclick="submitForm()">
                 Сохранить
             </button>
-        </p>
-    </form>
-</div>
+                                    </p>
+        </form>
+    </div>
 
-<script>
-    function submitForm() {
-        // Assign JSONEditor value to form textarea
-        for (var id in jsonEditor) {
-            try {
-                var json = jsonEditor[id].get();
-                $('#form-' + id).val(JSON.stringify(json));
-            } catch (e) {
-                alert('JSON is invalid.');
-                $('#form-' + id).show().focus().hide();
-                jsonEditor[id].focus();
-                return false;
-            }
-        };
-        document.getElementById('form').submit();
-    }
-</script>
+    <script>
+        function submitForm() {
+            // Assign JSONEditor value to form textarea
+            for (var id in jsonEditor) {
+                try {
+                    var json = jsonEditor[id].get();
+                    $('#form-' + id).val(JSON.stringify(json));
+                } catch (e) {
+                    alert('JSON is invalid.');
+                    $('#form-' + id).show().focus().hide();
+                    jsonEditor[id].focus();
+                    return false;
+                }
+            };
+            document.getElementById('form').submit();
+        }
+    </script>
 
-<% include footer %>
+    <% include footer %>

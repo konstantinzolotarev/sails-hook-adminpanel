@@ -44,30 +44,26 @@ class FileUploader {
             this.size = config.size;
             try {
                 this.size.width = JSON.parse(this.size.width);
-            } catch (e) {
-            }
+            } catch (e) {}
             try {
                 this.size.height = JSON.parse(this.size.height);
-            } catch (e) {
-            }
+            } catch (e) {}
         }
         if (this.type === 'image') {
             this.aspect = config.aspect;
             this.size = config.size;
             try {
                 this.size.width = JSON.parse(this.size.width);
-            } catch (e) {
-            }
+            } catch (e) {}
             try {
                 this.size.height = JSON.parse(this.size.height);
-            } catch (e) {
-            }
+            } catch (e) {}
         }
 
         if (!this.acceptedFiles)
             this.acceptedFiles = '*';
         else
-            this.acceptedFiles = this.acceptedFiles.map(function (x) {
+            this.acceptedFiles = this.acceptedFiles.map(function(x) {
                 return "." + x;
             });
         this.acceptedFiles = this.acceptedFiles.join(', ');
@@ -167,16 +163,16 @@ class FileUploader {
                 $(file.previewElement).remove();
             },
             queuecomplete: () => {
-                $('.dz-message').css({'display': 'block'});
+                $('.dz-message').css({ 'display': 'block' });
             },
             maxfilesexceeded: (file) => {
                 // if there must by only one file, delete others
                 myDropzone.removeAllFiles();
                 myDropzone.addFile(file);
             },
-            thumbnail: function (file) {
+            thumbnail: function(file) {
                 const t = this;
-                file.previewElement.addEventListener("click", function () {
+                file.previewElement.addEventListener("click", function() {
                     t.removeFile(file);
                 });
             }
@@ -197,31 +193,31 @@ class FileUploader {
 
     addFile(file) {
         const check = this.dataPreview ?
-            "    <i class='fa fa-check' title='Pick as primary'></i>" : "";
+            "    <i class='las la-check' title='Pick as primary'></i>" : "";
         const control =
             "  <div class='item-control'>" +
             check +
-            "    <i class='fa fa-times' title='Delete file'></i>" +
+            "    <i class='las la-times' title='Delete file'></i>" +
             "  </div>";
         let item = "";
         console.log(this.type)
-        if (this.type === 'file' || this.type === 'files'){
-        item =
-            "<div class='" + this.fileContainer + " file-container'>" +
-            "  <div class='item-file'>" +
-            "    <img src=" + file.urlS + " id='" + file.id + "'>" +
-            "     <div class='fileuploader_name'>"  + file.name + "</div>" +
-            "  </div>" + control +
-            "</div>";
+        if (this.type === 'file' || this.type === 'files') {
+            item =
+                "<div class='" + this.fileContainer + " file-container'>" +
+                "  <div class='item-file'>" +
+                "    <img src=" + file.urlS + " id='" + file.id + "'>" +
+                "     <div class='fileuploader_name'>" + file.name + "</div>" +
+                "  </div>" + control +
+                "</div>";
 
         } else if (this.type === 'image' || this.type === 'images') {
-        item =
-            "<div class='" + this.fileContainer + " file-container'>" +
-            "  <div class='item-image'>" +
-            "    <img src=" + file.urlS + " id='" + file.id + "'>" +
-            "  </div>" + control +
-            "</div>" ;
-    
+            item =
+                "<div class='" + this.fileContainer + " file-container'>" +
+                "  <div class='item-image'>" +
+                "    <img src=" + file.urlS + " id='" + file.id + "'>" +
+                "  </div>" + control +
+                "</div>";
+
         }
 
         /*
@@ -229,8 +225,8 @@ class FileUploader {
 
         <div class='file-container' data-toggle='modal' data-target='#myModal'"
           <div class='item-control'>
-            <i class='fa fa-check' title='Pick as primary'></i>
-            <i class='fa fa-times' title='Delete file'></i>
+            <i class='las la-check' title='Pick as primary'></i>
+            <i class='las la-times' title='Delete file'></i>
           </div>
           <div class='item-image'>
             <img src="">
@@ -297,7 +293,7 @@ class FileUploader {
     setListeners() {
         // make click for modal
         const fu = this;
-        $('.' + this.fileContainer + ' > .item-image').click(function () {
+        $('.' + this.fileContainer + ' > .item-image').click(function() {
             const fileEl = $(this).find('img');
             const id = fileEl.attr('id');
             const file = fu.files[id];
@@ -305,7 +301,7 @@ class FileUploader {
             $('#file-info-modal-' + fu.elName).show();
         });
 
-        $('.' + this.fileContainer + ' > .item-file').click(function () {
+        $('.' + this.fileContainer + ' > .item-file').click(function() {
             const fileEl = $(this).find('img');
             const id = fileEl.attr('id');
             const file = fu.files[id];
@@ -315,7 +311,7 @@ class FileUploader {
 
 
         // make picture preview
-        $('.' + this.fileContainer + ' > .item-control > .fa-check').click(function () {
+        $('.' + this.fileContainer + ' > .item-control > .la-check').click(function() {
             const fc = $('.' + fu.fileContainer);
             fc.removeClass('preview');
             fc.removeClass(fu.previewName);
@@ -325,7 +321,7 @@ class FileUploader {
         });
 
         // delete item
-        $('.' + this.fileContainer + ' > .item-control > .fa-times').click(function () {
+        $('.' + this.fileContainer + ' > .item-control > .la-times').click(function() {
             $(this).parents('.' + fu.fileContainer).remove();
             fu.saveData();
         });
@@ -362,8 +358,7 @@ class FileUploader {
                         this.addFile(f);
                     });
                 }
-            } catch (e) {
-            }
+            } catch (e) {}
 
             const preview = $('#' + this.dataPreview).val();
             if (preview) {
@@ -379,4 +374,3 @@ class FileUploader {
         }
     }
 }
-

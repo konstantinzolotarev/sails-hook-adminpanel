@@ -39,11 +39,12 @@ class EditNavigation {
                 'title': 'Link',
                 'description': "this is the link"
             },
-            'age':{
+            'age': {
                 'type': 'number',
                 'title': 'Age',
                 'description': "this is the age"
-            }};
+            }
+        };
         this.displacementControl = true;
 
         //this.logConfig();
@@ -58,7 +59,7 @@ class EditNavigation {
             $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
             if (this.visibleElement === 'hidden') {
-                $('.fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
+                $('.la-eye').replaceWith('<i class="las la-eye-slash"></i>');
                 $('li[id^="item_"]').attr('data-visible', 'false')
             } else if (this.visibleElement === false) {
                 $('.navigation-eye').remove();
@@ -89,34 +90,34 @@ class EditNavigation {
 
         // create modal window, append it and hide
         let modal = '<div class="modal fade navigation-popup" id="popUp">' +
-                        '<div class="modal-dialog modal-dialog-centered navigation-modal" role="dialog">' +
-                            '<div class="modal-content">' +
-                                '<div class="modal-header navigation-header">' +
-                                '</div>' +
-                                '<div class="modal-body">' +
-                                    '<div class="navigation-block">' +
-                                        '<div class="navigation-wrap">' +
-                                            '<label for="parentSelector">Choose parent</label>' +
-                                            '<select class="form-select navigation-select" id="parentSelector" aria-label="Default select example">' +
-                                            '</select>' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="navigation-block">' +
-                                        '<div class="navigation-wrap">' +
-                                            '<label for="propertyAdder navigation-text">Add property</label>' +
-                                            '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
-                                            '</select>' +
-                                        '</div>' +
-                                        '<a class="addProperty navigation-plus" href="#"><i class="fas fa-plus"></i></a>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="modal-footer navigation-footer">' +
-                                    '<a class="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
-                                    '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>';
+            '<div class="modal-dialog modal-dialog-centered navigation-modal" role="dialog">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header navigation-header">' +
+            '</div>' +
+            '<div class="modal-body">' +
+            '<div class="navigation-block">' +
+            '<div class="navigation-wrap">' +
+            '<label for="parentSelector">Choose parent</label>' +
+            '<select class="form-select navigation-select" id="parentSelector" aria-label="Default select example">' +
+            '</select>' +
+            '</div>' +
+            '</div>' +
+            '<div class="navigation-block">' +
+            '<div class="navigation-wrap">' +
+            '<label for="propertyAdder navigation-text">Add property</label>' +
+            '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
+            '</select>' +
+            '</div>' +
+            '<a class="addProperty navigation-plus" href="#"><i class="las la-plus"></i></a>' +
+            '</div>' +
+            '</div>' +
+            '<div class="modal-footer navigation-footer">' +
+            '<a class="editItem btn btn-success" data-dismiss="modal" itemID="" href="#">Save</a>' +
+            '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
         $(`#form-${this.field}`).after(modal);
         $('#popUp').hide();
 
@@ -164,26 +165,26 @@ class EditNavigation {
         for (let item of data) {
             $(ul).append(`<li id="${item.id}" class="navigation-list">` +
                 `<div class="navigation-content">` +
-                    `<div class="navigation-left">` +
-                        `<a href="#" class="clickable navigation-eye changeEye">` +
-                            '<i class="far fa-eye"></i>' +
-                        '</a>' +
-                        `<label class="navigation-label">${item.title}</label>` +
-                    `</div>` +
-                    `<div class="navigation-right">` +
-                        `<a href="#" class="clickable navigation-btn navigation-arrow itemUp">` +
-                            `<i class="fas fa-chevron-up"></i>` +
-                        `</a>` +
-                        '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
-                            '<i class="fas fa-chevron-down"></i>' +
-                        '</a>' +
-                        '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
-                            '<i class="fas fa-pencil-alt"></i>' +
-                        '</a>' +
-                        `<a href="#" class="clickable navigation-btn navigation-close deleteItem">` +
-                            '<i class="fas fa-times"></i>' +
-                        '</a>' +
-                    '</div>' +
+                `<div class="navigation-left">` +
+                `<a href="#" class="clickable navigation-eye changeEye">` +
+                '<i class="las la-eye"></i>' +
+                '</a>' +
+                `<label class="navigation-label">${item.title}</label>` +
+                `</div>` +
+                `<div class="navigation-right">` +
+                `<a href="#" class="clickable navigation-btn navigation-arrow itemUp">` +
+                `<i class="las la-angle-up"></i>` +
+                `</a>` +
+                '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
+                '<i class="las la-angle-down"></i>' +
+                '</a>' +
+                '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
+                '<i class="las la-pencil-alt"></i>' +
+                '</a>' +
+                `<a href="#" class="clickable navigation-btn navigation-close deleteItem">` +
+                '<i class="las la-times"></i>' +
+                '</a>' +
+                '</div>' +
                 `</div>` +
                 '</li>');
             for (let [key, value] of Object.entries(item)) {
@@ -199,7 +200,7 @@ class EditNavigation {
     }
 
     giveItemsUniqueId() {
-        $('li[id^="item_"]').each(function (index, element) {
+        $('li[id^="item_"]').each(function(index, element) {
             $(element).attr('id', "item_" + index);
         })
     }
@@ -231,26 +232,26 @@ class EditNavigation {
     addItem() {
         $('#sortableList').append(`<li id="item_new" class="navigation-list navigation-new" data-title='New element #${this.counter}'>` +
             `<div class="navigation-content">` +
-                   '<div class="navigation-left">' +
-                        '<a href="#" class="clickable navigation-eye changeEye">' +
-                            '<i class="far fa-eye"></i>' +
-                        '</a>' +
-                        `<label class="navigation-label">New element #${this.counter}</label>` +
-                   `</div>` +
-                   '<div class="navigation-right">' +
-                        '<a href="#" class="clickable navigation-btn navigation-arrow itemUp">' +
-                            '<i class="fas fa-chevron-up"></i>' +
-                        '</a>' +
-                        '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
-                            '<i class="fas fa-chevron-down"></i>' +
-                        '</a>' +
-                        '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
-                            '<i class="fas fa-pencil-alt"></i>' +
-                        '</a>' +
-                        '<a href="#" class="clickable navigation-btn navigation-close deleteItem">' +
-                            '<i class="fas fa-times"></i>' +
-                        '</a>' +
-                   '</div>' +
+            '<div class="navigation-left">' +
+            '<a href="#" class="clickable navigation-eye changeEye">' +
+            '<i class="las la-eye"></i>' +
+            '</a>' +
+            `<label class="navigation-label">New element #${this.counter}</label>` +
+            `</div>` +
+            '<div class="navigation-right">' +
+            '<a href="#" class="clickable navigation-btn navigation-arrow itemUp">' +
+            '<i class="las la-angle-up"></i>' +
+            '</a>' +
+            '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
+            '<i class="las la-angle-down"></i>' +
+            '</a>' +
+            '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
+            '<i class="las la-pencil-alt"></i>' +
+            '</a>' +
+            '<a href="#" class="clickable navigation-btn navigation-close deleteItem">' +
+            '<i class="las la-times"></i>' +
+            '</a>' +
+            '</div>' +
             '</div>' +
             '</li>');
         for (let key of Object.keys($('#sortableList > li').getAttr())) {
@@ -260,7 +261,7 @@ class EditNavigation {
             }
         }
         if (this.visibleElement === 'hidden') {
-            $('#item_new > div > div > .navigation-eye > .fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
+            $('#item_new > div > div > .navigation-eye > .la-eye').replaceWith('<i class="las la-eye-slash"></i>');
             $('li[id="item_new"]').attr('data-visible', 'false')
         } else if (this.visibleElement === false) {
             $('#item_new > div > div > .navigation-eye').remove();
@@ -318,9 +319,9 @@ class EditNavigation {
                     if (this.visibleElement !== false) {
                         if ($(element).attr('id') === 'data-visible') {
                             if ($(' > input', element).prop("checked") === true) {
-                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye');
+                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'las la-eye');
                             } else {
-                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye-slash');
+                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'las la-eye-slash');
                             }
                         }
                     }
@@ -345,7 +346,7 @@ class EditNavigation {
 
     itemUp(item) {
         let currentItem = $(item).closest('li');
-        let prevItem = $(currentItem).prev();  // returns prev item or empty jQuery object
+        let prevItem = $(currentItem).prev(); // returns prev item or empty jQuery object
 
         if (prevItem && prevItem.length > 0) {
             $(currentItem).insertBefore($(prevItem));
@@ -366,11 +367,11 @@ class EditNavigation {
     changeEye(item) {
         let currentItem = $(item).closest('li');
         let currentEye = $(' > i', item);
-        if ($(currentEye).attr('class') === 'far fa-eye') {
-            $(currentEye).attr('class', 'far fa-eye-slash');
+        if ($(currentEye).attr('class') === 'las la-eye') {
+            $(currentEye).attr('class', 'las la-eye-slash');
             $(currentItem).attr('data-visible', 'false')
-        } else if ($(currentEye).attr('class') === 'far fa-eye-slash') {
-            $(currentEye).attr('class', 'far fa-eye');
+        } else if ($(currentEye).attr('class') === 'las la-eye-slash') {
+            $(currentEye).attr('class', 'las la-eye');
             $(currentItem).attr('data-visible', 'true')
         }
         this.saveChanges();
@@ -392,7 +393,7 @@ class EditNavigation {
                     `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                     `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                     `</div>` +
-                    '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
+                    '<a href="#" class="deleteProp navigation-del"><i class="las la-times"></i></a>' +
                     '</div>')
                 if (typeRecognition.inputType === 'checkbox') {
                     if (value === 'true') {
@@ -453,10 +454,10 @@ class EditNavigation {
         }))
         $('li[id^="item_"]').each(function(index, element) {
             let nestedLevel = $('#' + $(element).attr('id')).parentsUntil('#sortableList').length;
-            if ($(element).attr('id') !== itemId && (nestedLevel + 2)/2 < maxNestedItems) {// there will be nesting value, maxLevel = 3
+            if ($(element).attr('id') !== itemId && (nestedLevel + 2) / 2 < maxNestedItems) { // there will be nesting value, maxLevel = 3
                 $('#parentSelector').append($('<option>', {
                     value: $(element).attr('id'),
-                    text: '- '.repeat(nestedLevel/2) + $(element).attr('data-title')
+                    text: '- '.repeat(nestedLevel / 2) + $(element).attr('data-title')
                 }))
             }
         })
@@ -471,20 +472,17 @@ class EditNavigation {
 
     // function that replaces sortableListsToHierarchy function from original module
     listToHierarchy() {
-        $.fn.toHierarchy = function()
-        {
+        $.fn.toHierarchy = function() {
             var arr = [],
                 order = 0;
 
-            $( this ).children( 'li' ).each( function()
-            {
-                var li = $( this ),
+            $(this).children('li').each(function() {
+                var li = $(this),
                     listItem = {},
-                    id = li.attr( 'id' );
+                    id = li.attr('id');
 
-                if ( ! id )
-                {
-                    console.log( li ); // Have to be here! Read next exception message.
+                if (!id) {
+                    console.log(li); // Have to be here! Read next exception message.
                     throw 'Previous item in console.log has no id. It is necessary to create the array.';
                 }
                 listItem.id = id;
@@ -498,10 +496,10 @@ class EditNavigation {
                     listItem[key] = value;
                 }
                 listItem.order = order;
-                arr.push( listItem );
-                listItem.children = li.children( 'ul,ol' ).toHierarchy();
-                order ++;
-            } );
+                arr.push(listItem);
+                listItem.children = li.children('ul,ol').toHierarchy();
+                order++;
+            });
 
             return arr;
         };
@@ -511,14 +509,14 @@ class EditNavigation {
     // function that improves attr()
     getAttr() {
         $.fn.getAttr = function() {
-            if(arguments.length === 0) {
-                if(this.length === 0) {
+            if (arguments.length === 0) {
+                if (this.length === 0) {
                     return null;
                 }
 
                 var obj = {};
                 $.each(this[0].attributes, function() {
-                    if(this.specified) {
+                    if (this.specified) {
                         obj[this.name] = this.value;
                     }
                 });
@@ -552,19 +550,18 @@ class EditNavigation {
 
             opener: {
                 active: true,
-                as: 'html',  // or "class"
-                close: '<i class="fas fa-chevron-up"></i>', // or 'fa fa-minus'
-                open: '<i class="fas fa-chevron-down"></i>', // or 'fa fa-plus'
+                as: 'html', // or "class"
+                close: '<i class="las la-angle-up"></i>', // or 'las la-minus'
+                open: '<i class="las la-angle-down"></i>', // or 'las la-plus'
             },
 
             isAllowed: function(currEl, hint, target) {
                 if (menu.displacementControl) {
                     if ($(currEl).children().length === 1) {
-                        if((hint.parentsUntil('#sortableList').length)/2 >= menu.maxNestedItems) { // there will be nesting value, maxLevel = 3
+                        if ((hint.parentsUntil('#sortableList').length) / 2 >= menu.maxNestedItems) { // there will be nesting value, maxLevel = 3
                             hint.css('background-color', '#8B0000');
                             return false;
-                        }
-                        else {
+                        } else {
                             hint.css('background-color', '#008000');
                             return true;
                         }
@@ -573,22 +570,20 @@ class EditNavigation {
                         return false;
                     }
                 } else {
-                    if((hint.parentsUntil('#sortableList').length)/2 >= menu.maxNestedItems) { // there will be nesting value, maxLevel = 3
+                    if ((hint.parentsUntil('#sortableList').length) / 2 >= menu.maxNestedItems) { // there will be nesting value, maxLevel = 3
                         hint.css('background-color', '#8B0000');
                         return false;
-                    }
-                    else {
+                    } else {
                         hint.css('background-color', '#008000');
                         return true;
                     }
                 }
             },
 
-            onChange: function()
-            {
+            onChange: function() {
                 menu.saveChanges();
             },
-            start: function(e, ui){
+            start: function(e, ui) {
                 ui.placeholder.height(ui.item.height());
                 ui.placeholder.css('visibility', 'visible');
             }
