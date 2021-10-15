@@ -1,15 +1,18 @@
-<% if (adminpanel.viewHelper.hasFlash(req, 'adminError')) { %>
-    <% req.flash('adminError').forEach(function(msg) { %>
-        <admin-alert error>
-            <%= msg %>
-        </admin-alert>
-    <% }) %>
-<% } %>
+<div class="alerts content layout">
+    <% if (adminpanel.viewHelper.hasFlash(req, 'adminError')) { %>
+        <% req.flash('adminError').forEach(function(msg) { %>
+            <div class="alert alert-danger"><div class="alert-items"><div class="alert-item static"><div class="alert-icon-wrapper"><i class="las la-exclamation-triangle"></i></div><span class="alert-text">
+                <%= msg %>
+            </span></div></div></div>
+        <% }) %>
+    <% } %>
 
-<% if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess')) { %>
-    <% req.flash('adminSuccess').forEach(function(msg) { %>
-        <admin-alert success>
-            <%= msg %>
-        </admin-alert>
-    <% }) %>
-<% } %>
+    <% if (adminpanel.viewHelper.hasFlash(req, 'adminSuccess')) { %>
+        <% req.flash('adminSuccess').forEach(function(msg) { %>
+            <div class="alert alert-success"><div class="alert-items"><div class="alert-item static"><div class="alert-icon-wrapper"><i class="las la-thumbs-up"></i></div><span class="alert-text">
+                <%= msg %>
+            </span></div></div></div>
+        <% }) %>
+    <% } %>
+</div>
+
