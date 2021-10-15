@@ -731,3 +731,7 @@ input[type=number] {
         margin-bottom: 10px;
     }
 }
+
+.widget_narrow {
+    max-width: 420px;
+}
