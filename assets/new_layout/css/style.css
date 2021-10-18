@@ -373,6 +373,13 @@ textarea {
     padding-bottom: 40px;
 }
 
+.alert {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-left: 50px;
+    margin-right: 62px;
+}
+
 .nav-header {
     display: flex;
     justify-content: space-between;
