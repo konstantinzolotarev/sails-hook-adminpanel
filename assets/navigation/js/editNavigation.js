@@ -54,9 +54,11 @@ class EditNavigation {
 
         // if textarea has value { render ul } else { add empty ul }
         if ($(`#form-${this.field}`).val() && $(`#form-${this.field}`).val().startsWith('[{')) {
-            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
+            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()), menu);
+            this.counter = 0;
             $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
+            this.giveItemsUniqueId(); // if items dont have ids
             if (this.visibleElement === 'hidden') {
                 $('.fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
                 $('li[id^="item_"]').attr('data-visible', 'false')
@@ -157,11 +159,15 @@ class EditNavigation {
         // console.log(replica);
     }
 
-    createDOM(data) {
+    createDOM(data, menu) {
         let ul = document.createElement('ul');
         $(ul).addClass("root-navigation");
+        let title = 'Without title';
 
         for (let item of data) {
+            if (!item.id) { item.id = menu.counter }
+            if (!item.title) { item.title = title }
+            menu.counter++;
             $(ul).append(`<li id="${item.id}" class="navigation-list">` +
                 `<div class="navigation-content">` +
                     `<div class="navigation-left">` +
@@ -189,18 +195,27 @@ class EditNavigation {
             for (let [key, value] of Object.entries(item)) {
                 if (key !== 'id' && key !== 'order' && key !== 'children') {
                     $(' > li[id=' + item.id + ']', ul).attr(`data-${key}`, value);
+                    if (!(Object.keys(menu.propertyList)).includes(key)) {
+                        menu.propertyList[key] = {
+                            'type': typeof value,
+                            'title': key.charAt(0).toUpperCase() + key.slice(1),
+                            'description': `this is the ${key}`
+                        }
+                    }
                 }
             }
-            if (item.children.length > 0) {
-                $(" > li[id=" + item.id + "]", ul).append(this.createDOM(item.children));
+            if (item.children && item.children.length > 0) {
+                $(" > li[id=" + item.id + "]", ul).append(this.createDOM(item.children, menu));
             }
         }
         return ul;
     }
 
     giveItemsUniqueId() {
-        $('li[id^="item_"]').each(function (index, element) {
-            $(element).attr('id', "item_" + index);
+        $('li').each(function (index, element) {
+            if ($(element).closest('#sortableList').length) { // if item is in sortableList
+                $(element).attr('id', "item_" + index);
+            }
         })
     }
 
