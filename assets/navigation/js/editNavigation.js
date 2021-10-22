@@ -191,10 +191,12 @@ class EditNavigation {
         if ($('#propertyAdder').val() !== "None") {
             let typeRecognition = this.recognizeType($('#propertyAdder').val());
             let capitalizedKey = $('#propertyAdder').val().charAt(0).toUpperCase() + $('#propertyAdder').val().slice(1);
-            $("#propertyAdder").closest('.navigation-block').before(`<div id="data-${$('#propertyAdder').val()}">` +
-                `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
-                `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
-                '<a href="#" class="deleteProp">[X]</a>' +
+            $("#propertyAdder").closest('.navigation-block').before(`<div class="navigation-wrapper" id="data-${$('#propertyAdder').val()}">` +
+                `<div class="navigation-inner">` +
+                    `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
+                    `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
+                `</div>` +
+                '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
                 '</div>')
             if (typeRecognition.required === "true") {
                 $(`data-${$('#propertyAdder').val()} > .deleteProp`).remove();

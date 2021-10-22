@@ -216,27 +216,29 @@ class EditSchedule {
 
         // create modal window, append it and hide
         let modal =
-            '<div class="modal fade" id="popUp">' +
-            '<div class="modal-dialog modal-dialog-centered" role="dialog">' +
-            '<div class="modal-content">' +
-            '<div class="modal-header">' +
-            "Options" +
-            "</div>" +
-            '<div class="modal-body">' +
-            "<div>" +
-            '<label for="propertyAdder">Add option</label>' +
-            '<select class="form-select" id="propertyAdder" aria-label="Default select example">' +
-            "</select>" +
-            '<a class="addProperty" href="#">Add</a>' +
-            "</div>" +
-            "</div>" +
-            '<div class="modal-footer">' +
-            '<a class="editItem btn btn-success" data-dismiss="modal" itemid="" href="#">Save</a>' +
-            '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
-            "</div>" +
-            "</div>" +
-            "</div>" +
-            "</div>";
+            '<div class="modal fade navigation-popup" id="popUp">' +
+                '<div class="modal-dialog modal-dialog-centered navigation-modal" role="dialog">' +
+                    '<div class="modal-content">' +
+                        '<div class="modal-header navigation-header">' +
+                            'Options' +
+                        '</div>' +
+                        '<div class="modal-body">' +
+                            '<div class="navigation-block">' +
+                                '<div class="navigation-wrap">' +
+                                    '<label for="propertyAdder navigation-text">Add option</label>' +
+                                    '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
+                                    '</select>' +
+                                '</div>' +
+                                '<a class="addProperty navigation-plus" href="#"><i class="fas fa-plus"></i></a>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="modal-footer navigation-footer">' +
+                            '<a class="editItem btn btn-success" data-dismiss="modal" itemid="" href="#">Save</a>' +
+                            '<a class="close-btn btn btn-danger" data-dismiss="modal" href="#">Cancel</a>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
         $(`#form-${this.field}`).after(modal);
         $("#popUp").hide();
 
@@ -490,14 +492,20 @@ class EditSchedule {
                 let typeRecognition = this.recognizeType(key.slice(5));
                 let capitalizedKey = key.slice(5).charAt(0).toUpperCase() + key.slice(6);
                 $("#propertyAdder")
-                    .parent()
-                    .before(`<div id="${key}">` + `<label for="item${capitalizedKey}">${capitalizedKey}</label>` + `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` + '<a href="#" class="deleteProp">[X]</a>' + "</div>");
+                    .closest('.navigation-block')
+                    .before(`<div class="navigation-wrapper" id="${key}">` +
+                        `<div class="navigation-inner">` +
+                            `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
+                            `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
+                        `</div>` +
+                        '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
+                        "</div>");
                 if (typeRecognition.inputType === "checkbox") {
                     if (value === "true") {
-                        $(`#${key} > input`).prop("checked", "checked");
+                        $(`#${key} > div > input`).prop("checked", "checked");
                     }
                 } else {
-                    $(`#${key} > input`).attr("value", value);
+                    $(`#${key} > div > input`).attr("value", value);
                 }
             }
         }
@@ -540,8 +548,14 @@ class EditSchedule {
             let typeRecognition = this.recognizeType($("#propertyAdder").val());
             let capitalizedKey = $("#propertyAdder").val().charAt(0).toUpperCase() + $("#propertyAdder").val().slice(1);
             $("#propertyAdder")
-                .parent()
-                .before(`<div id="data-${$("#propertyAdder").val()}">` + `<label for="item${capitalizedKey}">${capitalizedKey}</label>` + `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` + '<a href="#" class="deleteProp">[X]</a>' + "</div>");
+                .closest('.navigation-block')
+                .before(`<div class="navigation-wrapper" id="data-${$("#propertyAdder").val()}">` +
+                    `<div class="navigation-inner">` +
+                        `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
+                        `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
+                    `</div>` +
+                    '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
+                    "</div>");
             $("#" + $(".editItem").attr("itemid")).attr(`data-${$("#propertyAdder").val()}`, typeRecognition.defaultValue);
             $("#propertyAdder option:selected").remove();
             this.saveChanges();
@@ -585,9 +599,9 @@ class EditSchedule {
         $(".modal-body > div").each(function(index, element) {
             if ($(element).is(":visible") && $(element).attr("id")) {
                 if (schedule.recognizeType($(element).attr("id").slice(5)).inputType === "checkbox") {
-                    $(itemId).attr($(element).attr("id"), $(" > input", element).prop("checked"));
+                    $(itemId).attr($(element).attr("id"), $(" > div > input", element).prop("checked"));
                 } else {
-                    $(itemId).attr($(element).attr("id"), $(" > input", element).val());
+                    $(itemId).attr($(element).attr("id"), $(" > div > input", element).val());
                 }
             }
         });
