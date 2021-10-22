@@ -7,8 +7,9 @@
 </textarea>
 
 <script>
-
+    var options<%=key%> = <%- JSON.stringify(field.config.options) %>
    new EditSchedule({
+       ...options<%=key%>,
       element: '<%=key%>-container',
       field: '<%=key%>',
       data: $('#form-<%=key%>').val()

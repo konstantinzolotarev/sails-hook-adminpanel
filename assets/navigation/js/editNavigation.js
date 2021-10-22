@@ -4,14 +4,10 @@ class EditNavigation {
         this.field = config.field;
         this.dataInput = config.data;
         this.counter = 0;
-        this.maxNestedItems = 4;
-        this.visibleElement = 'visible'; // can be 'visible', 'hidden', false
-        this.propertyList = {
-            'item': {
-                'type': 'string',
-                'title': 'Item',
-                'description': "this is the Item"
-            },
+        this.maxNestedItems = config.maxNestedItems || 4;
+        this.visibleElement = config.visibleElement || 'visible'; // can be 'visible', 'hidden', false
+        this.titleProperties = config.titleProperties || 'title';
+        let defaultPropertyList = {
             'title': {
                 'type': 'string',
                 'title': 'Title',
@@ -24,27 +20,14 @@ class EditNavigation {
                 'description': "element visibility",
                 'required': 'true'
             },
-            'checkmark': {
-                'type': 'boolean',
-                'title': 'Checkmark',
-                'description': "this is the checkmark"
-            },
-            'hint': {
-                'type': 'string',
-                'title': 'Hint',
-                'description': "this is the hint"
-            },
             'link': {
                 'type': 'string',
                 'title': 'Link',
                 'description': "this is the link"
-            },
-            'age':{
-                'type': 'number',
-                'title': 'Age',
-                'description': "this is the age"
-            }};
-        this.displacementControl = true;
+            }
+        };
+        this.propertyList = config.propertyList || defaultPropertyList;
+        this.displacementControl = config.displacementControl || true;
 
         //this.logConfig();
         this.main(this);
@@ -54,11 +37,9 @@ class EditNavigation {
 
         // if textarea has value { render ul } else { add empty ul }
         if ($(`#form-${this.field}`).val() && $(`#form-${this.field}`).val().startsWith('[{')) {
-            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()), menu);
-            this.counter = 0;
+            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
             $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
-            this.giveItemsUniqueId(); // if items dont have ids
             if (this.visibleElement === 'hidden') {
                 $('.fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
                 $('li[id^="item_"]').attr('data-visible', 'false')
@@ -159,22 +140,18 @@ class EditNavigation {
         // console.log(replica);
     }
 
-    createDOM(data, menu) {
+    createDOM(data) {
         let ul = document.createElement('ul');
         $(ul).addClass("root-navigation");
-        let title = 'Without title';
 
         for (let item of data) {
-            if (!item.id) { item.id = menu.counter }
-            if (!item.title) { item.title = title }
-            menu.counter++;
             $(ul).append(`<li id="${item.id}" class="navigation-list">` +
                 `<div class="navigation-content">` +
                     `<div class="navigation-left">` +
                         `<a href="#" class="clickable navigation-eye changeEye">` +
                             '<i class="far fa-eye"></i>' +
                         '</a>' +
-                        `<label class="navigation-label">${item.title}</label>` +
+                        `<label class="navigation-label">${item[this.titleProperties]}</label>` +
                     `</div>` +
                     `<div class="navigation-right">` +
                         `<a href="#" class="clickable navigation-btn navigation-arrow itemUp">` +
@@ -195,27 +172,18 @@ class EditNavigation {
             for (let [key, value] of Object.entries(item)) {
                 if (key !== 'id' && key !== 'order' && key !== 'children') {
                     $(' > li[id=' + item.id + ']', ul).attr(`data-${key}`, value);
-                    if (!(Object.keys(menu.propertyList)).includes(key)) {
-                        menu.propertyList[key] = {
-                            'type': typeof value,
-                            'title': key.charAt(0).toUpperCase() + key.slice(1),
-                            'description': `this is the ${key}`
-                        }
-                    }
                 }
             }
             if (item.children && item.children.length > 0) {
-                $(" > li[id=" + item.id + "]", ul).append(this.createDOM(item.children, menu));
+                $(" > li[id=" + item.id + "]", ul).append(this.createDOM(item.children));
             }
         }
         return ul;
     }
 
     giveItemsUniqueId() {
-        $('li').each(function (index, element) {
-            if ($(element).closest('#sortableList').length) { // if item is in sortableList
-                $(element).attr('id', "item_" + index);
-            }
+        $('li[id^="item_"]').each(function (index, element) {
+            $(element).attr('id', "item_" + index);
         })
     }
 
@@ -325,14 +293,14 @@ class EditNavigation {
 
     editItem(menu) {
         let itemId = '#' + $('.modal-footer > .editItem').attr('itemid');
-        $(' > div > div > label', itemId).text($('.modal-body > div[id="data-title"] > input').val());
+        $(' > div > div > label', itemId).text($('.modal-body > div[id="data-title"] > div > input').val());
         $('.modal-body > div').each(function(index, element) {
             if ($(element).is(":visible") && $(element).attr('id')) {
                 if ((menu.recognizeType(($(element).attr('id')).slice(5))).inputType === 'checkbox') {
-                    $(itemId).attr($(element).attr('id'), $(' > input', element).prop("checked"));
+                    $(itemId).attr($(element).attr('id'), $(' > div > input', element).prop("checked"));
                     if (this.visibleElement !== false) {
                         if ($(element).attr('id') === 'data-visible') {
-                            if ($(' > input', element).prop("checked") === true) {
+                            if ($(' > div > input', element).prop("checked") === true) {
                                 $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye');
                             } else {
                                 $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye-slash');
@@ -340,7 +308,7 @@ class EditNavigation {
                         }
                     }
                 } else {
-                    $(itemId).attr($(element).attr('id'), $(' > input', element).val());
+                    $(itemId).attr($(element).attr('id'), $(' > div > input', element).val());
                 }
             }
         })
@@ -411,10 +379,10 @@ class EditNavigation {
                     '</div>')
                 if (typeRecognition.inputType === 'checkbox') {
                     if (value === 'true') {
-                        $(`#${key} > input`).prop("checked", "checked");
+                        $(`#${key} > div > input`).prop("checked", "checked");
                     }
                 } else {
-                    $(`#${key} > input`).attr('value', value);
+                    $(`#${key} > div > input`).attr('value', value);
                 }
                 if (typeRecognition.required === "true") {
                     $(`#${key} > .deleteProp`).remove();

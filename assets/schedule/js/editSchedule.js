@@ -4,52 +4,33 @@ class EditSchedule {
         this.field = config.field;
         this.dataInput = config.data;
         this.counter = 0;
-        this.propertyList = {
-            item: {
-                type: "string",
-                title: "Item",
-                description: "this is the Item",
-            },
+        let defaultPropertyList = {
             title: {
                 type: "string",
-                title: "Title",
-                description: "this is the title",
-                required: "true",
-            },
-            checkmark: {
-                type: "boolean",
-                title: "Checkmark",
-                description: "this is the checkmark",
-            },
-            hint: {
-                type: "string",
-                title: "Hint",
-                description: "this is the hint",
+                    title: "Title",
+                    description: "this is the title",
+                    required: "true",
             },
             link: {
                 type: "string",
                 title: "Link",
                 description: "this is the link",
-            },
-            age: {
-                type: "number",
-                title: "Age",
-                description: "this is the age",
-            },
+            }
         };
-        this.permutations = {
+        let defaultPermutations = {
             time: true,
             date: true,
             break: true,
             options: true,
         };
+        this.propertyList = config.propertyList || defaultPropertyList;
+        this.permutations = config.permutations || defaultPermutations;
 
         this.main(this);
     }
 
     main(schedule) {
 
-        console.log("Here")
             // add main hint
         $(`#form-${this.field}`).before(
             '<div class="admin-panel__title">\n' +
