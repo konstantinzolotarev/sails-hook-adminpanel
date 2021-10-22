@@ -229,7 +229,7 @@ class EditSchedule {
                                     '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
                                     '</select>' +
                                 '</div>' +
-                                '<a class="addProperty navigation-plus" href="#"><i class="fas fa-plus"></i></a>' +
+                                '<a class="addProperty navigation-plus" href="#"><i class="las la-plus"></i></a>' +
                             '</div>' +
                         '</div>' +
                         '<div class="modal-footer navigation-footer">' +
@@ -498,7 +498,7 @@ class EditSchedule {
                             `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                             `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                         `</div>` +
-                        '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
+                        '<a href="#" class="deleteProp navigation-del"><i class="las la-times"></i></a>' +
                         "</div>");
                 if (typeRecognition.inputType === "checkbox") {
                     if (value === "true") {
@@ -554,7 +554,7 @@ class EditSchedule {
                         `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                         `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                     `</div>` +
-                    '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
+                    '<a href="#" class="deleteProp navigation-del"><i class="las la-times"></i></a>' +
                     "</div>");
             $("#" + $(".editItem").attr("itemid")).attr(`data-${$("#propertyAdder").val()}`, typeRecognition.defaultValue);
             $("#propertyAdder option:selected").remove();

@@ -41,7 +41,7 @@ class EditNavigation {
             $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
             if (this.visibleElement === 'hidden') {
-                $('.fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
+                $('.la-eye').replaceWith('<i class="las la-eye-slash"></i>');
                 $('li[id^="item_"]').attr('data-visible', 'false')
             } else if (this.visibleElement === false) {
                 $('.navigation-eye').remove();
@@ -90,7 +90,7 @@ class EditNavigation {
                                             '<select class="form-select navigation-select" id="propertyAdder" aria-label="Default select example">' +
                                             '</select>' +
                                         '</div>' +
-                                        '<a class="addProperty navigation-plus" href="#"><i class="fas fa-plus"></i></a>' +
+                                        '<a class="addProperty navigation-plus" href="#"><i class="las la-plus"></i></a>' +
                                     '</div>' +
                                 '</div>' +
                                 '<div class="modal-footer navigation-footer">' +
@@ -149,22 +149,22 @@ class EditNavigation {
                 `<div class="navigation-content">` +
                     `<div class="navigation-left">` +
                         `<a href="#" class="clickable navigation-eye changeEye">` +
-                            '<i class="far fa-eye"></i>' +
+                            '<i class="las la-eye"></i>' +
                         '</a>' +
                         `<label class="navigation-label">${item[this.titleProperties]}</label>` +
                     `</div>` +
                     `<div class="navigation-right">` +
                         `<a href="#" class="clickable navigation-btn navigation-arrow itemUp">` +
-                            `<i class="fas fa-chevron-up"></i>` +
+                            `<i class="las la-angle-up"></i>` +
                         `</a>` +
                         '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
-                            '<i class="fas fa-chevron-down"></i>' +
+                            '<i class="las la-angle-down"></i>' +
                         '</a>' +
                         '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
-                            '<i class="fas fa-pencil-alt"></i>' +
+                            '<i class="las la-pencil-alt"></i>' +
                         '</a>' +
                         `<a href="#" class="clickable navigation-btn navigation-close deleteItem">` +
-                            '<i class="fas fa-times"></i>' +
+                            '<i class="las la-times"></i>' +
                         '</a>' +
                     '</div>' +
                 `</div>` +
@@ -196,7 +196,7 @@ class EditNavigation {
                     `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                     `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                 `</div>` +
-                '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
+                '<a href="#" class="deleteProp navigation-del"><i class="las la-times"></i></a>' +
                 '</div>')
             if (typeRecognition.required === "true") {
                 $(`data-${$('#propertyAdder').val()} > .deleteProp`).remove();
@@ -218,22 +218,22 @@ class EditNavigation {
             `<div class="navigation-content">` +
                    '<div class="navigation-left">' +
                         '<a href="#" class="clickable navigation-eye changeEye">' +
-                            '<i class="far fa-eye"></i>' +
+                            '<i class="las la-eye"></i>' +
                         '</a>' +
                         `<label class="navigation-label">New element #${this.counter}</label>` +
                    `</div>` +
                    '<div class="navigation-right">' +
                         '<a href="#" class="clickable navigation-btn navigation-arrow itemUp">' +
-                            '<i class="fas fa-chevron-up"></i>' +
+                            '<i class="las la-angle-up"></i>' +
                         '</a>' +
                         '<a href="#" class="clickable navigation-btn navigation-arrow itemDown">' +
-                            '<i class="fas fa-chevron-down"></i>' +
+                            '<i class="las la-angle-down"></i>' +
                         '</a>' +
                         '<a href="#" class="clickable navigation-btn navigation-edit popUpOpen" data-toggle="modal" data-target="#popUp">' +
-                            '<i class="fas fa-pencil-alt"></i>' +
+                            '<i class="las la-pencil-alt"></i>' +
                         '</a>' +
                         '<a href="#" class="clickable navigation-btn navigation-close deleteItem">' +
-                            '<i class="fas fa-times"></i>' +
+                            '<i class="las la-times"></i>' +
                         '</a>' +
                    '</div>' +
             '</div>' +
@@ -245,7 +245,7 @@ class EditNavigation {
             }
         }
         if (this.visibleElement === 'hidden') {
-            $('#item_new > div > div > .navigation-eye > .fa-eye').replaceWith('<i class="far fa-eye-slash"></i>');
+            $('#item_new > div > div > .navigation-eye > .la-eye').replaceWith('<i class="las la-eye-slash"></i>');
             $('li[id="item_new"]').attr('data-visible', 'false')
         } else if (this.visibleElement === false) {
             $('#item_new > div > div > .navigation-eye').remove();
@@ -303,9 +303,9 @@ class EditNavigation {
                     if (this.visibleElement !== false) {
                         if ($(element).attr('id') === 'data-visible') {
                             if ($(' > div > input', element).prop("checked") === true) {
-                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye');
+                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'las la-eye');
                             } else {
-                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'far fa-eye-slash');
+                                $(`${itemId} > div > div > .navigation-eye > i`).attr('class', 'las la-eye-slash');
                             }
                         }
                     }
@@ -351,11 +351,11 @@ class EditNavigation {
     changeEye(item) {
         let currentItem = $(item).closest('li');
         let currentEye = $(' > i', item);
-        if ($(currentEye).attr('class') === 'far fa-eye') {
-            $(currentEye).attr('class', 'far fa-eye-slash');
+        if ($(currentEye).attr('class') === 'las la-eye') {
+            $(currentEye).attr('class', 'las la-eye-slash');
             $(currentItem).attr('data-visible', 'false')
-        } else if ($(currentEye).attr('class') === 'far fa-eye-slash') {
-            $(currentEye).attr('class', 'far fa-eye');
+        } else if ($(currentEye).attr('class') === 'las la-eye-slash') {
+            $(currentEye).attr('class', 'las la-eye');
             $(currentItem).attr('data-visible', 'true')
         }
         this.saveChanges();
@@ -377,7 +377,7 @@ class EditNavigation {
                     `<label for="item${capitalizedKey}">${capitalizedKey}</label>` +
                     `<input type=${typeRecognition.inputType} id="item${capitalizedKey}">` +
                     `</div>` +
-                    '<a href="#" class="deleteProp navigation-del"><i class="fas fa-times"></i></a>' +
+                    '<a href="#" class="deleteProp navigation-del"><i class="las la-times"></i></a>' +
                     '</div>')
                 if (typeRecognition.inputType === 'checkbox') {
                     if (value === 'true') {
@@ -538,8 +538,8 @@ class EditNavigation {
             opener: {
                 active: true,
                 as: 'html',  // or "class"
-                close: '<i class="fas fa-chevron-up"></i>', // or 'fa fa-minus'
-                open: '<i class="fas fa-chevron-down"></i>', // or 'fa fa-plus'
+                close: '<i class="las la-angle-up"></i>', // or 'fa fa-minus'
+                open: '<i class="las la-angle-down"></i>', // or 'fa fa-plus'
             },
 
             isAllowed: function(currEl, hint, target) {
