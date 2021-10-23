@@ -394,12 +394,12 @@ class EditNavigation {
         // cant move items with children if displacementControl on
         if (menu.displacementControl) {
             if ($(currentItem).children().length === 1) {
-                menu.fillParentSelector(itemId, menu.maxNestedItems);
+                menu.fillParentSelector(itemId, menu.maxNestedItems, menu);
             } else {
                 $('#parentSelector').closest('.navigation-block').hide();
             }
         } else {
-            menu.fillParentSelector(itemId, menu.maxNestedItems);
+            menu.fillParentSelector(itemId, menu.maxNestedItems, menu);
         }
         $('#parentSelector').children().each(function(index, element) {
             if ($(currentItem).parent().parent().attr('id') === $(element).val()) {
@@ -431,7 +431,7 @@ class EditNavigation {
         }
     }
 
-    fillParentSelector(itemId, maxNestedItems) {
+    fillParentSelector(itemId, maxNestedItems, menu) {
         $('#parentSelector').append($('<option>', {
             value: 'global',
             text: 'global'
@@ -441,7 +441,7 @@ class EditNavigation {
             if ($(element).attr('id') !== itemId && (nestedLevel + 2)/2 < maxNestedItems) {// there will be nesting value, maxLevel = 3
                 $('#parentSelector').append($('<option>', {
                     value: $(element).attr('id'),
-                    text: '- '.repeat(nestedLevel/2) + $(element).attr(`data-${this.titleProperties}`)
+                    text: '- '.repeat(nestedLevel/2) + $(element).attr(`data-${menu.titleProperties}`)
                 }))
             }
         })
