@@ -214,7 +214,7 @@ class EditNavigation {
     }
 
     addItem() {
-        $('#sortableList').append(`<li id="item_new" class="navigation-list navigation-new" data-title='New element #${this.counter}'>` +
+        $('#sortableList').append(`<li id="item_new" class="navigation-list navigation-new" data-${this.titleProperties}='New element #${this.counter}'>` +
             `<div class="navigation-content">` +
                    '<div class="navigation-left">' +
                         '<a href="#" class="clickable navigation-eye changeEye">' +
@@ -295,7 +295,7 @@ class EditNavigation {
 
     editItem(menu) {
         let itemId = '#' + $('.modal-footer > .editItem').attr('itemid');
-        $(' > div > div > label', itemId).text($('.modal-body > div[id="data-title"] > div > input').val());
+        $(' > div > div > label', itemId).text($(`.modal-body > div[id="data-${this.titleProperties}"] > div > input`).val());
         $('.modal-body > div').each(function(index, element) {
             if ($(element).is(":visible") && $(element).attr('id')) {
                 if ((menu.recognizeType(($(element).attr('id')).slice(5))).inputType === 'checkbox') {
@@ -441,7 +441,7 @@ class EditNavigation {
             if ($(element).attr('id') !== itemId && (nestedLevel + 2)/2 < maxNestedItems) {// there will be nesting value, maxLevel = 3
                 $('#parentSelector').append($('<option>', {
                     value: $(element).attr('id'),
-                    text: '- '.repeat(nestedLevel/2) + $(element).attr('data-title')
+                    text: '- '.repeat(nestedLevel/2) + $(element).attr(`data-${this.titleProperties}`)
                 }))
             }
         })
