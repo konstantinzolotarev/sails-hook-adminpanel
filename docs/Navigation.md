@@ -14,9 +14,11 @@ navigation: {
                 title: "Редактор меню", 
                 type: "menu",
                 opts: {
-                    maxNestedLevel: number,
+                    maxNestedItems: number,
                     displacementControl: boolean,
-                    propertyList: {}
+                    propertyList: {},
+                    visibleElement: string or false,
+                    titleProperties: string
                 }
         }
         },
@@ -29,9 +31,14 @@ Navigation editor has opts field where you can add next properties:
 + maxNestedLevel
 + displacementControl
 + propertyList
++ visibleElement
++ titleProperties
 
 Using propertyList you can add list of properties that can be chosen.
 It can contain three types of properties: string, boolean and number.
+Also, you have to declare there all properties that would be placed in
+elements. And every element should have an id. Without ids DOM will not be
+displayed properly.
 
 For example:
 ```javascript
@@ -55,11 +62,11 @@ propertyList: {
 }
 ```
 
-Using maxNestedLevel you can choose max number of nested elements.
+Using maxNestedItems you can choose max number of nested elements.
 
 For example:
 ```javascript
-maxNestedLevel: 4
+maxNestedItems: 4
 ```
 
 Using displacementControl you can forbid using sortable 
@@ -70,4 +77,25 @@ For example:
 displacementControl: true
 ```
 
+Using visibleElement you can set default value of visible
+property. ```'visible'``` means that all elements will be
+visible by default, ```'hidden``` means that they will be
+hidden, ```false``` means that visible property is off.
 
+For example:
+```javascript
+visibleProperty: false
+```
+or
+```javascript
+visibleProperty: 'hidden'
+```
+
+Using titleProperties you can set the property, that would
+be title of the element. It would better be a word of a
+collocation.
+
+For example:
+```javascript
+titleProperties: 'label'
+```
