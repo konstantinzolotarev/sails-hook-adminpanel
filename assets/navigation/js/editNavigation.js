@@ -37,7 +37,8 @@ class EditNavigation {
 
         // if textarea has value { render ul } else { add empty ul }
         if ($(`#form-${this.field}`).val() && $(`#form-${this.field}`).val().startsWith('[{')) {
-            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()));
+            let list = this.createDOM(JSON.parse($(`#form-${this.field}`).val()), menu);
+            this.counter = 0;
             $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
             if (this.visibleElement === 'hidden') {
@@ -140,11 +141,13 @@ class EditNavigation {
         // console.log(replica);
     }
 
-    createDOM(data) {
+    createDOM(data, menu) {
         let ul = document.createElement('ul');
         $(ul).addClass("root-navigation");
 
         for (let item of data) {
+            if (!item.id) { item.id = `item_${menu.counter}` }
+            menu.counter++;
             $(ul).append(`<li id="${item.id}" class="navigation-list">` +
                 `<div class="navigation-content">` +
                     `<div class="navigation-left">` +
@@ -175,7 +178,7 @@ class EditNavigation {
                 }
             }
             if (item.children && item.children.length > 0) {
-                $(" > li[id=" + item.id + "]", ul).append(this.createDOM(item.children));
+                $(" > li[id=" + item.id + "]", ul).append(this.createDOM(item.children, menu));
             }
         }
         return ul;
