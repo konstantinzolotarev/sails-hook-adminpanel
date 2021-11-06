@@ -2,6 +2,7 @@
 
     <% var idField = adminpanel.configHelper.getIdentifierField(instance.config.model) %>
         <% var data = record %>
+        <% var config = adminpanel.configHelper.getConfig() %>
 
             <div class="horizontal layout">
                 <div class="flex">
@@ -30,6 +31,7 @@
                 </div>
                 <form id="form" action="<%= instance.uri %>/edit/<%= record[idField] %>" method="POST" enctype="multipart/form-data">
                     <% Object.keys(fields).forEach(function(key) { %>
+                        <% if ((!config.showORMtime) && (key === 'createdAt' || key === 'updatedAt')) return %>
                         <% var field = fields[key] %>
                             <% var value = adminpanel.viewHelper.getFieldValue(key, field, data) %>
                                 <div class="admin-panel__title">
