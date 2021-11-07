@@ -1,9 +1,9 @@
 <textarea
-    value="<%=value%>"
     <% field.config.required && 'required' %>
     <% field.config.disabled && 'disabled'%>
     name="<%= key %>"
     id="form-<%= key %>">
+    <%=value%>
 </textarea>
 
 <script>
