@@ -1,34 +1,34 @@
 
 <textarea
-    <% field.config.required && 'required' %>
-    <% field.config.disabled && 'disabled'%>
-    name="<%= key %>"
-    id="form-<%= key %>">
+        <% field.config.required && 'required' %>
+        <% field.config.disabled && 'disabled'%>
+        name="<%= key %>"
+        id="form-<%= key %>">
     <%=value%>
 </textarea>
-
+<div id="ace-<%= key %>"><%=value%></div>
 <script>
-    let ace_<%=key%> = ace.edit('form-<%=key%>');
+    $(`#form-<%= key %>`).hide();
+    let ace_<%=key%> = ace.edit('ace-<%=key%>');
     ace_<%=key%>.setReadonly
     ace_<%=key%>.setTheme("ace/theme/katzenmilch");
     ace_<%=key%>.session.setMode("ace/mode/html");
-    textarea_<%=key%> = $('textarea[name="#{key}"]');
     ace_<%=key%>.session.on("change", function () {
-        textarea_<%=key%>.val(ace_<%=key%>.getValue());
+        $('#form-<%=key%>').val(ace_<%=key%>.getValue());
     });
 
     // Disable doctype annotations
     var session_<%=key%> = ace_<%=key%>.getSession();
     session_<%=key%>.on("changeAnnotation", function() {
-    var annotations = session_<%=key%>.getAnnotations()||[], i = len = annotations.length;
-    while (i--) {
-        if(/doctype first\. Expected/.test(annotations[i].text)) {
-        annotations.splice(i, 1);
+        var annotations = session_<%=key%>.getAnnotations()||[], i = len = annotations.length;
+        while (i--) {
+            if(/doctype first\. Expected/.test(annotations[i].text)) {
+                annotations.splice(i, 1);
+            }
         }
-    }
-    if(len>annotations.length) {
-        session_<%=key%>.setAnnotations(annotations);
-    }
+        if(len>annotations.length) {
+            session_<%=key%>.setAnnotations(annotations);
+        }
     });
 
 </script>
