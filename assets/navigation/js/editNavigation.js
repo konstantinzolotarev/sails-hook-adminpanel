@@ -41,13 +41,14 @@ class EditNavigation {
             this.counter = 0;
             $(list).attr('id', 'sortableList').addClass('navigation-item').width('max-content');
             $(`#form-${this.field}`).before(list);
-            if (this.visibleElement === 'hidden') {
-                $('.la-eye').replaceWith('<i class="las la-eye-slash"></i>');
-                $('li[id^="item_"]').attr('data-visible', 'false')
-            } else if (this.visibleElement === false) {
+            if (this.visibleElement === false) {
                 $('.navigation-eye').remove();
             } else {
-                $('li[id^="item_"]').attr('data-visible', 'true')
+                $('li[id^="item_"]').each(function() {
+                    if ($(this).attr('data-visible') === 'false') {
+                        $(` > div > div > .navigation-eye > .la-eye`, this).replaceWith('<i class="las la-eye-slash"></i>');
+                    }
+                })
             }
         } else { // use here empty ul
             $(`#form-${this.field}`).before('<ul class="navigation-item" id="sortableList" style="width: max-content;"></ul>')
