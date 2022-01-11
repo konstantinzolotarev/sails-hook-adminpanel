@@ -28,7 +28,7 @@ module.exports = {
      * @returns {string}
      */
     getViewPath: function getViewPath(view) {
-        return path.join(sails.config.adminpanel.pathToViews, view);
+        return path.resolve(sails.config.adminpanel.pathToViews, view);
     },
 
     /**
