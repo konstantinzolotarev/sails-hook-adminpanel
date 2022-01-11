@@ -62,6 +62,8 @@ export default function ToInitialize(sails) {
         // sails.after(eventsToWaitFor, require('../lib/afterHooksLoaded')(sails));
         sails.on("lifted", require('../lib/afterHooksLoaded')(sails));
 
+        sails.config.adminpanel.templateRootPath = viewsHelper.BASE_VIEWS_PATH;
+
         // Bind assets
         await bindAssets(sails);
         cb();
