@@ -1,4 +1,6 @@
 <% include head %>
+<% include headContent %>
+
    <div class="layout">
       <% if ( Boolean((adminpanel.configHelper.getConfig()).welcome) && Boolean((adminpanel.configHelper.getConfig()).welcome.title) && Boolean((adminpanel.configHelper.getConfig()).welcome.text)) { %>
          <div class="title"><%= (adminpanel.configHelper.getConfig()).welcome.title %></div>

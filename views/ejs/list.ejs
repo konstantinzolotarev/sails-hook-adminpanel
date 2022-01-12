@@ -1,4 +1,5 @@
 <% include head %>
+<% include headContent %>
 
 <script>
 $(document).ready(function() {
@@ -59,7 +60,7 @@ $(document).ready(function() {
                         <%= field.config.title %>
                     </th>
                 <% }) %>
-            </tr>            
+            </tr>
         </thead>
     </table>
     <% if (instance.config.add) { %>
@@ -70,4 +71,3 @@ $(document).ready(function() {
 </div>
 
 <% include footer %>
- 
