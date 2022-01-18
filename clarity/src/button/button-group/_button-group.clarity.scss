@@ -1,0 +1,172 @@
+// Copyright (c) 2016-2019 VMware, Inc. All Rights Reserved.
+// This software is released under MIT license.
+// The full license information can be found in LICENSE in the root directory of this project.
+
+@mixin square-off-btngroup-btns($dir: left) {
+  border-top-#{$dir}-radius: 0;
+  border-bottom-#{$dir}-radius: 0;
+}
+
+@include exports('button-group.clarity') {
+  .btn-group {
+    display: inline-flex;
+    margin-right: 0.5rem;
+
+    .btn {
+      margin: 0;
+      vertical-align: top;
+      overflow: visible;
+
+      label {
+        height: 100%;
+      }
+
+      input[type='radio']:focus,
+      input[type='checkbox']:focus {
+        appearance: none;
+        opacity: 1;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        padding: 3px 0px 3px 3px;
+        border: 1px solid rgba(81, 203, 238, 1);
+
+        &::-ms-check {
+          display: none;
+        }
+      }
+    }
+
+    .btn {
+      &:not(:first-child) {
+        @include square-off-btngroup-btns(left);
+      }
+
+      &:not(:last-child) {
+        @include square-off-btngroup-btns(right);
+      }
+    }
+
+    .tooltip {
+      &:not(:first-child) .btn {
+        @include square-off-btngroup-btns(left);
+      }
+
+      &:not(:last-child) .btn {
+        @include square-off-btngroup-btns(right);
+      }
+    }
+
+    &.btn-primary,
+    &.btn-success,
+    &.btn-danger,
+    &.btn-warning {
+      .tooltip:not(:last-child) .btn,
+      .btn:not(:last-child) {
+        margin: 0 $clr-btn-border-width 0 0;
+      }
+    }
+
+    //I couldn't reduce the nesting here :-(
+    //TODO: Try to reduce the nesting here later.
+    &.btn-primary .dropdown-menu .btn,
+    &.btn-success .dropdown-menu .btn,
+    &.btn-danger .dropdown-menu .btn,
+    &.btn-warning .dropdown-menu .btn {
+      margin: 0;
+    }
+
+    > .btn-group-overflow {
+      position: relative;
+    }
+
+    > .btn-group-overflow:last-child:not(:first-child) > .btn:first-child {
+      border-radius: 0 $clr-btn-border-radius $clr-btn-border-radius 0;
+    }
+
+    > .btn-group-overflow:last-child:first-child > .btn:first-child {
+      border-radius: $clr-btn-border-radius;
+    }
+
+    //To avoid double borders
+    .btn + .btn {
+      border-left: none;
+    }
+
+    .tooltip:not(:first-child) .btn {
+      border-left: none;
+    }
+
+    .btn + .btn-group-overflow {
+      .btn {
+        border-left: none;
+      }
+    }
+
+    //Flat Buttons
+    &.btn-link .dropdown-toggle {
+      min-width: 0;
+    }
+
+    //Flat Icon Buttons
+    &.btn-icon-link {
+      &.btn-link .btn {
+        min-width: 0;
+      }
+    }
+
+    //Flat Icon Buttons All
+    &.btn-icon {
+      .btn {
+        min-width: 0;
+      }
+    }
+
+    //Icons and their corresponding title
+    .clr-icon-title {
+      display: none;
+      text-transform: none;
+    }
+
+    .dropdown-toggle {
+      display: block;
+    }
+
+    .dropdown-menu {
+      clr-icon {
+        display: none;
+      }
+
+      .clr-icon-title {
+        display: inline;
+      }
+    }
+  }
+
+  // @deprecated last of deprecated forms CSS to keep btn groups working
+  // should be removed when btn is revamped with clr- naming conventions
+  .checkbox,
+  .radio {
+    position: relative;
+
+    input[type='checkbox'],
+    input[type='radio'] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 0;
+      width: 0;
+      opacity: 0;
+    }
+  }
+
+  .card-footer {
+    .checkbox,
+    .radio {
+      &.btn label {
+        line-height: calc(1rem - 1px);
+      }
+    }
+  }
+}

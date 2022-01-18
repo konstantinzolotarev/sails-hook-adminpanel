@@ -1,0 +1,467 @@
+// Copyright (c) 2016-2019 VMware, Inc. All Rights Reserved.
+// This software is released under MIT license.
+// The full license information can be found in LICENSE in the root directory of this project.
+
+@mixin generateAlertType($alertType: 'info') {
+  background: getAlertColor($alertType, bg-color);
+  color: getAlertColor($alertType, color);
+  $border-prop: getAlertColor($alertType, border-color);
+
+  @if $border-prop != 'none' {
+    border: $clr-alert-borderwidth solid $border-prop;
+  } @else {
+    border: none;
+  }
+
+  .alert-icon {
+    color: getAlertColor($alertType, icon);
+  }
+
+  .alert-actions .dropdown .dropdown-toggle {
+    color: getAlertColor($alertType, action);
+    border-color: getAlertColor($alertType, action);
+  }
+
+  .alert-action,
+  .dropdown-toggle {
+    color: getAlertColor($alertType, action);
+
+    &.btn {
+      border-color: getAlertColor($alertType, action);
+
+      &:focus,
+      &:hover,
+      &:active {
+        border-color: getAlertColor($alertType, action-active);
+      }
+
+      &:active {
+        box-shadow: 0 1px 0 0 getAlertColor($alertType, action-active) inset;
+      }
+    }
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: getAlertColor($alertType, action-active);
+    }
+  }
+
+  .close {
+    color: getAlertColor($alertType, close-icon);
+    opacity: getAlertColor($alertType, close-icon-opacity);
+
+    clr-icon {
+      fill: getAlertColor($alertType, close-icon);
+    }
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: getAlertColor($alertType, close-icon-hover);
+      opacity: getAlertColor($alertType, close-icon-hover-opacity);
+    }
+  }
+}
+
+@include exports('alert.clarity') {
+  $alertIconWidth: 1rem + $clr-rem-1px;
+
+  .alert-icon {
+    $alert-icon-dim: 1rem;
+    height: $alert-icon-dim;
+    width: $alert-icon-dim;
+    margin-left: -0.125rem;
+    margin-top: -0.166667rem;
+  }
+
+  .alert-icon-wrapper {
+    flex: 0 0 $alertIconWidth;
+    align-self: start;
+    padding-top: $clr-rem-1px;
+    height: 0.75rem;
+  }
+
+  .alert-item {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: $clr-alert-item-min-height;
+    margin-bottom: 0.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .alert-items {
+    $vertPadding: 0.333333rem;
+    $horizPadding: calc(0.5rem - #{$clr-alert-borderwidth});
+    flex: 1 1 auto;
+    flex-flow: column nowrap;
+    padding: $vertPadding $horizPadding;
+    display: flex;
+  }
+
+  //display: inline-block and max-width were specifically added for IE 10.
+  //Flexbox content wouldn't wrap otherwise :(. 98% was just an estimate to distance the text from the
+  //close alert button.
+  .alert-item > span,
+  .alert-text {
+    display: inline-block; //needed for IE11
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 98%; //needed for IE11
+    max-width: 98%; //needed for IE11
+    margin-right: 0.5rem;
+    text-align: left;
+  }
+
+  .alert {
+    font-size: $clr-alert-font-size;
+    letter-spacing: $clr-alert-letter-spacing;
+
+    line-height: 0.75rem;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    border-radius: $clr-alert-borderradius;
+    margin-top: $clr-alert-top-margin;
+
+    @include generateAlertType(info);
+
+    &.alert-info {
+      @include generateAlertType(info);
+    }
+
+    &.alert-success {
+      @include generateAlertType(success);
+    }
+
+    &.alert-warning {
+      @include generateAlertType(warning);
+    }
+
+    &.alert-danger {
+      @include generateAlertType(danger);
+    }
+
+    .alert-item {
+      .clr-icon {
+        height: $clr-alert-icon-dimension-sm;
+        width: $clr-alert-icon-dimension-sm;
+        margin-right: $clr-icon-margin-right;
+      }
+
+      .clr-icon + .alert-text {
+        padding-left: 0;
+
+        &::before {
+          content: none;
+        }
+      }
+    }
+
+    .alert-actions {
+      flex: 0 0 auto;
+      white-space: nowrap;
+
+      .dropdown:last-child {
+        // used to align far-right dropdown inside an alert
+        margin-right: -2 * $clr-rem-1px;
+      }
+
+      .dropdown-item {
+        color: $clr-dropdown-text-color;
+        font-size: $clr-dropdown-font-size;
+        line-height: $clr-dropdown-line-height;
+        letter-spacing: $clr-dropdown-letter-spacing;
+      }
+    }
+
+    .alert-action:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    .alert-action,
+    .dropdown-toggle {
+      text-decoration: underline;
+    }
+
+    .alert-action {
+      button.dropdown-toggle:not(.btn) {
+        background: transparent;
+        cursor: pointer;
+        color: $clr-dropdown-text-color;
+      }
+    }
+    .dropdown-toggle:not(.btn) {
+      display: inline-block;
+      background: transparent;
+      border: none;
+    }
+
+    .close {
+      $closeBtnNudge: 0.166667rem;
+      width: 1rem;
+      display: block;
+      height: 1.5rem;
+      flex: 0 0 (1rem + $closeBtnNudge);
+      order: 100;
+      padding-right: $closeBtnNudge;
+
+      clr-icon {
+        $alert-close-icon-dims: calc(1rem - #{$clr-alert-borderwidth});
+        margin-top: -0.125rem;
+        height: $alert-close-icon-dims;
+        width: $alert-close-icon-dims;
+      }
+    }
+
+    .close ~ .alert-item > .alert-actions {
+      padding-right: 0.5rem;
+
+      & > .alert-action:last-child {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .alert-app-level {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    overflow-y: auto;
+
+    @include generateAlertType(app-info);
+
+    &.alert-info {
+      @include generateAlertType(app-info);
+    }
+
+    &.alert-danger {
+      @include generateAlertType(app-danger);
+    }
+
+    &.alert-warning {
+      @include generateAlertType(app-warning);
+    }
+
+    &.alert-success {
+      @include generateAlertType(app-success);
+    }
+
+    .alert-items {
+      // line-height of 24px on .alert-item inside app-level-alert
+      // blows out the sizing, so we need vert-padding to be 6px, not 8px
+      $appLevelAlertVertPadding: 0.25rem;
+      padding-top: $appLevelAlertVertPadding;
+      padding-bottom: $appLevelAlertVertPadding;
+    }
+
+    .alert-item {
+      justify-content: center;
+      align-items: center;
+      min-height: 1rem;
+
+      .btn {
+        @extend .btn-inverse;
+        @extend .btn-sm;
+        margin: 0;
+      }
+    }
+
+    .alert-item > span,
+    .alert-text {
+      flex: 0 1 auto;
+    }
+
+    .alert-icon-wrapper {
+      margin-top: 0.125rem;
+    }
+
+    .close {
+      height: 1.5rem;
+      overflow: hidden;
+
+      clr-icon {
+        margin-top: -0.208333rem;
+      }
+    }
+
+    .alert-action,
+    .dropdown-toggle {
+      text-decoration: none;
+    }
+  }
+
+  .alert-sm {
+    $alertSmallLineHeight: 0.666667rem;
+    $alertSmallNudge: 0.166667rem; // basically 4px
+
+    // need to use 11 instead of 12 here or else vertical alignment is thrown off
+    // by a pixel due to improper browser rounding; browsers aren't rendering on the
+    // sub-pixel required but rounding up to the nearest whole pixel...
+    font-size: calc(0.5rem - 1px);
+    letter-spacing: normal;
+    line-height: $alertSmallLineHeight;
+
+    .alert-items {
+      padding: calc(#{$alertSmallNudge} - #{$clr-alert-borderwidth}) calc(0.25rem - #{$clr-alert-borderwidth});
+    }
+
+    .alert-item {
+      padding-top: $clr-rem-1px;
+      margin-bottom: $alertSmallNudge;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .alert-icon-wrapper {
+      padding-top: 0;
+      height: $alertSmallLineHeight;
+    }
+
+    .alert-icon {
+      margin-left: -1 * $alertSmallNudge;
+      margin-top: -1 * $alertSmallNudge;
+    }
+
+    .alert-item > span,
+    .alert-text {
+      margin-right: 0.25rem;
+    }
+
+    .close {
+      padding-right: 0;
+      flex: 0 0 1rem;
+      height: 1rem;
+      line-height: 1rem;
+
+      clr-icon {
+        $smallAlertCloseIconDims: 0.833333rem;
+        margin-top: -1 * ($alertSmallNudge + $clr-rem-1px);
+        margin-right: -1 * $clr-rem-1px;
+        height: $smallAlertCloseIconDims;
+        width: $smallAlertCloseIconDims;
+        line-height: calc(#{$smallAlertCloseIconDims} + 1px);
+      }
+    }
+  }
+
+  @media screen and (max-width: map-get($clr-grid-breakpoints, md)) {
+    .alert {
+      .alert-item {
+        flex-wrap: wrap;
+      }
+
+      .alert-text {
+        margin-right: 0;
+        //90% was just an estimate to distance the text from the
+        //close alert button on medium and smaller breakpoints.
+        max-width: 90%;
+        //needed for safari
+        width: 90%;
+        flex-basis: 90%;
+      }
+
+      .alert-actions {
+        flex: 1 0 100%;
+        padding-top: 0.125rem;
+        // TOCHECK: CALCULATIONS
+        padding-left: $clr-alert-icon-dimension-sm + $clr-icon-margin-right;
+      }
+    }
+
+    .alerts-pager {
+      margin-top: $clr_baselineRem_0_125;
+    }
+
+    .alert-app-level {
+      .alert-actions {
+        margin-left: 1.875rem;
+      }
+    }
+  }
+
+  .alert-hidden {
+    display: none;
+  }
+
+  //alert padding/margin adjustments
+  //1.cards
+  .card {
+    .alert {
+      $clr-alert-card-horizontal-margin: 0;
+      $clr-alert-card-vertical-margin: 0.25rem;
+      margin: $clr-alert-card-vertical-margin $clr-alert-card-horizontal-margin;
+    }
+  }
+
+  //2. Modal
+  .modal {
+    .alert + .modal-header {
+      margin-top: 0.5rem;
+    }
+  }
+
+  //3. Multiple app level alerts
+  .alerts {
+    &.alert-info {
+      background: $clr-color-action-800;
+    }
+
+    &.alert-danger {
+      background: $clr-color-danger-900;
+    }
+
+    &.alert-warning {
+      background: $clr-color-warning-900;
+    }
+
+    &.alert-success {
+      background: $clr-color-success-900;
+    }
+  }
+
+  .alerts-pager {
+    color: $clr-color-neutral-0;
+    font-size: $clr-alert-font-size;
+    letter-spacing: $clr-alert-letter-spacing;
+
+    float: left;
+    min-height: $clr-alert-min-height;
+    text-align: center;
+    width: 144px;
+  }
+
+  .alerts-pager-button {
+    @include clr-no-styles-button();
+    color: $clr-color-neutral-0;
+    cursor: pointer;
+  }
+
+  .alerts-pager-control {
+    display: flex;
+    margin-top: $clr-alert-top-margin;
+    white-space: nowrap;
+  }
+
+  $clr-alerts-pager-item-width: 33.33%;
+  .alerts-page-down {
+    margin-left: $clr-baselineRem_1;
+    width: $clr-alerts-pager-item-width;
+  }
+
+  .alerts-page-up {
+    margin-right: $clr_baselineRem_1;
+    width: $clr-alerts-pager-item-width;
+  }
+  .alerts-pager-text {
+    width: $clr-alerts-pager-item-width;
+  }
+}

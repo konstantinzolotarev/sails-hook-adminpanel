@@ -1,0 +1,128 @@
+// Copyright (c) 2016-2019 VMware, Inc. All Rights Reserved.
+// This software is released under MIT license.
+// The full license information can be found in LICENSE in the root directory of this project.
+
+@include exports('forms.containers') {
+  .clr-form-control {
+    margin-top: $clr-forms-baseline * 4;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .clr-form-control-disabled {
+    opacity: $clr-forms-disabled-opacity;
+  }
+
+  .clr-form-control-multi {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .clr-control-label {
+      width: 100%;
+    }
+  }
+
+  .clr-control-label {
+    display: block;
+    color: $clr-forms-label-color;
+    font-size: $clr-forms-label-font-size;
+    font-weight: $clr-forms-label-font-weight;
+    line-height: $clr-forms-baseline * 3;
+  }
+
+  .clr-control-container {
+    display: inline-block;
+  }
+
+  .clr-control-inline {
+    @include form-inline-input();
+  }
+
+  .clr-subtext {
+    display: block;
+    font-size: $clr-forms-subtext-font-size;
+    line-height: $clr-forms-subtext-line-height;
+    color: $clr-forms-subtext-color;
+    margin-top: $clr-forms-baseline;
+  }
+
+  .clr-subtext-wrapper {
+    flex-basis: 100%;
+    display: flex;
+  }
+
+  .clr-validate-icon {
+    width: $clr-forms-icon-size;
+    height: $clr-forms-icon-size;
+    min-width: $clr-forms-icon-size;
+    min-height: $clr-forms-icon-size;
+    display: inline-block;
+    color: $clr-forms-invalid-color;
+    display: none;
+    margin-left: -1rem;
+  }
+
+  .clr-error {
+    .clr-validate-icon {
+      margin-left: -4px; // @TODO Figure out why there is this 4px gap between elements
+      display: inline-block;
+    }
+
+    .clr-subtext {
+      color: $clr-forms-invalid-color;
+    }
+  }
+
+  .clr-form-horizontal {
+    .clr-form-control > .clr-control-label,
+    .clr-form-control > .clr-form-control.clr-form-control-multi .clr-control-label {
+      width: $clr-forms-baseline * 32;
+      flex-shrink: 0;
+    }
+    &.clr-row .clr-control-label {
+      width: auto;
+    }
+
+    .clr-form-control {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .clr-form-compact {
+    .clr-form-control > .clr-control-label {
+      width: $clr-forms-baseline * 32;
+      min-width: $clr-forms-baseline * 32;
+    }
+    .clr-form-control.clr-row > .clr-control-label {
+      width: auto;
+      min-width: auto;
+    }
+
+    .clr-control-label {
+      margin-top: $clr-forms-baseline / 2;
+    }
+
+    .clr-form-control {
+      display: flex;
+      flex-direction: row;
+      margin-top: $clr-forms-baseline * 2;
+    }
+
+    .clr-control-container {
+      display: flex;
+    }
+
+    .clr-subtext {
+      display: inline-block;
+      margin-top: $clr-forms-baseline;
+      margin-left: $clr-forms-baseline;
+    }
+
+    .clr-subtext-wrapper {
+      flex-basis: auto;
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+// Copyright (c) 2016-2018 VMware, Inc. All Rights Reserved.
+// This software is released under MIT license.
+// The full license information can be found in LICENSE in the root directory of this project.
+
+@include exports('forms.input-group') {
+  .clr-input-group {
+    @include form-fields-appearance($clr-forms-border-color);
+    @include input-border-bottom-animation($clr-forms-focused-color);
+    padding-right: $clr-forms-baseline * 4;
+    max-width: calc(100% - 1rem);
+    height: 24px;
+
+    .clr-input {
+      background: none;
+      border: none;
+      margin-right: 0;
+      max-width: 100%;
+
+      &:not([readonly]):focus {
+        background-size: 0%;
+        border: 0;
+      }
+    }
+
+    select {
+      border: none;
+    }
+
+    .clr-input-group-icon-action {
+      @include clr-no-styles-button();
+      color: $clr-forms-focused-color;
+      padding: 0 $clr-forms-baseline * 1.5;
+    }
+  }
+
+  .clr-form-control-disabled .clr-input-group-icon-action {
+    cursor: not-allowed;
+  }
+
+  .clr-error .clr-input-group {
+    border-bottom-color: $clr-forms-invalid-color;
+    @include input-border-bottom-animation($clr-forms-invalid-color);
+    padding-right: $clr-forms-baseline;
+  }
+
+  .clr-form-horizontal .clr-input-group {
+    padding-right: 0;
+  }
+}
