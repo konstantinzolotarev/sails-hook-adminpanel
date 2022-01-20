@@ -3,7 +3,8 @@
 
 <% if (Array.isArray(sections)) { %>
   <div class="clr-select-wrapper">
-    <select class="clr-select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+    <select class="clr-select"
+            onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
       <option value="<%=routePrefix%>">Adminpanel</option>
       <% sections.forEach(function(itemSection) { %>
         <% if (itemSection.link && itemSection.title) { %>
@@ -13,3 +14,29 @@
     </select>
   </div>
 <% } %>
+
+<script>
+
+  let selectedOption = {element: `<option value=""></option>`, counter: 0};
+  $('.clr-select > option').each(function(index, element) {
+    let splittedVal = $(element).val().split('/');
+    splittedVal = splittedVal.filter(function(v){return v!==''})
+    let counter = 0;
+    for (let part of splittedVal) {
+      if (window.location.pathname.includes(part)) {
+        counter++;
+      }
+    }
+    if (counter > selectedOption.counter) {
+      selectedOption.element = $(element);
+      selectedOption.counter = counter;
+    } else if (counter === selectedOption.counter) {
+      if ($(element).val().length < $(selectedOption.element).val().length) {
+        console.log("worked", $(element).val().length, ' < ', $(selectedOption.element).val().length)
+        selectedOption.element = $(element);
+        selectedOption.counter = counter;
+      }
+    }
+  })
+  $(selectedOption.element).attr('selected', 'selected');
+</script>
