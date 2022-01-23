@@ -44,7 +44,7 @@
   },
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha -b --timeout 5000",
-    "build:css": "node-sass --output-style compressed -o assets/styles clarity/src"
+    "build:css": "sass assets/styles:clarity/src"
   },
   "version": "1.1.2"
 }
