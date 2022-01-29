@@ -49,3 +49,18 @@
     max-width: calc(100% + #{$clr-forms-icon-size});
   }
 }
+
+input[type="date"], input[type="datetime-local"], input[type="email"], input[type="number"], input[type="password"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"] { appearance: none; margin: 0px; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-left-color: initial; border-image: initial; border-radius: 0px; box-shadow: none; background: 0px 0px; height: 1rem; color: rgb(0, 0, 0); display: inline-block; min-width: 2.5rem; border-bottom-style: solid; border-bottom-color: rgb(154, 154, 154); padding: 0px 0.25rem; }
+.select select:focus, input[type="date"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus { outline: 0px; }
+input[type="date"]:not([readonly]), input[type="datetime-local"]:not([readonly]), input[type="email"]:not([readonly]), input[type="number"]:not([readonly]), input[type="password"]:not([readonly]), input[type="tel"]:not([readonly]), input[type="text"]:not([readonly]), input[type="time"]:not([readonly]), input[type="url"]:not([readonly]) { background: linear-gradient(transparent 95%, rgb(0, 149, 211) 95%) 0% 0% / 0px 100% no-repeat; transition: background-size 0.2s ease 0s; }
+input[type="date"][readonly], input[type="datetime-local"][readonly], input[type="email"][readonly], input[type="number"][readonly], input[type="password"][readonly], input[type="tel"][readonly], input[type="text"][readonly], input[type="time"][readonly], input[type="url"][readonly] { border: 0px; }
+input[type="button"]:disabled, input[type="date"]:disabled, input[type="datetime-local"]:disabled, input[type="email"]:disabled, input[type="number"]:disabled, input[type="password"]:disabled, input[type="submit"]:disabled, input[type="tel"]:disabled, input[type="text"]:disabled, input[type="time"]:disabled, input[type="url"]:disabled, textarea:disabled { opacity: 0.5; cursor: not-allowed; }
+textarea {
+  resize: vertical;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(204, 204, 204);
+  color: rgb(0, 0, 0);
+  border-radius: 0.125rem;
+  padding: 0.25rem 0.5rem;
+}
