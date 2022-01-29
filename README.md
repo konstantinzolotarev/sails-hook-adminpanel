@@ -117,6 +117,7 @@ Yes. For now only Jade.
 
 Yes, see the [v0.11 migration guide](http://sailsjs.org/#/documentation/concepts/Upgrading). You probably won't need to change anything unless you were extensively using the old Socket.io v0.9 configuration.
 
+for build styles - sass --watch clarity/src:assets/styles/
 
 ## License
 
