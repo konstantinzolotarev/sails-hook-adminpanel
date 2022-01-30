@@ -41,7 +41,6 @@
       selectedOption.counter = counter;
     } else if (counter === selectedOption.counter) {
       if ($(element).val().length < $(selectedOption.element).val().length) {
-        console.log("worked", $(element).val().length, ' < ', $(selectedOption.element).val().length)
         selectedOption.element = $(element);
         selectedOption.counter = counter;
       }
