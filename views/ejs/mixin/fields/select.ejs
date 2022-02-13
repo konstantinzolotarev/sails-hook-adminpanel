@@ -1,8 +1,8 @@
 <div class="widget">
     <%= field.config.title %>&nbsp;
     <select name="<%= key %>" id="form-<%= key %>"
-        <% field.config.required && 'required' %>
-        <% field.config.disabled && 'disabled'%>>
+        <%= field.config.required && 'required' %>
+        <%= field.config.disabled && 'disabled'%>>
 
         <% if (field.config.enum && typeof field.config.enum === 'object') { %>
             <% Object.keys(field.config.enum).forEach(function(optKey) { %>

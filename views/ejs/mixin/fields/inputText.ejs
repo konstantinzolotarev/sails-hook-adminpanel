@@ -3,8 +3,8 @@
     <% include select %>
 <% } else if(field.model.email) { %>
     <input label="<%= field.config.title %>"
-            <% field.config.required && 'required' %>
-            <% field.config.disabled && 'disabled'%>
+            <%= field.config.required && 'required' %>
+            <%= field.config.disabled && 'disabled'%>
             value="<%= value || '' %>"
             name="<%= key %>"></input>
 <% } else { %>
@@ -52,8 +52,8 @@
     <div class="widget_narrow">
         <input label="<%= field.config.title %>"
                 type="<%= fieldType %>"
-                <% field.config.required && 'required' %>
-                <% field.config.disabled && 'disabled'%>
+                <%= field.config.required && 'required' %>
+                <%= field.config.disabled && 'disabled'%>
                 value="<%= value || '' %>"
                 name="<%= key %>"></input>
         <br/>

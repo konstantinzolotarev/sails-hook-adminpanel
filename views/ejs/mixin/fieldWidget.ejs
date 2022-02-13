@@ -1,8 +1,3 @@
-<% if (typeof value == 'undefined' && typeof field.model.defaultsTo !== 'undefined') { %>
-    <% value = field.model.defaultsTo %>
-<% } %>
-
-
 <%# detection type %>
 <% var type = field.config.type || field.model.type %>
 <% type = type.toLowerCase() %>

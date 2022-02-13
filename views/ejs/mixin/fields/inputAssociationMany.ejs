@@ -2,8 +2,8 @@
 
     <%= field.config.title %>
     <select name="<%= key %>" id="form-<%= key %>" multiple class="multi"
-        <% field.config.required && 'required' %>
-        <% field.config.disabled && 'disabled'%>>
+        <%= field.config.required && 'required' %>
+        <%= field.config.disabled && 'disabled'%>>
 
         <% if (field.config.records) { %>
             <% field.config.records.forEach(function(opt) { %>
