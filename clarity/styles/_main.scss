@@ -1,0 +1,40 @@
+// colors
+
+$header-color: #F2F2F2;
+$header-background: #006A91;
+$navigation-color: #737373;
+$navigation-blue: #0079B8;
+$navigation-green: #62A420;
+$sidenav-white: #EEEEEE;
+$blue: #007CBB;
+$white: #FFFFFF;
+$black: #000000;
+$gray: #565656;
+$background-white: #F6F7F8;
+$border-color: #CCCCCC;
+
+/* imports */
+
+// body styles
+@import './body/main';
+
+// header styles
+@import './header/main';
+
+// sidenav styles
+@import './sidenav/main';
+
+// schedule styles
+@import './schedule/main';
+
+// content styles
+@import './content/main';
+
+// navigation styles
+@import './navigation/main';
+
+// control styles
+@import './control/main';
+
+
+

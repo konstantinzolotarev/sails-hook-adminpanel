@@ -1,0 +1,35 @@
+/* content */
+
+.content {
+  display: flex;
+}
+
+.content-inner {
+  width: 100%;
+  background-color: $background-white;
+}
+
+.content .layout {
+  padding-top: 30px;
+  padding-left: 50px;
+  padding-right: 62px;
+  padding-bottom: 40px;
+}
+
+@media (max-width: 991px) {
+  .content .layout {
+      padding-left: 16px;
+      padding-right: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .content .layout {
+      padding-top: 16px;
+      padding-left: 16px;
+  }
+  .content {
+      padding-top: 10px;
+      height: 100%;
+  }
+}

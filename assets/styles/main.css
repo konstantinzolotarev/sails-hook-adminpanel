@@ -11706,7 +11706,7 @@ textarea {
 .header .clr-select-wrapper::after {
   right: 23px;
   top: 12px;
-  background-image: url(../../assets/new_layout/img/sprite/dropdown-arrow.svg);
+  background-image: url(../../assets/sprite/dropdown-arrow.svg);
   margin-top: 2px;
 }
 
@@ -11916,7 +11916,7 @@ textarea {
   height: 4px;
   right: 34px;
   top: 14px;
-  background-image: url(../../assets/new_layout/img/sprite/dropdown-mobile-arrow.svg);
+  background-image: url(../../assets/sprite/dropdown-mobile-arrow.svg);
   margin-top: 2px;
 }
 

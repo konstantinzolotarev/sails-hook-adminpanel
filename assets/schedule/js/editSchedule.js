@@ -37,7 +37,7 @@ class EditSchedule {
             "   Настройки показа\n" +
             '   <a href="javascript:void(0)" role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-top-right">\n' +
             '   <i class="las la-info-circle"></i>\n' +
-            '   <span class="tooltip-content">Действие определяется через вкл\\выкл. <img class="tooltip-checkbox" src="../../assets/new_layout/img/sprite/checkbox.svg" alt="##"><br> По умолчанию действие вкл припервом совпадении даты и времени</span>\n' +
+            '   <span class="tooltip-content">Действие определяется через вкл\\выкл. <img class="tooltip-checkbox" src="../../assets/sprite/checkbox.svg" alt="##"><br> По умолчанию действие вкл припервом совпадении даты и времени</span>\n' +
             "   </a>\n" +
             "   </div>"
         );

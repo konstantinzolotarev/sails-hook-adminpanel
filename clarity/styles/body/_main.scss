@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+html {
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  -webkit-transition: .2s;
+  -o-transition: .2s;
+  transition: .2s;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding-left: 0;
+  margin: 0;
+}
+
+button {
+  background: none;
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}

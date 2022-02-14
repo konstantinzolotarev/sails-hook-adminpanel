@@ -1,0 +1,278 @@
+/* schedule */
+
+.schedule {
+  margin-top: 10px;
+  margin-right: 30px;
+  height: 100%;
+}
+
+.schedule__wrap {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 16px;
+}
+
+.schedule__content {
+  display: flex;
+}
+
+.schedule__content {
+  border: 1px solid $navigation-blue;
+  border-radius: 3px;
+  border-right: none;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.schedule__content input {
+  position: fixed;
+  z-index: -1;
+  opacity: 0;
+  font-size: 0;
+  width: 0;
+  height: 0;
+}
+
+.schedule__content label {
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: $navigation-blue;
+  padding: 9px 13px;
+  cursor: pointer;
+  border-right: 1px solid $navigation-blue;
+  transition: .2s;
+}
+
+.schedule__content label:hover {
+  opacity: .6;
+}
+
+.schedule__form {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+  border: 1px solid $border-color;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding-left: 15px;
+  padding-right: 8px;
+  padding-top: 10px;
+  padding-bottom: 9px;
+  width: 100%;
+  max-width: 415px;
+}
+
+.schedule__content input:checked + label {
+  background: $navigation-blue;
+  color: $white;
+}
+
+.schedule__nav {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  margin-bottom: 15px;
+}
+
+.schedule__nav button {
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.schedule button {
+  cursor: pointer;
+  transition: .2s;
+}
+
+.schedule button:hover {
+  opacity: .6;
+}
+
+.schedule__nav span {
+  display: flex;
+  align-items: center;
+
+  font-size: 14px;
+  line-height: 14px;
+  color: $navigation-color;
+}
+
+.schedule__nav i {
+  font-size: 16px;
+  color: $gray;
+  margin-right: 13px;
+}
+
+.schedule__close {
+  color: $navigation-color;
+  font-size: 12px;
+}
+
+.schedule__dots {
+  color: $navigation-color;
+  font-size: 16px;
+}
+
+.schedule__arrow {
+  font-size: 18px;
+  margin-right: 20px;
+  color: $navigation-color;;
+}
+
+.schedule__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+}
+
+.schedule__time {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.schedule__time label {
+  font-size: 13px;
+  line-height: 14px;
+  color: $navigation-color;
+  margin-right: 13px;
+}
+
+.schedule__time span {
+  position: relative;
+  margin-right: 5px;
+}
+
+.schedule__time span i {
+  position: absolute;
+  right: -4px;
+  top: 7px;
+  font-size: 8px;
+}
+
+.schedule__time input {
+  font-size: 13px;
+  width: 80px;
+  color: #000000;
+}
+
+.schedule__time--date input {
+  width: 110px;
+}
+
+.schedule__time input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  background: none;
+}
+
+.schedule__time .schedule__close i {
+  font-size: 12px;
+}
+
+.schedule-wrapper {
+  margin-bottom: 20px;
+}
+
+.schedule-add:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+
+.schedule-add i {
+  transition: .2s;
+  font-size: 16px;
+}
+
+.schedule-placeholder {
+   max-width: 410px;
+   min-height: 190px;
+   margin-top: 10px;
+   margin-right: 30px;
+}
+
+
+@media (max-width: 640px) {
+  .schedule {
+     width: 100%;
+   }
+ 
+   .schedule__bottom .checkbox {
+     display: flex;
+     justify-content: flex-end;
+     flex: 1 !important;
+   }
+ 
+   .schedule__wrap {
+     flex-direction: column;
+     align-items: flex-start;
+     position: relative;
+   }
+ 
+   .schedule__content {
+     margin-left: 0;
+     margin-right: 0;
+   }
+ 
+   .schedule__dots {
+     margin-bottom: 5px;
+   }
+ 
+   .schedule__wrap .schedule__close {
+     position: absolute;
+     right: 0;
+     top: 0;
+   }
+ 
+   .schedule__form {
+     padding: 5px 10px;
+   }
+ 
+   .schedule__nav {
+     margin-left: 0;
+   }
+ 
+   .schedule__time {
+     align-items: flex-end;
+   }
+ 
+   .schedule__time--date {
+     flex-direction: column;
+     align-items: flex-start;
+     position: relative;
+   }
+ 
+   .schedule__time--date span {
+     margin-top: 0 !important;
+     margin-bottom: 20px !important;
+     width: 100%;
+   }
+ 
+   .schedule__time--date .schedule__close {
+     position: absolute;
+     right: -10px;
+     top: -5px;
+   }
+ 
+   .schedule__content label {
+     padding: 7px 9px;
+   }
+
+   .schedule-wrapper {
+     width: 100%;
+   }
+}
+
+.flex-name {
+  margin: 0 20px;
+}

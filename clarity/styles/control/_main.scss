@@ -1,0 +1,173 @@
+/* control */
+
+.control__content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.control__wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  background: $white;
+  border: 1px solid $border-color;
+  width: 100%;
+  max-width: 367px;
+  margin-right: 19px;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.control__subtitle {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #313131;
+  border-bottom: 1px solid rgba(154, 154, 154, 0.3);
+  padding-bottom: 7px;
+}
+
+.control__subtitle button:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+
+.control__wrap ul {
+  margin-top: 15px;
+  margin-bottom: 19px;
+}
+
+.control__wrap li span {
+  font-size: 14px;
+  line-height: 24px;
+  color: $gray;
+  margin-right: 5px;
+}
+
+.control__wrap li span:last-child {
+  font-weight: 700;
+  margin-right: 0;
+}
+
+.control__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.control__item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 331px;
+  background: $background-white;
+  border: 1px solid #E3E6E8;
+  border-radius: 3px;
+  padding: 8px 13px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.control__item:last-child {
+  margin-bottom: 0;
+}
+
+.contol__name {
+  display: flex;
+  flex-direction: column;
+}
+
+.contol__name span {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  color: $gray;
+  margin-bottom: 1px;
+}
+
+.contol__name span:last-child {
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.control__date {
+  display: flex;
+  flex-direction: column;
+}
+
+.control__date span {
+  font-size: 11px;
+  line-height: 16px;
+  color: $gray;
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+.control__date span:last-child {
+  margin-bottom: 0;
+}
+
+.show-all {
+  margin-top: 18px;
+}
+
+.show-all button {
+  font-size: 14px;
+  line-height: 24px;
+  color: $blue;
+  transition: .2s;
+}
+
+.show-all button:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.turn-on {
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.turn-on button {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  color: $white;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: $blue;
+  border-radius: 3px;
+  padding: 14px 24px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.turn-on button:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+
+.control__wrap--empty {
+  min-height: 191px;
+}
+
+@media (max-width: 991px) {
+  .control__wrap {
+      max-width: 100%;
+      margin-right: 0;
+  }
+  .control__item {
+      max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .control__wrap {
+      padding: 10px;
+  }
+  .control__wrap ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+}
