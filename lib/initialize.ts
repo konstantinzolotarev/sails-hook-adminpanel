@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var fs = require('fs');
 var viewsHelper = require('../helper/viewsHelper');
+import * as path from "path";
 import bindAssets from "./bindAssets"
 
 
@@ -58,11 +59,12 @@ export default function ToInitialize(sails) {
         }
 
         var initAuth = require('./initializeAuthorization')(sails, cb);
-        
+
         // sails.after(eventsToWaitFor, require('../lib/afterHooksLoaded')(sails));
         sails.on("lifted", require('../lib/afterHooksLoaded')(sails));
 
         sails.config.adminpanel.templateRootPath = viewsHelper.BASE_VIEWS_PATH;
+        sails.config.adminpanel.rootPath = path.resolve(__dirname+"/..")
 
         // Bind assets
         await bindAssets(sails);

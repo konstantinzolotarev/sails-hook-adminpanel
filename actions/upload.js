@@ -189,7 +189,7 @@ module.exports = function (req, res) {
             } else if (type === 'files' || type === 'file') {
                 const ext = filename.substr(filename.lastIndexOf('.') + 1, filename.length);
                 const urlIcon = '/admin/assets/fileuploader/icons/' + ext + '.svg';
-                const url = fullDir + filename;
+                const url = dirDownload + filename;
                 res.status(201);
                 res.send({
                     name: filenameOrig,
