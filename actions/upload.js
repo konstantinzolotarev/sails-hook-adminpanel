@@ -9,11 +9,15 @@ var async = require('async');
 const Jimp = require('jimp');
 
 module.exports = function (req, res) {
+
     console.log('admin > upload');
     var instance = util.findInstanceObject(req);
     // if (!instance.model) {
     //     return res.notFound();
     // }
+
+    if (!sails.adminpanel.havePermission(req, instance.config, __filename))
+        return res.redirect('/admin/userap/login');
 
     if (req.method.toUpperCase() === 'POST') {
         // if this file must not be loaded
