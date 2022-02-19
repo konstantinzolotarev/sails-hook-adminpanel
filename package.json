@@ -46,5 +46,5 @@
     "test": "node ./node_modules/mocha/bin/mocha -b --timeout 5000",
     "build:css": "sass assets/styles:clarity/src"
   },
-  "version": "1.1.2"
+  "version": "1.2.0"
 }
